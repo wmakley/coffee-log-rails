@@ -29,6 +29,5 @@
 /config/master.key
 
 # Ignore more machine-specific jetbrains stuff
-.idea/dataSources.xml
-.idea/dataSources.local.xml
+.idea/dataSources*
 .idea/workspace.xml

@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  log: one
+  coffee: MyString
+  water: MyString
+  method: MyString
+  grind: MyString
+  tasting: MyString
+  addl_notes: MyText
+  coffee_grams: 1
+  water_grams: 1
+
+two:
+  log: two
+  coffee: MyString
+  water: MyString
+  method: MyString
+  grind: MyString
+  tasting: MyString
+  addl_notes: MyText
+  coffee_grams: 1
+  water_grams: 1
