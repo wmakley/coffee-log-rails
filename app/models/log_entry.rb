@@ -32,20 +32,27 @@ class LogEntry < ApplicationRecord
            -> { order(:created_at) },
            dependent: :restrict_with_exception
 
+  default_scope -> { live }
+  scope :live, -> { where(deleted_at: nil) }
+
   after_save :save_version!, if: -> { previous_changes.present? }
+
+  validates_presence_of :coffee
 
   validates_length_of :coffee,
                       :water,
                       :method,
                       :grind,
                       maximum: 255, allow_nil: true
+  validates_length_of :tasting, :addl_notes,
+                      maximum: 4000, allow_nil: true
 
   validates_numericality_of :coffee_grams,
                             :water_grams,
                             only_integer: true,
                             allow_blank: true
 
-  default_scope -> { where(deleted_at: nil) }
+
 
   def mark_as_deleted
     self.deleted_at = Time.current

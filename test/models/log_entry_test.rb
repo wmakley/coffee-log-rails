@@ -51,4 +51,18 @@ class LogEntryTest < ActiveSupport::TestCase
     assert_equal 2, entry.log_entry_versions.size
     assert_equal "New Coffee Value", entry.log_entry_versions.last.coffee
   end
+
+  test "#mark_as_deleted" do
+    entry = LogEntry.create!(valid_attributes)
+    entry.mark_as_deleted
+
+    entry.reload
+    assert_not_nil entry.deleted_at
+    assert entry.deleted_at < Time.current
+    assert_equal entry.deleted_at, entry.log_entry_versions.last.deleted_at
+
+    log = entry.log
+    log.reload
+    assert !log.log_entries.any? { |e| e.id == entry.id }
+  end
 end
