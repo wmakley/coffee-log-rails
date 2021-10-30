@@ -37,6 +37,17 @@ class LogEntry < ApplicationRecord
 
   after_save :save_version!, if: -> { previous_changes.present? }
 
+  NEWLINE_REPLACEMENT_REGEX = /\r\n|\r(?!\n)/
+
+  before_validation do
+    self.coffee = coffee&.squish.presence
+    self.water = water&.squish.presence
+    self.method = method&.squish.presence
+    self.grind = grind&.squish.presence
+    self.tasting = tasting&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
+    self.addl_notes = addl_notes&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
+  end
+
   validates_presence_of :coffee
 
   validates_length_of :coffee,
@@ -51,7 +62,6 @@ class LogEntry < ApplicationRecord
                             :water_grams,
                             only_integer: true,
                             allow_blank: true
-
 
 
   def mark_as_deleted

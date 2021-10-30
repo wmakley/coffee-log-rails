@@ -65,4 +65,23 @@ class LogEntryTest < ActiveSupport::TestCase
     log.reload
     assert !log.log_entries.any? { |e| e.id == entry.id }
   end
+
+  test "input normalization" do
+    entry = LogEntry.new
+    entry.coffee = " fu   bar "
+    entry.valid?
+    assert_equal "fu bar", entry.coffee
+
+    entry.addl_notes = "line1\r\nline2\t"
+    entry.valid?
+    assert_equal "line1\nline2", entry.addl_notes
+
+    entry.addl_notes = " line1\rline2 "
+    entry.valid?
+    assert_equal "line1\nline2", entry.addl_notes
+
+    entry.addl_notes = "line1\n\nline2"
+    entry.valid?
+    assert_equal "line1\n\nline2", entry.addl_notes
+  end
 end
