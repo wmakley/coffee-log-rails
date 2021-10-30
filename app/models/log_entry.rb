@@ -66,10 +66,10 @@ class LogEntry < ApplicationRecord
                             allow_blank: true
 
 
-  def mark_as_deleted
+  def mark_as_deleted!
     self.deleted_at = Time.current
     save_version!
-    save
+    save!
   end
 
   private

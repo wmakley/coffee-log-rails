@@ -55,7 +55,7 @@ class LogEntryTest < ActiveSupport::TestCase
 
   test "#mark_as_deleted" do
     entry = LogEntry.create!(valid_attributes)
-    entry.mark_as_deleted
+    entry.mark_as_deleted!
 
     entry.reload
     assert_not_nil entry.deleted_at
