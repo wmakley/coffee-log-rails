@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_30_120452) do
+ActiveRecord::Schema.define(version: 2021_10_30_124227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,13 +21,30 @@ ActiveRecord::Schema.define(version: 2021_10_30_120452) do
     t.string "water"
     t.string "method"
     t.string "grind"
-    t.string "tasting"
+    t.text "tasting"
     t.text "addl_notes"
     t.integer "coffee_grams"
     t.integer "water_grams"
+    t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["log_id"], name: "index_log_entries_on_log_id"
+  end
+
+  create_table "log_entry_versions", force: :cascade do |t|
+    t.bigint "log_entry_id", null: false
+    t.string "coffee"
+    t.string "water"
+    t.string "method"
+    t.string "grind"
+    t.text "tasting"
+    t.text "addl_notes"
+    t.integer "coffee_grams"
+    t.integer "water_grams"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["log_entry_id"], name: "index_log_entry_versions_on_log_entry_id"
   end
 
   create_table "logs", force: :cascade do |t|
@@ -38,4 +55,5 @@ ActiveRecord::Schema.define(version: 2021_10_30_120452) do
   end
 
   add_foreign_key "log_entries", "logs"
+  add_foreign_key "log_entry_versions", "log_entries"
 end

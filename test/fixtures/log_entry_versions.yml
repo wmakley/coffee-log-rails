@@ -1,10 +1,10 @@
 # == Schema Information
 #
-# Table name: log_entries
+# Table name: log_entry_versions
 #
 #  id           :bigint           not null, primary key
 #  addl_notes   :text
-#  coffee       :string           not null
+#  coffee       :string
 #  coffee_grams :integer
 #  deleted_at   :datetime
 #  grind        :string
@@ -14,20 +14,19 @@
 #  water_grams  :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  log_id       :bigint           not null
+#  log_entry_id :bigint           not null
 #
 # Indexes
 #
-#  index_log_entries_on_log_id  (log_id)
+#  index_log_entry_versions_on_log_entry_id  (log_entry_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (log_id => logs.id)
+#  fk_rails_...  (log_entry_id => log_entries.id)
 #
 
 one:
-  id: 1
-  log_id: 1
+  log_entry_id: 1
   coffee: MyString
   water: MyString
   method: MyString
@@ -38,8 +37,7 @@ one:
   water_grams: 1
 
 two:
-  id: 2
-  log_id: 1
+  log_entry_id: 2
   coffee: MyString
   water: MyString
   method: MyString

@@ -1,8 +1,8 @@
-class CreateLogEntries < ActiveRecord::Migration[6.1]
+class CreateLogEntryVersions < ActiveRecord::Migration[6.1]
   def change
-    create_table :log_entries do |t|
-      t.references :log, null: false, foreign_key: true
-      t.string :coffee, null: false
+    create_table :log_entry_versions do |t|
+      t.references :log_entry, null: false, foreign_key: true
+      t.string :coffee
       t.string :water
       t.string :method
       t.string :grind

@@ -6,6 +6,4 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-unless Log.exist?
-  Log.create!(name: "Default", slug: "default")
-end
+Log.create!(name: "Default", slug: "default")
