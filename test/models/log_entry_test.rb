@@ -18,7 +18,8 @@
 #
 # Indexes
 #
-#  index_log_entries_on_log_id  (log_id)
+#  index_log_entries_on_log_id                 (log_id)
+#  index_log_entries_on_log_id_and_created_at  (log_id,created_at) WHERE (deleted_at IS NOT NULL)
 #
 # Foreign Keys
 #

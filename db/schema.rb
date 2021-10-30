@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_30_124227) do
+ActiveRecord::Schema.define(version: 2021_10_30_155636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2021_10_30_124227) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["log_id", "created_at"], name: "index_log_entries_on_log_id_and_created_at", where: "(deleted_at IS NOT NULL)"
     t.index ["log_id"], name: "index_log_entries_on_log_id"
   end
 
