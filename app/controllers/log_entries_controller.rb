@@ -28,12 +28,12 @@ class LogEntriesController < ApplicationController
   end
 
   def create
-    @log_entry = LogEntry.new(log_entry_params)
+    @log_entry = LogEntry.new(log: @log)
 
-    if @log_entry.save
+    if @log_entry.update(log_entry_params)
       redirect_to log_entries_url(@log), notice: "Created log entry"
     else
-      flash[:error] = "There were some problems saving this log entry"
+      flash[:error] = "There were some problems saving this log entry: #{@log_entry.errors.full_messages.to_sentence}."
       render action: :new
     end
   end
