@@ -26,4 +26,8 @@ class Log < ApplicationRecord
     self.name = name&.squish
     self.slug = slug&.strip
   end
+
+  def to_param
+    slug
+  end
 end
