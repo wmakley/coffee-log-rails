@@ -1,0 +1,18 @@
+<% content_for(:title, "Coffee Log") %>
+
+<h2>New Log Entry</h2>
+<%= render "form", object: @new_log_entry, url: log_entries_path(@log) %>
+
+<h2>Log Entries</h2>
+<div class="list-group">
+  <% @log_entries.each do |log_entry| %>
+    <a href="<%= log_entry_path(@log, log_entry) %>" class="list-group-item list-group-item-action active">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1"><%= log_entry.coffee %></h5>
+        <small><%= log_entry.created_at %></small>
+      </div>
+      <p class="mb-1"><%= log_entry.tasting %></p>
+      <small><%= log_entry.addl_notes %></small>
+    </a>
+  <% end %>
+</div>
