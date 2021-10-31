@@ -5,7 +5,7 @@ class LogEntriesController < ApplicationController
   before_action :set_log_entry, only: [:show, :edit, :update, :destroy]
 
   def index
-    @log_entries = @log.log_entries.by_date_desc
+    @log_entries = @log.log_entries.by_date_desc.load
 
     @new_log_entry = LogEntry.new(log: @log)
     if (most_recent_entry = @log_entries.first)
@@ -28,17 +28,29 @@ class LogEntriesController < ApplicationController
   end
 
   def create
+    @log_entry = LogEntry.new(log_entry_params)
 
+    if @log_entry.save
+      redirect_to log_entries_url(@log), notice: "Updated log entry"
+    else
+      render action: :new
+    end
   end
 
   def edit
   end
 
   def update
+    if @log_entry.update(log_entry_params)
+      redirect_to log_entry_url(@log, @log_entry), notice: "Updated log entry"
+    else
+      render action: :edit
+    end
   end
 
   def destroy
     @log_entry.mark_as_deleted!
+    redirect_to log_entries_url(@log), notice: "Deleted log entry"
   end
 
   private
