@@ -1,7 +1,8 @@
-<% content_for(:title, "Coffee Log") %>
 <h1>Log Entries</h1>
 
-<%= render "form", object: @new_log_entry, url: log_entries_path(@log) %>
+<turbo-frame id="entry_form">
+  <%= render "form", object: @new_log_entry, url: log_entries_path(@log) %>
+</turbo-frame>
 
 <div class="list-group">
   <% @log_entries.each do |log_entry| %>

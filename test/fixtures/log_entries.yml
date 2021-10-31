@@ -4,11 +4,11 @@
 #
 #  id           :bigint           not null, primary key
 #  addl_notes   :text
+#  brew_method  :string
 #  coffee       :string           not null
 #  coffee_grams :integer
 #  deleted_at   :datetime
 #  grind        :string
-#  method       :string
 #  tasting      :text
 #  water        :string
 #  water_grams  :integer
@@ -31,7 +31,7 @@ one:
   log_id: 1
   coffee: MyString
   water: MyString
-  method: MyString
+  brew_method: MyString
   grind: MyString
   tasting: MyString
   addl_notes: MyText
@@ -43,7 +43,7 @@ two:
   log_id: 1
   coffee: MyString
   water: MyString
-  method: MyString
+  brew_method: MyString
   grind: MyString
   tasting: MyString
   addl_notes: MyText

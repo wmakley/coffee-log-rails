@@ -1,2 +1,6 @@
+<% content_for(:title, "New Entry") %>
 <h1>New Log Entry</h1>
-<%= render "form", object: @log_entry, url: log_entries_path(@log) %>
+
+<turbo-frame id="entry_form">
+  <%= render "form", object: @log_entry, url: log_entries_path(@log) %>
+</turbo-frame>

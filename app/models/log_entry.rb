@@ -6,11 +6,11 @@
 #
 #  id           :bigint           not null, primary key
 #  addl_notes   :text
+#  brew_method  :string
 #  coffee       :string           not null
 #  coffee_grams :integer
 #  deleted_at   :datetime
 #  grind        :string
-#  method       :string
 #  tasting      :text
 #  water        :string
 #  water_grams  :integer
@@ -44,7 +44,7 @@ class LogEntry < ApplicationRecord
   before_validation do
     self.coffee = coffee&.squish.presence
     self.water = water&.squish.presence
-    self.method = method&.squish.presence
+    self.brew_method = brew_method&.squish.presence
     self.grind = grind&.squish.presence
     self.tasting = tasting&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
     self.addl_notes = addl_notes&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
@@ -54,7 +54,7 @@ class LogEntry < ApplicationRecord
 
   validates_length_of :coffee,
                       :water,
-                      :method,
+                      :brew_method,
                       :grind,
                       maximum: 255, allow_nil: true
   validates_length_of :tasting, :addl_notes,
@@ -79,7 +79,7 @@ class LogEntry < ApplicationRecord
         log_entry: self,
         coffee: self.coffee,
         water: self.water,
-        method: self.method,
+        brew_method: self.brew_method,
         grind: self.grind,
         tasting: self.tasting,
         addl_notes: self.addl_notes,

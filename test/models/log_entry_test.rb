@@ -4,11 +4,11 @@
 #
 #  id           :bigint           not null, primary key
 #  addl_notes   :text
+#  brew_method  :string
 #  coffee       :string           not null
 #  coffee_grams :integer
 #  deleted_at   :datetime
 #  grind        :string
-#  method       :string
 #  tasting      :text
 #  water        :string
 #  water_grams  :integer

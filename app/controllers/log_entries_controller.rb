@@ -33,7 +33,7 @@ class LogEntriesController < ApplicationController
     if @log_entry.update(log_entry_params)
       redirect_to log_entries_url(@log), notice: "Created log entry"
     else
-      flash[:error] = "There were some problems saving this log entry: #{@log_entry.errors.full_messages.to_sentence}."
+      # flash[:error] = "There were some problems saving this log entry: #{@log_entry.errors.full_messages.to_sentence}."
       render action: :new
     end
   end
