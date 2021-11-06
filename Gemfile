@@ -28,8 +28,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Custom stuff
 gem 'dotenv-rails', groups: [:development, :test]
-gem 'hotwire-rails', '~> 0.1.3'
-gem 'importmap-rails', '~> 0.8.1'
+gem 'hotwire-rails'
+gem 'importmap-rails'
 gem 'simple_form', '~> 5.1'
 
 group :development, :test do
