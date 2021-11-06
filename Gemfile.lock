@@ -257,7 +257,7 @@ DEPENDENCIES
   rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver
-  simple_form (~> 5.1)
+  simple_form
   spring
   web-console (>= 4.1.0)
   webdrivers

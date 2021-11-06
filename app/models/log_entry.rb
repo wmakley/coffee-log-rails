@@ -31,6 +31,7 @@ class LogEntry < ApplicationRecord
   belongs_to :log, optional: false
   has_many :log_entry_versions,
            -> { order(:created_at) },
+           inverse_of: :log_entry,
            dependent: :restrict_with_exception
 
   default_scope -> { live }

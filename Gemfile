@@ -30,7 +30,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'hotwire-rails'
 gem 'importmap-rails'
-gem 'simple_form', '~> 5.1'
+gem 'simple_form'
 
 group :development, :test do
   gem 'rubocop', '~> 1.22', require: false

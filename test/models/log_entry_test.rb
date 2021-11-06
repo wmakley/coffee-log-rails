@@ -64,7 +64,7 @@ class LogEntryTest < ActiveSupport::TestCase
 
     log = entry.log
     log.reload
-    assert !log.log_entries.any? { |e| e.id == entry.id }
+    assert_not(log.log_entries.any? { |e| e.id == entry.id })
   end
 
   test "input normalization" do

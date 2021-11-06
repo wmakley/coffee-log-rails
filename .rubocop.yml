@@ -1,6 +1,21 @@
 ---
 inherit_from: .rubocop_todo.yml
+require: rubocop-rails
 
 AllCops:
   Exclude:
     - 'bin/**/*'
+    - 'vendor/**/*'
+  NewCops: enable
+
+Rails/FilePath:
+  Enabled: false
+
+Rails/Validation:
+  Enabled: false
+
+Rails/RakeEnvironment:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
