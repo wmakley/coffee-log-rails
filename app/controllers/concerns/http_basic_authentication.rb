@@ -15,7 +15,20 @@ module HttpBasicAuthentication
 
   def http_basic_authenticate
     authenticate_or_request_with_http_basic do |username, password|
-      http_basic_users[username] == password
+      success = http_basic_users[username] == password
+
+      unless success
+        key = "login-attempts/#{request.remote_ip}"
+        attempts = Rails.cache.fetch(key) { 0 }
+        attempts += 1
+        Rails.cache.write(key, attempts)
+        if attempts > 10
+          logger.warn "Max login attempts exceeded"
+          Rails.cache.write("banned-ips/#{request.remote_ip}")
+        end
+      end
+
+      success
     end
   end
 end
