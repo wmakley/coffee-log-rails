@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -26,12 +28,13 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Custom stuff
 gem 'dotenv-rails', groups: [:development, :test]
-gem "importmap-rails", "~> 0.8.1"
-gem "hotwire-rails", "~> 0.1.3"
-gem "simple_form", "~> 5.1"
+gem 'hotwire-rails', '~> 0.1.3'
+gem 'importmap-rails', '~> 0.8.1'
+gem 'simple_form', '~> 5.1'
 
 group :development, :test do
-  gem "rubocop", "~> 1.22", require: false
+  gem 'rubocop', '~> 1.22', require: false
+  gem 'rubocop-rails', require: false
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
