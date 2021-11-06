@@ -97,7 +97,7 @@ GEM
       turbo-rails
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
-    importmap-rails (0.8.1)
+    importmap-rails (0.8.2)
       rails (>= 6.0.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
@@ -113,13 +113,9 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.6.1)
     minitest (5.14.4)
     msgpack (1.4.2)
     nio4r (2.5.8)
-    nokogiri (1.12.5)
-      mini_portile2 (~> 2.6.1)
-      racc (~> 1.4)
     nokogiri (1.12.5-x86_64-darwin)
       racc (~> 1.4)
     parallel (1.21.0)
@@ -215,7 +211,7 @@ GEM
       rails (>= 6.0.0)
     thor (1.1.0)
     tilt (2.0.10)
-    turbo-rails (7.1.1)
+    turbo-rails (0.8.3)
       rails (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -237,7 +233,6 @@ GEM
     zeitwerk (2.5.1)
 
 PLATFORMS
-  ruby
   x86_64-darwin-20
 
 DEPENDENCIES
