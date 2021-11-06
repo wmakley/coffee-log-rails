@@ -35,9 +35,9 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Run linters
-        run: |
-          bin/rubocop
+#      - name: Run linters
+#        run: |
+#          bin/rubocop
 
       - name: Run unit tests
         env:
