@@ -12,7 +12,7 @@ class LogEntriesController < ApplicationController
       @new_log_entry.attributes = {
         coffee: most_recent_entry.coffee,
         water: most_recent_entry.water,
-        method: most_recent_entry.method,
+        brew_method: most_recent_entry.brew_method,
         grind: most_recent_entry.grind,
         coffee_grams: most_recent_entry.coffee_grams,
         water_grams: most_recent_entry.water_grams,
