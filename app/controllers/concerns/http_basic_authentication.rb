@@ -9,9 +9,10 @@ module HttpBasicAuthentication
 
   def http_basic_authenticate
     authenticate_or_request_with_http_basic do |username, password|
-      user = User.find_by!(username: username)
+      user = User.find_by(username: username)
+      logger.info "username '#{username}' not found" unless user
 
-      success = user.password == password
+      success = user && user.password == password
 
       unless success
         attempt = LoginAttempt.record_attempt(request.remote_ip)
@@ -22,8 +23,6 @@ module HttpBasicAuthentication
       end
 
       success
-    rescue ActiveRecord::RecordNotFound
-      false
     end
   end
 end
