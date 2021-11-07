@@ -22,8 +22,6 @@ class LoginAttempt < ApplicationRecord
 
   MAX_ATTEMPTS = 10
 
-  after_save :ban_ip, if: -> { attempts >= MAX_ATTEMPTS }
-
   def self.record_attempt(ip_address)
     attempt = find_or_initialize_by(ip_address: ip_address)
     if attempt.new_record?
@@ -37,11 +35,5 @@ class LoginAttempt < ApplicationRecord
 
   def self.remove_old_attempts
     where("updated_at < ?", 1.day.ago).delete_all
-  end
-
-  private
-
-  def ban_ip
-    BannedIp.ban(ip_address)
   end
 end

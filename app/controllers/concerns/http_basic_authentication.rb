@@ -21,7 +21,7 @@ module HttpBasicAuthentication
       if @user && @user.password == password
         true
       else
-        attempt = LoginAttempt.record_attempt(request.remote_ip)
+        attempt = Fail2Ban.record_failed_attempt(request.remote_ip)
 
         Rails.logger.info "Incorrect username or password (#{attempt.attempts} attempts from #{request.remote_ip})"
 
