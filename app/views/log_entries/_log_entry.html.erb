@@ -1,0 +1,8 @@
+<a href="<%= log_entry_path(@log, log_entry) %>" class="list-group-item list-group-item-action" id="log_entry_<%= log_entry.id %>">
+  <div class="d-flex w-100 justify-content-between">
+    <h5 class="mb-1"><%= log_entry.coffee %></h5>
+    <small><%= log_entry.created_at.to_s(:short) %></small>
+  </div>
+  <p class="mb-1"><%= log_entry.tasting %></p>
+  <small><%= log_entry.addl_notes %></small>
+</a>

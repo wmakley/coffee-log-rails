@@ -1,4 +1,8 @@
-<%= form_with(model: object, url: url) do |f| %>
+<%= form_with(model: object, url: url, html: {
+  data: {
+    controller: "log-entry-form"
+  }
+}) do |f| %>
   <% if object.errors.present? %>
     <div class="text-danger">
       <%= object.errors.full_messages.to_sentence %>.
@@ -7,7 +11,10 @@
 
   <div class="mb-3">
     <%= f.label :coffee, "Coffee", class: "form-label" %>
-    <%= f.text_field :coffee, class: "form-control", autofocus: "autofocus" %>
+    <%= f.text_field :coffee, class: "form-control", autofocus: "autofocus", data: {
+      action: "keyup->log-entry-form#enableOrDisableSubmit",
+      log_entry_form_target: "coffeeTextBox"
+    } %>
     <%= invalid_message(object, :coffee) %>
   </div>
   <div class="mb-3">
@@ -32,7 +39,7 @@
     <%= f.text_field :tasting, class: "form-control" %>
     <%= invalid_message(object, :tasting_notes) %>
   </div>
-  <button type="submit" class="btn btn-primary">
+  <button type="submit" class="btn btn-primary" data-log-entry-form-target="submitButton">
     <%= object.new_record? ? "Create" : "Update" %> Log Entry
   </button>
 <% end %>
