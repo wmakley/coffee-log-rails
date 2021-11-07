@@ -32,4 +32,6 @@
 # Ignore more machine-specific jetbrains stuff
 .idea/dataSources*
 .idea/workspace.xml
+.idea/misc.xml
+.idea/modules.xml
 *.iml
