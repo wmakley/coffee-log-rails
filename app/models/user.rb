@@ -15,6 +15,6 @@
 #  index_users_on_username  (username)
 #
 class User < ApplicationRecord
-  validates :username, presence: true, niqueness: true
+  validates :username, presence: true, uniqueness: true
   validates :password, presence: true
 end
