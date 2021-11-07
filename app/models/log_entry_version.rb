@@ -25,5 +25,5 @@
 #  fk_rails_...  (log_entry_id => log_entries.id)
 #
 class LogEntryVersion < ApplicationRecord
-  belongs_to :log_entry, optional: false
+  belongs_to :log_entry, optional: false, inverse_of: :log_entry_versions
 end

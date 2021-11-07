@@ -15,6 +15,8 @@
 #  index_users_on_username  (username)
 #
 class User < ApplicationRecord
+  has_one :log, foreign_key: :owned_by_user_id, inverse_of: :owned_by_user
+
   validates :username, presence: true, uniqueness: true
   validates :password, presence: true
 end

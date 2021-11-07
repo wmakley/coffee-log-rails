@@ -28,7 +28,7 @@
 #  fk_rails_...  (log_id => logs.id)
 #
 class LogEntry < ApplicationRecord
-  belongs_to :log, optional: false
+  belongs_to :log, inverse_of: :log_entries, optional: false
   has_many :log_entry_versions,
            -> { order(:created_at) },
            inverse_of: :log_entry,

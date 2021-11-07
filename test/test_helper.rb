@@ -15,4 +15,8 @@ class ActiveSupport::TestCase
       HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials(username, password)
     }
   end
+
+  def valid_login
+    authorization_header('default', 'password')
+  end
 end

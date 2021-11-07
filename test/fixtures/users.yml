@@ -13,5 +13,6 @@
 #  index_users_on_username  (username)
 #
 default:
+  id: 1
   username: default
   password: password
