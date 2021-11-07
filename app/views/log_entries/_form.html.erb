@@ -12,7 +12,7 @@
   </div>
   <div class="mb-3">
     <%= f.label :brew_method, "Brew Method", class: "form-label" %>
-    <%= f.select :brew_method, ["Drip", "French Press", "Pour-Over", "Other"], {},  class: "form-select" %>
+    <%= f.select :brew_method, ["Drip", "French Press", "Pour-Over", "Other"], { include_blank: "", },  class: "form-select" %>
     <%= invalid_message(object, :method) %>
   </div>
   <div class="row mb-3">
