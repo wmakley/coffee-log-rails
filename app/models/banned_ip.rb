@@ -14,6 +14,7 @@ class BannedIp < ApplicationRecord
   validates :ip_address, presence: true
 
   def self.ban(ip_address)
+    logger.info "Banning IP: #{ip_address}"
     ip = find_or_create_by!(ip_address: ip_address)
     ip.touch
     ip

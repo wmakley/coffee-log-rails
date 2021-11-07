@@ -43,4 +43,11 @@ class LoginAttemptTest < ActiveSupport::TestCase
 
     assert_not LoginAttempt.find_by(ip_address: ip)
   end
+
+  test "it bans the IP after 10 attempts" do
+    ip = "1.2.3.4"
+    assert_not BannedIp.banned?(ip)
+    LoginAttempt.create!(ip_address: ip, attempts: 10)
+    assert BannedIp.banned?(ip)
+  end
 end

@@ -18,8 +18,6 @@ module HttpBasicAuthentication
         attempt = LoginAttempt.record_attempt(request.remote_ip)
 
         Rails.logger.info "Incorrect username or password (#{attempt.attempts} attempts from #{request.remote_ip})"
-
-        BannedIp.ban(request.remote_ip) if attempts > 10
       end
 
       success
