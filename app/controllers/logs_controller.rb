@@ -10,6 +10,7 @@ class LogsController < ApplicationController
 
     log = Log.where(slug: slug).first
     if log.nil?
+      logger.info "Log for user '#{current_user.username}' not found, creating"
       log = Log.create!(
         name: current_user.username.capitalize,
         slug: slug
