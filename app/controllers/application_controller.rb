@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
-  include IpBanningConcern
-  include HttpBasicAuthentication if Rails.env.production?
+  if Rails.env.production?
+    include IpBanningConcern
+    include HttpBasicAuthentication
+  end
 end

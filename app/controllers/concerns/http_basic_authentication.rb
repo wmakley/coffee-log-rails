@@ -19,13 +19,15 @@ module HttpBasicAuthentication
 
       unless success
         key = "login-attempts/#{request.remote_ip}"
+
         attempts = Rails.cache.fetch(key) { 0 }
         attempts += 1
+
         Rails.cache.write(key, attempts)
-        if attempts > 10
-          logger.warn "Max login attempts exceeded"
-          Rails.cache.write("banned-ips/#{request.remote_ip}")
-        end
+
+        Rails.logger.info "Incorrect username or password (#{attempts} attempts from #{request.remote_ip})"
+
+        ban_ip request.remote_ip if attempts > 10
       end
 
       success
