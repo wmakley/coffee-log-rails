@@ -12,11 +12,6 @@
 #
 #  index_users_on_username  (username)
 #
-require 'minitest/autorun'
-
-class UserTest < ActiveSupport::TestCase
-  test "it saves with valid attributes" do
-    user = User.new(username: "fu", password: "bar")
-    assert user.save
-  end
-end
+default:
+  username: default
+  password: password

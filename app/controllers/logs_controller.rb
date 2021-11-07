@@ -2,6 +2,20 @@
 
 class LogsController < ApplicationController
   def index
-    redirect_to log_entries_url('default')
+    create_or_redirect_to_log_for_user
+  end
+
+  def create_or_redirect_to_log_for_user
+    slug = current_user.username.downcase
+
+    log = Log.where(slug: slug).first
+    if log.nil?
+      log = Log.create!(
+        name: current_user.username.capitalize,
+        slug: slug
+      )
+    end
+
+    redirect_to log_entries_url(log)
   end
 end
