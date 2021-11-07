@@ -5,6 +5,8 @@ module HttpBasicAuthentication
 
   included do
     before_action :http_basic_authenticate
+
+    helper_method :current_user
   end
 
   def current_user
