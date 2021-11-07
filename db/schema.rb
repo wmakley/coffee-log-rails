@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_31_181127) do
+ActiveRecord::Schema.define(version: 2021_11_07_011846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "banned_ips", primary_key: "ip_address", id: :string, force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "log_entries", force: :cascade do |t|
     t.bigint "log_id", null: false
@@ -48,9 +53,23 @@ ActiveRecord::Schema.define(version: 2021_10_31_181127) do
     t.index ["log_entry_id"], name: "index_log_entry_versions_on_log_entry_id"
   end
 
+  create_table "login_attempts", primary_key: "ip_address", id: :string, force: :cascade do |t|
+    t.integer "attempts", default: 1, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "logs", force: :cascade do |t|
     t.string "name", null: false
     t.string "slug", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_logs_on_slug", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username", null: false
+    t.string "password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

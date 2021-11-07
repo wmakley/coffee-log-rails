@@ -8,6 +8,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_logs_on_slug  (slug) UNIQUE
+#
 require "test_helper"
 
 class LogTest < ActiveSupport::TestCase

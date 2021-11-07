@@ -1,0 +1,8 @@
+# == Schema Information
+#
+# Table name: banned_ips
+#
+#  ip_address :string           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

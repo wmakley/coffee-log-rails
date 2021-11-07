@@ -10,6 +10,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_logs_on_slug  (slug) UNIQUE
+#
 class Log < ApplicationRecord
   has_many :log_entries, dependent: :restrict_with_error
 
