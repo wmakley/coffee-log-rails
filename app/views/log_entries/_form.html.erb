@@ -12,10 +12,10 @@
   </div>
   <div class="mb-3">
     <%= f.label :brew_method, "Brew Method", class: "form-label" %>
-    <%= f.text_field :coffee, class: "form-control" %>
+    <%= f.text_field :brew_method, class: "form-control" %>
     <%= invalid_message(object, :method) %>
   </div>
-  <div class="row">
+  <div class="row mb-3">
     <div class="col">
       <%= f.label :coffee_grams %>
       <%= f.number_field :coffee_grams, class: "form-control", placeholder: "Grams of coffee" %>
@@ -26,11 +26,6 @@
       <%= f.number_field :water_grams, class: "form-control", placeholder: "Grams of water" %>
       <%= invalid_message(object, :water_grams) %>
     </div>
-  </div>
-  <div class="mb-3">
-    <%= f.label :grind, "Grind", class: "form-label" %>
-    <%= f.text_field :grind, class: "form-control" %>
-    <%= invalid_message(object, :grind) %>
   </div>
   <div class="mb-3">
     <%= f.label :tasting, "Tasting Notes", class: "form-label" %>

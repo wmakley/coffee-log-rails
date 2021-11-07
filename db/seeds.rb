@@ -7,3 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Log.create!(name: "Default", slug: "default")
+
+unless User.exists?
+  puts "Creating user: william:password"
+  User.create!(username: "william", password: "password")
+end

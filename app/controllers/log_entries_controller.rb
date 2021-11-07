@@ -61,7 +61,7 @@ class LogEntriesController < ApplicationController
             .permit(
               :coffee,
               :water,
-              :method,
+              :brew_method,
               :grind,
               :tasting,
               :addl_notes,
