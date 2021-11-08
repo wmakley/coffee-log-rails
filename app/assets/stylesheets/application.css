@@ -17,3 +17,8 @@
 body {
   padding-bottom: 50px;
 }
+
+turbo-frame {
+  display: block;
+  /*border: 1px solid blue !important;*/
+}

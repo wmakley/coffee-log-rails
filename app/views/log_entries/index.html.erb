@@ -1,14 +1,14 @@
 <h1>Log Entries</h1>
 
-<turbo-frame id="entry_form">
+<%= turbo_frame_tag "entry" do %>
   <%= render "form", object: @new_log_entry, url: log_entries_path(@log) %>
-</turbo-frame>
+<% end %>
 
 <hr>
 
 <% if @log_entries.present? %>
   <div class="list-group">
-    <%= render collection: @log_entries %>
+    <%= render collection: @log_entries, partial: "log_entries/log_entry" %>
   </div>
 <% else %>
   <p>There are no log entries yet.</p>
