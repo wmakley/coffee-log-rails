@@ -12,7 +12,7 @@ class LogsController < ApplicationController
       logger.info "Log for user '#{current_user.username}' not found, creating"
       log = Log.create!(
         user: current_user,
-        name: "#{current_user.name}'s Log",
+        name: "#{current_user.display_name}'s Log",
         slug: current_user.username.downcase.gsub(/[^a-z0-9\-_]/, '-')
       )
     end
