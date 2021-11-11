@@ -1,0 +1,5 @@
+<%= turbo_stream.remove "no_log_entries_message" %>
+
+<%= turbo_stream.prepend "log_entries" do %>
+  <%= render partial: "log_entries/log_entry", locals: { log_entry: @log_entry } %>
+<% end %>

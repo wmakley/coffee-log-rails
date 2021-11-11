@@ -11,7 +11,7 @@
 
   <div class="mb-3">
     <%= f.label :coffee, "Coffee", class: "form-label" %>
-    <%= f.text_field :coffee, class: "form-control", autofocus: "autofocus", data: {
+    <%= f.text_field :coffee, class: "form-control", data: {
       action: "input->log-entry-form#enableOrDisableSubmit",
       log_entry_form_target: "coffeeTextBox"
     } %>
@@ -20,22 +20,9 @@
   <div class="mb-3">
     <%= f.label :brew_method, "Brew Method", class: "form-label" %>
     <%= f.select :brew_method,
-                 ["Drip", "French Press", "Pour-Over", "Other"],
+                 ["French Press", "Pour-Over", "Moka Pot", "Drip", "Other"],
                  { include_blank: "", },
-                 class: "form-select",
-                 data: {
-                   log_entry_form_target: "brewMethodSelect",
-                   action: "input->log-entry-form#showOrHideOtherBrewMethod"
-                 }
-    %>
-    <%= f.text_field :brew_method,
-                     placeholder: "Other brew method",
-                     class: "form-control",
-                     style: "display: none; margin-top: 5px;",
-                     disabled: true,
-                     data: {
-                       log_entry_form_target: "otherBrewMethod"
-                     }
+                 class: "form-select"
     %>
     <%= invalid_message(object, :method) %>
   </div>
@@ -53,10 +40,21 @@
   </div>
   <div class="mb-3">
     <%= f.label :tasting, "Tasting Notes", class: "form-label" %>
-    <%= f.text_field :tasting, class: "form-control" %>
+    <%= f.text_area :tasting, class: "form-control" %>
     <%= invalid_message(object, :tasting_notes) %>
   </div>
-  <button type="submit" class="btn btn-primary" data-log-entry-form-target="submitButton">
-    <%= object.new_record? ? "Create" : "Update" %> Log Entry
-  </button>
+  <div class="mb-3">
+    <%= f.label :tasting, "Grind Notes", class: "form-label" %>
+    <%= f.text_field :grind, class: "form-control" %>
+    <%= invalid_message(object, :grind) %>
+  </div>
+  <p>
+    <button type="submit" class="btn btn-primary" data-log-entry-form-target="submitButton">
+      <%= object.new_record? ? "Create" : "Update" %> Log Entry
+    </button>
+
+    <% if local_assigns[:cancel_url] %>
+      <%= link_to("Cancel", cancel_url, class: "btn btn-secondary") %>
+    <% end %>
+  </p>
 <% end %>

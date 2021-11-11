@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LogEntriesController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :set_log
   before_action :set_log_entry, only: [:show, :edit, :update, :destroy]
 
@@ -30,11 +32,13 @@ class LogEntriesController < ApplicationController
   def create
     @log_entry = LogEntry.new(log: @log)
 
-    if @log_entry.update(log_entry_params)
-      redirect_to log_entries_url(@log), notice: "Created log entry"
-    else
-      # flash[:error] = "There were some problems saving this log entry: #{@log_entry.errors.full_messages.to_sentence}."
-      render action: :new
+    respond_to do |format|
+      if @log_entry.update(log_entry_params)
+        format.html { redirect_to log_entries_url(@log), notice: "Created log entry" }
+        format.turbo_stream
+      else
+        format.html { render action: :new, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -50,8 +54,12 @@ class LogEntriesController < ApplicationController
   end
 
   def destroy
-    @log_entry.mark_as_deleted!
-    redirect_to log_entries_url(@log), notice: "Deleted log entry"
+    @log_entry.destroy!
+
+    respond_to do |format|
+      format.html { redirect_to log_entries_url(@log), status: :see_other, notice: "Deleted log entry" }
+      # format.turbo_stream { redirect_to log_entries_url(@log), notice: "Deleted log entry" }
+    end
   end
 
   private

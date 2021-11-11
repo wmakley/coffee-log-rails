@@ -6,10 +6,10 @@
 
 <hr>
 
-<% if @log_entries.present? %>
-  <div class="list-group">
-    <%= render collection: @log_entries, partial: "log_entries/log_entry" %>
-  </div>
-<% else %>
-  <p>There are no log entries yet.</p>
+<% if @log_entries.blank? %>
+  <p id="no_log_entries_message">There are no log entries yet.</p>
 <% end %>
+
+<div class="list-group" id="log_entries">
+  <%= render collection: @log_entries, partial: "log_entries/log_entry" %>
+</div>

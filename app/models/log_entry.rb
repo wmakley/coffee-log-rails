@@ -32,7 +32,7 @@ class LogEntry < ApplicationRecord
   has_many :log_entry_versions,
            -> { order(:created_at) },
            inverse_of: :log_entry,
-           dependent: :restrict_with_exception
+           dependent: :delete_all
 
   default_scope -> { live }
   scope :live, -> { where(deleted_at: nil) }
@@ -50,6 +50,8 @@ class LogEntry < ApplicationRecord
     self.tasting = tasting&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
     self.addl_notes = addl_notes&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
   end
+
+  attr_accessor :brew_method_select
 
   validates_presence_of :coffee
 
@@ -71,6 +73,12 @@ class LogEntry < ApplicationRecord
     self.deleted_at = Time.current
     save_version!
     save!
+  end
+
+  def brew_ratio
+    if coffee_grams.present? && water_grams.present?
+      Rational(coffee_grams.to_i, water_grams.to_i)
+    end
   end
 
   private
