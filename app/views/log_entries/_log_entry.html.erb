@@ -2,9 +2,16 @@
             id: dom_id(log_entry),
             class: "list-group-item list-group-item-action" do %>
   <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1"><%= log_entry.coffee %></h5>
-    <small><%= log_entry.created_at.to_s(:short) %></small>
+    <h5 class="mb-1">
+      <%= log_entry.coffee %>
+      (<%= log_entry.brew_method %> - <%= log_entry.coffee_grams %>/<%= log_entry.water_grams %>)
+    </h5>
+    <small>
+      <%= log_entry.created_at.to_s(:short) %>
+    </small>
   </div>
-  <p class="mb-1"><%= log_entry.tasting %></p>
-  <small><%= log_entry.addl_notes %></small>
+  <small><%= [log_entry.grind, log_entry.water].select(&:present?).join('; ') %></small>
+  <p class="mb-1">
+    <%= log_entry.tasting %>
+  </p>
 <% end %>

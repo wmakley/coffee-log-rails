@@ -38,15 +38,22 @@
       <%= invalid_message(object, :water_grams) %>
     </div>
   </div>
+  <div class="row mb-3">
+    <div class="col">
+      <%= f.label :tasting, "Grind", class: "form-label" %>
+      <%= f.text_field :grind, class: "form-control" %>
+      <%= invalid_message(object, :grind) %>
+    </div>
+    <div class="col">
+      <%= f.label :water, "Water", class: "form-label" %>
+      <%= f.text_field :water, class: "form-control" %>
+      <%= invalid_message(object, :water) %>
+    </div>
+  </div>
   <div class="mb-3">
     <%= f.label :tasting, "Tasting Notes", class: "form-label" %>
     <%= f.text_area :tasting, class: "form-control" %>
     <%= invalid_message(object, :tasting_notes) %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :tasting, "Grind Notes", class: "form-label" %>
-    <%= f.text_field :grind, class: "form-control" %>
-    <%= invalid_message(object, :grind) %>
   </div>
   <p>
     <button type="submit" class="btn btn-primary" data-log-entry-form-target="submitButton">
