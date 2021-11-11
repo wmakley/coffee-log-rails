@@ -54,7 +54,7 @@ class LogEntriesController < ApplicationController
   end
 
   def destroy
-    @log_entry.destroy!
+    @log_entry.mark_as_deleted!
 
     respond_to do |format|
       format.html { redirect_to log_entries_url(@log), status: :see_other, notice: "Deleted log entry" }
