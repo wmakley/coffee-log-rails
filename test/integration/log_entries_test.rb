@@ -26,6 +26,7 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
 
     entry = LogEntry.order(created_at: :desc).first
     assert_select %(a[href="/logs/default/entries/#{entry.id}"]), 1
+    assert_select ".alert.alert-success", 1
   end
 
   test "show" do
@@ -51,6 +52,7 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
     follow_redirect! headers: valid_login
 
     assert_response :success
+    assert_select ".alert.alert-success", 1
   end
 
   test "update failure" do
@@ -68,5 +70,7 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
   test "destroy success" do
     delete "/logs/default/entries/1", headers: valid_login
     assert_redirected_to "/logs/default/entries"
+    follow_redirect! headers: valid_login
+    assert_select ".alert.alert-success", 1
   end
 end
