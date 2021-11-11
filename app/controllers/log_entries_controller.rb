@@ -23,12 +23,16 @@ class LogEntriesController < ApplicationController
 
     respond_to do |format|
       if @log_entry.update(log_entry_params)
-        format.html { redirect_to log_entries_url(@log), notice: "Created log entry" }
+        format.html do
+          redirect_to log_entries_url(@log), notice: "Created log entry"
+        end
         format.turbo_stream do
           set_new_log_entry_from_previous(@log_entry)
         end
       else
-        format.html { render action: :new, status: :unprocessable_entity }
+        format.html do
+          render action: :new, status: :unprocessable_entity
+        end
         format.turbo_stream
       end
     end
