@@ -5,6 +5,7 @@
   <%= render "form",
              object: @log_entry,
              url: log_entry_path(@log, @log_entry),
-             cancel_url: log_entry_path(@log, @log_entry)
+             cancel_url: log_entry_path(@log, @log_entry),
+             show_datetime: true
   %>
 <% end %>

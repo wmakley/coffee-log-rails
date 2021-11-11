@@ -74,7 +74,8 @@ class LogEntriesController < ApplicationController
               :tasting,
               :addl_notes,
               :coffee_grams,
-              :water_grams
+              :water_grams,
+              :created_at
             )
     end
 

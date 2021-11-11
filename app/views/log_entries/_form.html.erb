@@ -9,6 +9,13 @@
     </div>
   <% end %>
 
+  <% if local_assigns[:show_datetime] %>
+    <div class="mb-3">
+      <%= f.label :created_at, "Date and Time" %>
+      <%= f.datetime_select :created_at %>
+    </div>
+  <% end %>
+
   <div class="mb-3">
     <%= f.label :coffee, "Coffee", class: "form-label" %>
     <%= f.text_field :coffee, class: "form-control", data: {
