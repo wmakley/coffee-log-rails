@@ -8,18 +8,7 @@ class LogEntriesController < ApplicationController
 
   def index
     @log_entries = @log.log_entries.by_date_desc.load
-
-    @new_log_entry = LogEntry.new(log: @log)
-    if (most_recent_entry = @log_entries.first)
-      @new_log_entry.attributes = {
-        coffee: most_recent_entry.coffee,
-        water: most_recent_entry.water,
-        brew_method: most_recent_entry.brew_method,
-        grind: most_recent_entry.grind,
-        coffee_grams: most_recent_entry.coffee_grams,
-        water_grams: most_recent_entry.water_grams,
-      }
-    end
+    set_new_log_entry_from_previous(@log_entries.first)
   end
 
   def show
@@ -35,7 +24,9 @@ class LogEntriesController < ApplicationController
     respond_to do |format|
       if @log_entry.update(log_entry_params)
         format.html { redirect_to log_entries_url(@log), notice: "Created log entry" }
-        format.turbo_stream
+        format.turbo_stream do
+          set_new_log_entry_from_previous(@log_entry)
+        end
       else
         format.html { render action: :new, status: :unprocessable_entity }
         format.turbo_stream
@@ -86,5 +77,19 @@ class LogEntriesController < ApplicationController
 
     def set_log_entry
       @log_entry = @log.log_entries.find(params[:id])
+    end
+
+    def set_new_log_entry_from_previous(most_recent_entry = nil)
+      @new_log_entry = LogEntry.new(log: @log)
+      if most_recent_entry
+        @new_log_entry.attributes = {
+          coffee: most_recent_entry.coffee,
+          water: most_recent_entry.water,
+          brew_method: most_recent_entry.brew_method,
+          grind: most_recent_entry.grind,
+          coffee_grams: most_recent_entry.coffee_grams,
+          water_grams: most_recent_entry.water_grams,
+        }
+      end
     end
 end
