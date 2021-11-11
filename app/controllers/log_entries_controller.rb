@@ -45,7 +45,7 @@ class LogEntriesController < ApplicationController
     if @log_entry.update(log_entry_params)
       redirect_to log_entry_url(@log, @log_entry), notice: "Updated log entry"
     else
-      render action: :edit
+      render action: :edit, status: :unprocessable_entity
     end
   end
 
