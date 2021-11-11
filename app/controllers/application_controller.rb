@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
   private
 
   def set_logs
-    @logs = Log.all.load
+    @logs = Log.all.includes(:user)
   end
 end

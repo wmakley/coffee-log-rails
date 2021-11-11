@@ -2,19 +2,19 @@
 #
 # Table name: log_entry_versions
 #
-#  id           :bigint           not null, primary key
-#  addl_notes   :text
-#  brew_method  :string
-#  coffee       :string
-#  coffee_grams :integer
-#  deleted_at   :datetime
-#  grind        :string
-#  tasting      :text
-#  water        :string
-#  water_grams  :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  log_entry_id :bigint           not null
+#  id            :bigint           not null, primary key
+#  addl_notes    :text
+#  brew_method   :string
+#  coffee        :string
+#  coffee_grams  :integer
+#  deleted_at    :datetime
+#  grind_notes   :string
+#  tasting_notes :text
+#  water         :string
+#  water_grams   :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  log_entry_id  :bigint           not null
 #
 # Indexes
 #
@@ -30,7 +30,7 @@ one:
   coffee: MyString
   water: MyString
   brew_method: MyString
-  grind: MyString
+  grind_notes: MyString
   tasting: MyString
   addl_notes: MyText
   coffee_grams: 1

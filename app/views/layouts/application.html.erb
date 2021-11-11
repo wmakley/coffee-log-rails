@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css" data-turbo-track="reload">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track' => 'reload' %>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" data-turbo-track="reload"></script>
 
     <%= javascript_importmap_tags %>
 
@@ -20,14 +20,14 @@
 
   <body>
     <% if @logs.present? %>
-    <ul class="nav nav-fill justify-content-center">
-      <% @logs.each do |log| %>
-        <% active = log == @log %>
-        <li class="nav-item">
-          <%= link_to log.name, log_entries_path(log), class: "nav-link#{' active' if active}" %>
-        </li>
-      <% end %>
-    </ul>
+      <ul class="nav nav-fill justify-content-center">
+        <% @logs.each do |log| %>
+          <% active = log == @log %>
+          <li class="nav-item">
+            <%= link_to log.title, log_entries_path(log), class: "nav-link#{' active' if active}" %>
+          </li>
+        <% end %>
+      </ul>
     <% end %>
 
     <div class="container">

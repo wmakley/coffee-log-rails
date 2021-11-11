@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_11_105722) do
+ActiveRecord::Schema.define(version: 2021_11_11_143455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 2021_11_11_105722) do
     t.string "coffee", null: false
     t.string "water"
     t.string "brew_method"
-    t.string "grind"
-    t.text "tasting"
+    t.string "grind_notes"
+    t.text "tasting_notes"
     t.text "addl_notes"
     t.integer "coffee_grams"
     t.integer "water_grams"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_11_11_105722) do
     t.string "coffee"
     t.string "water"
     t.string "brew_method"
-    t.string "grind"
-    t.text "tasting"
+    t.string "grind_notes"
+    t.text "tasting_notes"
     t.text "addl_notes"
     t.integer "coffee_grams"
     t.integer "water_grams"
@@ -64,9 +64,9 @@ ActiveRecord::Schema.define(version: 2021_11_11_105722) do
     t.string "slug", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "owned_by_user_id", null: false
-    t.index ["owned_by_user_id"], name: "index_logs_on_owned_by_user_id"
+    t.bigint "user_id", null: false
     t.index ["slug"], name: "index_logs_on_slug", unique: true
+    t.index ["user_id"], name: "index_logs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -74,11 +74,11 @@ ActiveRecord::Schema.define(version: 2021_11_11_105722) do
     t.string "password", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
+    t.string "display_name"
     t.index ["username"], name: "index_users_on_username"
   end
 
   add_foreign_key "log_entries", "logs"
   add_foreign_key "log_entry_versions", "log_entries"
-  add_foreign_key "logs", "users", column: "owned_by_user_id"
+  add_foreign_key "logs", "users"
 end

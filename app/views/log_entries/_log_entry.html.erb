@@ -10,8 +10,8 @@
       <%= log_entry.created_at.to_s(:short) %>
     </small>
   </div>
-  <small><%= [log_entry.grind, log_entry.water].select(&:present?).join('; ') %></small>
+  <small><%= [log_entry.grind_notes, log_entry.water].select(&:present?).join('; ') %></small>
   <p class="mb-1">
-    <%= log_entry.tasting %>
+    <%= log_entry.tasting_notes %>
   </p>
 <% end %>

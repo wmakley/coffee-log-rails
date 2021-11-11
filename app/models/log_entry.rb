@@ -4,19 +4,19 @@
 #
 # Table name: log_entries
 #
-#  id           :bigint           not null, primary key
-#  addl_notes   :text
-#  brew_method  :string
-#  coffee       :string           not null
-#  coffee_grams :integer
-#  deleted_at   :datetime
-#  grind        :string
-#  tasting      :text
-#  water        :string
-#  water_grams  :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  log_id       :bigint           not null
+#  id            :bigint           not null, primary key
+#  addl_notes    :text
+#  brew_method   :string
+#  coffee        :string           not null
+#  coffee_grams  :integer
+#  deleted_at    :datetime
+#  grind_notes   :string
+#  tasting_notes :text
+#  water         :string
+#  water_grams   :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  log_id        :bigint           not null
 #
 # Indexes
 #
@@ -46,21 +46,19 @@ class LogEntry < ApplicationRecord
     self.coffee = coffee&.squish.presence
     self.water = water&.squish.presence
     self.brew_method = brew_method&.squish.presence
-    self.grind = grind&.squish.presence
-    self.tasting = tasting&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
+    self.grind_notes = grind_notes&.squish.presence
+    self.tasting_notes = tasting_notes&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
     self.addl_notes = addl_notes&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
   end
-
-  attr_accessor :brew_method_select
 
   validates_presence_of :coffee
 
   validates_length_of :coffee,
                       :water,
                       :brew_method,
-                      :grind,
+                      :grind_notes,
                       maximum: 255, allow_nil: true
-  validates_length_of :tasting, :addl_notes,
+  validates_length_of :tasting_notes, :addl_notes,
                       maximum: 4000, allow_nil: true
 
   validates_numericality_of :coffee_grams,
@@ -89,8 +87,8 @@ class LogEntry < ApplicationRecord
         coffee: self.coffee,
         water: self.water,
         brew_method: self.brew_method,
-        grind: self.grind,
-        tasting: self.tasting,
+        grind_notes: self.grind_notes,
+        tasting_notes: self.tasting_notes,
         addl_notes: self.addl_notes,
         coffee_grams: self.coffee_grams,
         water_grams: self.water_grams,

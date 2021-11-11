@@ -50,9 +50,9 @@
   </div>
   <div class="row mb-3">
     <div class="col">
-      <%= f.label :tasting, "Grind", class: "form-label" %>
-      <%= f.text_field :grind, class: "form-control" %>
-      <%= invalid_message(object, :grind) %>
+      <%= f.label :grind_notes, "Grind Notes", class: "form-label" %>
+      <%= f.text_field :grind_notes, class: "form-control" %>
+      <%= invalid_message(object, :grind_notes) %>
     </div>
     <div class="col">
       <%= f.label :water, "Water", class: "form-label" %>
@@ -61,8 +61,8 @@
     </div>
   </div>
   <div class="mb-3">
-    <%= f.label :tasting, "Tasting Notes", class: "form-label" %>
-    <%= f.text_area :tasting, class: "form-control" %>
+    <%= f.label :tasting_notes, "Tasting Notes", class: "form-label" %>
+    <%= f.text_area :tasting_notes, class: "form-control" %>
     <%= invalid_message(object, :tasting_notes) %>
   </div>
   <p>

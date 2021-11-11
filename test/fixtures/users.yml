@@ -2,12 +2,12 @@
 #
 # Table name: users
 #
-#  id         :bigint           not null, primary key
-#  name       :string
-#  password   :string           not null
-#  username   :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint           not null, primary key
+#  display_name :string
+#  password     :string           not null
+#  username     :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 # Indexes
 #
@@ -17,4 +17,4 @@ default:
   id: 1
   username: default
   password: password
-  name: Default
+  display_name: Default

@@ -6,13 +6,13 @@ class LogsController < ApplicationController
   end
 
   def create_or_redirect_to_log_for_user
-    log = Log.owned_by_user(current_user).first
+    log = Log.user(current_user).first
 
     if log.nil?
       logger.info "Log for user '#{current_user.username}' not found, creating"
       log = Log.create!(
-        owned_by_user: current_user,
-        name: current_user.username.capitalize,
+        user: current_user,
+        name: "#{current_user.name}'s Log",
         slug: current_user.username.downcase.gsub(/[^a-z0-9\-_]/, '-')
       )
     end

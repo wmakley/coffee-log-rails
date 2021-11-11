@@ -1,4 +1,4 @@
-<h1><%= @log.owned_by_user&.name ? "#{@log.owned_by_user.name}'s" : "" %> Log Entries</h1>
+<h1><%= @log.title %> Entries</h1>
 
 <%= turbo_frame_tag "new_entry_form" do %>
   <%= render "form", object: @new_log_entry, url: log_entries_path(@log) %>
