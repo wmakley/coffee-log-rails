@@ -19,6 +19,15 @@
   </head>
 
   <body>
+    <ul class="nav nav-fill justify-content-center">
+      <% @logs.each do |log| %>
+        <% active = log == @log %>
+        <li class="nav-item">
+          <%= link_to log.name, log_entries_path(log), class: "nav-link#{' active' if active}" %>
+        </li>
+      <% end %>
+    </ul>
+
     <div class="container">
       <div id="flash">
         <% flash.each do |key, value| %>
