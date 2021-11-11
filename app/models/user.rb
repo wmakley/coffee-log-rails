@@ -5,6 +5,7 @@
 # Table name: users
 #
 #  id         :bigint           not null, primary key
+#  name       :string
 #  password   :string           not null
 #  username   :string           not null
 #  created_at :datetime         not null
@@ -19,4 +20,5 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
   validates :password, presence: true
+  validates :name, presence: true
 end
