@@ -19,6 +19,7 @@
   </head>
 
   <body>
+    <% if @logs.present? %>
     <ul class="nav nav-fill justify-content-center">
       <% @logs.each do |log| %>
         <% active = log == @log %>
@@ -27,6 +28,7 @@
         </li>
       <% end %>
     </ul>
+    <% end %>
 
     <div class="container">
       <div id="flash">
