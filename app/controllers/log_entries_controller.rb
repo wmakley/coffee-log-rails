@@ -38,6 +38,7 @@ class LogEntriesController < ApplicationController
         format.turbo_stream
       else
         format.html { render action: :new, status: :unprocessable_entity }
+        format.turbo_stream
       end
     end
   end

@@ -1,5 +1,11 @@
-<%= turbo_stream.remove "no_log_entries_message" %>
+<% if @log_entry.persisted? %>
+  <%= turbo_stream.remove "no_log_entries_message" %>
 
-<%= turbo_stream.prepend "log_entries" do %>
-  <%= render partial: "log_entries/log_entry", locals: { log_entry: @log_entry } %>
+  <%= turbo_stream.prepend "log_entries" do %>
+    <%= render partial: "log_entries/log_entry", locals: { log_entry: @log_entry } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.replace "new_entry_form" do %>
+    <%= render partial: "log_entries/form", locals: { object: @log_entry, url: log_entries_path(@log) } %>
+  <% end %>
 <% end %>

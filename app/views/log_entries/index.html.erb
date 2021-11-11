@@ -1,6 +1,6 @@
 <h1>Log Entries</h1>
 
-<%= turbo_frame_tag "entry" do %>
+<%= turbo_frame_tag "new_entry_form" do %>
   <%= render "form", object: @new_log_entry, url: log_entries_path(@log) %>
 <% end %>
 

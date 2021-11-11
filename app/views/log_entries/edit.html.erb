@@ -1,11 +1,9 @@
 <% content_for(:title, "Edit Entry") %>
 <h1>Edit Log Entry</h1>
 
-<%= turbo_frame_tag "entry" do %>
-  <%= render "form",
-             object: @log_entry,
-             url: log_entry_path(@log, @log_entry),
-             cancel_url: log_entry_path(@log, @log_entry),
-             show_datetime: true
-  %>
-<% end %>
+<%= render "form",
+           object: @log_entry,
+           url: log_entry_path(@log, @log_entry),
+           cancel_url: log_entry_path(@log, @log_entry),
+           show_datetime: true
+%>

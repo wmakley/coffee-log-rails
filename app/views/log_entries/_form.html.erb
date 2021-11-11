@@ -18,10 +18,13 @@
 
   <div class="mb-3">
     <%= f.label :coffee, "Coffee", class: "form-label" %>
-    <%= f.text_field :coffee, class: "form-control", data: {
-      action: "input->log-entry-form#enableOrDisableSubmit",
-      log_entry_form_target: "coffeeTextBox"
-    } %>
+    <%= f.text_field :coffee,
+                     class: "form-control",
+                     required: true,
+                     data: {
+                       action: "input->log-entry-form#enableOrDisableSubmit",
+                       log_entry_form_target: "coffeeTextBox"
+                     } %>
     <%= invalid_message(object, :coffee) %>
   </div>
   <div class="mb-3">

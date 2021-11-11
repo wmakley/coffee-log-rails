@@ -1,32 +1,30 @@
 <h1><%= @log_entry.coffee %></h1>
 <p class="lead"><%= @log_entry.created_at.to_s(:short) %></p>
 
-<%= turbo_frame_tag "entry" do %>
-  <p>
-    <strong>Brew Method:</strong> <%= @log_entry.brew_method %>
-    <br>
-    <strong>Coffee / Water:</strong> <%= @log_entry.coffee_grams %>g / <%= @log_entry.water_grams %>g (<%= @log_entry.brew_ratio %>)
-    <br>
-    <strong>Grind:</strong> <%= @log_entry.grind %>
-    <br>
-    <strong>Water:</strong> <%= @log_entry.water %>
-    <br>
-    <strong>Tasting notes:</strong> <%= @log_entry.tasting %>
-  </p>
+<p>
+  <strong>Brew Method:</strong> <%= @log_entry.brew_method %>
+  <br>
+  <strong>Coffee / Water:</strong> <%= @log_entry.coffee_grams %>g / <%= @log_entry.water_grams %>g (<%= @log_entry.brew_ratio %>)
+  <br>
+  <strong>Grind:</strong> <%= @log_entry.grind %>
+  <br>
+  <strong>Water:</strong> <%= @log_entry.water %>
+  <br>
+  <strong>Tasting notes:</strong> <%= @log_entry.tasting %>
+</p>
 
-  <p>
-    <%= link_to("Edit", edit_log_entry_path(@log, @log_entry), class: "btn btn-info") %>
+<p>
+  <%= link_to("Edit", edit_log_entry_path(@log, @log_entry), class: "btn btn-info") %>
 
-    <%= link_to("Back", log_entries_path(@log), "data-turbo-frame" => "_top", class: "btn btn-secondary") %>
+  <%= link_to("Back", log_entries_path(@log), "data-turbo-frame" => "_top", class: "btn btn-secondary") %>
 
-    <%= link_to("Delete",
-                log_entry_path(@log, @log_entry),
-                class: "btn btn-danger",
-                data: {
-                  'turbo-method' => :delete,
-                  'controller' => 'confirmation',
-                  'confirmation-message-value' => "Are you sure you want to delete this log entry?",
-                  'action' => 'confirmation#confirm'
-                }) %>
-  </p>
-<% end %>
+  <%= link_to("Delete",
+              log_entry_path(@log, @log_entry),
+              class: "btn btn-danger",
+              data: {
+                'turbo-method' => :delete,
+                'controller' => 'confirmation',
+                'confirmation-message-value' => "Are you sure you want to delete this log entry?",
+                'action' => 'confirmation#confirm'
+              }) %>
+</p>

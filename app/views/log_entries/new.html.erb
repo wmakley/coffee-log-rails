@@ -1,10 +1,8 @@
 <% content_for(:title, "New Entry") %>
 <h1>New Log Entry</h1>
 
-<%= turbo_frame_tag "entry" do %>
-  <%= render "form",
-             object: @log_entry,
-             url: log_entries_path(@log),
-             cancel_url: log_entries_path(@log)
-  %>
-<% end %>
+<%= render "form",
+           object: @log_entry,
+           url: log_entries_path(@log),
+           cancel_url: log_entries_path(@log)
+%>
