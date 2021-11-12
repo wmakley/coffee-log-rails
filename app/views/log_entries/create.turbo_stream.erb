@@ -3,7 +3,7 @@
   <%= turbo_stream.remove "no_log_entries_message" %>
 
   <%= turbo_stream.prepend "log_entries" do %>
-    <%= render "log_entries/log_entry", log_entry: @log_entry %>
+    <%= render "log_entries/log_entry", log_entry: @log_entry, just_added: true %>
   <% end %>
 
   <%= turbo_stream.replace "new_entry_form" do %>

@@ -1,6 +1,10 @@
+<%-
+  classes = +"list-group-item list-group-item-action"
+  classes << " text-success" if local_assigns[:just_added]
+-%>
 <%= link_to log_entry_path(@log, log_entry),
             id: dom_id(log_entry),
-            class: "list-group-item list-group-item-action" do %>
+            class: classes do %>
   <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1">
       <%= log_entry.coffee %>
