@@ -31,7 +31,7 @@ one:
   water: MyString
   brew_method: MyString
   grind_notes: MyString
-  tasting: MyString
+  tasting_notes: MyString
   addl_notes: MyText
   coffee_grams: 1
   water_grams: 1
@@ -41,8 +41,8 @@ two:
   coffee: MyString
   water: MyString
   brew_method: MyString
-  grind: MyString
-  tasting: MyString
+  grind_notes: MyString
+  tasting_notes: MyString
   addl_notes: MyText
   coffee_grams: 1
   water_grams: 1

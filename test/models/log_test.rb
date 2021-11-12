@@ -3,8 +3,8 @@
 # Table name: logs
 #
 #  id         :bigint           not null, primary key
-#  name       :string           not null
 #  slug       :string           not null
+#  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null
@@ -23,8 +23,16 @@ require "test_helper"
 class LogTest < ActiveSupport::TestCase
   fixtures :users
 
+  def valid_attributes
+    {
+      title: "My Log",
+      slug: "my-log",
+      user_id: users(:default).id
+    }
+  end
+
   test "it saves with valid attributes" do
-    log = Log.new(name: "My Log", slug: "my-log", user: users(:default))
+    log = Log.new(valid_attributes)
     assert log.save
   end
 end

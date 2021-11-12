@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class LogsTest < ActionDispatch::IntegrationTest
-  fixtures :users, :logs
+  fixtures :all
 
   test "index redirects to the user's log" do
     get "/logs", headers: valid_login
