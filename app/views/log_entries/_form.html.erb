@@ -11,8 +11,9 @@
 
   <% if local_assigns[:show_datetime] %>
     <div class="mb-3">
-      <%= f.label :created_at, "Date and Time" %>
-      <%= f.datetime_select :created_at %>
+      <%= f.label :entry_date, "Date and Time" %>
+      <%= f.datetime_select :entry_date %>
+      <%= invalid_message(object, :entry_date) %>
     </div>
   <% end %>
 

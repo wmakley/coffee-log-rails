@@ -63,6 +63,7 @@ class LogEntriesController < ApplicationController
     def log_entry_params
       params.require(:log_entry)
             .permit(
+              :entry_date,
               :coffee,
               :water,
               :brew_method,
@@ -71,7 +72,6 @@ class LogEntriesController < ApplicationController
               :addl_notes,
               :coffee_grams,
               :water_grams,
-              :created_at
             )
     end
 
@@ -83,8 +83,9 @@ class LogEntriesController < ApplicationController
       @log_entry = @log.log_entries.find(params[:id])
     end
 
-    def set_new_log_entry_from_previous(most_recent_entry = nil)
+    def set_new_log_entry_from_previous(most_recent_entry)
       @new_log_entry = LogEntry.new(log: @log)
+
       if most_recent_entry
         @new_log_entry.attributes = {
           coffee: most_recent_entry.coffee,

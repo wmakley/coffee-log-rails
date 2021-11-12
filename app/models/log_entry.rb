@@ -10,6 +10,7 @@
 #  coffee        :string           not null
 #  coffee_grams  :integer
 #  deleted_at    :datetime
+#  entry_date    :datetime         not null
 #  grind_notes   :string
 #  tasting_notes :text
 #  water         :string
@@ -21,7 +22,7 @@
 # Indexes
 #
 #  index_log_entries_on_log_id                 (log_id)
-#  index_log_entries_on_log_id_and_created_at  (log_id,created_at) WHERE (deleted_at IS NOT NULL)
+#  index_log_entries_on_log_id_and_entry_date  (log_id,entry_date) WHERE (deleted_at IS NOT NULL)
 #
 # Foreign Keys
 #
@@ -36,7 +37,7 @@ class LogEntry < ApplicationRecord
 
   default_scope -> { live }
   scope :live, -> { where(deleted_at: nil) }
-  scope :by_date_desc, -> { order(created_at: :desc) }
+  scope :by_date_desc, -> { order(entry_date: :desc) }
 
   after_save :save_version!, if: -> { previous_changes.present? }
 
@@ -51,7 +52,7 @@ class LogEntry < ApplicationRecord
     self.addl_notes = addl_notes&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
   end
 
-  validates_presence_of :coffee
+  validates_presence_of :entry_date, :coffee
 
   validates_length_of :coffee,
                       :water,

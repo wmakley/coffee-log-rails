@@ -8,6 +8,7 @@
 #  coffee        :string           not null
 #  coffee_grams  :integer
 #  deleted_at    :datetime
+#  entry_date    :datetime         not null
 #  grind_notes   :string
 #  tasting_notes :text
 #  water         :string
@@ -19,7 +20,7 @@
 # Indexes
 #
 #  index_log_entries_on_log_id                 (log_id)
-#  index_log_entries_on_log_id_and_created_at  (log_id,created_at) WHERE (deleted_at IS NOT NULL)
+#  index_log_entries_on_log_id_and_entry_date  (log_id,entry_date) WHERE (deleted_at IS NOT NULL)
 #
 # Foreign Keys
 #
@@ -33,6 +34,7 @@ class LogEntryTest < ActiveSupport::TestCase
   def valid_attributes
     {
       log: logs(:default),
+      entry_date: Time.current,
       coffee: "Test Coffee",
     }
   end

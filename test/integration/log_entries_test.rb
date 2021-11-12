@@ -14,7 +14,8 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
     post "/logs/default/entries",
          params: {
            log_entry: {
-             coffee: "Test Coffee"
+             coffee: "Test Coffee",
+             entry_date: Time.current.iso8601,
            }
          },
          headers: valid_login
@@ -43,7 +44,7 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
     patch "/logs/default/entries/1",
           params: {
             log_entry: {
-              tasting_notes: "Note notes from revelation"
+              tasting_notes: "New notes from revelation"
             }
           },
           headers: valid_login
