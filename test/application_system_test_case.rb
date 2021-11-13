@@ -17,8 +17,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   delegate :username, :password, to: :current_user
 
-  # Overridden to support http
-  def visit_with_basic_auth(path)
-    visit "http://#{username}:#{password}@#{host}:#{port}#{path}"
+  def visit_with_basic_auth(path, un = username, pw = password)
+    visit "http://#{un}:#{pw}@#{host}:#{port}#{path}"
   end
 end
