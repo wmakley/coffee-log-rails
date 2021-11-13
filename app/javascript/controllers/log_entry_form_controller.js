@@ -12,10 +12,12 @@ export default class LogEntryFormController extends Controller {
   }
 
   clear() {
-    this.element.querySelectorAll('input[type="text"]').forEach((input) => {
+    const emptyValue = (input) => {
       input.value = ""
-    })
-    this.element.querySelector("textarea").value = ""
+    }
+
+    this.element.querySelectorAll("input.form-control").forEach(emptyValue)
+    this.element.querySelectorAll("textarea").forEach(emptyValue)
     this.brewMethodSelectTarget.selectedIndex = 0
   }
 
