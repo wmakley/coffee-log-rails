@@ -7,13 +7,18 @@
   <% end %>
 
   <%= turbo_stream.replace "new_entry_form" do %>
-    <%= render "log_entries/form", object: @new_log_entry, url: log_entries_path(@log) %>
+    <%= render "log_entries/form",
+               object: @new_log_entry,
+               url: log_entries_path(@log) %>
   <% end %>
 
 <% else %>
 
   <%= turbo_stream.replace "new_entry_form" do %>
-    <%= render "log_entries/form", object: @log_entry, url: log_entries_path(@log) %>
+    <%= render "log_entries/form",
+               object: @log_entry,
+               url: log_entries_path(@log)
+    %>
   <% end %>
 
 <% end %>

@@ -34,7 +34,8 @@
     <%= f.select :brew_method,
                  ["French Press", "Pour-Over", "Moka Pot", "Drip", "Cup", "Other"],
                  { include_blank: "", },
-                 class: "form-select"
+                 class: "form-select",
+                 "data-log-entry-form-target" => "brewMethodSelect"
     %>
     <%= invalid_message(object, :method) %>
   </div>
@@ -71,6 +72,12 @@
     <button type="submit" class="btn btn-primary" data-log-entry-form-target="submitButton">
       <%= object.new_record? ? "Create" : "Update" %> Log Entry
     </button>
+
+    <% if object.new_record? %>
+      <button type="button" class="btn btn-secondary" data-action="click->log-entry-form#clear">
+        Clear
+      </button>
+    <% end %>
 
     <% if local_assigns[:cancel_url] %>
       <%= link_to("Cancel", cancel_url, class: "btn btn-secondary") %>
