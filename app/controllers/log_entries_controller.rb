@@ -15,14 +15,16 @@ class LogEntriesController < ApplicationController
   end
 
   def new
-    @log_entry = LogEntry.new(log: @log)
+    @log_entry = LogEntry.new(log: @log, entry_date: Time.current)
   end
 
   def create
     @log_entry = LogEntry.new(log: @log)
+    @log_entry.attributes = log_entry_params
+    @log_entry.entry_date ||= Time.current
 
     respond_to do |format|
-      if @log_entry.update(log_entry_params)
+      if @log_entry.save
         format.html do
           redirect_to log_entries_url(@log), notice: "Created log entry"
         end
@@ -84,7 +86,7 @@ class LogEntriesController < ApplicationController
     end
 
     def set_new_log_entry_from_previous(most_recent_entry)
-      @new_log_entry = LogEntry.new(log: @log)
+      @new_log_entry = LogEntry.new(log: @log, entry_date: Time.current)
 
       if most_recent_entry
         @new_log_entry.attributes = {
