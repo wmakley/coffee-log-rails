@@ -11,7 +11,7 @@
       (<%= log_entry.brew_method %> - <%= log_entry.coffee_grams %>/<%= log_entry.water_grams %>)
     </h5>
     <small>
-      <%= log_entry.created_at.to_s(:short) %>
+      <%= log_entry.entry_date.to_s(:short) %>
     </small>
   </div>
   <small><%= [log_entry.grind_notes, log_entry.water].select(&:present?).join('; ') %></small>

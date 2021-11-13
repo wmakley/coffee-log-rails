@@ -1,5 +1,5 @@
 <h1><%= @log_entry.coffee %></h1>
-<p class="lead"><%= @log_entry.created_at.to_s(:short) %></p>
+<p class="lead"><%= @log_entry.entry_date.to_s(:short) %></p>
 
 <p>
   <strong>Brew Method:</strong> <%= @log_entry.brew_method %>
