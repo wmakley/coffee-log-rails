@@ -7,6 +7,8 @@ module HttpBasicAuthentication
     before_action :http_basic_authenticate
 
     helper_method :current_user
+
+    mattr_accessor :disable_authentication
   end
 
   def current_user
@@ -14,6 +16,8 @@ module HttpBasicAuthentication
   end
 
   def http_basic_authenticate
+    return if disable_authentication
+
     authenticate_or_request_with_http_basic do |username, password|
       @user = User.find_by(username: username)
       logger.info "username '#{username}' not found" unless @user
