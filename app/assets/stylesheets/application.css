@@ -22,3 +22,9 @@ turbo-frame {
   display: block;
   /*border: 1px solid blue !important;*/
 }
+
+.entry-list-item.just-added:first-child {
+  background-color: rgb(209, 231, 221);
+  border-color: rgb(186, 219, 204);
+  color: rgb(15, 81, 50);
+}

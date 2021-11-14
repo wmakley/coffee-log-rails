@@ -1,6 +1,6 @@
 <%-
-  classes = +"list-group-item list-group-item-action"
-  classes << " text-success" if local_assigns[:just_added]
+  classes = +"list-group-item list-group-item-action entry-list-item"
+  classes << " just-added" if local_assigns[:just_added]
 -%>
 <%= link_to log_entry_path(@log, log_entry),
             id: dom_id(log_entry),
