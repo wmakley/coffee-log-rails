@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
+
+  before_action :redirect_to_https, unless: -> { request.ssl? || request.local? }
   include IpBanningConcern
   include HttpBasicAuthentication
 
-  before_action :redirect_to_https, unless: -> { request.ssl? || request.local? }
   before_action :set_logs
 
   private
