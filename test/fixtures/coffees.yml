@@ -1,0 +1,35 @@
+# == Schema Information
+#
+# Table name: coffees
+#
+#  id              :bigint           not null, primary key
+#  name            :string           not null
+#  notes           :text
+#  roast           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  coffee_brand_id :bigint           not null
+#
+# Indexes
+#
+#  index_coffees_on_coffee_brand_id           (coffee_brand_id)
+#  index_coffees_on_coffee_brand_id_and_name  (coffee_brand_id,name) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (coffee_brand_id => coffee_brands.id)
+#
+
+one:
+  id: 1
+  coffee_brand_id: 1
+  name: Coffee 1
+  roast: Light
+  notes:
+
+two:
+  id: 2
+  coffee_brand_id: 2
+  name: Coffee 2
+  roast: Medium
+  notes:
