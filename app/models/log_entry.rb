@@ -39,7 +39,11 @@ class LogEntry < ApplicationRecord
   scope :live, -> { where(deleted_at: nil) }
   scope :by_date_desc, -> { order(entry_date: :desc) }
 
-  after_save :save_version!, if: -> { previous_changes.present? }
+  def enable_versions?
+    false
+  end
+
+  after_save :save_version!, if: -> { enable_versions? && previous_changes.present? }
 
   NEWLINE_REPLACEMENT_REGEX = /\r\n|\r(?!\n)/
 
