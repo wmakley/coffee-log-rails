@@ -8,7 +8,7 @@
 #  roast           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  coffee_brand_id :bigint           not null
+#  coffee_brand_id :bigint
 #
 # Indexes
 #
@@ -20,9 +20,9 @@
 #  fk_rails_...  (coffee_brand_id => coffee_brands.id)
 #
 class Coffee < ApplicationRecord
-  belongs_to :coffee_brand, inverse_of: :coffees
+  belongs_to :coffee_brand, inverse_of: :coffees, optional: true
 
-  has_many_attached :images
+  has_one_attached :photo
 
   validates :name,
             presence: true,

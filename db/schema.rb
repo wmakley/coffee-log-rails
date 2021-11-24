@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2021_11_23_122124) do
   end
 
   create_table "coffees", force: :cascade do |t|
-    t.bigint "coffee_brand_id", null: false
+    t.bigint "coffee_brand_id"
     t.string "name", null: false
     t.string "roast"
     t.text "notes"

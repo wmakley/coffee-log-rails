@@ -8,7 +8,7 @@
 #  roast           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  coffee_brand_id :bigint           not null
+#  coffee_brand_id :bigint
 #
 # Indexes
 #
