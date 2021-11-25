@@ -8,7 +8,7 @@
 #  roast           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  coffee_brand_id :bigint
+#  coffee_brand_id :bigint           default(0), not null
 #
 # Indexes
 #
@@ -21,14 +21,14 @@
 #
 class Coffee < ApplicationRecord
   belongs_to :coffee_brand, inverse_of: :coffees, optional: true
+  has_many :log_entries, inverse_of: :coffee, dependent: :restrict_with_error
 
   has_one_attached :photo
 
   validates :name,
             presence: true,
-            uniqueness: {
-              scope: :coffee_brand_id
-            }
+            length: { maximum: 255 },
+            uniqueness: { scope: :coffee_brand_id }
 
   before_validation do
     self.name = name&.squish

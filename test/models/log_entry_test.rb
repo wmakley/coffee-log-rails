@@ -5,7 +5,6 @@
 #  id            :bigint           not null, primary key
 #  addl_notes    :text
 #  brew_method   :string
-#  coffee        :string           not null
 #  coffee_grams  :integer
 #  deleted_at    :datetime
 #  entry_date    :datetime         not null
@@ -15,27 +14,30 @@
 #  water_grams   :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  coffee_id     :bigint           not null
 #  log_id        :bigint           not null
 #
 # Indexes
 #
+#  index_log_entries_on_coffee_id              (coffee_id)
 #  index_log_entries_on_log_id                 (log_id)
 #  index_log_entries_on_log_id_and_entry_date  (log_id,entry_date) WHERE (deleted_at IS NOT NULL)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (coffee_id => coffees.id)
 #  fk_rails_...  (log_id => logs.id)
 #
 require "test_helper"
 
 class LogEntryTest < ActiveSupport::TestCase
-  fixtures :logs
+  fixtures :logs, :coffees, :coffee_brands
 
   def valid_attributes
     {
       log: logs(:default),
       entry_date: Time.current,
-      coffee: "Test Coffee",
+      coffee: coffees(:one),
     }
   end
 

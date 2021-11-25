@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2021_11_23_122124) do
   end
 
   create_table "coffees", force: :cascade do |t|
-    t.bigint "coffee_brand_id"
+    t.bigint "coffee_brand_id", default: 0, null: false
     t.string "name", null: false
     t.string "roast"
     t.text "notes"
@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 2021_11_23_122124) do
 
   create_table "log_entries", force: :cascade do |t|
     t.bigint "log_id", null: false
-    t.string "coffee", null: false
     t.string "water"
     t.string "brew_method"
     t.string "grind_notes"
@@ -81,6 +80,8 @@ ActiveRecord::Schema.define(version: 2021_11_23_122124) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "entry_date", null: false
+    t.bigint "coffee_id", null: false
+    t.index ["coffee_id"], name: "index_log_entries_on_coffee_id"
     t.index ["log_id", "entry_date"], name: "index_log_entries_on_log_id_and_entry_date", where: "(deleted_at IS NOT NULL)"
     t.index ["log_id"], name: "index_log_entries_on_log_id"
   end
@@ -129,6 +130,7 @@ ActiveRecord::Schema.define(version: 2021_11_23_122124) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "coffees", "coffee_brands"
+  add_foreign_key "log_entries", "coffees"
   add_foreign_key "log_entries", "logs"
   add_foreign_key "log_entry_versions", "log_entries"
   add_foreign_key "logs", "users"
