@@ -27,7 +27,7 @@ class Coffee < ApplicationRecord
   has_one_attached :photo
 
   scope :by_name_asc, -> { order(:name) }
-  scope :with_photo, -> { all }
+  scope :with_photo, -> { includes(:photo_attachment) }
   scope :with_brand, -> { includes(:coffee_brand) }
 
   validates :name,
@@ -37,7 +37,7 @@ class Coffee < ApplicationRecord
 
   before_validation do
     self.name = name&.squish
-    self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
     self.roast = roast&.squish.presence
+    self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
   end
 end

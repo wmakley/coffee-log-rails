@@ -9,6 +9,11 @@ class CoffeesController < ApplicationController
     @coffee = Coffee.find(params[:id])
   end
 
+  def upload_photo
+    @coffee = Coffee.find(params[:id])
+    @coffee.params = params.require(:coffee).permit(:photo)
+  end
+
   def new
     @coffee = Coffee.new
   end
@@ -18,9 +23,11 @@ class CoffeesController < ApplicationController
   end
 
   def edit
+    @coffee = Coffee.find(params[:id])
   end
 
   def update
+    @coffee = Coffee.find(params[:id])
   end
 
   private

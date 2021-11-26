@@ -32,3 +32,12 @@ turbo-frame {
 nav {
   margin-bottom: 15px;
 }
+
+button.upload-coffee-photo {
+  margin-top: 7px;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
