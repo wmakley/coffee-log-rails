@@ -35,3 +35,6 @@
 .idea/misc.xml
 .idea/modules.xml
 *.iml
+
+# Ignore heroku database dumps
+*.dump
