@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(version: 2021_11_23_122124) do
 
   create_table "log_entry_versions", force: :cascade do |t|
     t.bigint "log_entry_id", null: false
-    t.string "coffee"
     t.string "water"
     t.string "brew_method"
     t.string "grind_notes"
@@ -99,6 +98,7 @@ ActiveRecord::Schema.define(version: 2021_11_23_122124) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "coffee_id", null: false
     t.index ["log_entry_id"], name: "index_log_entry_versions_on_log_entry_id"
   end
 
@@ -130,8 +130,9 @@ ActiveRecord::Schema.define(version: 2021_11_23_122124) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "coffees", "coffee_brands"
-  add_foreign_key "log_entries", "coffees"
+  add_foreign_key "log_entries", "coffees", on_update: :cascade, on_delete: :restrict
   add_foreign_key "log_entries", "logs"
+  add_foreign_key "log_entry_versions", "coffees", on_update: :cascade, on_delete: :restrict
   add_foreign_key "log_entry_versions", "log_entries"
   add_foreign_key "logs", "users"
 end

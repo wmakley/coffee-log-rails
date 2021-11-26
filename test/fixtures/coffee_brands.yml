@@ -12,6 +12,10 @@
 #
 #  index_coffee_brands_on_name  (name) UNIQUE
 #
+default:
+  id: 0
+  name: Unknown Brand
+  url:
 
 one:
   id: 1

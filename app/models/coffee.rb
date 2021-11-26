@@ -22,6 +22,7 @@
 class Coffee < ApplicationRecord
   belongs_to :coffee_brand, inverse_of: :coffees, optional: true
   has_many :log_entries, inverse_of: :coffee, dependent: :restrict_with_error
+  has_many :log_entry_versions, inverse_of: :coffee, dependent: :restrict_with_error
 
   has_one_attached :photo
 

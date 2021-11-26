@@ -25,7 +25,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (coffee_id => coffees.id)
+#  fk_rails_...  (coffee_id => coffees.id) ON DELETE => restrict ON UPDATE => cascade
 #  fk_rails_...  (log_id => logs.id)
 #
 

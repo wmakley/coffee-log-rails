@@ -23,7 +23,7 @@ class CreateCoffees < ActiveRecord::Migration[6.1]
     # Normalize log entry coffees
     add_column :log_entries, :coffee_id, :bigint
 
-    coffee_names = LogEntry.pluck(Arel.sql("distinct coffee"))
+    coffee_names = LogEntry.all.pluck(Arel.sql("distinct coffee"))
     coffee_names.each do |coffee_name|
       puts "Creating coffee: #{coffee_name}"
       coffee = Coffee.create!(name: coffee_name, coffee_brand_id: 0)
@@ -32,23 +32,34 @@ class CreateCoffees < ActiveRecord::Migration[6.1]
 
     add_index :log_entries, :coffee_id
 
-    if LogEntry.where(coffee_id: nil).exists?
-      raise "not all coffee_id foreign keys were set"
-    end
-
     change_column_null :log_entries, :coffee_id, false
-    add_foreign_key :log_entries, :coffees, column: :coffee_id
+    add_foreign_key :log_entries, :coffees,
+                    column: :coffee_id,
+                    on_update: :cascade,
+                    on_delete: :restrict
     remove_column :log_entries, :coffee
+
+    add_column :log_entry_versions, :coffee_id, :bigint
+    add_foreign_key :log_entry_versions, :coffees,
+                    column: :coffee_id,
+                    on_update: :cascade,
+                    on_delete: :restrict
+    execute "UPDATE log_entry_versions SET coffee_id = (SELECT e.coffee_id FROM log_entries e WHERE e.id = log_entry_versions.log_entry_id)"
+    change_column_null :log_entry_versions, :coffee_id, false
+    remove_column :log_entry_versions, :coffee
   end
 
   def down
+    # de-normalize the data again
     add_column :log_entries, :coffee, :string
-
     execute "UPDATE log_entries SET coffee = (select c.name from coffees c where c.id = log_entries.coffee_id)"
-
     change_column_null :log_entries, :coffee, false
-
     remove_column :log_entries, :coffee_id
+
+    add_column :log_entry_versions, :coffee, :string
+    execute "UPDATE log_entry_versions SET coffee = (select c.name from coffees c where c.id = log_entry_versions.coffee_id)"
+    change_column_null :log_entry_versions, :coffee, false
+    remove_column :log_entry_versions, :coffee_id
 
     drop_table :coffees
   end
