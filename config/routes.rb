@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   resources :logs, only: :index do
     resources :entries, controller: 'log_entries'
   end
+
+  resources :coffee_brands, except: :destroy
+  resources :coffees, except: :destroy
 end
