@@ -1,0 +1,7 @@
+<h1>Add Coffee</h1>
+<%= render "form",
+           object: @coffee,
+           coffee_brand_options: @coffee_brand_options,
+           url: coffees_path,
+           cancel_url: coffees_path
+%>

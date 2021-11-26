@@ -17,6 +17,24 @@ class CoffeeBrand < ApplicationRecord
 
   has_one_attached :logo
 
+  scope :by_name_asc, -> { order(:name) }
+
+  def self.for_select
+    brands = all.by_name_asc.pluck(:name, :id)
+
+    # put brand 0 on top if present
+    idx = brands.find_index { |b| b[1] == 0 }
+    if idx
+      re_sorted_brands = [brands[idx]]
+      brands.each do |b|
+        re_sorted_brands << b if b[1] != 0
+      end
+      return re_sorted_brands
+    end
+
+    brands
+  end
+
   validates :name, presence: true, uniqueness: true
 
   before_validation do

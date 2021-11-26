@@ -16,6 +16,7 @@ class CoffeesController < ApplicationController
 
   def new
     @coffee = Coffee.new
+    @coffee_brand_options = CoffeeBrand.for_select
   end
 
   def create
@@ -34,6 +35,6 @@ class CoffeesController < ApplicationController
 
     def coffee_params
       params.require(:coffee)
-            .permit(:name, :roast, :notes, :photo)
+            .permit(:coffee_brand_id, :name, :roast, :notes, :photo)
     end
 end
