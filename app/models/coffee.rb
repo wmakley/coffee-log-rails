@@ -26,6 +26,10 @@ class Coffee < ApplicationRecord
 
   has_one_attached :photo
 
+  scope :by_name_asc, -> { order(:name) }
+  scope :with_photo, -> { all }
+  scope :with_brand, -> { includes(:coffee_brand) }
+
   validates :name,
             presence: true,
             length: { maximum: 255 },

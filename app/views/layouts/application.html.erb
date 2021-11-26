@@ -35,10 +35,10 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= coffees_path %>">Coffees</a>
+              <a class="nav-link<%= ' active' if request.path.starts_with?(coffees_path) %>" href="<%= coffees_path %>">Coffees</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<%= coffee_brands_path %>">Brands</a>
+              <a class="nav-link<%= ' active' if request.path.starts_with?(coffee_brands_path) %>" href="<%= coffee_brands_path %>">Brands</a>
             </li>
             <li class="nav-item dropdown">
               <%- viewing_other_log = !viewing_own_log && request.path.starts_with?(logs_path) -%>
@@ -61,7 +61,7 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container content">
       <div id="flash">
         <% flash.each do |key, value| %>
           <div class="alert <%= flash_alert_class(key) %>">

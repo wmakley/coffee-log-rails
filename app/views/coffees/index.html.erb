@@ -1,0 +1,20 @@
+<div class="row row-cols-1 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 g-4">
+  <% @coffees.each do |coffee| %>
+    <div class="col">
+      <div class="card h-100">
+        <%= render "photo_or_upload_widget", coffee: coffee %>
+        <div class="card-body">
+          <h5 class="card-title"><%= coffee.name %></h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            <%= coffee.roast.presence || "Unknown" %> Roast
+          </h6>
+          <p class="card-text">
+            <%= coffee.notes %>
+          </p>
+          <a href="<%= coffee_path(coffee) %>" class="btn btn-primary">View Details</a>
+          <a href="<%= edit_coffee_path(coffee) %>" class="btn btn-success">Edit</a>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

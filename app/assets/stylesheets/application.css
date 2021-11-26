@@ -28,3 +28,7 @@ turbo-frame {
   border-color: rgb(186, 219, 204);
   color: rgb(15, 81, 50);
 }
+
+nav {
+  margin-bottom: 15px;
+}
