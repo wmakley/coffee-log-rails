@@ -18,6 +18,7 @@ class CoffeeBrand < ApplicationRecord
   has_one_attached :logo
 
   scope :by_name_asc, -> { order(:name) }
+  scope :without_default, -> { where.not(id: 0) }
 
   def self.for_select
     brands = all.by_name_asc.pluck(:name, :id)

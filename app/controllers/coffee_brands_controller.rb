@@ -2,6 +2,7 @@
 
 class CoffeeBrandsController < ApplicationController
   def index
+    @coffee_brands = CoffeeBrand.by_name_asc.without_default
   end
 
   def show
