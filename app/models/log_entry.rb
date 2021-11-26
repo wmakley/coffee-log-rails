@@ -72,6 +72,13 @@ class LogEntry < ApplicationRecord
                             only_integer: true,
                             allow_blank: true
 
+  def coffee_name
+    coffee&.name
+  end
+
+  def coffee_roast
+    coffee&.roast
+  end
 
   def mark_as_deleted!
     self.deleted_at = Time.current

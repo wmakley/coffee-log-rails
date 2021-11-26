@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class LogEntriesTest < ActionDispatch::IntegrationTest
-  fixtures :users, :logs, :log_entries
+  fixtures :all
 
   test "index" do
     get "/logs/default/entries", headers: valid_login
@@ -14,7 +14,7 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
     post "/logs/default/entries",
          params: {
            log_entry: {
-             coffee: "Test Coffee",
+             coffee_id: coffees(:one).id,
              entry_date: Time.current.iso8601,
            }
          },
@@ -60,7 +60,7 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
     patch "/logs/default/entries/1",
           params: {
             log_entry: {
-              coffee: ""
+              coffee_id: ""
             }
           },
           headers: valid_login
