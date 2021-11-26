@@ -26,7 +26,7 @@ class CoffeeTest < ActiveSupport::TestCase
 
   def valid_attributes
     {
-      coffee_brand: coffee_brands(:one),
+      coffee_brand: coffee_brands(:default),
       name: "Test Coffee"
     }
   end
@@ -34,5 +34,28 @@ class CoffeeTest < ActiveSupport::TestCase
   test "it saves with valid attributes" do
     coffee = Coffee.new(valid_attributes)
     assert coffee.save, coffee.errors.full_messages.to_sentence
+  end
+
+  test "input normalization" do
+    coffee = Coffee.new
+    coffee.name = " fu   bar "
+    coffee.valid?
+    assert_equal "fu bar", coffee.name
+
+    coffee.roast = " medium "
+    coffee.valid?
+    assert_equal "medium", coffee.roast
+
+    coffee.notes = "line1\r\nline2\t"
+    coffee.valid?
+    assert_equal "line1\nline2", coffee.notes
+
+    coffee.notes = " line1\rline2 "
+    coffee.valid?
+    assert_equal "line1\nline2", coffee.notes
+
+    coffee.notes = "line1\n\nline2"
+    coffee.valid?
+    assert_equal "line1\n\nline2", coffee.notes
   end
 end

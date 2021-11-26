@@ -14,7 +14,7 @@
 #
 default:
   id: 0
-  name: Unknown Brand
+  name: Unknown
   url:
 
 one:

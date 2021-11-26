@@ -33,7 +33,7 @@ class Coffee < ApplicationRecord
 
   before_validation do
     self.name = name&.squish
-    self.notes = notes&.strip.presence
+    self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
     self.roast = roast&.squish.presence
   end
 end

@@ -74,9 +74,6 @@ class LogEntryTest < ActiveSupport::TestCase
 
   test "input normalization" do
     entry = LogEntry.new
-    entry.coffee = " fu   bar "
-    entry.valid?
-    assert_equal "fu bar", entry.coffee
 
     entry.addl_notes = "line1\r\nline2\t"
     entry.valid?
