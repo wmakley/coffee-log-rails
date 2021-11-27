@@ -6,7 +6,6 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
   fixtures :users, :logs
 
   setup do
-    ApplicationController.disable_authentication = true
     @user = users(:default)
   end
 

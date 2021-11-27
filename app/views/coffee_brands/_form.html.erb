@@ -17,6 +17,9 @@
   </div>
   <div class="mb-3">
     <%= f.label :logo, "Logo", class: "form-label" %>
+    <div>
+      <%= coffee_brand_logo_large(object) %>
+    </div>
     <%= f.file_field :logo,
                      class: "form-control"
     %>

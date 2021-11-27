@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ENV['RAILS_ENV'] ||= 'test'
 require_relative "../config/environment"
 require "rails/test_help"
@@ -18,5 +19,24 @@ class ActiveSupport::TestCase
 
   def valid_login
     authorization_header('default', 'password')
+  end
+end
+
+module RemoveUploadedFiles
+  def after_teardown
+    super
+    remove_uploaded_files
+  end
+
+  private
+
+    def remove_uploaded_files
+      FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
+    end
+end
+
+module ActionDispatch
+  class IntegrationTest
+    prepend RemoveUploadedFiles
   end
 end

@@ -16,7 +16,7 @@
   <tbody>
   <% @coffee_brands.each do |coffee_brand| %>
     <tr id="<%= dom_id(coffee_brand) %>">
-      <td>TODO</td>
+      <td><%= coffee_brand_logo_icon(coffee_brand) %></td>
       <td><%= coffee_brand.name %></td>
       <td><%= coffee_brand.url.present? ? link_to(coffee_brand.url, coffee_brand.url) : "" %></td>
       <td class="text-end">
