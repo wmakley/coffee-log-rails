@@ -40,4 +40,8 @@ class Coffee < ApplicationRecord
     self.roast = roast&.squish.presence
     self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
   end
+
+  def brand_name
+    coffee_brand&.name
+  end
 end

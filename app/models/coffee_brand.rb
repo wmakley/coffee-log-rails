@@ -17,6 +17,20 @@ class CoffeeBrand < ApplicationRecord
 
   has_one_attached :logo
 
+  validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
+  validates :url, length: { maximum: 255, allow_nil: true }
+
+  before_validation do
+    self.name = name&.squish
+    self.url = url&.strip.presence
+  end
+
+  before_destroy do
+    if self.id == 0
+      errors.add(:base, "may not delete default brand")
+    end
+  end
+
   scope :by_name_asc, -> { order(:name) }
   scope :without_default, -> { where.not(id: 0) }
 
@@ -34,12 +48,5 @@ class CoffeeBrand < ApplicationRecord
     end
 
     brands
-  end
-
-  validates :name, presence: true, uniqueness: true
-
-  before_validation do
-    self.name = name&.squish
-    self.url = url&.squish.presence
   end
 end

@@ -1,0 +1,19 @@
+<div class="card h-100">
+  <%= render "photo_or_upload_widget", coffee: coffee %>
+  <div class="card-body">
+    <h5 class="card-title"><%= coffee.name %></h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <%= coffee.roast.presence || "Unknown" %> Roast
+    </h6>
+    <p class="card-text">
+      <%= coffee.notes %>
+    </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><%= link_to(coffee.brand_name, coffee_brand_path(coffee.coffee_brand)) %></li>
+  </ul>
+  <div class="card-body">
+    <%= link_to("View Details", coffee_path(coffee), class: "btn btn-primary") %>
+    <%= link_to("Edit", edit_coffee_path(coffee), class: "btn btn-success") %>
+  </div>
+</div>
