@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  name       :string           not null
+#  notes      :text
 #  url        :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -19,10 +20,12 @@ class CoffeeBrand < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :url, length: { maximum: 255, allow_nil: true }
+  validates :notes, length: { maximum: 4000, allow_nil: true }
 
   before_validation do
     self.name = name&.squish
     self.url = url&.strip.presence
+    self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
   end
 
   before_destroy do

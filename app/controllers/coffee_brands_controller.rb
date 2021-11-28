@@ -52,6 +52,6 @@ class CoffeeBrandsController < ApplicationController
     end
 
     def coffee_brand_params
-      params.require(:coffee_brand).permit(:name, :logo, :url)
+      params.require(:coffee_brand).permit(:name, :logo, :url, :notes)
     end
 end

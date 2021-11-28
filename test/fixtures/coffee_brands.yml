@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  name       :string           not null
+#  notes      :text
 #  url        :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -16,13 +17,16 @@ default:
   id: 0
   name: Unknown
   url:
+  notes: Placeholder for coffees without a brand.
 
 one:
   id: 1
   name: Brand 1
-  url:
+  url: https://www.duckduckgo.com/
+  notes: Brand 1 notes here
 
 two:
   id: 2
   name: Brand 2
   url:
+  notes:

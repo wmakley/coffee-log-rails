@@ -13,6 +13,9 @@
           Created: <%= @coffee_brand.created_at.to_s(:long) %><br>
           Last updated: <%= @coffee_brand.updated_at.to_s(:long) %>
         </p>
+        <% if @coffee_brand.notes.present? %>
+          <%= simple_format(@coffee_brand.notes) %>
+        <% end %>
         <p>
           <%= link_to("Edit Brand", edit_coffee_brand_path(@coffee_brand), class: "card-link btn btn-success") %>
           <%= link_to("Back", coffee_brands_path, class: "card-link btn btn-secondary") %>
