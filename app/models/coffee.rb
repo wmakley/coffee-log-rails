@@ -24,7 +24,7 @@ class Coffee < ApplicationRecord
   has_many :log_entries, inverse_of: :coffee, dependent: :restrict_with_error
   has_many :log_entry_versions, inverse_of: :coffee, dependent: :restrict_with_error
 
-  has_one_attached :coffee_brand_logos
+  has_one_attached :photo
 
   scope :by_name_asc, -> { order(:name) }
   scope :with_photo, -> { includes(:photo_attachment) }
@@ -34,6 +34,10 @@ class Coffee < ApplicationRecord
             presence: true,
             length: { maximum: 255 },
             uniqueness: { scope: :coffee_brand_id }
+  validates :roast,
+            length: { maximum: 255, allow_nil: true }
+  validates :notes,
+            length: { maximum: 4000, allow_nil: true }
 
   before_validation do
     self.name = name&.squish
@@ -44,4 +48,6 @@ class Coffee < ApplicationRecord
   def brand_name
     coffee_brand&.name
   end
+
+  alias coffee_brand_name brand_name
 end

@@ -1,0 +1,42 @@
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-sm-5 col-md-4 col-lg-3">
+      <%= image_tag(@coffee.photo.variant(resize_to_fill: [400, 500]),
+                    alt: "Bag of #{@coffee.name}",
+                    class: "img-fluid rounded-start") if @coffee.photo.attached? %>
+    </div>
+    <div class="col-sm-7 col-md-8 col-lg-4">
+      <div class="card-body">
+        <h1 class="card-title"><%= @coffee.name %></h1>
+        <h5 class="card-subtitle mb-2 text-muted">
+          <%= @coffee.roast.presence || "Unknown" %> Roast
+        </h5>
+        <h6 class="card-text"><%= link_to(@coffee.brand_name, @coffee.coffee_brand) %></h6>
+        <p class="card-text text-muted">
+          Created: <%= @coffee.created_at.to_s(:long) %><br>
+          Last updated: <%= @coffee.updated_at.to_s(:long) %>
+        </p>
+        <% if @coffee.notes.present? %>
+          <%= simple_format(@coffee.notes) %>
+        <% end %>
+        <p>
+          <%= link_to("Edit Coffee", edit_coffee_path(@coffee), class: "card-link btn btn-success") %>
+          <%= link_to("Back", (params[:back_url] || coffees_path), class: "card-link btn btn-secondary") %>
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-5">
+      <div class="card-body">
+        <h2>Log Entries</h2>
+        <ul>
+          <% @log_entries.each do |log_entry| %>
+            <li><small><%= link_to "#{log_entry.log.title}: #{log_entry.entry_date.to_s(:short)}", log_entry_path(log_entry.log, log_entry) %></small></li>
+          <% end %>
+          <% if @log_entries.blank? %>
+            <li>This coffee does not have any log entries.</li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

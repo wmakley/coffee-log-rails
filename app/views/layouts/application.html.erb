@@ -30,7 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <%- viewing_own_log = request.path == log_entries_path(current_user.log) -%>
+              <%- viewing_own_log = request.path.starts_with? log_entries_path(current_user.log) -%>
               <a class="nav-link<%= ' active' if viewing_own_log %>" <%= 'aria-current="page"' if viewing_own_log %> href="<%= log_entries_path(current_user.log) %>">
                 My Log
               </a>
