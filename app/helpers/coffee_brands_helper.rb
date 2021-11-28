@@ -23,9 +23,17 @@ module CoffeeBrandsHelper
 
   def coffee_brand_logo_card_top(coffee_brand, html_options = {})
     if coffee_brand.logo.attached?
-      image_tag(coffee_brand.logo,
+      image_tag(coffee_brand.logo.variant(resize_to_fill: [400, 200]),
                 html_options.reverse_merge(alt: "#{coffee_brand.name} Logo",
                                            class: "card-img-top"))
+    end
+  end
+
+  def coffee_brand_logo_card_side(coffee_brand, html_options = {})
+    if coffee_brand.logo.attached?
+      image_tag(coffee_brand.logo.variant(resize_to_fill: [400, 500]),
+                html_options.reverse_merge(alt: "#{coffee_brand.name} Logo",
+                                           class: "img-fluid rounded-start"))
     end
   end
 end

@@ -1,21 +1,36 @@
-<div class="card">
-  <%= coffee_brand_logo_card_top(@coffee_brand) %>
-  <div class="card-body">
-    <h5 class="card-title"><%= @coffee_brand.name %></h5>
-    <% if @coffee_brand.url.present? %>
-      <p class="card-text">Website: <%= link_to_coffee_brand_url(@coffee_brand) %></p>
-    <% end %>
-  </div>
-  <ul class="list-group list-group-flush">
-    <% @coffees.each do |coffee| %>
-      <li class="list-group-item"><%= link_to coffee.name, coffee %></li>
-    <% end %>
-    <% if @coffees.blank? %>
-      <li class="list-group-item">This brand does not have any coffees yet.</li>
-    <% end %>
-  </ul>
-  <div class="card-body">
-    <%= link_to("Edit Brand", edit_coffee_brand_path(@coffee_brand), class: "card-link btn btn-success") %>
-    <%= link_to("Back", coffee_brands_path, class: "card-link btn btn-secondary") %>
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-sm-5 col-md-4 col-lg-3">
+      <%= coffee_brand_logo_card_side(@coffee_brand) %>
+    </div>
+    <div class="col-sm-7 col-md-8 col-lg-4">
+      <div class="card-body">
+        <h1 class="card-title"><%= @coffee_brand.name %></h1>
+        <% if @coffee_brand.url.present? %>
+          <p class="card-text">Website: <%= link_to_coffee_brand_url(@coffee_brand) %></p>
+        <% end %>
+        <p class="card-text text-muted">
+          Created: <%= @coffee_brand.created_at.to_s(:long) %><br>
+          Last updated: <%= @coffee_brand.updated_at.to_s(:long) %>
+        </p>
+        <p>
+          <%= link_to("Edit Brand", edit_coffee_brand_path(@coffee_brand), class: "card-link btn btn-success") %>
+          <%= link_to("Back", coffee_brands_path, class: "card-link btn btn-secondary") %>
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-5">
+      <div class="card-body">
+        <h2>Coffees</h2>
+        <ul>
+          <% @coffees.each do |coffee| %>
+            <li><small><%= link_to coffee.name, coffee %></small></li>
+          <% end %>
+          <% if @coffees.blank? %>
+            <li>This brand does not have any coffees yet.</li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

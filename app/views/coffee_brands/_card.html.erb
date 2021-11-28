@@ -1,0 +1,21 @@
+<div class="card h-100">
+  <%= coffee_brand_logo_card_top(coffee_brand) %>
+  <div class="card-body">
+    <h5 class="card-title"><%= coffee_brand.name %></h5>
+    <% if coffee_brand.url.present? %>
+      <p class="card-text">Website: <%= link_to_coffee_brand_url(coffee_brand) %></p>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <%= link_to("View Details", coffee_brand_path(coffee_brand), class: "btn btn-info btn-sm") %>
+    <%= link_to("Edit", edit_coffee_brand_path(coffee_brand), class: "btn btn-success btn-sm") %>
+    <%= link_to("Delete", coffee_brand_path(coffee_brand),
+                class: "card-link btn btn-danger btn-sm",
+                data: {
+                  'turbo-method' => :delete,
+                  'controller' => 'confirmation',
+                  'confirmation-message-value' => "Are you sure you want to delete this brand?",
+                  'action' => 'confirmation#confirm'
+                }) %>
+  </div>
+</div>
