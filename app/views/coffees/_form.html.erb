@@ -1,4 +1,4 @@
-<%= form_with(model: object, url: url) do |f| %>
+<%= form_with(model: object, html: { id: "coffee-form" }) do |f| %>
 
   <% if object.errors.present? %>
     <div class="text-danger">
@@ -26,11 +26,28 @@
   <div class="mb-3">
     <%= f.label :roast, "Roast", class: "form-label" %>
     <%= f.select :roast,
-                 ["Light", "Medium", "Dark"],
+                 %w[Light Medium-Light Medium Medium-Dark Dark],
                  { include_blank: "", },
                  class: "form-select"
     %>
     <%= invalid_message(object, :roast) %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :photo, "Photo", class: "form-label" %>
+    <% if object.photo.attached? %>
+      <div>
+        <%= link_to(image_tag(object.photo.variant(resize_to_limit: [200, 200]), alt: "Bag of #{object.name}"), coffee_photo_path(object), target: "_blank") %>
+        <%= link_to("Delete Photo", '#',
+                    class: "btn btn-danger",
+                    onclick: 'event.preventDefault(); document.getElementById("delete-photo-submit-button").click();') %>
+      </div>
+    <% else %>
+      <%= f.file_field :photo,
+                       class: "form-control"
+      %>
+      <%= invalid_message(object, :photo) %>
+    <% end %>
   </div>
 
   <div class="mb-3"
