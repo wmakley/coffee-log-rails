@@ -20,6 +20,14 @@ class ActiveSupport::TestCase
   def valid_login
     authorization_header('default', 'password')
   end
+
+  def assert_notice(message)
+    assert_select("#flash > .alert.alert-success", message)
+  end
+
+  def assert_error(message)
+    assert_select("#flash > .alert.alert-danger", message)
+  end
 end
 
 module RemoveUploadedFiles

@@ -33,3 +33,10 @@ two:
   name: Coffee 2
   roast: Medium
   notes:
+
+no_entries:
+  id: 3
+  coffee_brand_id: 1
+  name: Coffee With No Log Entries
+  roast:
+  notes:

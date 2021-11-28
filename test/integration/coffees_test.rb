@@ -8,10 +8,85 @@ class CoffeesTest < ActionDispatch::IntegrationTest
   test "index" do
     get "/coffees", headers: valid_login
     assert_response :success
+    assert_select ".card-title", coffees(:one).name
+  end
+
+  test "show" do
+    get "/coffees/1", headers: valid_login
+    assert_response :success
+    assert_select "h1", coffees(:one).name
   end
 
   test "new" do
     get "/coffees/new", headers: valid_login
     assert_response :success
+    assert_select "form"
+  end
+
+  test "create success" do
+    post "/coffees",
+         params: {
+           coffee: {
+             name: "New Test Coffee"
+           }
+         },
+         headers: valid_login
+    coffee = Coffee.last
+    assert_redirected_to "/coffees/#{coffee.id}"
+    follow_redirect! headers: valid_login
+    assert_response :success
+  end
+
+  test "create failure" do
+    post "/coffees",
+         params: {
+           coffee: {
+             name: ""
+           }
+         },
+         headers: valid_login
+    assert_response :unprocessable_entity
+    assert_select "form"
+  end
+
+  test "update success" do
+    patch "/coffees/1",
+         params: {
+           coffee: {
+             name: "New Test Coffee"
+           }
+         },
+         headers: valid_login
+    assert_redirected_to "/coffees/1"
+    follow_redirect! headers: valid_login
+    assert_response :success
+  end
+
+  test "update failure" do
+    patch "/coffees/1",
+         params: {
+           coffee: {
+             name: ""
+           }
+         },
+         headers: valid_login
+    assert_response :unprocessable_entity
+    assert_select "form"
+  end
+
+  test "destroy success" do
+    coffee = coffees(:no_entries)
+    delete "/coffees/#{coffee.id}", headers: valid_login
+    assert_redirected_to "/coffees"
+    follow_redirect! headers: valid_login
+    assert_notice "Successfully deleted coffee."
+  end
+
+  test "destroy failure" do
+    coffee = coffees(:one)
+    delete "/coffees/#{coffee.id}", headers: valid_login
+    assert_redirected_to "/coffees"
+    follow_redirect! headers: valid_login
+    assert_error "There were one or more errors deleting this coffee: Cannot delete record because dependent log entries exist."
   end
 end

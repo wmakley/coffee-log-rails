@@ -44,7 +44,7 @@ class CoffeesController < ApplicationController
     if @coffee.destroy
       flash[:notice] = "Successfully deleted coffee."
     else
-      flash[:error] = "There were one or more errors deleting this coffee: #{@coffee.errors.full_messages.to_sentence}"
+      flash[:error] = "There were one or more errors deleting this coffee: #{@coffee.errors.full_messages.to_sentence}."
     end
     redirect_to coffees_url
   end
