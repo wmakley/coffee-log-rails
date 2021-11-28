@@ -2,3 +2,9 @@
            object: @coffee_brand,
            cancel_url: request.referrer =~ /\d+$/ ? coffee_brand_path(@coffee_brand) : coffee_brands_path
 %>
+
+<%= render "services/delete_form",
+           url: coffee_brand_logo_path(@coffee_brand),
+           submit_button_id: "delete-logo-form-submit-button",
+           confirm: "Are you sure you want to delete this logo? This action cannot be undone."
+%>

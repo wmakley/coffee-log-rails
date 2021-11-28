@@ -1,0 +1,19 @@
+<%-
+  # Form that sends a DELETE request to a URL, and has a submit button that may
+  # be clicked programmatically.
+  submit_button_id = local_assigns[:submit_button_id] || "#{id}-submit-button"
+  hidden = local_assigns[:hidden]
+  hidden = true if hidden.nil?
+  html = local_assigns[:html] || {}
+  html[:id] ||= local_assigns[:id]
+  html[:class] = "hidden" if hidden
+  data = (html[:data] ||= {})
+  if (confirm_message = local_assigns[:confirm]).present?
+    data[:controller] = 'confirmation'
+    data[:confirmation_message_value] = confirm_message
+    data[:action] = 'submit->confirmation#confirm'
+  end
+-%>
+<%= form_with(url: url, method: :delete, html: html) do |f| %>
+  <%= f.submit "Delete", id: submit_button_id, class: "btn btn-danger" %>
+<% end %>

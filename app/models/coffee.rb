@@ -24,7 +24,7 @@ class Coffee < ApplicationRecord
   has_many :log_entries, inverse_of: :coffee, dependent: :restrict_with_error
   has_many :log_entry_versions, inverse_of: :coffee, dependent: :restrict_with_error
 
-  has_one_attached :photo
+  has_one_attached :coffee_brand_logos
 
   scope :by_name_asc, -> { order(:name) }
   scope :with_photo, -> { includes(:photo_attachment) }

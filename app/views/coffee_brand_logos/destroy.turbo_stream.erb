@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "coffee_brand_form" do %>
+  <%= render "coffee_brands/form", object: @coffee_brand %>
+<% end %>
+
+<%= turbo_stream.append "flash" do %>
+  <%= render "services/flash_message", key: "notice", value: "Successfully deleted logo." %>
+<% end %>

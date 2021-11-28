@@ -10,7 +10,7 @@
     }) do |f| -%>
       <%- field_id = "#{dom_id(coffee)}_photo" -%>
       <label for="<%= field_id %>" class="form-label">Upload Photo:</label>
-      <%= f.file_field :photo, class: "form-control", id: field_id %>
+      <%= f.file_field :coffee_brand_logos, class: "form-control", id: field_id %>
       <button type="submit"
               class="btn btn-primary form-control upload-coffee-photo hidden"
               data-coffee-photo-uploader-target="submitBtn">

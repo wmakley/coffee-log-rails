@@ -4,7 +4,7 @@ class CoffeePhotosController < ApplicationController
   before_action :set_coffee
 
   def create
-    @coffee.params = params.require(:coffee).permit(:photo)
+    @coffee.params = params.require(:coffee).permit(:coffee_brand_logos)
   end
 
   def destroy

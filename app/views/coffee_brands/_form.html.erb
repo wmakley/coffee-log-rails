@@ -1,4 +1,4 @@
-<%= form_with(model: object) do |f| %>
+<%= form_with(model: object, html: { id: "coffee_brand_form" }) do |f| %>
 
   <% if object.errors.present? %>
     <div class="text-danger">
@@ -11,19 +11,26 @@
     <%= f.text_field :name,
                      class: "form-control",
                      required: true,
-                     maxlength: 255
+                     maxlength: 255,
+                     autofocus: object.new_record?
     %>
     <%= invalid_message(object, :name) %>
   </div>
   <div class="mb-3">
     <%= f.label :logo, "Logo", class: "form-label" %>
-    <div>
-      <%= coffee_brand_logo_large(object) %>
-    </div>
-    <%= f.file_field :logo,
-                     class: "form-control"
-    %>
-    <%= invalid_message(object, :logo) %>
+    <% if object.logo.attached? %>
+      <div>
+        <%= link_to(coffee_brand_logo_large(object), coffee_brand_logo_path(object), target: "_blank") %>
+        <%= link_to("Delete Logo", '#',
+                    class: "btn btn-danger",
+                    onclick: 'event.preventDefault(); document.getElementById("delete-logo-form-submit-button").click();') %>
+      </div>
+    <% else %>
+      <%= f.file_field :logo,
+                       class: "form-control"
+      %>
+      <%= invalid_message(object, :logo) %>
+    <% end %>
   </div>
   <div class="mb-3">
     <%= f.label :url, "URL", class: "form-label" %>
