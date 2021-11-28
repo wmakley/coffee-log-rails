@@ -5,10 +5,6 @@ require 'test_helper'
 class IpBanningTest < ActionDispatch::IntegrationTest
   fixtures :logs
 
-  setup do
-    enable_authentication
-  end
-
   test "ips are banned after 10 bad guesses" do
     headers = authorization_header('asdf', 'asdf')
 

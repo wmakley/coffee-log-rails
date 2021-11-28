@@ -6,7 +6,7 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
   fixtures :users, :logs
 
   setup do
-    @user = users(:default)
+    login_as users(:default)
   end
 
   test "creating a new log entry" do

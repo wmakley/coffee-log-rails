@@ -28,14 +28,6 @@ class ActiveSupport::TestCase
   def assert_error(message)
     assert_select("#flash > .alert.alert-danger", message)
   end
-
-  def disable_authentication
-    ApplicationController.disable_authentication = true
-  end
-
-  def enable_authentication
-    ApplicationController.disable_authentication = false
-  end
 end
 
 module RemoveUploadedFiles
@@ -51,8 +43,20 @@ module RemoveUploadedFiles
     end
 end
 
+module LoginAs
+  def login_as(user)
+    ApplicationController.stub_current_user = user
+  end
+
+  def after_teardown
+    super
+    ApplicationController.stub_current_user = nil
+  end
+end
+
 module ActionDispatch
   class IntegrationTest
     prepend RemoveUploadedFiles
+    prepend LoginAs
   end
 end

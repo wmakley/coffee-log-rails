@@ -1,17 +1,13 @@
 require "test_helper"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+  prepend LoginAs
 
-  def before_setup
-    super
-    disable_authentication
-  end
+  driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
 
   def after_teardown
     super
     remove_uploaded_files
-    enable_authentication
   end
 
   def remove_uploaded_files

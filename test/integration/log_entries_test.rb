@@ -5,8 +5,12 @@ require 'test_helper'
 class LogEntriesTest < ActionDispatch::IntegrationTest
   fixtures :all
 
+  setup do
+    login_as users(:default)
+  end
+
   test "index" do
-    get "/logs/default/entries", headers: valid_login
+    get "/logs/default/entries"
     assert_response :success
   end
 
@@ -17,8 +21,7 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
              coffee_id: coffees(:one).id,
              entry_date: Time.current.iso8601,
            }
-         },
-         headers: valid_login
+         }
 
     assert_redirected_to "/logs/default/entries"
     follow_redirect! headers: valid_login
@@ -31,12 +34,12 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
   end
 
   test "show" do
-    get "/logs/default/entries/1", headers: valid_login
+    get "/logs/default/entries/1"
     assert_response :success
   end
 
   test "edit" do
-    get "/logs/default/entries/1/edit", headers: valid_login
+    get "/logs/default/entries/1/edit"
     assert_response :success
   end
 
@@ -46,11 +49,10 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
             log_entry: {
               tasting_notes: "New notes from revelation"
             }
-          },
-          headers: valid_login
+          }
 
     assert_redirected_to "/logs/default/entries/1"
-    follow_redirect! headers: valid_login
+    follow_redirect!
 
     assert_response :success
     assert_select ".alert.alert-success", 1
@@ -62,16 +64,15 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
             log_entry: {
               coffee_id: ""
             }
-          },
-          headers: valid_login
+          }
 
     assert_response :unprocessable_entity
   end
 
   test "destroy success" do
-    delete "/logs/default/entries/1", headers: valid_login
+    delete "/logs/default/entries/1"
     assert_redirected_to "/logs/default/entries"
-    follow_redirect! headers: valid_login
+    follow_redirect!
     assert_select ".alert.alert-success", 1
   end
 end

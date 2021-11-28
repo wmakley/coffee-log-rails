@@ -8,7 +8,7 @@ module HttpBasicAuthentication
 
     helper_method :current_user
 
-    mattr_accessor :disable_authentication
+    mattr_accessor :stub_current_user
   end
 
   def current_user
@@ -16,7 +16,10 @@ module HttpBasicAuthentication
   end
 
   def http_basic_authenticate
-    return if disable_authentication
+    if stub_current_user
+      @user = stub_current_user
+      return
+    end
 
     authenticate_or_request_with_http_basic do |username, password|
       @user = User.find_by(username: username)
