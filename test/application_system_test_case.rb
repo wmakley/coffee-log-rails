@@ -5,13 +5,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def before_setup
     super
-    ApplicationController.disable_authentication = true
+    disable_authentication
   end
 
   def after_teardown
     super
     remove_uploaded_files
-    ApplicationController.disable_authentication = false
+    enable_authentication
   end
 
   def remove_uploaded_files
