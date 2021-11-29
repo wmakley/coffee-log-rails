@@ -31,6 +31,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'hotwire-rails'
 gem 'importmap-rails'
 gem 'image_processing'
+gem 'aws-sdk-s3', require: false
 
 group :development, :test do
   gem 'rubocop', '~> 1.22', require: false
