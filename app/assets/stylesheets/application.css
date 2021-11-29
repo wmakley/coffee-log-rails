@@ -37,3 +37,10 @@ button.upload-coffee-photo {
   display: none;
   visibility: hidden;
 }
+
+.clickable {
+  cursor: pointer;
+}
+.selected-coffee-card:hover {
+  border-color: #0d6efd !important;
+}

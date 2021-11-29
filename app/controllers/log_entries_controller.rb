@@ -90,7 +90,7 @@ class LogEntriesController < ApplicationController
 
       if most_recent_entry
         @new_log_entry.attributes = {
-          coffee_id: most_recent_entry.coffee_id,
+          coffee: most_recent_entry.coffee,
           water: most_recent_entry.water,
           brew_method: most_recent_entry.brew_method,
           grind_notes: most_recent_entry.grind_notes,

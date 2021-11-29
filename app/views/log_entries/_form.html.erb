@@ -29,6 +29,9 @@
                      } %>
     <%= invalid_message(object, :coffee) %>
   </div>
+  <div id="selected-coffee-card">
+    <%= render "selected_coffee_card", coffee: object.coffee if object.coffee %>
+  </div>
   <div class="mb-3">
     <%= f.label :brew_method, "Brew Method", class: "form-label" %>
     <%= f.select :brew_method,
