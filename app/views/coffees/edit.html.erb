@@ -1,6 +1,7 @@
 <%= render "form",
            object: @coffee,
-           coffee_brand_options: @coffee_brand_options
+           coffee_brand_options: @coffee_brand_options,
+           cancel_url: coffees_path
 %>
 
 <%= render "services/delete_form",

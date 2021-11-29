@@ -13,6 +13,6 @@ Rails.application.routes.draw do
     resource :logo, controller: 'coffee_brand_logos', only: [:show, :destroy]
   end
   resources :coffees do
-    resource :photo, controller: 'coffee_photos', only: [:show, :destroy]
+    resource :photo, controller: 'coffee_photos', only: [:show, :create, :destroy]
   end
 end

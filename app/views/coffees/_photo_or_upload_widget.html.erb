@@ -1,8 +1,8 @@
-<%= turbo_frame_tag(dom_id(coffee)) do -%>
+<div id="<%= dom_id(coffee) %>-photo">
   <% if coffee.photo.attached? %>
-    <%= image_tag("", alt: "Bag of #{coffee.name}", class: "card-img-top") %>
+    <%= image_tag(coffee.photo.variant(resize_to_fill: [400, 300]), alt: "Bag of #{coffee.name}", class: "card-img-top") %>
   <% else -%>
-    <%= form_with(model: coffee, html: {
+    <%= form_with(model: coffee, url: coffee_photo_path(coffee), method: :post, html: {
       class: "card-header",
       data: {
         controller: "coffee-photo-uploader"
@@ -10,7 +10,14 @@
     }) do |f| -%>
       <%- field_id = "#{dom_id(coffee)}_photo" -%>
       <label for="<%= field_id %>" class="form-label">Upload Photo:</label>
-      <%= f.file_field :coffee_brand_logos, class: "form-control", id: field_id %>
+      <%= f.file_field :photo,
+                       class: "form-control",
+                       id: field_id ,
+                       data: {
+                         action: 'change->coffee-photo-uploader#fileChanged',
+                         coffee_photo_uploader_target: 'fileField'
+                       }
+      %>
       <button type="submit"
               class="btn btn-primary form-control upload-coffee-photo hidden"
               data-coffee-photo-uploader-target="submitBtn">
@@ -18,4 +25,4 @@
       </button>
     <% end -%>
   <% end -%>
-<% end -%>
+</div>

@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "#{dom_id(@coffee)}-photo" do %>
+  <%= render "coffees/photo_or_upload_widget", coffee: @coffee %>
+<% end %>
