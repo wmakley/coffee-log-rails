@@ -17,6 +17,40 @@
       <%= invalid_message(object, :entry_date) %>
     </div>
   <% end %>
+  <%
+    # Note: We would like to support the following states:
+    #
+    # 1. Nothing typed in search box:
+    #   a.) Coffee selected -> show card
+    #   b.) No coffee selected -> no card, require user to type in search box
+    # 2. Something in search box:
+    #   a.) No coffee selected -> Show all search results below box.
+    #   b.) Coffee already selected -> Show selected coffee card below search results.
+    #
+    # Interactions:
+    #
+    # - Select coffee:
+    #   1. Make the selected coffee the current coffee
+    #   2. hide search results
+    #
+    # - Deselect coffee:
+    #   May be caused by:
+    #     1. Clicking "clear" button on card
+    #
+    # - Focus search box:
+    #   1. If there are any hidden search results, show them
+    #
+    # - Type in search box:
+    #   2. Show results above currently selected coffee
+    #
+    # Put more simply, I want a standard auto-complete combo box that shows
+    # search results when focused, and shows the currently selected item in a
+    # card below it. The search box could be incorporated into the card for
+    # presentation.
+    #
+    # There should also be an option to easily enter a new coffee and use it,
+    # or add a photo to a coffee (perhaps in a modal popup).
+  %>
 
   <div class="mb-3">
     <%= f.label :coffee_id, "Coffee", class: "form-label" %>
