@@ -1,0 +1,5 @@
+<%= turbo_stream.update "selected-coffee-card" do %>
+  <%= render "selected_coffee_card", coffee: @coffee, back_url: log_entries_path(current_user.log) %>
+<% end %>
+
+<%= turbo_stream.remove "#{dom_id(@coffee)}-search-result" %>

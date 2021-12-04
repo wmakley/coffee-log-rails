@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class LogEntryFormController extends Controller {
   static targets = [
     "brewMethodSelect",
-    "coffeeTextBox",
+    "coffeeIdInput",
     "submitButton",
   ]
 
@@ -22,7 +22,7 @@ export default class LogEntryFormController extends Controller {
   }
 
   enableOrDisableSubmit() {
-    const val = this.coffeeTextBoxTarget.value.trim()
+    const val = this.coffeeIdInputTarget.value.trim()
     this.submitButtonTarget.disabled = !val
   }
 }

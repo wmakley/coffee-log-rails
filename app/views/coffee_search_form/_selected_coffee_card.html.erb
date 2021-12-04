@@ -1,6 +1,6 @@
-<div class="card clickable selected-coffee-card"
+<div class="card clickable selected-coffee-card mb-3"
      data-controller="visit"
-     data-visit-url-value="<%= coffee_path(coffee, back_url: request.path) %>"
+     data-visit-url-value="<%= coffee_path(coffee, back_url: local_assigns[:back_url] || request.path) %>"
      data-action="click->visit#navigate">
   <div class="row g-0">
     <div class="col-sm-4">

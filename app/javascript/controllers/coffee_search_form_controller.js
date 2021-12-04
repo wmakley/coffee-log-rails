@@ -1,11 +1,12 @@
 import {Controller} from "@hotwired/stimulus"
-import {get, patch} from "@rails/request.js"
+import {get} from "@rails/request.js"
 import {debounce} from "debounce"
 
 export default class CoffeeSearchFormController extends Controller {
   static targets = [
     "queryInput",
     "coffeeIdInput",
+    "searchResults",
   ]
 
   static values = {
@@ -31,28 +32,34 @@ export default class CoffeeSearchFormController extends Controller {
     if (!response.ok) {
       throw "get search results failed :("
     }
+
+    this.searchResultsTarget.classList.remove("hidden")
   }
 
   async selectCoffee(event) {
     event.preventDefault()
 
-    const coffeeId = event.target.dataset.coffeeId
-    if (typeof coffeeId !== "string" || coffeeId.length === 0) {
-      throw "could not get coffee ID"
+    let row = event.target
+    if (row.tagName !== 'A') {
+      row = event.target.closest('a')
     }
 
-    const response = await patch(this.endpointValue + "/select_coffee", {
+    const coffeeId = row.dataset.coffeeId
+    if (typeof coffeeId !== "string" || coffeeId.length === 0) {
+      throw "could not get coffee ID from DOM: " + coffeeId
+    }
+
+    const response = await get(this.endpointValue + "/select_coffee", {
       query: {
-        coffee_id: coffeeId,
+        selected_coffee_id: coffeeId,
       },
       responseKind: 'turbo-stream',
     })
     if (!response.ok) {
       throw "get search results failed :("
     }
-  }
 
-  get searchResultsDiv() {
-    return document.getElementById("coffee-search-results")
+    this.coffeeIdInputTarget.value = coffeeId
+    this.searchResultsTarget.classList.add("hidden")
   }
 }

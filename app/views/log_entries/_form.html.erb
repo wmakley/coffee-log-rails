@@ -56,8 +56,13 @@
        data-coffee-search-form-endpoint-value="/coffee_search_form">
     <%= fields_for("coffee_search_form", CoffeeSearchForm.new) do |search_fields| %>
       <div class="mb-3">
-        <%= f.hidden_field :coffee_id, 'data-coffee-search-form-target' => 'coffeeIdInput' %>
-        <%= search_fields.label :query, "Coffee", class: "form-label" %>
+        <%= f.hidden_field :coffee_id,
+                           data: {
+                             log_entry_form_target: 'coffeeIdInput',
+                             coffee_search_form_target: 'coffeeIdInput',
+                           }
+        %>
+        <%= search_fields.label :query, "Search Coffees", class: "form-label" %>
         <%= search_fields.text_field :query,
                                      class: "form-control",
                                      placeholder: "Start typing...",
@@ -68,8 +73,9 @@
                                      } %>
         <%= invalid_message(object, :coffee) %>
       </div>
-      <div id="coffee-search-results" class="mb-3"></div>
-      <div id="selected-coffee-card" class="mb-3">
+      <div id="coffee-search-results" data-coffee-search-form-target="searchResults">
+      </div>
+      <div id="selected-coffee-card">
         <%= render "coffee_search_form/selected_coffee_card", coffee: object.coffee if object.coffee %>
       </div>
     <% end %>

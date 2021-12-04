@@ -11,6 +11,9 @@ class CoffeeSearchFormController < ApplicationController
   end
 
   def select_coffee
+    @coffee_search_form = CoffeeSearchForm.new(coffee_search_form_params)
+    @coffee = @coffee_search_form.selected_coffee
+
     respond_to do |format|
       format.turbo_stream
     end

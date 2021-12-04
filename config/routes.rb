@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   namespace :coffee_search_form, module: nil, controller: 'coffee_search_form' do
     get :search_results
+    get :select_coffee
   end
 
   resources :coffees do
