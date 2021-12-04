@@ -21,7 +21,7 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -30,12 +30,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails', groups: [:development, :test]
 
 # assets
-gem 'importmap-rails'
+gem 'jsbundling-rails'
 gem 'hotwire-rails'
-# gem 'requestjs-rails'
 
 # image uploads
-gem 'image_processing'
 gem 'aws-sdk-s3', require: false
 
 # fulltext search

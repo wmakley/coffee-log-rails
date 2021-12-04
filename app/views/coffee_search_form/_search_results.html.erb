@@ -11,10 +11,6 @@
           <%= coffee.brand_name %>
         </small>
       </div>
-      <small><%= [log_entry.grind_notes, log_entry.water].select(&:present?).join('; ') %></small>
-      <p class="mb-1">
-        <%= log_entry.tasting_notes %>
-      </p>
     <% end %>
   <% end %>
 </div>

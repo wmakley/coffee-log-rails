@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<%= root_path %>">Coffee Log</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%- viewing_own_log = request.path.starts_with? log_entries_path(current_user.log) -%>
+          <a class="nav-link<%= ' active' if viewing_own_log %>" <%= 'aria-current="page"' if viewing_own_log %> href="<%= log_entries_path(current_user.log) %>">
+            My Log
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link<%= ' active' if request.path.starts_with?(coffees_path) %>" href="<%= coffees_path %>">Coffees</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link<%= ' active' if request.path.starts_with?(coffee_brands_path) %>" href="<%= coffee_brands_path %>">Brands</a>
+        </li>
+        <li class="nav-item dropdown">
+          <%- viewing_other_log = !viewing_own_log && request.path.starts_with?(logs_path) -%>
+          <a class="nav-link dropdown-toggle<%= ' active' if viewing_other_log %>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Other Logs
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% logs.each do |log| %>
+              <%- next if log == current_user.log -%>
+              <li>
+                <a class="dropdown-item<%= ' active' if request.path == log_entries_path(log) %>" href="<%= log_entries_path(log) %>">
+                  <%= log.title %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
