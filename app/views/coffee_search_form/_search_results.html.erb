@@ -1,8 +1,12 @@
 <div class="list-group">
   <% search_results.each do |coffee| %>
-    <%= link_to "#",
+    <%= link_to '#',
                 id: "#{dom_id(coffee)}-search-result",
-                class: "list-group-item list-group-item-action entry-list-item" do %>
+                class: "list-group-item list-group-item-action entry-list-item",
+                data: {
+                  action: "click->coffee-search-form#selectCoffee",
+                  coffee_id: coffee.id,
+                } do %>
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">
           <%= coffee.name %>

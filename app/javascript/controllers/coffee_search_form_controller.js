@@ -1,5 +1,6 @@
 import {Controller} from "@hotwired/stimulus"
-import {get} from "@rails/request.js"
+import {get, patch} from "@rails/request.js"
+import {debounce} from "debounce"
 
 export default class CoffeeSearchFormController extends Controller {
   static targets = [
@@ -11,32 +12,47 @@ export default class CoffeeSearchFormController extends Controller {
     endpoint: String,
   }
 
-  async doSearch() {
-    const query = this.queryInputTarget.value.trim()
+  onInput = debounce(() => this.doSearch(), 200)
 
+  async doSearch() {
+    const query = this.queryInputTarget.value.trim().replace(/\s+/g, ' ')
     if (!query) {
       return
     }
 
-    let endpoint = this.endpointValue
-    if (!endpoint) {
-      throw `no endpoint: ${endpoint}`
-    }
+    // console.log("doSearch", query)
 
-    const headers = new Headers();
-    headers.append('Accept', 'text/vnd.turbo-stream.html');
-
-    const response = await get(endpoint, {
+    const response = await get(this.endpointValue + "/search_results", {
       query: {
         query: query,
       },
       responseKind: 'turbo-stream',
-      headers: {
-        Accept: "text/vnd.turbo-stream.html"
-      }
     })
     if (!response.ok) {
-      throw "fetch failed :("
+      throw "get search results failed :("
     }
+  }
+
+  async selectCoffee(event) {
+    event.preventDefault()
+
+    const coffeeId = event.target.dataset.coffeeId
+    if (typeof coffeeId !== "string" || coffeeId.length === 0) {
+      throw "could not get coffee ID"
+    }
+
+    const response = await patch(this.endpointValue + "/select_coffee", {
+      query: {
+        coffee_id: coffeeId,
+      },
+      responseKind: 'turbo-stream',
+    })
+    if (!response.ok) {
+      throw "get search results failed :("
+    }
+  }
+
+  get searchResultsDiv() {
+    return document.getElementById("coffee-search-results")
   }
 }

@@ -9,6 +9,7 @@
     "@hotwired/turbo-rails": "^7.1.0",
     "@rails/activestorage": "^6.1.4-1",
     "@rails/request.js": "^0.0.5",
+    "debounce": "^1.2.1",
     "esbuild": "^0.14.2"
   }
 }
