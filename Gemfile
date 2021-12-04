@@ -28,10 +28,19 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Custom stuff
 gem 'dotenv-rails', groups: [:development, :test]
-gem 'hotwire-rails'
+
+# assets
 gem 'importmap-rails'
+gem 'hotwire-rails'
+# gem 'requestjs-rails'
+
+# image uploads
 gem 'image_processing'
 gem 'aws-sdk-s3', require: false
+
+# fulltext search
+gem 'pg_search'
+
 
 group :development, :test do
   gem 'rubocop', '~> 1.22', require: false

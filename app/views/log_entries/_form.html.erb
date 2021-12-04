@@ -52,19 +52,27 @@
     # or add a photo to a coffee (perhaps in a modal popup).
   %>
 
-  <div class="mb-3">
-    <%= f.label :coffee_id, "Coffee", class: "form-label" %>
-    <%= f.text_field :coffee_id,
-                     class: "form-control",
-                     required: true,
-                     data: {
-                       action: "input->log-entry-form#enableOrDisableSubmit",
-                       log_entry_form_target: "coffeeTextBox"
-                     } %>
-    <%= invalid_message(object, :coffee) %>
-  </div>
-  <div id="selected-coffee-card">
-    <%= render "selected_coffee_card", coffee: object.coffee if object.coffee %>
+  <div data-controller="coffee-search-form"
+       data-coffee-search-form-endpoint-value="<%= coffee_search_form_search_results_path %>">
+    <%= fields_for("coffee_search_form", CoffeeSearchForm.new) do |search_fields| %>
+      <div class="mb-3">
+        <%= f.hidden_field :coffee_id, 'data-coffee-search-form-target' => 'coffeeIdInput' %>
+        <%= search_fields.label :query, "Coffee", class: "form-label" %>
+        <%= search_fields.text_field :query,
+                                     class: "form-control",
+                                     required: true,
+                                     data: {
+                                       action: "input->coffee-search-form#doSearch",
+                                       log_entry_form_target: "coffeeTextBox",
+                                       coffee_search_form_target: "queryInput"
+                                     } %>
+        <%= invalid_message(object, :coffee) %>
+      </div>
+      <div id="selected-coffee-card">
+        <%= render "coffee_search_form/selected_coffee_card", coffee: object.coffee if object.coffee %>
+      </div>
+      <div id="coffee-search-results"></div>
+    <% end %>
   </div>
   <div class="mb-3">
     <%= f.label :brew_method, "Brew Method", class: "form-label" %>
