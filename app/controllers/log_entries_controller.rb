@@ -90,13 +90,17 @@ class LogEntriesController < ApplicationController
 
       if most_recent_entry
         @new_log_entry.attributes = {
-          coffee: most_recent_entry.coffee,
+          coffee_id: most_recent_entry.coffee_id,
           water: most_recent_entry.water,
           brew_method: most_recent_entry.brew_method,
           grind_notes: most_recent_entry.grind_notes,
           coffee_grams: most_recent_entry.coffee_grams,
           water_grams: most_recent_entry.water_grams,
         }
+      end
+
+      if params[:coffee_id].present?
+        @new_log_entry.coffee_id = params[:coffee_id].to_s
       end
     end
 end
