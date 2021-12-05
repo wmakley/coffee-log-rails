@@ -28,7 +28,13 @@ class Coffee < ApplicationRecord
 
   has_one_attached :photo
 
-  pg_search_scope :search_by_name, against: :name
+  pg_search_scope :search_by_name,
+                  against: :name,
+                  using: {
+                    tsearch: {
+                      prefix: true
+                    }
+                  }
 
   scope :by_name_asc, -> { order(:name) }
   scope :with_photo, -> { includes(:photo_attachment) }

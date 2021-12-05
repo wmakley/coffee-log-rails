@@ -1,3 +1,4 @@
+<% if search_results.present? %>
 <div class="list-group mb-3">
   <% search_results.each do |coffee| %>
     <%= link_to '#',
@@ -18,3 +19,4 @@
     <% end %>
   <% end %>
 </div>
+<% end %>
