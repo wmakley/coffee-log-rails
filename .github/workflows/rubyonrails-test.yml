@@ -37,7 +37,6 @@ jobs:
 
       - name: setup yarn and build assets
         run: |
-          npm -g install yarn
           yarn install
           yarn run build
 
