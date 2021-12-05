@@ -7,7 +7,7 @@ class LogEntriesController < ApplicationController
   before_action :set_log_entry, only: [:show, :edit, :update, :destroy]
 
   def index
-    @log_entries = @log.log_entries.by_date_desc.includes(:coffee).load
+    @log_entries = @log.log_entries.by_date_desc.includes(coffee: [:photo_attachment]).load
     set_new_log_entry_from_previous(@log_entries.first)
   end
 

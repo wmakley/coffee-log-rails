@@ -3,23 +3,18 @@
      data-visit-url-value="<%= coffee_path(coffee, back_url: log_entries_path(current_user.log, coffee_id: coffee.id)) %>"
      data-action="click->visit#navigate">
   <div class="row g-0">
-    <div class="col-sm-4">
+    <div class="col-sm-4 col-md-2">
       <%= image_tag(coffee.photo.variant(resize_to_fill: [180, 200]),
                     alt: "Bag of #{coffee.name}",
                     class: "img-fluid rounded-start") if coffee.photo.attached? %>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-8 col-md-10">
       <div class="card-body">
         <h1 class="card-title"><%= coffee.name %></h1>
         <h5 class="card-subtitle mb-2 text-muted">
           <%= coffee.roast.presence || "Unknown" %> Roast
         </h5>
         <h6 class="card-text"><%= coffee.brand_name %></h6>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="card-body">
-        <%= simple_format(coffee.notes) if coffee.notes.present? %>
       </div>
     </div>
   </div>

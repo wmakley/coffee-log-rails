@@ -5,17 +5,24 @@
 <%= link_to log_entry_path(@log, log_entry),
             id: dom_id(log_entry),
             class: classes do %>
+  <%- coffee = log_entry.coffee -%>
   <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1">
-      <%= log_entry.coffee_name %>
-      (<%= log_entry.brew_method %> - <%= log_entry.coffee_grams %>/<%= log_entry.water_grams %>)
-    </h5>
+    <%= image_tag(coffee.photo.variant(resize_to_fill: [70, 100]),
+                  alt: "Bag of #{coffee.name}",
+                  class: "img-fluid rounded-start me-3") if coffee.photo.attached? %>
+    <div class="flex-grow-1">
+      <h5 class="mb-1">
+        <%= log_entry.coffee_name %>
+        (<%= log_entry.brew_method %> - <%= log_entry.coffee_grams %>/<%= log_entry.water_grams %>)
+      </h5>
+      <small><%= [log_entry.grind_notes, log_entry.water].select(&:present?).join('; ') %></small>
+      <p>
+        <%= log_entry.tasting_notes %>
+      </p>
+    </div>
     <small>
-      <%= log_entry.entry_date.to_s(:short) %>
+      <nobr><%= log_entry.entry_date.to_s(:short) %></nobr>
     </small>
   </div>
-  <small><%= [log_entry.grind_notes, log_entry.water].select(&:present?).join('; ') %></small>
-  <p class="mb-1">
-    <%= log_entry.tasting_notes %>
-  </p>
+
 <% end %>
