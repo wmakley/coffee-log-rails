@@ -93,12 +93,26 @@
   <div class="row mb-3">
     <div class="col">
       <%= f.label :coffee_grams %>
-      <%= f.number_field :coffee_grams, class: "form-control", placeholder: "Grams of coffee" %>
+      <%= f.number_field :coffee_grams,
+                         class: "form-control",
+                         placeholder: "Grams of coffee",
+                         data: {
+                           log_entry_form_target: "coffeeGramsInput",
+                           action: "input->log-entry-form#calculateWater"
+                         }
+      %>
       <%= invalid_message(object, :coffee_grams) %>
     </div>
     <div class="col">
       <%= f.label :water_grams %>
-      <%= f.number_field :water_grams, class: "form-control", placeholder: "Grams of water" %>
+      <%= f.number_field :water_grams,
+                         class: "form-control",
+                         placeholder: "Grams of water",
+                         data: {
+                           log_entry_form_target: "waterGramsInput",
+                           action: "change->log-entry-form#onWaterChange"
+                         }
+      %>
       <%= invalid_message(object, :water_grams) %>
     </div>
   </div>
