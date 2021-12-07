@@ -60,4 +60,8 @@ class Coffee < ApplicationRecord
   end
 
   alias coffee_brand_name brand_name
+
+  def can_destroy?
+    log_entries.blank? && log_entry_versions.blank?
+  end
 end

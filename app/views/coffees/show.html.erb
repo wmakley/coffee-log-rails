@@ -21,6 +21,15 @@
         <% end %>
         <p>
           <%= link_to("Edit Coffee", edit_coffee_path(@coffee), class: "card-link btn btn-success") %>
+          <%= link_to("Delete Coffee", coffee_path(@coffee),
+                      class: "card-link btn btn-danger",
+                      data: {
+                        'turbo-method' => :delete,
+                        'controller' => 'confirmation',
+                        'confirmation-message-value' => "Are you sure you want to delete this coffee? This action cannot be undone.",
+                        'action' => 'confirmation#confirm'
+                      }) if @coffee.can_destroy?
+          %>
           <%= link_to("Back", (params[:back_url] || coffees_path), class: "card-link btn btn-secondary") %>
         </p>
       </div>
