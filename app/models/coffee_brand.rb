@@ -52,4 +52,8 @@ class CoffeeBrand < ApplicationRecord
 
     brands
   end
+
+  def can_destroy?
+    coffees.blank?
+  end
 end
