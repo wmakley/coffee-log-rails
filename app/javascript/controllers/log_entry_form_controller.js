@@ -19,9 +19,12 @@ export default class LogEntryFormController extends Controller {
       input.value = ""
     }
 
+    this.coffeeIdInputTarget.value = ""
     this.element.querySelectorAll("input.form-control").forEach(emptyValue)
     this.element.querySelectorAll("textarea").forEach(emptyValue)
     this.brewMethodSelectTarget.selectedIndex = 0
+    document.getElementById("selected-coffee-card").innerHTML = ""
+    document.getElementById("coffee-search-results").innerHTML = ""
   }
 
   onWaterChange() {
