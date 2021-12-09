@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   private
 
     def redirect_to_https
-      redirect_to protocol: "https://"
+      redirect_to protocol: "https://", status: :moved_permanently
     end
 
     def set_logs
