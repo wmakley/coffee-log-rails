@@ -21,24 +21,25 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Log < ApplicationRecord
-  has_many :log_entries, inverse_of: :log, dependent: :restrict_with_error
+  has_many :log_entries, inverse_of: :log, dependent: :destroy
   belongs_to :user, inverse_of: :log
 
-  validates_length_of :title, :slug, maximum: 255
-  validates_presence_of :title, :slug
+  validates :title,
+            presence: true,
+            length: { maximum: 255 }
 
-  scope :user, ->(user) { where(user_id: user.id) }
-
-  validate do
-    if slug && slug.match?(/[^a-z0-9\-_]/)
-      errors.add(:slug, "is invalid")
-    end
-  end
+  validates :slug,
+            presence: true,
+            uniqueness: true,
+            length: { maximum: 255 },
+            format: /\A[a-z0-9\-_]+\z/
 
   before_validation do
     self.title = title&.squish
     self.slug = slug&.strip
   end
+
+  scope :user, ->(user) { where(user_id: user.id) }
 
   def to_param
     slug

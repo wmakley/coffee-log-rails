@@ -1,0 +1,6 @@
+<% if @user.destroyed? %>
+  <%= render "services/turbo_stream_flash", type: "notice", message: "Successfully deleted '#{@user.username}'." %>
+  <%= turbo_stream.remove dom_id(@user) %>
+<% else %>
+  <%= render "services/turbo_stream_flash", type: "error", message: @user.errors.full_messages.to_sentence + "." %>
+<% end %>

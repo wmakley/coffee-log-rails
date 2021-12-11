@@ -1,12 +1,22 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  add_flash_types :error, :warning
 
   before_action :redirect_to_https, unless: -> { request.ssl? || request.local? }
+
   include IpBanningConcern
   include HttpBasicAuthentication
 
   before_action :set_logs
+
+  def self.requires_admin(*actions)
+    before_action only: actions do
+      unless Current.user&.admin?
+        redirect_to
+      end
+    end
+  end
 
   private
 

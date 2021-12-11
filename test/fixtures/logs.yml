@@ -24,3 +24,15 @@ default:
   user_id: 1
   title: Default's Log
   slug: default
+
+admin:
+  id: 2
+  user_id: 2
+  title: Admin's Log
+  slug: admin
+
+non_admin:
+  id: 3
+  user_id: 3
+  title: Non-Admin's Log
+  slug: non-admin

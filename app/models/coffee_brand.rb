@@ -31,6 +31,7 @@ class CoffeeBrand < ApplicationRecord
   before_destroy do
     if self.id == 0
       errors.add(:base, "may not delete default brand")
+      throw :abort
     end
   end
 

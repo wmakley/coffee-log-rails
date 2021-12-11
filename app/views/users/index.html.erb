@@ -1,0 +1,35 @@
+<h1>Users</h1>
+<p>
+  <%= link_to("New User", new_user_path, class: "btn btn-success") %>
+</p>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Display Name</th>
+    <th>Username</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+  <tr id="<%= dom_id(user) %>">
+    <td><%= user.id %></td>
+    <td><%= user.display_name %></td>
+    <td><%= user.username %></td>
+    <td>
+      <%= link_to("Edit", edit_user_path(user), class: "btn btn-success btn-sm") %>
+      <%= link_to("Delete", user_path(user),
+                  class: "btn btn-danger btn-sm",
+                  data: {
+                    'turbo-method' => :delete,
+                    'controller' => 'confirmation',
+                    'confirmation-message-value' => "Are you sure you want to delete this user? This will delete their log and all log entries, and cannot be undone.",
+                    'action' => 'confirmation#confirm'
+                  }
+          ) %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>

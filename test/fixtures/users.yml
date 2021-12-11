@@ -3,8 +3,10 @@
 # Table name: users
 #
 #  id           :bigint           not null, primary key
+#  admin        :boolean          default(FALSE), not null
 #  display_name :string
 #  password     :string           not null
+#  preferences  :jsonb            not null
 #  username     :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -18,3 +20,21 @@ default:
   username: default
   password: password
   display_name: Default
+  admin: false
+  preferences: {}
+
+admin:
+  id: 2
+  username: admin
+  password: password
+  display_name: Admin
+  admin: true
+  preferences: {}
+
+non_admin:
+  id: 3
+  username: nonadmin
+  password: password
+  display_name: Non-Admin
+  admin: false
+  preferences: {}

@@ -6,12 +6,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <%- viewing_own_log = request.path.starts_with? log_entries_path(current_user.log) -%>
-          <a class="nav-link<%= ' active' if viewing_own_log %>" <%= 'aria-current="page"' if viewing_own_log %> href="<%= log_entries_path(current_user.log) %>">
-            My Log
-          </a>
-        </li>
+        <% if current_user&.log %>
+          <li class="nav-item">
+            <%- viewing_own_log = request.path.starts_with? log_entries_path(current_user.log) -%>
+            <a class="nav-link<%= ' active' if viewing_own_log %>" <%= 'aria-current="page"' if viewing_own_log %> href="<%= log_entries_path(current_user.log) %>">
+              My Log
+            </a>
+          </li>
+        <% end %>
         <li class="nav-item">
           <a class="nav-link<%= ' active' if request.path.starts_with?(coffees_path) %>" href="<%= coffees_path %>">Coffees</a>
         </li>
@@ -34,6 +36,11 @@
             <% end %>
           </ul>
         </li>
+        <% if Current.admin? %>
+          <li class="nav-item">
+            <a class="nav-link<%= ' active' if request.path.starts_with?(users_path) %>" href="<%= users_path %>">Users</a>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>

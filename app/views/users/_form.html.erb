@@ -1,0 +1,44 @@
+<%= form_with(model: object) do |f| %>
+  <% if object.errors.present? %>
+    <div class="text-danger">
+      <%= object.errors.full_messages.to_sentence %>.
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :display_name, "Display Name", class: "form-label required" %>
+    <%= f.text_field :display_name,
+                     class: "form-control required",
+                     required: true,
+                     maxlength: 255,
+                     autofocus: object.new_record?
+    %>
+    <%= invalid_message(object, :display_name) %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :username, "Username (for login)", class: "form-label required" %>
+    <%= f.text_field :username,
+                     class: "form-control required",
+                     required: true,
+                     maxlength: 255
+    %>
+    <%= invalid_message(object, :username) %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :password, "Password", class: "form-label required" %>
+    <%= f.text_field :password,
+                     class: "form-control required",
+                     required: true,
+                     maxlength: 255
+    %>
+    <%= invalid_message(object, :password) %>
+  </div>
+
+  <p>
+    <button type="submit" class="btn btn-primary">
+      <%= object.new_record? ? "Create" : "Update" %> User
+    </button>
+
+    <%= link_to("Cancel", users_path, class: "btn btn-secondary") %>
+  </p>
+<% end %>

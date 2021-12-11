@@ -9,6 +9,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 unless User.exists?
-  puts "Creating user: william:password"
-  User.create!(display_name: "William", username: "william", password: "password")
+  puts "Creating admin user: william:password"
+  User.create!(display_name: "William", username: "william", password: "password", admin: true)
 end

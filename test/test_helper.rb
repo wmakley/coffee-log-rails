@@ -45,6 +45,7 @@ end
 
 module LoginAs
   def login_as(user)
+    user = users(user) if user.is_a? Symbol
     ApplicationController.stub_current_user = user
   end
 

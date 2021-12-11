@@ -33,6 +33,6 @@ class LogTest < ActiveSupport::TestCase
 
   test "it saves with valid attributes" do
     log = Log.new(valid_attributes)
-    assert log.save
+    assert log.save, "errors: #{log.errors.full_messages.inspect}"
   end
 end

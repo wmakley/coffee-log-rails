@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   root to: "logs#index"
 
-  resources :logs, only: :index do
+  resources :logs, only: [:index, :show, :destroy] do
     resources :entries, controller: 'log_entries'
   end
 
@@ -21,4 +21,8 @@ Rails.application.routes.draw do
   resources :coffee_brands do
     resource :logo, controller: 'coffee_brand_logos', only: [:show, :destroy]
   end
+
+  resource :my_account, controller: 'my_account', only: [:show, :edit, :update]
+
+  resources :users
 end
