@@ -33,8 +33,8 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     respond_to do |format|
-      if @user.save
-        format.html { redirect_to users_url, notice: "Succesffully updated user." }
+      if @user.update(user_params)
+        format.html { redirect_to users_url, notice: "Succesfully updated user." }
       else
         format.html { render action: :edit, status: :unprocessable_entity }
       end
@@ -59,9 +59,10 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(
+        :display_name,
         :username,
         :password,
-        :display_name,
+        :admin,
       )
     end
 end
