@@ -46,11 +46,13 @@ end
 module LoginAs
   def login_as(user)
     user = users(user) if user.is_a? Symbol
+    Current.user = user
     ApplicationController.stub_current_user = user
   end
 
   def after_teardown
     super
+    Current.user = nil
     ApplicationController.stub_current_user = nil
   end
 end

@@ -19,10 +19,11 @@ class MyAccountTest < ActionDispatch::IntegrationTest
   test "updating password" do
     patch "/my_account", params: {
       user: {
-        password: "New Password"
+        password: "testtesttesttest"
       }
     }
     assert_redirected_to "/my_account"
+    follow_redirect!
     assert_select "#flash > .alert.alert-success", 1, "Successfully updated account."
   end
 

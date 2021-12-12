@@ -1,24 +1,21 @@
 <%= form_with(model: object, html: { id: "coffee-form" }) do |f| %>
+  <%- errors = object.errors -%>
 
-  <% if object.errors.present? %>
-    <div class="text-danger">
-      <%= object.errors.full_messages.to_sentence %>.
-    </div>
-  <% end %>
+  <%= render "services/base_errors", object: object %>
 
   <div class="mb-3">
     <%= f.label :coffee_brand_id, "Brand", class: "form-label" %>
     <%= f.select :coffee_brand_id,
                  coffee_brand_options,
                  {},
-                 { class: "form-select" }
+                 { class: "form-select#{' is-invalid' if errors[:coffee_brand_id].present?}" }
     %>
     <%= invalid_message(object, :roast) %>
   </div>
   <div class="mb-3">
     <%= f.label :name, "Name", class: "form-label required" %>
     <%= f.text_field :name,
-                     class: "form-control",
+                     class: "form-control#{' is-invalid' if errors[:name].present?}",
                      required: true
     %>
     <%= invalid_message(object, :name) %>
@@ -28,7 +25,7 @@
     <%= f.select :roast,
                  %w[Light Medium-Light Medium Medium-Dark Dark],
                  { include_blank: "", },
-                 class: "form-select"
+                 class: "form-select#{' is-invalid' if errors[:roast].present?}"
     %>
     <%= invalid_message(object, :roast) %>
   </div>
@@ -44,7 +41,7 @@
       </div>
     <% else %>
       <%= f.file_field :photo,
-                       class: "form-control"
+                       class: "form-control#{' is-invalid' if errors[:photo].present?}"
       %>
       <%= invalid_message(object, :photo) %>
     <% end %>
@@ -52,7 +49,7 @@
 
   <div class="mb-3"
     <%= f.label :notes, "Notes", class: "form-label" %>
-    <%= f.text_area :notes, class: "form-control" %>
+    <%= f.text_area :notes, class: "form-control#{' is-invalid' if errors[:notes].present?}" %>
     <%= invalid_message(object, :notes) %>
   </div>
 

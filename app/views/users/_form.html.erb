@@ -1,14 +1,10 @@
 <%= form_with(model: object) do |f| %>
-  <% if object.errors.present? %>
-    <div class="text-danger">
-      <%= object.errors.full_messages.to_sentence %>.
-    </div>
-  <% end %>
+  <%= render "services/base_errors", object: object %>
 
   <div class="mb-3">
     <%= f.label :display_name, "Display Name", class: "form-label required" %>
     <%= f.text_field :display_name,
-                     class: "form-control required",
+                     class: "form-control required#{' is-invalid' if object.errors[:display_name].present?}",
                      required: true,
                      maxlength: 255,
                      autofocus: object.new_record?
@@ -18,7 +14,7 @@
   <div class="mb-3">
     <%= f.label :username, "Username (for login)", class: "form-label required" %>
     <%= f.text_field :username,
-                     class: "form-control required",
+                     class: "form-control required#{' is-invalid' if object.errors[:username].present?}",
                      required: true,
                      maxlength: 255
     %>
@@ -27,7 +23,7 @@
   <div class="mb-3">
     <%= f.label :password, "Password", class: "form-label required" %>
     <%= f.text_field :password,
-                     class: "form-control required",
+                     class: "form-control required#{' is-invalid' if object.errors[:password].present?}",
                      required: true,
                      maxlength: 255
     %>

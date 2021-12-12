@@ -2,22 +2,44 @@
 
 module FormHelper
 
-  def vertical_input(form_builder, name, as: :text_field, label: nil)
+  # poor man's simple_form
+  def input(form_builder, name, as: :text_field, label: nil, required: false,
+            label_html: {},
+            input_html: {})
     object = form_builder.object
     has_error = object.errors.present?
 
-    input_classes = +"form-control"
+    label_html[:class] ||= "form-label#{' required' if required}"
+
+    unless input_html.key?(:class)
+      input_classes = +"form-control"
+
+      if required
+        input_classes << " required"
+        input_html[:required] = true
+      end
+
+      if has_error
+        input_classes << " is-invalid"
+      end
+      input_html[:class] = input_classes
+    end
 
     buffer = ActiveSupport::SafeBuffer.new
-    buffer << form_builder.label(name, label, class: "form-label")
-    buffer << form_builder.public_send(as, name, class: input_classes)
+    buffer << form_builder.label(name, label, label_html)
+    buffer << form_builder.public_send(as, name, input_html)
+    buffer << invalid_feedback(object.errors) if has_error
     buffer
   end
 
   def invalid_message(object, field)
-    if object.errors[field].present?
+    invalid_feedback(object.errors[field])
+  end
+
+  def invalid_feedback(errors)
+    if errors.present?
       content_tag(:div, class: "invalid-feedback") do
-        "#{object.errors[field].to_sentence}."
+        "#{errors.to_sentence}."
       end
     end
   end

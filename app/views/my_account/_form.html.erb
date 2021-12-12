@@ -1,40 +1,40 @@
 <%= form_with(model: object, url: my_account_path) do |f| %>
 
-  <% if object.errors.present? %>
+  <% if object.errors[:base].present? %>
     <div class="text-danger">
-      <%= object.errors.full_messages.to_sentence %>.
+      <%= object.errors.full_messages_for(:base).to_sentence %>.
     </div>
   <% end %>
 
   <div class="mb-3">
-    <%= f.label :display_name, "Display Name", class: "form-label required" %>
-    <%= f.text_field :display_name,
-                     placeholder: "Display Name",
-                     class: "form-control required",
-                     required: true,
-                     minlength: 5,
-                     maxlength: 255
+    <%= input f, :display_name,
+              label: "Display Name",
+              required: true,
+              input_html: {
+                placeholder: "Display name",
+                minlength: 5,
+                maxlength: 100,
+              }
     %>
-    <%= invalid_message(object, :display_name) %>
   </div>
   <div class="mb-3">
-    <%= f.label :username, "Username (for login)", class: "form-label required" %>
-    <%= f.text_field :username,
-                     placeholder: "Username (for login)",
-                     class: "form-control required",
-                     required: true,
-                     minlength: 5,
-                     maxlength: 255
+    <%= input f, :username,
+              label: "Username (for login)",
+              required: true,
+              input_html: {
+                placeholder: "Username (for login)",
+                minlength: 5,
+                maxlength: 255
+              }
     %>
-    <%= invalid_message(object, :username) %>
   </div>
   <div class="mb-3">
     <%= f.label :password, "Password", class: "form-label required" %>
     <%= f.text_field :password,
                      placeholder: "Password",
-                     class: "form-control required",
+                     class: "form-control required#{' is-invalid' if object.errors[:password].present?}",
                      required: true,
-                     minlength: 8,
+                     minlength: 6,
                      maxlength: 255
     %>
     <%= invalid_message(object, :password) %>

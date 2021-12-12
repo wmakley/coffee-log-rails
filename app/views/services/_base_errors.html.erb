@@ -1,0 +1,5 @@
+<% if object.errors[:base].present? %>
+  <div class="text-danger">
+    <%= object.errors.full_messages_for(:base).to_sentence %>.
+  </div>
+<% end %>

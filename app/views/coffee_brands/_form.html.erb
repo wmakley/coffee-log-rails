@@ -1,15 +1,12 @@
 <%= form_with(model: object, html: { id: "coffee_brand_form" }) do |f| %>
+  <%- errors = object.errors -%>
 
-  <% if object.errors.present? %>
-    <div class="text-danger">
-      <%= object.errors.full_messages.to_sentence %>.
-    </div>
-  <% end %>
+  <%= render "services/base_errors", object: object %>
 
   <div class="mb-3">
     <%= f.label :name, "Name", class: "form-label required" %>
     <%= f.text_field :name,
-                     class: "form-control",
+                     class: "form-control#{' is-invalid' if errors[:name].present?}",
                      required: true,
                      maxlength: 255,
                      autofocus: object.new_record?
@@ -27,7 +24,7 @@
       </div>
     <% else %>
       <%= f.file_field :logo,
-                       class: "form-control"
+                       class: "form-control#{' is-invalid' if errors[:logo].present?}"
       %>
       <%= invalid_message(object, :logo) %>
     <% end %>
@@ -35,7 +32,7 @@
   <div class="mb-3">
     <%= f.label :url, "URL", class: "form-label" %>
     <%= f.text_field :url,
-                     class: "form-control",
+                     class: "form-control#{' is-invalid' if errors[:url].present?}",
                      maxlength: 255
     %>
     <%= invalid_message(object, :url) %>
@@ -43,7 +40,7 @@
   <div class="mb-3">
     <%= f.label :notes, "Notes", class: "form-label" %>
     <%= f.text_area :notes,
-                    class: "form-control",
+                    class: "form-control#{' is-invalid' if errors[:notes].present?}",
                     rows: 5
     %>
     <%= invalid_message(object, :notes) %>
