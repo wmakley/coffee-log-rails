@@ -29,6 +29,13 @@
     %>
     <%= invalid_message(object, :password) %>
   </div>
+  <div class="form-check mb-3">
+    <%= f.check_box :admin,
+                     class: "form-check-input#{' is-invalid' if object.errors[:admin].present?}"
+    %>
+    <%= f.label :admin, "Admin", class: "form-check-label" %>
+    <%= invalid_message(object, :admin) %>
+  </div>
 
   <p>
     <button type="submit" class="btn btn-primary">

@@ -8,6 +8,7 @@
     <th>ID</th>
     <th>Display Name</th>
     <th>Username</th>
+    <th>Admin</th>
     <th></th>
   </tr>
   </thead>
@@ -17,6 +18,7 @@
     <td><%= user.id %></td>
     <td><%= user.display_name %></td>
     <td><%= user.username %></td>
+    <td><%= user.admin? ? "Y" : "N" %></td>
     <td>
       <%= link_to("Edit", edit_user_path(user), class: "btn btn-success btn-sm") %>
       <%= link_to("Delete", user_path(user),
