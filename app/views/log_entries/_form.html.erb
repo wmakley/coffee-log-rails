@@ -91,7 +91,7 @@
     <div class="col">
       <%= f.label :coffee_grams %>
       <%= f.number_field :coffee_grams,
-                         class: "form-control#{' is-invalid' if errors[:coffee_grams].present?}",
+                         class: "form-control form-control-lg#{' is-invalid' if errors[:coffee_grams].present?}",
                          placeholder: "Grams of coffee",
                          data: {
                            log_entry_form_target: "coffeeGramsInput",
@@ -103,7 +103,7 @@
     <div class="col">
       <%= f.label :water_grams %>
       <%= f.number_field :water_grams,
-                         class: "form-control#{' is-invalid' if errors[:water_grams].present?}",
+                         class: "form-control form-control-lg#{' is-invalid' if errors[:water_grams].present?}",
                          placeholder: "Grams of water",
                          data: {
                            log_entry_form_target: "waterGramsInput",
