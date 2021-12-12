@@ -11,7 +11,7 @@
   <% if local_assigns[:show_entry_date] %>
     <div class="mb-3">
       <%= f.label :entry_date, "Date and Time" %>
-      <%= f.datetime_select :entry_date, {}, class: "form-select#{' is-invalid' if errors[:entry_date].present?}" %>
+      <%= f.datetime_select :entry_date, {}, class: "#{'is-invalid' if errors[:entry_date].present?}" %>
       <%= invalid_message(object, :entry_date) %>
     </div>
   <% end %>
