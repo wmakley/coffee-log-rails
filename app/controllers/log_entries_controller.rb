@@ -7,8 +7,13 @@ class LogEntriesController < ApplicationController
   before_action :set_log_entry, only: [:show, :edit, :update, :destroy]
 
   def index
-    @log_entries = @log.log_entries.by_date_desc.includes(coffee: [:photo_attachment]).load
+    @log_entries = @log.log_entries.by_date_desc.includes(
+      coffee: [:photo_attachment],
+      brew_method: {}
+    ).load
+
     set_new_log_entry_from_previous(@log_entries.first)
+    set_brew_methods
   end
 
   def show
@@ -16,6 +21,7 @@ class LogEntriesController < ApplicationController
 
   def new
     @log_entry = LogEntry.new(log: @log, entry_date: Time.current)
+    set_brew_methods
   end
 
   def create
@@ -33,6 +39,7 @@ class LogEntriesController < ApplicationController
         end
       else
         format.html do
+          set_brew_methods
           render action: :new, status: :unprocessable_entity
         end
         format.turbo_stream
@@ -41,22 +48,26 @@ class LogEntriesController < ApplicationController
   end
 
   def edit
+    set_brew_methods
   end
 
   def update
     if @log_entry.update(log_entry_params)
       redirect_to log_entry_url(@log, @log_entry), notice: "Updated log entry"
     else
+      set_brew_methods
       render action: :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @log_entry.mark_as_deleted!
-
     respond_to do |format|
-      format.html { redirect_to log_entries_url(@log), status: :see_other, notice: "Deleted log entry" }
-      # format.turbo_stream { redirect_to log_entries_url(@log), notice: "Deleted log entry" }
+      if @log_entry.destroy
+        format.html { redirect_to log_entries_url(@log), status: :see_other, notice: "Deleted log entry" }
+        # format.turbo_stream { redirect_to log_entries_url(@log), notice: "Deleted log entry" }
+      else
+        format.html { redirect_to log_entry_url(@log, @log_entry), error: "#{@log_entry.errors.full_messages.to_sentence}." }
+      end
     end
   end
 
@@ -68,7 +79,7 @@ class LogEntriesController < ApplicationController
               :entry_date,
               :coffee_id,
               :water,
-              :brew_method,
+              :brew_method_id,
               :grind_notes,
               :tasting_notes,
               :addl_notes,
@@ -92,7 +103,7 @@ class LogEntriesController < ApplicationController
         @new_log_entry.attributes = {
           coffee_id: most_recent_entry.coffee_id,
           water: most_recent_entry.water,
-          brew_method: most_recent_entry.brew_method,
+          brew_method_id: most_recent_entry.brew_method_id,
           grind_notes: most_recent_entry.grind_notes,
           coffee_grams: most_recent_entry.coffee_grams,
           water_grams: most_recent_entry.water_grams,
@@ -102,5 +113,9 @@ class LogEntriesController < ApplicationController
       if params[:coffee_id].present?
         @new_log_entry.coffee_id = params[:coffee_id].to_s
       end
+    end
+
+    def set_brew_methods
+      @brew_methods = BrewMethod.for_select
     end
 end

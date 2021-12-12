@@ -20,6 +20,7 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
            log_entry: {
              coffee_id: coffees(:one).id,
              entry_date: Time.current.iso8601,
+             brew_method_id: brew_methods(:other).id
            }
          }
 

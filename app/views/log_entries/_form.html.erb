@@ -78,11 +78,11 @@
     <% end %>
   </div>
   <div class="mb-3">
-    <%= f.label :brew_method, "Brew Method", class: "form-label" %>
-    <%= f.select :brew_method,
-                 ["French Press", "Pour-Over", "Moka Pot", "Drip", "Cup", "Other"],
+    <%= f.label :brew_method_id, "Brew Method", class: "form-label" %>
+    <%= f.select :brew_method_id,
+                 brew_methods,
                  { include_blank: "", },
-                 class: "form-select#{' is-invalid' if errors[:brew_method].present?}",
+                 class: "form-select#{' is-invalid' if errors[:brew_method_id].present?}",
                  "data-log-entry-form-target" => "brewMethodSelect"
     %>
     <%= invalid_message(object, :brew_method) %>

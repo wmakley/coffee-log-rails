@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_09_014047) do
+ActiveRecord::Schema.define(version: 2021_12_12_183333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,13 @@ ActiveRecord::Schema.define(version: 2021_12_09_014047) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "brew_methods", force: :cascade do |t|
+    t.string "name", null: false
+    t.float "default_brew_ratio", default: 16.6667, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "coffee_brands", force: :cascade do |t|
     t.string "name", null: false
     t.string "url"
@@ -71,7 +78,6 @@ ActiveRecord::Schema.define(version: 2021_12_09_014047) do
   create_table "log_entries", force: :cascade do |t|
     t.bigint "log_id", null: false
     t.string "water"
-    t.string "brew_method"
     t.string "grind_notes"
     t.text "tasting_notes"
     t.text "addl_notes"
@@ -82,6 +88,8 @@ ActiveRecord::Schema.define(version: 2021_12_09_014047) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "entry_date", null: false
     t.bigint "coffee_id", null: false
+    t.bigint "brew_method_id", null: false
+    t.index ["brew_method_id"], name: "index_log_entries_on_brew_method_id"
     t.index ["coffee_id"], name: "index_log_entries_on_coffee_id"
     t.index ["log_id", "entry_date"], name: "index_log_entries_on_log_id_and_entry_date", where: "(deleted_at IS NOT NULL)"
     t.index ["log_id"], name: "index_log_entries_on_log_id"
@@ -133,6 +141,7 @@ ActiveRecord::Schema.define(version: 2021_12_09_014047) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "coffees", "coffee_brands"
+  add_foreign_key "log_entries", "brew_methods"
   add_foreign_key "log_entries", "coffees", on_update: :cascade, on_delete: :restrict
   add_foreign_key "log_entries", "logs"
   add_foreign_key "log_entry_versions", "coffees", on_update: :cascade, on_delete: :restrict

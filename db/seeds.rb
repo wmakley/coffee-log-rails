@@ -12,3 +12,15 @@ unless User.exists?
   puts "Creating admin user: william:password"
   User.create!(display_name: "William", username: "william", password: "password", admin: true)
 end
+
+unless BrewMethod.exists?
+  BrewMethod.create!(
+    [ { name: "French Press" },
+      { name: "Pour-Over" },
+      { name: "Moka Pot" },
+      { name: "Drip" },
+      { name: "Cup" },
+      { id: 0, name: "Other" },
+    ]
+  )
+end

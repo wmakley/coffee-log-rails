@@ -2,7 +2,7 @@
 <p class="lead"><%= @log_entry.entry_date.to_s(:long) %></p>
 
 <p>
-  <strong>Brew Method:</strong> <%= @log_entry.brew_method %>
+  <strong>Brew Method:</strong> <%= @log_entry.brew_method_name %>
   <br>
   <strong>Coffee / Water:</strong> <%= @log_entry.coffee_grams %>g / <%= @log_entry.water_grams %>g (<%= @log_entry.brew_ratio %>)
   <br>

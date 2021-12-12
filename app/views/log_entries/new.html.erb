@@ -4,5 +4,6 @@
 <%= render "form",
            object: @log_entry,
            url: log_entries_path(@log),
-           cancel_url: log_entries_path(@log)
+           cancel_url: log_entries_path(@log),
+           brew_methods: @brew_methods
 %>

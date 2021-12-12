@@ -13,7 +13,7 @@
     <div class="flex-grow-1">
       <h5 class="mb-1">
         <%= log_entry.coffee_name %>
-        (<%= log_entry.brew_method %> - <%= log_entry.coffee_grams %>/<%= log_entry.water_grams %>)
+        (<%= log_entry.brew_method_name %> - <%= log_entry.coffee_grams %>/<%= log_entry.water_grams %>)
       </h5>
       <small><%= [log_entry.grind_notes, log_entry.water].select(&:present?).join('; ') %></small>
       <p>

@@ -3,7 +3,9 @@
 <div id="new_entry_form">
   <%= render "form",
              object: @new_log_entry,
-             url: log_entries_path(@log) %>
+             url: log_entries_path(@log),
+             brew_methods: @brew_methods
+  %>
 </div>
 
 <hr>

@@ -4,35 +4,38 @@
 #
 # Table name: log_entries
 #
-#  id            :bigint           not null, primary key
-#  addl_notes    :text
-#  brew_method   :string
-#  coffee_grams  :integer
-#  deleted_at    :datetime
-#  entry_date    :datetime         not null
-#  grind_notes   :string
-#  tasting_notes :text
-#  water         :string
-#  water_grams   :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  coffee_id     :bigint           not null
-#  log_id        :bigint           not null
+#  id             :bigint           not null, primary key
+#  addl_notes     :text
+#  coffee_grams   :integer
+#  deleted_at     :datetime
+#  entry_date     :datetime         not null
+#  grind_notes    :string
+#  tasting_notes  :text
+#  water          :string
+#  water_grams    :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  brew_method_id :bigint           not null
+#  coffee_id      :bigint           not null
+#  log_id         :bigint           not null
 #
 # Indexes
 #
+#  index_log_entries_on_brew_method_id         (brew_method_id)
 #  index_log_entries_on_coffee_id              (coffee_id)
 #  index_log_entries_on_log_id                 (log_id)
 #  index_log_entries_on_log_id_and_entry_date  (log_id,entry_date) WHERE (deleted_at IS NOT NULL)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (brew_method_id => brew_methods.id)
 #  fk_rails_...  (coffee_id => coffees.id) ON DELETE => restrict ON UPDATE => cascade
 #  fk_rails_...  (log_id => logs.id)
 #
 class LogEntry < ApplicationRecord
   belongs_to :log, inverse_of: :log_entries, optional: false
   belongs_to :coffee, inverse_of: :log_entries, optional: false
+  belongs_to :brew_method
   has_many :log_entry_versions,
            -> { order(:created_at) },
            inverse_of: :log_entry,
@@ -52,7 +55,6 @@ class LogEntry < ApplicationRecord
 
   before_validation do
     self.water = water&.squish.presence
-    self.brew_method = brew_method&.squish.presence
     self.grind_notes = grind_notes&.squish.presence
     self.tasting_notes = tasting_notes&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
     self.addl_notes = addl_notes&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
@@ -61,7 +63,6 @@ class LogEntry < ApplicationRecord
   validates_presence_of :entry_date
 
   validates_length_of :water,
-                      :brew_method,
                       :grind_notes,
                       maximum: 255, allow_nil: true
   validates_length_of :tasting_notes, :addl_notes,
@@ -80,9 +81,12 @@ class LogEntry < ApplicationRecord
     coffee&.roast
   end
 
+  def brew_method_name
+    brew_method&.name
+  end
+
   def mark_as_deleted!
     self.deleted_at = Time.current
-    save_version!
     save!
   end
 
@@ -91,21 +95,4 @@ class LogEntry < ApplicationRecord
       Rational(coffee_grams.to_i, water_grams.to_i)
     end
   end
-
-  private
-
-    def save_version!
-      log_entry_versions.create!(
-        log_entry: self,
-        coffee_id: self.coffee_id,
-        water: self.water,
-        brew_method: self.brew_method,
-        grind_notes: self.grind_notes,
-        tasting_notes: self.tasting_notes,
-        addl_notes: self.addl_notes,
-        coffee_grams: self.coffee_grams,
-        water_grams: self.water_grams,
-        deleted_at: self.deleted_at
-      )
-    end
 end

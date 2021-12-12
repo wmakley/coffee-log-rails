@@ -1,0 +1,14 @@
+# == Schema Information
+#
+# Table name: brew_methods
+#
+#  id                 :bigint           not null, primary key
+#  default_brew_ratio :float            default(16.6667), not null
+#  name               :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+other:
+  id: 1
+  default_brew_ratio: 16.667
+  name: Other

@@ -2,29 +2,31 @@
 #
 # Table name: log_entries
 #
-#  id            :bigint           not null, primary key
-#  addl_notes    :text
-#  brew_method   :string
-#  coffee_grams  :integer
-#  deleted_at    :datetime
-#  entry_date    :datetime         not null
-#  grind_notes   :string
-#  tasting_notes :text
-#  water         :string
-#  water_grams   :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  coffee_id     :bigint           not null
-#  log_id        :bigint           not null
+#  id             :bigint           not null, primary key
+#  addl_notes     :text
+#  coffee_grams   :integer
+#  deleted_at     :datetime
+#  entry_date     :datetime         not null
+#  grind_notes    :string
+#  tasting_notes  :text
+#  water          :string
+#  water_grams    :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  brew_method_id :bigint           not null
+#  coffee_id      :bigint           not null
+#  log_id         :bigint           not null
 #
 # Indexes
 #
+#  index_log_entries_on_brew_method_id         (brew_method_id)
 #  index_log_entries_on_coffee_id              (coffee_id)
 #  index_log_entries_on_log_id                 (log_id)
 #  index_log_entries_on_log_id_and_entry_date  (log_id,entry_date) WHERE (deleted_at IS NOT NULL)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (brew_method_id => brew_methods.id)
 #  fk_rails_...  (coffee_id => coffees.id) ON DELETE => restrict ON UPDATE => cascade
 #  fk_rails_...  (log_id => logs.id)
 #
@@ -35,7 +37,7 @@ one:
   log_id: 1
   coffee_id: 1
   water: MyString
-  brew_method: MyString
+  brew_method_id: 1
   grind_notes: MyString
   tasting_notes: MyString
   addl_notes: MyText
@@ -48,7 +50,7 @@ two:
   log_id: 1
   coffee_id: 2
   water: MyString
-  brew_method: MyString
+  brew_method_id: 1
   grind_notes: MyString
   tasting_notes: MyString
   addl_notes: MyText
