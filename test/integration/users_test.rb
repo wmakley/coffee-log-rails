@@ -31,7 +31,7 @@ class UsersTest < ActionDispatch::IntegrationTest
       user: {
         display_name: "Test",
         username: "test",
-        password: "test",
+        password: "testtesttest",
       }
     }
     assert_redirected_to "/users"

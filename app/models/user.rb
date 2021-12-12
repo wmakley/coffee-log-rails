@@ -24,7 +24,10 @@ class User < ApplicationRecord
           dependent: :destroy
 
   validates :username, presence: true, uniqueness: true
-  validates :password, presence: true
+  validates :password,
+            presence: true,
+            length: { minimum: 8, maximum: 255 },
+            format: /\A\S.*\S\z/
   validates :display_name, presence: true, uniqueness: true
 
   scope :by_name, -> { order(:display_name) }

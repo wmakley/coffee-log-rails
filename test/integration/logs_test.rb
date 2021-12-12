@@ -6,7 +6,8 @@ class LogsTest < ActionDispatch::IntegrationTest
   fixtures :all
 
   test "index redirects to the user's log" do
-    get "/logs", headers: valid_login
+    login_as users(:default)
+    get "/logs"
     assert_redirected_to "/logs/default/entries"
   end
 
@@ -14,13 +15,14 @@ class LogsTest < ActionDispatch::IntegrationTest
     user = User.create!(
       display_name: "Test User",
       username: "test",
-      password: "test"
+      password: "testtestest"
     )
+    login_as user
 
-    get "/logs", headers: authorization_header("test", "test")
+    get "/logs"
 
     assert_redirected_to "/logs/test/entries"
-    follow_redirect! headers: authorization_header("test", "test")
+    follow_redirect!
     assert_response :success
   end
 end

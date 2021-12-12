@@ -12,10 +12,20 @@ class MyAccountController < ApplicationController
   def update
     @my_account = Current.user
 
-    if @my_account.update(params.require(:user).permit(:display_name, :username, :password))
-      redirect_to my_account_url, notice: "Succesfully updated account."
+    if @my_account.update(my_account_params)
+      redirect_to my_account_url, notice: "Successfully updated account."
     else
-      redirect_to my_account_url, error: @my_account.errors.full_messages.to_sentence + "."
+      render action: :show, status: :unprocessable_entity
     end
   end
+
+  private
+
+    def my_account_params
+      params.require(:user).permit(
+        :display_name,
+        :username,
+        :password
+      )
+    end
 end

@@ -21,7 +21,7 @@ class UserTest < ActiveSupport::TestCase
   def valid_attributes
     {
       username: "fu",
-      password: "bar",
+      password: "testtesttest",
       display_name: "Fred"
     }
   end
