@@ -27,7 +27,7 @@ jobs:
         run: |
           sudo apt-get -yqq install libpq-dev
 
-      - uses: nanasess/setup-chromedriver@v1
+#      - uses: nanasess/setup-chromedriver@v1
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -62,4 +62,4 @@ jobs:
         run: |
           bin/rails db:setup
           bin/rails test
-          bin/rails test:system
+#          bin/rails test:system
