@@ -61,5 +61,8 @@ export default class CoffeeSearchFormController extends Controller {
 
     this.coffeeIdInputTarget.value = coffeeId
     this.searchResultsTarget.classList.add("hidden")
+
+    const changeEvent = new Event('change')
+    this.coffeeIdInputTarget.closest("form").dispatchEvent(changeEvent)
   }
 }

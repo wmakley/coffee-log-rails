@@ -9,7 +9,9 @@
   <%= turbo_stream.replace "new_entry_form" do %>
     <%= render "log_entries/form",
                object: @new_log_entry,
-               url: log_entries_path(@log) %>
+               url: log_entries_path(@log),
+               brew_methods: @brew_methods
+    %>
   <% end %>
 
 <% else %>
@@ -17,7 +19,8 @@
   <%= turbo_stream.replace "new_entry_form" do %>
     <%= render "log_entries/form",
                object: @log_entry,
-               url: log_entries_path(@log)
+               url: log_entries_path(@log),
+               brew_methods: @brew_methods
     %>
   <% end %>
 

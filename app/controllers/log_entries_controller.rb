@@ -35,6 +35,7 @@ class LogEntriesController < ApplicationController
           redirect_to log_entries_url(@log), notice: "Created log entry"
         end
         format.turbo_stream do
+          set_brew_methods
           set_new_log_entry_from_previous(@log_entry)
         end
       else
@@ -42,7 +43,9 @@ class LogEntriesController < ApplicationController
           set_brew_methods
           render action: :new, status: :unprocessable_entity
         end
-        format.turbo_stream
+        format.turbo_stream do
+          set_brew_methods
+        end
       end
     end
   end

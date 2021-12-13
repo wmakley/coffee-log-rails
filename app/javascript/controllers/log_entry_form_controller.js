@@ -25,6 +25,8 @@ export default class LogEntryFormController extends Controller {
     this.brewMethodSelectTarget.selectedIndex = 0
     document.getElementById("selected-coffee-card").innerHTML = ""
     document.getElementById("coffee-search-results").innerHTML = ""
+
+    this.enableOrDisableSubmit()
   }
 
   onWaterChange() {

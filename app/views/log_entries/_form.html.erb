@@ -1,7 +1,8 @@
 <%= form_with(model: object, url: url, html: {
   class: "log-entry-form",
   data: {
-    controller: "log-entry-form"
+    controller: "log-entry-form",
+    action: "change->log-entry-form#enableOrDisableSubmit"
   }
 }) do |f| %>
   <%- errors = object.errors -%>
