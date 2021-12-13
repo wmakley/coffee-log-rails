@@ -2,16 +2,16 @@ name: Rails - Install dependencies and run unit tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main ]
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
 
     services:
       postgres:
-        image: postgres:13
+        image: postgres:13-alpine
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
