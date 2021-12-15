@@ -84,10 +84,16 @@ class LogEntriesController < ApplicationController
               :water,
               :brew_method_id,
               :grind_notes,
+              :preparation_notes,
               :tasting_notes,
               :addl_notes,
               :coffee_grams,
               :water_grams,
+              :bitterness,
+              :acidity,
+              :body,
+              :strength,
+              :overall_rating,
             )
     end
 

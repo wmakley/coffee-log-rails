@@ -127,6 +127,18 @@
     </div>
   </div>
   <div class="mb-3">
+    <%= input f, :preparation_notes, as: :text_area, label: "Preparation Notes" %>
+  </div>
+  <fieldset>
+    <legend>Overall Rating</legend>
+    <% 1.upto(5) do |rating| %>
+      <div class="form-check form-check-inline">
+        <%= f.radio_button :overall_rating, rating, class: "form-check-input" %>
+        <%= f.label "overall_rating_#{rating}", rating, class: "form-check-label" %>
+      </div>
+    <% end %>
+  </fieldset>
+  <div class="mb-3">
     <%= f.label :tasting_notes, "Tasting Notes", class: "form-label" %>
     <%= f.text_area :tasting_notes, class: "form-control#{' is-invalid' if errors[:tasting_notes].present?}" %>
     <%= invalid_message(object, :tasting_notes) %>

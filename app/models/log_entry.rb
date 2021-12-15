@@ -4,20 +4,26 @@
 #
 # Table name: log_entries
 #
-#  id             :bigint           not null, primary key
-#  addl_notes     :text
-#  coffee_grams   :integer
-#  deleted_at     :datetime
-#  entry_date     :datetime         not null
-#  grind_notes    :string
-#  tasting_notes  :text
-#  water          :string
-#  water_grams    :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  brew_method_id :bigint           not null
-#  coffee_id      :bigint           not null
-#  log_id         :bigint           not null
+#  id                :bigint           not null, primary key
+#  acidity           :integer
+#  addl_notes        :text
+#  bitterness        :integer
+#  body              :integer
+#  coffee_grams      :integer
+#  deleted_at        :datetime
+#  entry_date        :datetime         not null
+#  grind_notes       :string
+#  overall_rating    :integer
+#  preparation_notes :text
+#  strength          :integer
+#  tasting_notes     :text
+#  water             :string
+#  water_grams       :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  brew_method_id    :bigint           not null
+#  coffee_id         :bigint           not null
+#  log_id            :bigint           not null
 #
 # Indexes
 #
@@ -65,13 +71,28 @@ class LogEntry < ApplicationRecord
   validates_length_of :water,
                       :grind_notes,
                       maximum: 255, allow_nil: true
-  validates_length_of :tasting_notes, :addl_notes,
+  validates_length_of :tasting_notes, :preparation_notes, :addl_notes,
                       maximum: 4000, allow_nil: true
 
   validates_numericality_of :coffee_grams,
                             :water_grams,
                             only_integer: true,
-                            allow_blank: true
+                            allow_blank: true,
+                            minimum: 1
+
+  # Ratings out of five
+  validates_numericality_of :acidity, :body, :bitterness, :overall_rating,
+    only_integer: true,
+    allow_blank: true,
+    minimum: 1, maximum: 5
+
+  # Scale of -2 (too weak) to 2 (too strong), where zero is "perfect"
+  validates :strength, numericality: {
+    only_integer: true,
+    allow_blank: true,
+    minimum: -2, maximum: 2,
+  }
+
 
   def coffee_name
     coffee&.name

@@ -7,7 +7,7 @@ module FormHelper
             label_html: {},
             input_html: {})
     object = form_builder.object
-    has_error = object.errors.present?
+    errors = object.errors[name]
 
     label_html[:class] ||= "form-label#{' required' if required}"
 
@@ -19,7 +19,7 @@ module FormHelper
         input_html[:required] = true
       end
 
-      if has_error
+      if errors.present?
         input_classes << " is-invalid"
       end
       input_html[:class] = input_classes
@@ -28,7 +28,7 @@ module FormHelper
     buffer = ActiveSupport::SafeBuffer.new
     buffer << form_builder.label(name, label, label_html)
     buffer << form_builder.public_send(as, name, input_html)
-    buffer << invalid_feedback(object.errors) if has_error
+    buffer << invalid_feedback(errors) if errors.present?
     buffer
   end
 

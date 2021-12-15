@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_12_183333) do
+ActiveRecord::Schema.define(version: 2021_12_14_122203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,12 @@ ActiveRecord::Schema.define(version: 2021_12_12_183333) do
     t.datetime "entry_date", null: false
     t.bigint "coffee_id", null: false
     t.bigint "brew_method_id", null: false
+    t.text "preparation_notes"
+    t.integer "bitterness"
+    t.integer "acidity"
+    t.integer "body"
+    t.integer "strength"
+    t.integer "overall_rating"
     t.index ["brew_method_id"], name: "index_log_entries_on_brew_method_id"
     t.index ["coffee_id"], name: "index_log_entries_on_coffee_id"
     t.index ["log_id", "entry_date"], name: "index_log_entries_on_log_id_and_entry_date", where: "(deleted_at IS NOT NULL)"
