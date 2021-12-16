@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url, notice: "Succesffully created user." }
+        format.html { redirect_to users_url, notice: "Succesfully created user." }
       else
         format.html { render action: :new, status: :unprocessable_entity }
       end
