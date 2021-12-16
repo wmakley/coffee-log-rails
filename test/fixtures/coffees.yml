@@ -5,38 +5,40 @@
 #  id              :bigint           not null, primary key
 #  name            :string           not null
 #  notes           :text
-#  roast           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  coffee_brand_id :bigint           default(0), not null
+#  roast_id        :bigint
 #
 # Indexes
 #
 #  index_coffees_on_coffee_brand_id           (coffee_brand_id)
 #  index_coffees_on_coffee_brand_id_and_name  (coffee_brand_id,name) UNIQUE
+#  index_coffees_on_roast_id                  (roast_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (coffee_brand_id => coffee_brands.id)
+#  fk_rails_...  (roast_id => roasts.id)
 #
 
 one:
   id: 1
   coffee_brand_id: 1
   name: Coffee 1
-  roast: Light
+  roast_id: 1
   notes:
 
 two:
   id: 2
   coffee_brand_id: 2
   name: Coffee 2
-  roast: Medium
+  roast_id: 3
   notes:
 
 no_entries:
   id: 3
   coffee_brand_id: 1
   name: Coffee With No Log Entries
-  roast:
+  roast_id:
   notes:

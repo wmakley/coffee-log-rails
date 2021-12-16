@@ -21,9 +21,9 @@
     <%= invalid_message(object, :name) %>
   </div>
   <div class="mb-3">
-    <%= f.label :roast, "Roast", class: "form-label" %>
-    <%= f.select :roast,
-                 %w[Light Medium-Light Medium Medium-Dark Dark],
+    <%= f.label :roast_id, "Roast", class: "form-label" %>
+    <%= f.select :roast_id,
+                 Roast.for_select,
                  { include_blank: "", },
                  class: "form-select#{' is-invalid' if errors[:roast].present?}"
     %>

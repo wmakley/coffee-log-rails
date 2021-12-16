@@ -99,7 +99,7 @@ class LogEntry < ApplicationRecord
   end
 
   def coffee_roast
-    coffee&.roast
+    coffee&.roast_name
   end
 
   def brew_method_name

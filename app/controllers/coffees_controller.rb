@@ -4,12 +4,12 @@ class CoffeesController < ApplicationController
   before_action :set_coffee, only: [:show, :edit, :update, :destroy]
 
   def index
-    @coffees = Coffee.all.by_name_asc.includes(:coffee_brand, :photo_attachment)
+    @coffees = Coffee.all.by_name_asc.includes(:coffee_brand, :roast, :photo_attachment)
   end
 
   def sort
     @coffees = Coffee.all
-                     .includes(:coffee_brand, :photo_attachment)
+                     .includes(:coffee_brand, :roast, :photo_attachment)
                      .user_sorted(sort_param)
   end
 
@@ -67,7 +67,13 @@ class CoffeesController < ApplicationController
 
     def coffee_params
       params.require(:coffee)
-            .permit(:coffee_brand_id, :name, :roast, :notes, :photo)
+            .permit(
+              :coffee_brand_id,
+              :name,
+              :roast_id,
+              :notes,
+              :photo,
+            )
     end
 
     def sort_param

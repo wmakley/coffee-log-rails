@@ -9,7 +9,7 @@
       <div class="card-body">
         <h1 class="card-title"><%= @coffee.name %></h1>
         <h5 class="card-subtitle mb-2 text-muted">
-          <%= @coffee.roast.presence || "Unknown" %> Roast
+          <%= @coffee.roast_name || "Unknown" %> Roast
         </h5>
         <h6 class="card-text"><%= link_to(@coffee.brand_name, @coffee.coffee_brand) %></h6>
         <p class="card-text text-muted">
