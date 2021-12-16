@@ -29,6 +29,10 @@
     %>
     <%= invalid_message(object, :roast) %>
   </div>
+  <div class="form-check mb-3">
+    <%= f.check_box :decaf, class: "form-check-input" %>
+    <%= f.label :decaf, "Decaf", class: "form-check-label" %>
+  </div>
 
   <div class="mb-3">
     <%= f.label :photo, "Photo", class: "form-label" %>
@@ -45,6 +49,16 @@
       %>
       <%= invalid_message(object, :photo) %>
     <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= input f, :origin, as: :text_field, label: "Origin", input_html: { placeholder: "Country or region of origin" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :process, "Process", class: "form-label" %>
+    <%= f.select :process, Coffee::PROCESSES, { include_blank: true }, class: "form-select" %>
+    <%= invalid_message(object, :process) %>
   </div>
 
   <div class="mb-3"

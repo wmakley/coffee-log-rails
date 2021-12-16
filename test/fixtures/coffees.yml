@@ -3,8 +3,11 @@
 # Table name: coffees
 #
 #  id              :bigint           not null, primary key
+#  decaf           :boolean
 #  name            :string           not null
 #  notes           :text
+#  origin          :string
+#  process         :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  coffee_brand_id :bigint           default(0), not null

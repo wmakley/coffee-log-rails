@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_16_001620) do
+ActiveRecord::Schema.define(version: 2021_12_16_201655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,9 @@ ActiveRecord::Schema.define(version: 2021_12_16_001620) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "roast_id"
+    t.string "origin"
+    t.boolean "decaf"
+    t.string "process"
     t.index ["coffee_brand_id", "name"], name: "index_coffees_on_coffee_brand_id_and_name", unique: true
     t.index ["coffee_brand_id"], name: "index_coffees_on_coffee_brand_id"
     t.index ["roast_id"], name: "index_coffees_on_roast_id"

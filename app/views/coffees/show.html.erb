@@ -10,8 +10,14 @@
         <h1 class="card-title"><%= @coffee.name %></h1>
         <h5 class="card-subtitle mb-2 text-muted">
           <%= @coffee.roast_name || "Unknown" %> Roast
+          <% if @coffee.decaf? %>
+            <span class="badge bg-secondary">Decaf</span>
+          <% end %>
         </h5>
         <h6 class="card-text"><%= link_to(@coffee.brand_name, @coffee.coffee_brand) %></h6>
+        <% if @coffee.origin.present? %>
+          <h7 class="card-text"><%= @coffee.origin %></h7>
+        <% end %>
         <p class="card-text text-muted">
           Created: <%= @coffee.created_at.to_s(:long) %><br>
           Last updated: <%= @coffee.updated_at.to_s(:long) %>

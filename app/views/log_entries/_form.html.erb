@@ -61,10 +61,14 @@
                              coffee_search_form_target: 'coffeeIdInput',
                            }
         %>
-        <%= search_fields.label :query, "Search Coffees", class: "form-label" %>
+        <h5>
+          <%= search_fields.label :query,
+                                  "Start by typing the name of your coffee:",
+                                  class: "form-label text-success" %>
+        </h5>
         <%= search_fields.text_field :query,
-                                     class: "form-control",
-                                     placeholder: "Start typing...",
+                                     class: "form-control form-control-lg",
+                                     placeholder: "Click here and start typing...",
                                      data: {
                                        action: "input->coffee-search-form#onInput",
                                        log_entry_form_target: "coffeeTextBox",

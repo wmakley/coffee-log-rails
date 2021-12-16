@@ -3,8 +3,11 @@
 # Table name: coffees
 #
 #  id              :bigint           not null, primary key
+#  decaf           :boolean
 #  name            :string           not null
 #  notes           :text
+#  origin          :string
+#  process         :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  coffee_brand_id :bigint           default(0), not null
@@ -24,6 +27,8 @@
 class Coffee < ApplicationRecord
   include PgSearch::Model
 
+  PROCESSES = %w[Washed Natural Other]
+
   belongs_to :coffee_brand, inverse_of: :coffees
   belongs_to :roast, inverse_of: :coffees, optional: true
 
@@ -41,7 +46,6 @@ class Coffee < ApplicationRecord
                   }
 
   scope :by_name_asc, -> { order(:name) }
-  scope :with_photo, -> { includes(:photo_attachment) }
   scope :with_brand, -> { includes(:coffee_brand) }
   scope :user_sorted, ->(sort) do
     case sort
@@ -62,10 +66,17 @@ class Coffee < ApplicationRecord
             uniqueness: { scope: :coffee_brand_id }
   validates :notes,
             length: { maximum: 4000, allow_nil: true }
+  validates :origin,
+            length: { maximum: 255, allow_nil: true }
+  validates :process,
+            length: { maximum: 100, allow_nil: true },
+            inclusion: { in: PROCESSES, allow_nil: true }
 
   before_validation do
     self.name = name&.squish
     self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
+    self.origin = origin&.squish.presence
+    self.process = process.presence
   end
 
   def brand_name

@@ -22,7 +22,7 @@ class CoffeesController < ApplicationController
   end
 
   def new
-    @coffee = Coffee.new
+    @coffee = Coffee.new(process: "Washed")
     set_coffee_brand_options
   end
 
@@ -77,6 +77,9 @@ class CoffeesController < ApplicationController
               :roast_id,
               :notes,
               :photo,
+              :origin,
+              :process,
+              :decaf,
             )
     end
 
