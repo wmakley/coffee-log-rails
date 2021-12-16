@@ -1,6 +1,6 @@
 <div id="<%= dom_id(coffee) %>-photo">
   <% if coffee.photo.attached? %>
-    <%= image_tag(coffee.photo.variant(resize_to_fill: [400, 300]), alt: "Bag of #{coffee.name}", class: "card-img-top") %>
+    <%= link_to(image_tag(coffee.photo.variant(resize_to_fill: [400, 300]), alt: "Bag of #{coffee.name}", class: "card-img-top"), coffee) %>
   <% else -%>
     <%= form_with(model: coffee, url: coffee_photo_path(coffee), method: :post, html: {
       class: "card-header",
