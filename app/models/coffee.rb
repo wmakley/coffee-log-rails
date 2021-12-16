@@ -39,6 +39,18 @@ class Coffee < ApplicationRecord
   scope :by_name_asc, -> { order(:name) }
   scope :with_photo, -> { includes(:photo_attachment) }
   scope :with_brand, -> { includes(:coffee_brand) }
+  scope :user_sorted, ->(sort) do
+    case sort
+    when "name"
+      by_name_asc
+    when "most_recent"
+      order(created_at: :desc)
+    when "brand_name"
+      with_brand.references(:coffee_brands).order("coffee_brands.name")
+    else
+      by_name_asc
+    end
+  end
 
   validates :name,
             presence: true,

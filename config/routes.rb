@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   end
 
   resources :coffees do
+    collection do
+      get :sort
+    end
     resource :photo, controller: 'coffee_photos', only: [:show, :create, :destroy]
   end
 

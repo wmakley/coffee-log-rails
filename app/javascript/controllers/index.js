@@ -18,5 +18,8 @@ application.register("confirmation", ConfirmationController)
 import LogEntryFormController from "./log_entry_form_controller.js"
 application.register("log-entry-form", LogEntryFormController)
 
+import SortCoffeesController from "./sort_coffees_controller"
+application.register("sort-coffees", SortCoffeesController)
+
 import VisitController from "./visit_controller.js"
 application.register("visit", VisitController)

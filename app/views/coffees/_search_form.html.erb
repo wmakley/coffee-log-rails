@@ -1,0 +1,21 @@
+<%= form_with(url: sort_coffees_path, method: :get, html: {
+  class: "row row-cols-lg-auto g-3 align-items-center",
+  data: {
+    controller: "sort-coffees",
+    action: "submit->sort-coffees#sort"
+  }
+}) do %>
+  <label class="visually-hidden" for="coffee_sort">Sort Coffees</label>
+  <div class="col-12">
+    <select class="form-select"
+            id="coffee_sort"
+            name="sort"
+            data-sort-coffees-target="sortValue"
+            data-action="change->sort-coffees#submit">
+      <option value="name">Sort By Name</option>
+      <option value="most_recent">Sort By Most Recent</option>
+      <option value="brand_name">Sort By Brand Name</option>
+    </select>
+  </div>
+  <button class="visually-hidden" type="submit" data-sort-coffees-target="submit">Submit</button>
+<% end %>

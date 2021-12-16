@@ -1,11 +1,10 @@
-<p>
-  <%= link_to "Add Coffee", new_coffee_path, class: "btn btn-success" %>
-</p>
-
-<div class="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 g-4">
-  <% @coffees.each do |coffee| %>
-    <div class="col">
-      <%= render "index_card", coffee: coffee %>
-    </div>
-  <% end %>
+<div class="row row-cols-2 mb-3">
+  <div class="col">
+    <%= link_to "Add Coffee", new_coffee_path, class: "btn btn-success" %>
+  </div>
+  <div class="col">
+    <%= render "search_form" %>
+  </div>
 </div>
+
+<%= render "index_table", coffees: @coffees %>

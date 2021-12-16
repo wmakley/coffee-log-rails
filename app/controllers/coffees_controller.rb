@@ -7,6 +7,12 @@ class CoffeesController < ApplicationController
     @coffees = Coffee.all.by_name_asc.includes(:coffee_brand, :photo_attachment)
   end
 
+  def sort
+    @coffees = Coffee.all
+                     .includes(:coffee_brand, :photo_attachment)
+                     .user_sorted(sort_param)
+  end
+
   def show
     @log_entries = @coffee.log_entries.by_date_desc.includes(:log)
   end
@@ -62,5 +68,9 @@ class CoffeesController < ApplicationController
     def coffee_params
       params.require(:coffee)
             .permit(:coffee_brand_id, :name, :roast, :notes, :photo)
+    end
+
+    def sort_param
+      params[:sort].to_s
     end
 end
