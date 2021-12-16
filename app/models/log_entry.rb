@@ -113,7 +113,7 @@ class LogEntry < ApplicationRecord
 
   def brew_ratio
     if coffee_grams.present? && water_grams.present?
-      Rational(coffee_grams.to_i, water_grams.to_i)
+      (water_grams.to_f / coffee_grams.to_f).round(2)
     end
   end
 end
