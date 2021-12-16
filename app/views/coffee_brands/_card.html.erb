@@ -1,5 +1,7 @@
 <div class="card h-100">
-  <%= coffee_brand_logo_card_top(coffee_brand) %>
+  <a href="<%= coffee_brand_path(coffee_brand) %>">
+    <%= coffee_brand_logo_card_top(coffee_brand) %>
+  </a>
   <div class="card-body">
     <h5 class="card-title"><%= coffee_brand.name %></h5>
     <% if coffee_brand.url.present? %>
