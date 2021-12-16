@@ -8,7 +8,7 @@ class LogEntriesController < ApplicationController
 
   def index
     @log_entries = @log.log_entries.by_date_desc.includes(
-      coffee: [:photo_attachment],
+      coffee: { photo_attachment: :blob },
       brew_method: {}
     ).load
 

@@ -5,7 +5,7 @@ class CoffeeBrandsController < ApplicationController
                 only: [:show, :edit, :update, :destroy]
 
   def index
-    @coffee_brands = CoffeeBrand.by_name_asc
+    @coffee_brands = CoffeeBrand.by_name_asc.with_attached_logo
   end
 
   def show

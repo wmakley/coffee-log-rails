@@ -4,12 +4,16 @@ class CoffeesController < ApplicationController
   before_action :set_coffee, only: [:show, :edit, :update, :destroy]
 
   def index
-    @coffees = Coffee.all.by_name_asc.includes(:coffee_brand, :roast, :photo_attachment)
+    @coffees = Coffee.all
+                     .with_attached_photo
+                     .includes(:coffee_brand, :roast)
+                     .by_name_asc
   end
 
   def sort
     @coffees = Coffee.all
-                     .includes(:coffee_brand, :roast, :photo_attachment)
+                     .with_attached_photo
+                     .includes(:coffee_brand, :roast)
                      .user_sorted(sort_param)
   end
 
