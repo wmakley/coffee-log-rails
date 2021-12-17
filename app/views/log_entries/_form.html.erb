@@ -66,14 +66,17 @@
                                   "Start by typing the name of your coffee:",
                                   class: "form-label text-success" %>
         </h5>
-        <%= search_fields.text_field :query,
-                                     class: "form-control form-control-lg",
-                                     placeholder: "Click here and start typing...",
-                                     data: {
-                                       action: "input->coffee-search-form#onInput",
-                                       log_entry_form_target: "coffeeTextBox",
-                                       coffee_search_form_target: "queryInput"
-                                     } %>
+        <div class="input-group input-group-lg">
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <%= search_fields.text_field :query,
+                                       class: "form-control form-control-lg",
+                                       placeholder: "Click here and start typing...",
+                                       data: {
+                                         action: "input->coffee-search-form#onInput",
+                                         log_entry_form_target: "coffeeTextBox",
+                                         coffee_search_form_target: "queryInput"
+                                       } %>
+        </div>
       </div>
       <div id="coffee-search-results" data-coffee-search-form-target="searchResults">
       </div>
