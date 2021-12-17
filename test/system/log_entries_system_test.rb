@@ -15,7 +15,7 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
 
     assert_selector "h1", text: "Default's Log Entries"
 
-    fill_in "Search Coffees", with: "coffee"
+    fill_in "Start by typing the name of your coffee:", with: "coffee"
     first(:css, "##{dom_id(coffees(:one))}-search-result").click
     select "French Press", from: "Brew Method"
     fill_in "Coffee grams", with: "10"
@@ -28,7 +28,7 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
     assert_selector "#log_entries > a.list-group-item"
 
     within first(:css, "#log_entries > a.list-group-item") do
-      assert_content "#{coffees(:one).name} (French Press - 10/100)"
+      assert_content "#{coffees(:one).name} (French Press - 10/100 - 1 : 10.0)"
     end
   end
 end
