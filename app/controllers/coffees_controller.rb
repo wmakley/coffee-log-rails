@@ -7,10 +7,17 @@ class CoffeesController < ApplicationController
     @coffees = Coffee.all
                      .with_attached_photo
                      .includes(:coffee_brand, :roast)
-                     .by_most_recent
+
+    params[:sort] ||= session[:coffee_sort].presence || "most_recent"
+    if params[:sort].present?
+      @coffees = @coffees.user_sorted(sort_param)
+    else
+      @coffees = @coffees.by_most_recent
+    end
   end
 
   def sort
+    session[:coffee_sort] = sort_param
     @coffees = Coffee.all
                      .with_attached_photo
                      .includes(:coffee_brand, :roast)
