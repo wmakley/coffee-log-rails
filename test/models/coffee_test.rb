@@ -59,4 +59,14 @@ class CoffeeTest < ActiveSupport::TestCase
     coffee.valid?
     assert_equal "line1\n\nline2", coffee.notes
   end
+
+  test "name validation" do
+    coffee = Coffee.new
+    coffee.name = "<?12345"
+    assert_not coffee.valid?
+    coffee.name = "12345?>"
+    assert_not coffee.valid?
+    coffee.name = "<?12345?>"
+    assert_not coffee.valid?
+  end
 end

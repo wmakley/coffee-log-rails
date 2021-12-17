@@ -41,7 +41,17 @@ class Coffee < ApplicationRecord
                   against: :name,
                   using: {
                     tsearch: {
-                      prefix: true
+                      prefix: true,
+                      highlight: {
+                        StartSel: '<?',
+                        StopSel: '?>',
+                        MaxWords: 123,
+                        MinWords: 456,
+                        ShortWord: 4,
+                        HighlightAll: true,
+                        MaxFragments: 3,
+                        FragmentDelimiter: '&hellip;',
+                      },
                     }
                   }
 
@@ -60,6 +70,13 @@ class Coffee < ApplicationRecord
     end
   end
 
+  before_validation do
+    self.name = name&.squish
+    self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
+    self.origin = origin&.squish.presence
+    self.process = process.presence
+  end
+
   validates :name,
             presence: true,
             length: { maximum: 255 },
@@ -72,11 +89,10 @@ class Coffee < ApplicationRecord
             length: { maximum: 100, allow_nil: true },
             inclusion: { in: PROCESSES, allow_nil: true }
 
-  before_validation do
-    self.name = name&.squish
-    self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
-    self.origin = origin&.squish.presence
-    self.process = process.presence
+  validate do
+    if name.match?(/<\?|\?>/)
+      errors.add(:name, "must not contain <? or ?>")
+    end
   end
 
   def brand_name
