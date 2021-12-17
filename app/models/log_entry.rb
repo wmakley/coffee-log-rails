@@ -64,6 +64,13 @@ class LogEntry < ApplicationRecord
     self.grind_notes = grind_notes&.squish.presence
     self.tasting_notes = tasting_notes&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
     self.addl_notes = addl_notes&.strip&.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence
+
+    if water_grams.is_a? String
+      self.water_grams = water_grams.gsub(/\D/, '')
+    end
+    if coffee_grams.is_a? String
+      self.coffee_grams = coffee_grams.gsub(/\D/, '')
+    end
   end
 
   validates_presence_of :entry_date
