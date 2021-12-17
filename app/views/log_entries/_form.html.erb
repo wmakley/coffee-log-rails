@@ -139,7 +139,7 @@
     <%= input f, :preparation_notes, as: :text_area, label: "Preparation Notes" %>
   </div>
   <fieldset>
-    <legend>Overall Rating</legend>
+    <legend><i class="bi bi-star-fill"></i> Overall Rating</legend>
     <% 1.upto(5) do |rating| %>
       <div class="form-check form-check-inline">
         <%= f.radio_button :overall_rating, rating, class: "form-check-input" %>

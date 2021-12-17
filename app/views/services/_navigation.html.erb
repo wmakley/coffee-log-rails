@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
   <div class="container-fluid">
-    <a class="navbar-brand" href="<%= root_path %>">Coffee Log</a>
+    <a class="navbar-brand" href="<%= root_path %>">
+      <i class="bi bi-cup-fill"></i>
+      Coffee Log
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -42,7 +45,10 @@
           </li>
         <% end %>
         <li class="nav-item">
-          <a class="nav-link<%= ' active' if request.path.starts_with?(my_account_path) %>" href="<%= my_account_path %>">My Account</a>
+          <a class="nav-link<%= ' active' if request.path.starts_with?(my_account_path) %>" href="<%= my_account_path %>">
+            <i class="bi bi-person-fill"></i>
+            My Account
+          </a>
         </li>
       </ul>
     </div>
