@@ -7,7 +7,7 @@ class CoffeesController < ApplicationController
     @coffees = Coffee.all
                      .with_attached_photo
                      .includes(:coffee_brand, :roast)
-                     .by_name_asc
+                     .by_most_recent
   end
 
   def sort

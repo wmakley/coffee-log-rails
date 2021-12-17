@@ -56,13 +56,14 @@ class Coffee < ApplicationRecord
                   }
 
   scope :by_name_asc, -> { order(:name) }
+  scope :by_most_recent, -> { order(created_at: :desc) }
   scope :with_brand, -> { includes(:coffee_brand) }
   scope :user_sorted, ->(sort) do
     case sort
     when "name"
       by_name_asc
     when "most_recent"
-      order(created_at: :desc)
+      by_most_recent
     when "brand_name"
       with_brand.references(:coffee_brands).order("coffee_brands.name")
     else
