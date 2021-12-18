@@ -31,4 +31,23 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
       assert_content "#{coffees(:one).name} (French Press - 10/100 - 1 : 10.0)"
     end
   end
+
+  test "coffee lookup persistence" do
+    coffee = coffees(:one)
+
+    visit "/logs/default/entries"
+    fill_in "Start by typing the name of your coffee:", with: "coffee"
+    first(:css, "##{dom_id(coffee)}-search-result").click
+
+    assert_selector ".selected-coffee-card"
+    assert_selector ".selected-coffee-card .card-title", text: coffee.name
+    first(:css, ".selected-coffee-card").click
+    assert_current_path %r{\A/coffees/#{coffee.id}}
+
+    click_link "Back"
+    assert_current_path %r{\A/logs/default/entries}
+    assert_equal "coffee", find(:css, "#lookup_coffee_form_query").value
+    assert_selector "##{dom_id(coffee)}-search-result"
+    assert_selector ".selected-coffee-card .card-title", text: coffee.name
+  end
 end

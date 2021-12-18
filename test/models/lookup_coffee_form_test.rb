@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'test_helper'
 
-class CoffeeSearchFormTest < ActiveSupport::TestCase
+class LookupCoffeeFormTest < ActiveSupport::TestCase
   fixtures :coffees
 
   test "#search_results with empty query returns no results" do
