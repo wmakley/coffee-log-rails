@@ -26,6 +26,6 @@ class CoffeeSearchFormController < ApplicationController
     end
 
     def coffee_search_form_params
-      params.permit(:query, :selected_coffee_id).to_h
+      params.permit(:query, :coffee_id).to_h
     end
 end

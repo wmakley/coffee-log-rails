@@ -4,7 +4,7 @@ class CoffeeSearchForm
   include ActiveModel::Model
   include ERB::Util
 
-  attr_accessor :initial_scope, :query, :selected_coffee_id, :search_results
+  attr_accessor :initial_scope, :query, :coffee_id, :search_results
 
   def initialize(initial_scope = Coffee.all, attributes = {})
     @initial_scope = initial_scope
@@ -19,8 +19,8 @@ class CoffeeSearchForm
 
     scope = initial_scope
 
-    if selected_coffee_id.present?
-      scope = scope.where.not(id: selected_coffee_id)
+    if coffee_id.present?
+      scope = scope.where.not(id: coffee_id)
     end
 
     results = scope.search_by_name(query).with_pg_search_highlight
@@ -33,6 +33,6 @@ class CoffeeSearchForm
   end
 
   def selected_coffee
-    @selected_coffee ||= Coffee.find(selected_coffee_id)
+    @selected_coffee ||= Coffee.find(coffee_id)
   end
 end

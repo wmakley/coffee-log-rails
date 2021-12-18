@@ -53,7 +53,7 @@
 
   <div data-controller="coffee-search-form"
        data-coffee-search-form-endpoint-value="/coffee_search_form">
-    <%= fields_for("coffee_search_form", CoffeeSearchForm.new) do |search_fields| %>
+    <%= fields_for("coffee_search_form", CoffeeSearchForm.new(nil, params.permit(:query, :coffee_id).to_h)) do |search_fields| %>
       <div class="mb-3">
         <%= f.hidden_field :coffee_id,
                            data: {

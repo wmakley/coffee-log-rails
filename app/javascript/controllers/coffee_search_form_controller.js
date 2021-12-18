@@ -13,10 +13,20 @@ export default class CoffeeSearchFormController extends Controller {
     endpoint: String,
   }
 
+  connect() {
+    if (this.trimmedQuery) {
+      this.doSearch()
+    }
+  }
+
+  get trimmedQuery() {
+    return this.queryInputTarget.value.trim().replace(/\s+/g, ' ')
+  }
+
   onInput = debounce(() => this.doSearch(), 200)
 
   async doSearch() {
-    const query = this.queryInputTarget.value.trim().replace(/\s+/g, ' ')
+    const query = this.trimmedQuery
     if (!query) {
       return
     }
@@ -51,7 +61,7 @@ export default class CoffeeSearchFormController extends Controller {
 
     const response = await get(this.endpointValue + "/select_coffee", {
       query: {
-        selected_coffee_id: coffeeId,
+        coffee_id: coffeeId,
       },
       responseKind: 'turbo-stream',
     })
