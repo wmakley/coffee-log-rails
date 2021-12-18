@@ -1,7 +1,7 @@
 <%= turbo_stream.update "selected-coffee-card" do %>
-  <%= render "selected_coffee_card",
+  <%= render "selected_coffee",
              coffee: @coffee,
-             back_url: log_entries_path(current_user.log, coffee_id: @coffee.id)
+             back_url: log_entries_path(current_user.log, coffee_id: @coffee.id, query: params[:query])
   %>
 <% end %>
 

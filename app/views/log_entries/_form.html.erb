@@ -51,14 +51,14 @@
     # or add a photo to a coffee (perhaps in a modal popup).
   %>
 
-  <div data-controller="coffee-search-form"
-       data-coffee-search-form-endpoint-value="/coffee_search_form">
-    <%= fields_for("coffee_search_form", CoffeeSearchForm.new(nil, params.permit(:query, :coffee_id).to_h)) do |search_fields| %>
+  <div data-controller="lookup-coffee-form"
+       data-lookup-coffee-form-endpoint-value="<%= lookup_coffee_root_path %>">
+    <%= fields_for("lookup_coffee_form", LookupCoffeeForm.new(nil, params.permit(:query, :coffee_id).to_h)) do |search_fields| %>
       <div class="mb-3">
         <%= f.hidden_field :coffee_id,
                            data: {
                              log_entry_form_target: 'coffeeIdInput',
-                             coffee_search_form_target: 'coffeeIdInput',
+                             lookup_coffee_form_target: 'coffeeIdInput',
                            }
         %>
         <h5>
@@ -72,16 +72,16 @@
                                        class: "form-control form-control-lg",
                                        placeholder: "Click here and start typing...",
                                        data: {
-                                         action: "input->coffee-search-form#onInput",
+                                         action: "input->lookup-coffee-form#onInput",
                                          log_entry_form_target: "coffeeTextBox",
-                                         coffee_search_form_target: "queryInput"
+                                         lookup_coffee_form_target: "queryInput"
                                        } %>
         </div>
       </div>
-      <div id="coffee-search-results" data-coffee-search-form-target="searchResults">
+      <div id="coffee-search-results" data-lookup-coffee-form-target="searchResults">
       </div>
       <div id="selected-coffee-card">
-        <%= render "coffee_search_form/selected_coffee_card", coffee: object.coffee if object.coffee %>
+        <%= render "lookup_coffee_form/selected_coffee", coffee: object.coffee if object.coffee %>
       </div>
     <% end %>
   </div>

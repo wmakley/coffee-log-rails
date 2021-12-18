@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     resources :entries, controller: 'log_entries'
   end
 
-  namespace :coffee_search_form, module: nil, controller: 'coffee_search_form' do
+  namespace :lookup_coffee, module: nil, controller: 'lookup_coffee_form' do
+    root to: 'lookup_coffee_form#search_results'
     get :search_results
     get :select_coffee
   end

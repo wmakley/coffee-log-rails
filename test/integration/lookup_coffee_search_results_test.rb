@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class CoffeeSearchFormSearchResultsTest < ActionDispatch::IntegrationTest
+class LookupCoffeeSearchResultsTest < ActionDispatch::IntegrationTest
   fixtures :all
 
   setup do
@@ -10,7 +10,7 @@ class CoffeeSearchFormSearchResultsTest < ActionDispatch::IntegrationTest
   end
 
   test "no query returns no results" do
-    get "/coffee_search_form/search_results", params: {
+    get "/lookup_coffee/search_results", params: {
       query: "",
       format: :turbo_stream
     }

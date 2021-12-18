@@ -9,8 +9,8 @@ application.register("click-submit", ClickSubmitController)
 import CoffeePhotoUploaderController from "./coffee_photo_uploader_controller.js"
 application.register("coffee-photo-uploader", CoffeePhotoUploaderController)
 
-import CoffeeSearchFormController from "./coffee_search_form_controller.js"
-application.register("coffee-search-form", CoffeeSearchFormController)
+import LookupCoffeeFormController from "./lookup_coffee_form_controller.js"
+application.register("lookup-coffee-form", LookupCoffeeFormController)
 
 import ConfirmationController from "./confirmation_controller.js"
 application.register("confirmation", ConfirmationController)

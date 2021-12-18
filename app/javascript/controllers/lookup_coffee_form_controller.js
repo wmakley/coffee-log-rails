@@ -2,7 +2,7 @@ import {Controller} from "@hotwired/stimulus"
 import {get} from "@rails/request.js"
 import {debounce} from "debounce"
 
-export default class CoffeeSearchFormController extends Controller {
+export default class LookupCoffeeFormController extends Controller {
   static targets = [
     "queryInput",
     "coffeeIdInput",
@@ -54,7 +54,7 @@ export default class CoffeeSearchFormController extends Controller {
       row = event.target.closest('a')
     }
 
-    const coffeeId = row.dataset.coffeeId
+    const coffeeId = row.dataset.resultId
     if (typeof coffeeId !== "string" || coffeeId.length === 0) {
       throw "could not get coffee ID from DOM: " + coffeeId
     }
@@ -62,6 +62,7 @@ export default class CoffeeSearchFormController extends Controller {
     const response = await get(this.endpointValue + "/select_coffee", {
       query: {
         coffee_id: coffeeId,
+        query: this.trimmedQuery,
       },
       responseKind: 'turbo-stream',
     })

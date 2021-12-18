@@ -1,0 +1,12 @@
+<% if search_results.present? -%>
+  <div class="list-group mb-3">
+    <%= render partial: "result", collection: search_results %>
+  </div>
+<% else -%>
+  <div>
+    <h4 class="text-danger">
+      No coffees found matching your search,
+      <%= link_to "Add New Coffee?", new_coffee_path(cancel_url: log_entries_path(Current.user.log, params.permit(:query, :coffee_id).to_h)), class: "btn btn-success" %>
+    </h4>
+  </div>
+<% end %>

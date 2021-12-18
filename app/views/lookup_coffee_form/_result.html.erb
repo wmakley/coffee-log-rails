@@ -1,0 +1,16 @@
+<%= link_to '#',
+            id: "#{dom_id(result)}-search-result",
+            class: "list-group-item list-group-item-action entry-list-item",
+            data: {
+              action: "click->lookup-coffee-form#selectCoffee",
+              result_id: result.id,
+            } do %>
+  <div class="d-flex w-100 justify-content-between">
+    <h5 class="mb-1">
+      <%= result.pg_search_highlight %>
+    </h5>
+    <small>
+      <%= result.brand_name %>
+    </small>
+  </div>
+<% end %>

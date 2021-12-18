@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class CoffeeSearchForm
+class LookupCoffeeForm
   include ActiveModel::Model
   include ERB::Util
 
-  attr_accessor :initial_scope, :query, :coffee_id, :search_results
+  attr_accessor :initial_scope, :query, :coffee_id
 
   def initialize(initial_scope = Coffee.all, attributes = {})
     @initial_scope = initial_scope
@@ -24,12 +24,22 @@ class CoffeeSearchForm
     end
 
     results = scope.search_by_name(query).with_pg_search_highlight
+
+    replacement_pattern = /<\?([^?]*)\?>/
     results.each do |result|
-      result.pg_search_highlight = result.pg_search_highlight.gsub(/<\?([^?]*)\?>/) do
+      result.pg_search_highlight = result.pg_search_highlight.gsub(replacement_pattern) do
         %(<span class="text-danger">#{html_escape($1)}</span>)
       end.html_safe
     end
+
     results
+  end
+
+  def coffee_id=(input)
+    if input != self.coffee_id
+      @coffee_id = input
+      @selected_coffee = nil
+    end
   end
 
   def selected_coffee
