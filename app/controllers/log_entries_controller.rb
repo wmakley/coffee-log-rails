@@ -116,6 +116,7 @@ class LogEntriesController < ApplicationController
           grind_notes: most_recent_entry.grind_notes,
           coffee_grams: most_recent_entry.coffee_grams,
           water_grams: most_recent_entry.water_grams,
+          preparation_notes: most_recent_entry.preparation_notes,
         }
       end
 
