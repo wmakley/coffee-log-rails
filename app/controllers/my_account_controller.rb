@@ -24,6 +24,7 @@ class MyAccountController < ApplicationController
     def my_account_params
       params.require(:user).permit(
         :display_name,
+        :email,
         :username,
         :password
       )

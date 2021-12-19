@@ -7,6 +7,7 @@
 #  id           :bigint           not null, primary key
 #  admin        :boolean          default(FALSE), not null
 #  display_name :string
+#  email        :string
 #  password     :string           not null
 #  preferences  :jsonb            not null
 #  username     :string           not null
@@ -23,12 +24,19 @@ class User < ApplicationRecord
           inverse_of: :user,
           dependent: :destroy
 
-  validates :username, presence: true, uniqueness: true
+  before_validation do
+    self.display_name = display_name&.squish.presence
+    self.email = email&.strip.presence
+  end
+
+  validates :username, presence: true, uniqueness: true, format: /\A\S+\z/
   validates :password,
             presence: true,
             length: { minimum: 6, maximum: 255 },
             format: /\A\S.*\S\z/
   validates :display_name, presence: true, uniqueness: true
+  validates :email,
+            length: { maximum: 255, allow_nil: true }
 
   scope :by_name, -> { order(:display_name) }
 end

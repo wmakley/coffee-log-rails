@@ -2,8 +2,11 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative "../config/environment"
 require "rails/test_help"
+require_relative "./random_test_data"
 
 class ActiveSupport::TestCase
+  include RandomTestData
+
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 

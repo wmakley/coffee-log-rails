@@ -18,6 +18,9 @@
     %>
   </div>
   <div class="mb-3">
+    <%= input f, :email, as: :email_field, label: "Email", input_html: { maxlength: 255 } %>
+  </div>
+  <div class="mb-3">
     <%= input f, :username,
               label: "Username (for login)",
               required: true,
@@ -29,15 +32,10 @@
     %>
   </div>
   <div class="mb-3">
-    <%= f.label :password, "Password", class: "form-label required" %>
-    <%= f.text_field :password,
-                     placeholder: "Password",
-                     class: "form-control required#{' is-invalid' if object.errors[:password].present?}",
-                     required: true,
-                     minlength: 6,
-                     maxlength: 255
-    %>
-    <%= invalid_message(object, :password) %>
+    <%= input f, :password, label: "Password", required: true, input_html: {
+        minlength: 6,
+        maxlength: 255,
+    } %>
   </div>
 
   <p>

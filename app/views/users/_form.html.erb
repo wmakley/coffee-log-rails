@@ -2,32 +2,21 @@
   <%= render "services/base_errors", object: object %>
 
   <div class="mb-3">
-    <%= f.label :display_name, "Display Name", class: "form-label required" %>
-    <%= f.text_field :display_name,
-                     class: "form-control required#{' is-invalid' if object.errors[:display_name].present?}",
-                     required: true,
-                     maxlength: 255,
-                     autofocus: object.new_record?
-    %>
-    <%= invalid_message(object, :display_name) %>
+    <%= input f, :display_name,
+              label: "Display Name",
+              required: true,
+              input_html: {
+                maxlength: 255
+              } %>
   </div>
   <div class="mb-3">
-    <%= f.label :username, "Username (for login)", class: "form-label required" %>
-    <%= f.text_field :username,
-                     class: "form-control required#{' is-invalid' if object.errors[:username].present?}",
-                     required: true,
-                     maxlength: 255
-    %>
-    <%= invalid_message(object, :username) %>
+    <%= input f, :email, as: :email_field, label: "Email", input_html: { maxlength: 255 } %>
   </div>
   <div class="mb-3">
-    <%= f.label :password, "Password", class: "form-label required" %>
-    <%= f.text_field :password,
-                     class: "form-control required#{' is-invalid' if object.errors[:password].present?}",
-                     required: true,
-                     maxlength: 255
-    %>
-    <%= invalid_message(object, :password) %>
+    <%= input f, :usermame, label: "Username (for login)", required: true, input_html: { maxlength: 255 } %>
+  </div>
+  <div class="mb-3">
+    <%= input f, :password, label: "Password", required: true, input_html: { maxlength: 255 } %>
   </div>
   <div class="form-check mb-3">
     <%= f.check_box :admin,
