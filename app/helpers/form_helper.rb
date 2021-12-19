@@ -11,22 +11,27 @@ module FormHelper
 
     label_html[:class] ||= "form-label#{' required' if required}"
 
-    unless input_html.key?(:class)
-      input_classes = +"form-control"
+    input_classes = input_html.fetch(:class) { +"form-control#{' required' if required}" }
 
-      if required
-        input_classes << " required"
-        input_html[:required] = true
-      end
-
-      if errors.present?
-        input_classes << " is-invalid"
-      end
-      input_html[:class] = input_classes
+    # always add 'is-invalid' if there is an error
+    if errors.present?
+      input_classes = input_classes.dup if input_classes.frozen?
+      input_classes << " is-invalid"
     end
 
+    input_html[:class] = input_classes
+    input_html[:required] = true if required
+
     buffer = ActiveSupport::SafeBuffer.new
-    buffer << form_builder.label(name, label, label_html)
+    buffer << form_builder.label(name, label_html) do
+      buf = ActiveSupport::SafeBuffer.new
+      buf << label || name.to_s.titleize
+      if required
+        buf << " "
+        buf << content_tag(:abbr, "*", title: "Required", class: "required")
+      end
+      buf
+    end
     buffer << form_builder.public_send(as, name, input_html)
     buffer << invalid_feedback(errors) if errors.present?
     buffer
