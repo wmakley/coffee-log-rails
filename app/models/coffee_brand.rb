@@ -14,19 +14,23 @@
 #  index_coffee_brands_on_name  (name) UNIQUE
 #
 class CoffeeBrand < ApplicationRecord
+  include PgSearch::Model
+
   has_many :coffees, inverse_of: :coffee_brand, dependent: :restrict_with_error
 
   has_one_attached :logo
 
-  validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
-  validates :url, length: { maximum: 255, allow_nil: true }
-  validates :notes, length: { maximum: 4000, allow_nil: true }
+  multisearchable against: [:name, :notes]
 
   before_validation do
     self.name = name&.squish
     self.url = url&.strip.presence
     self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
   end
+
+  validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
+  validates :url, length: { maximum: 255, allow_nil: true }
+  validates :notes, length: { maximum: 4000, allow_nil: true }
 
   before_destroy do
     if self.id == 0
