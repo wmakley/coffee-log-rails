@@ -12,8 +12,9 @@ class ApplicationController < ActionController::Base
 
   def self.requires_admin(*actions)
     before_action only: actions do
-      unless Current.user&.admin?
-        redirect_to
+      unless current_user&.admin?
+        flash[:error] = "Not authorized"
+        redirect_to root_url
       end
     end
   end

@@ -28,5 +28,7 @@ Rails.application.routes.draw do
 
   resource :my_account, controller: 'my_account', only: [:show, :edit, :update]
 
+  # Admin-only
+  resources :brew_methods
   resources :users
 end

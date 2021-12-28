@@ -23,6 +23,10 @@
         <li class="nav-item">
           <a class="nav-link<%= ' active' if request.path.starts_with?(coffee_brands_path) %>" href="<%= coffee_brands_path %>">Brands</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link<%= ' active' if request.path.starts_with?(brew_methods_path) %>" href="<%= brew_methods_path %>">Brew
+            Methods</a>
+        </li>
         <li class="nav-item dropdown">
           <%- viewing_other_log = !viewing_own_log && request.path.starts_with?(logs_path) -%>
           <a class="nav-link dropdown-toggle<%= ' active' if viewing_other_log %>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

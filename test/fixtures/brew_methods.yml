@@ -8,6 +8,11 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
+other:
+  id: 0
+  default_brew_ratio: 16.667
+  name: Other
+
 pour_over:
   id: 1
   default_brew_ratio: 16.667
@@ -17,8 +22,3 @@ french_press:
   id: 2
   default_brew_ratio: 16.667
   name: French Press
-
-other:
-  id: 9
-  default_brew_ratio: 16.667
-  name: Other

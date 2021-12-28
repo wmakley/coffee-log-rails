@@ -9,10 +9,30 @@
 #  updated_at         :datetime         not null
 #
 class BrewMethod < ApplicationRecord
+
+  has_many :log_entries, dependent: :restrict_with_error
+
+  before_validation do
+    self.name = name&.squish.presence
+  end
+
   validates :name,
             presence: true,
             uniqueness: true,
             length: { maximum: 100 }
+
+  validates :default_brew_ratio,
+            numericality: {
+              greater_than: 0,
+              less_than: 1000,
+            }
+
+  before_destroy do
+    if id == 0
+      errors.add(:base, "may not delete 'Other' brew method")
+      throw :abort
+    end
+  end
 
   def self.for_select
     brew_methods = order(:id).pluck(:name, :id)
@@ -21,7 +41,5 @@ class BrewMethod < ApplicationRecord
     brew_methods
   end
 
-  before_validation do
-    self.name = name&.squish.presence
-  end
+  scope :by_name, -> { order(:name) }
 end
