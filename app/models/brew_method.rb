@@ -35,10 +35,7 @@ class BrewMethod < ApplicationRecord
   end
 
   def self.for_select
-    brew_methods = order(:id).pluck(:name, :id)
-    # Move "other" to the end
-    brew_methods.push brew_methods.delete_at(0)
-    brew_methods
+    order(Arel.sql("case id when 0 then 'zzzzzzzzzz' else name end")).pluck(:name, :id)
   end
 
   scope :by_name, -> { order(:name) }

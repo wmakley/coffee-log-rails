@@ -22,4 +22,9 @@ class BrewMethodTest < ActiveSupport::TestCase
     assert_not brew_method.destroy
     assert BrewMethod.exists?(brew_method.id)
   end
+
+  test "for select sorts 'other' to end" do
+    opts = BrewMethod.for_select
+    assert_equal "Other", opts.last[0]
+  end
 end
