@@ -18,14 +18,22 @@
           </li>
         <% end %>
         <li class="nav-item">
-          <a class="nav-link<%= ' active' if request.path.starts_with?(coffees_path) %>" href="<%= coffees_path %>">Coffees</a>
+          <a class="nav-link<%= ' active' if request.path.starts_with?(coffees_path) %>" href="<%= coffees_path %>">
+            <i class="bi bi-gem"></i>
+            Coffees
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link<%= ' active' if request.path.starts_with?(coffee_brands_path) %>" href="<%= coffee_brands_path %>">Brands</a>
+          <a class="nav-link<%= ' active' if request.path.starts_with?(coffee_brands_path) %>" href="<%= coffee_brands_path %>">
+            <i class="bi bi-globe"></i>
+            Brands
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link<%= ' active' if request.path.starts_with?(brew_methods_path) %>" href="<%= brew_methods_path %>">Brew
-            Methods</a>
+          <a class="nav-link<%= ' active' if request.path.starts_with?(brew_methods_path) %>" href="<%= brew_methods_path %>">
+            <i class="bi bi-arrow-repeat"></i>
+            Brew Methods
+          </a>
         </li>
         <li class="nav-item dropdown">
           <%- viewing_other_log = !viewing_own_log && request.path.starts_with?(logs_path) -%>
