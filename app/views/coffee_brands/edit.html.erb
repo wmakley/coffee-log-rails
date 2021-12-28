@@ -1,3 +1,5 @@
+<h1>Edit Coffee Brand</h1>
+
 <%= render "form",
            object: @coffee_brand,
            cancel_url: request.referrer =~ /\d+$/ ? coffee_brand_path(@coffee_brand) : coffee_brands_path

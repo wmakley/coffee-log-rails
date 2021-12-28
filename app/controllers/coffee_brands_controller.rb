@@ -38,11 +38,10 @@ class CoffeeBrandsController < ApplicationController
 
   def destroy
     if @coffee_brand.destroy
-      flash[:notice] = "Successfully deleted coffee brand."
+      redirect_to coffee_brands_url, status: :see_other, notice: "Successfully deleted coffee brand."
     else
-      flash[:error] = "#{@coffee_brand.errors.full_messages.to_sentence}."
+      redirect_to coffee_brands_url, error: "#{@coffee_brand.errors.full_messages.to_sentence.capitalize}."
     end
-    redirect_to coffee_brands_url
   end
 
   private

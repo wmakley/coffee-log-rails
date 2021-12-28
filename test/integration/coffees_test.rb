@@ -89,6 +89,6 @@ class CoffeesTest < ActionDispatch::IntegrationTest
     delete "/coffees/#{coffee.id}"
     assert_redirected_to "/coffees"
     follow_redirect!
-    assert_error "There were one or more errors deleting this coffee: Cannot delete record because dependent log entries exist."
+    assert_error "Cannot delete record because dependent log entries exist."
   end
 end
