@@ -6,3 +6,5 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+one_two_three:
+  ip_address: "1.2.3.4"

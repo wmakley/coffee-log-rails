@@ -31,4 +31,5 @@ Rails.application.routes.draw do
   # Admin-only
   resources :brew_methods
   resources :users
+  resources :banned_ips, only: [:index, :show, :destroy]
 end

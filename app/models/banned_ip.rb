@@ -27,4 +27,8 @@ class BannedIp < ApplicationRecord
   def self.remove_old_bans
     where("updated_at < ?", 1.day.ago).delete_all
   end
+
+  def to_param
+    ip_address.gsub(".", "-")
+  end
 end
