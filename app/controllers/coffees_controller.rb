@@ -29,7 +29,8 @@ class CoffeesController < ApplicationController
   end
 
   def new
-    @coffee = Coffee.new(process: "Washed")
+    @coffee = Coffee.new(params.permit(:coffee_brand_id))
+    @coffee.process ||= "Washed"
     set_coffee_brand_options
   end
 

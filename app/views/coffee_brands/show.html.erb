@@ -42,6 +42,9 @@
             <li>This brand does not have any coffees yet.</li>
           <% end %>
         </ul>
+        <p>
+          <%= link_to "Add Coffee", new_coffee_path(coffee_brand_id: @coffee_brand.id), class: "btn btn-success btn-sm" %>
+        </p>
       </div>
     </div>
   </div>
