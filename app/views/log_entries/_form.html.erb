@@ -86,14 +86,17 @@
     <% end %>
   </div>
   <div class="mb-3">
-    <%= f.label :brew_method_id, "Brew Method", class: "form-label" %>
-    <%= f.select :brew_method_id,
-                 brew_methods,
-                 { include_blank: "", },
-                 class: "form-select#{' is-invalid' if errors[:brew_method_id].present?}",
-                 "data-log-entry-form-target" => "brewMethodSelect"
+    <%= input f, :brew_method_id, as: :select,
+              label: "Brew Method",
+              required: true,
+              collection: brew_methods,
+              include_blank: "",
+              input_html: {
+                data: {
+                  log_entry_form_target: "brewMethodSelect",
+                }
+              }
     %>
-    <%= invalid_message(object, :brew_method) %>
   </div>
   <div class="row mb-3">
     <div class="col">
@@ -104,7 +107,7 @@
                          placeholder: "Grams of coffee",
                          data: {
                            log_entry_form_target: "coffeeGramsInput",
-                           action: "input->log-entry-form#calculateWater"
+                           action: "input->log-entry-form#calculateWater change->log-entry-form#onCoffeeChange"
                          }
       %>
       <%= invalid_message(object, :coffee_grams) %>

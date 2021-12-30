@@ -3,7 +3,7 @@
 module FormHelper
 
   # poor man's simple_form
-  def input(form_builder, name, as: :text_field, label: nil, required: false,
+  def input(form_builder, name, as: :text_field, label: nil, required: false, collection: nil, include_blank: false,
             label_html: {},
             input_html: {})
     object = form_builder.object
@@ -11,7 +11,12 @@ module FormHelper
 
     label_html[:class] ||= "form-label#{' required' if required}"
 
-    input_classes = input_html.fetch(:class) { +"form-control#{' required' if required}" }
+    input_classes = case as
+                    when :select
+                      input_html.fetch(:class) { +"form-select#{' required' if required}" }
+                    else
+                      input_html.fetch(:class) { +"form-control#{' required' if required}" }
+                    end
 
     # always add 'is-invalid' if there is an error
     if errors.present?
@@ -32,7 +37,11 @@ module FormHelper
       end
       buf
     end
-    buffer << form_builder.public_send(as, name, input_html)
+    if as == :select
+      buffer << form_builder.select(name, collection, { include_blank: include_blank }, input_html)
+    else
+      buffer << form_builder.public_send(as, name, input_html)
+    end
     buffer << invalid_feedback(errors) if errors.present?
     buffer
   end

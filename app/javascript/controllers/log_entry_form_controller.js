@@ -29,25 +29,29 @@ export default class LogEntryFormController extends Controller {
     this.enableOrDisableSubmit()
   }
 
+  onCoffeeChange() {
+    const coffeeGrams = this.parseCoffeeGrams()
+    if (coffeeGrams != null) {
+      this.coffeeGramsInputTarget.value = Math.round(coffeeGrams)
+    }
+  }
+
   onWaterChange() {
+    const waterGrams = this.parseWaterGrams()
+    if (waterGrams != null) {
+      this.waterGramsInputTarget.value = Math.round(waterGrams)
+    }
+
     this.waterChanged = !!this.waterGramsInputTarget.value;
   }
 
   calculateWater() {
-    if ( this.waterChanged ) {
+    if (this.waterChanged) {
       return
     }
 
-    const input = this.coffeeGramsInputTarget.value
-    if (!input) {
-      return
-    }
-
-    const coffeeGrams = parseFloat(input)
-    if (isNaN(coffeeGrams)) {
-      return
-    }
-    if (coffeeGrams <= 0) {
+    const coffeeGrams = this.parseCoffeeGrams()
+    if (coffeeGrams === null) {
       return
     }
 
@@ -57,8 +61,47 @@ export default class LogEntryFormController extends Controller {
     this.waterGramsInputTarget.value = waterGrams.toString(10)
   }
 
+  /**
+   *
+   * @returns {number|null}
+   */
+  parseCoffeeGrams() {
+    return this.parseGramsInput(this.coffeeGramsInputTarget.value)
+  }
+
+  /**
+   *
+   * @returns {number|null}
+   */
+  parseWaterGrams() {
+    return this.parseGramsInput(this.waterGramsInputTarget.value)
+  }
+
+  /**
+   *
+   * @param {string} input
+   * @returns {null|number}
+   */
+  parseGramsInput(input) {
+    if (!input) {
+      return null
+    }
+
+    const coffeeGrams = parseFloat(input)
+    if (isNaN(coffeeGrams)) {
+      return null
+    }
+    if (coffeeGrams <= 0) {
+      return null
+    }
+
+    return coffeeGrams
+  }
+
   enableOrDisableSubmit() {
-    const val = this.coffeeIdInputTarget.value.trim()
-    this.submitButtonTarget.disabled = !val
+    const coffeeId = this.coffeeIdInputTarget.value.trim()
+    const brewMethodId = this.brewMethodSelectTarget.value
+
+    this.submitButtonTarget.disabled = !coffeeId && !brewMethodId
   }
 }

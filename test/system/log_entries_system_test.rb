@@ -32,6 +32,22 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
     end
   end
 
+  test "creating a new log entry with fractional grams" do
+    visit "/logs/default/entries"
+
+    fill_in "Start by typing the name of your coffee:", with: "coffee"
+    first(:css, "##{dom_id(coffees(:one))}-search-result").click
+    select "French Press", from: "Brew Method"
+    fill_in "Coffee grams", with: "10.67"
+    fill_in "Water grams", with: "100.2"
+    click_button "Create Log Entry"
+
+    assert_selector "#log_entries > a.list-group-item"
+    within first(:css, "#log_entries > a.list-group-item") do
+      assert_content "#{coffees(:one).name} (French Press - 11/100 - 1 : 9.09)"
+    end
+  end
+
   test "coffee lookup persistence" do
     coffee = coffees(:one)
 

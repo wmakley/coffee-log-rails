@@ -39,6 +39,7 @@ class LogEntriesController < ApplicationController
           set_new_log_entry_from_previous(@log_entry)
         end
       else
+        logger.debug "Log Entry Validation Errors: #{@log_entry.errors.full_messages.inspect}"
         format.html do
           set_brew_methods
           render action: :new, status: :unprocessable_entity
