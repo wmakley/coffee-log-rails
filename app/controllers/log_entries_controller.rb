@@ -21,6 +21,7 @@ class LogEntriesController < ApplicationController
 
   def new
     @log_entry = LogEntry.new(log: @log, entry_date: Time.current)
+    @log_entry.attributes = params.permit(:coffee_id)
     set_brew_methods
   end
 
@@ -32,7 +33,7 @@ class LogEntriesController < ApplicationController
     respond_to do |format|
       if @log_entry.save
         format.html do
-          redirect_to log_entries_url(@log), notice: "Created log entry"
+          redirect_to log_entries_url(@log), notice: "Successfully created log entry."
         end
         format.turbo_stream do
           set_brew_methods

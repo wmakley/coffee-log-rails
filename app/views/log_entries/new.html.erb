@@ -1,9 +1,9 @@
-<% content_for(:title, "New Entry") %>
 <h1>New Log Entry</h1>
 
 <%= render "form",
            object: @log_entry,
            url: log_entries_path(@log),
-           cancel_url: log_entries_path(@log),
-           brew_methods: @brew_methods
+           brew_methods: @brew_methods,
+           turbo: false,
+           cancel_url: params[:cancel_url] || log_entries_path(@log)
 %>

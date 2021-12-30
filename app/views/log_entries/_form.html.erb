@@ -2,7 +2,8 @@
   class: "log-entry-form",
   data: {
     controller: "log-entry-form",
-    action: "change->log-entry-form#enableOrDisableSubmit"
+    action: "change->log-entry-form#enableOrDisableSubmit",
+    turbo: local_assigns[:turbo]
   }
 }) do |f| %>
   <%- errors = object.errors -%>

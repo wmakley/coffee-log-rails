@@ -14,6 +14,12 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "new" do
+    get "/logs/default/entries/new"
+    assert_response :success
+    assert_select "h1", "New Log Entry"
+  end
+
   test "create success" do
     post "/logs/default/entries",
          params: {

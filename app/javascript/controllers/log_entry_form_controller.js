@@ -118,9 +118,11 @@ export default class LogEntryFormController extends Controller {
   }
 
   enableOrDisableSubmit() {
-    const coffeeId = this.coffeeIdInputTarget.value.trim()
-    const brewMethodId = this.brewMethodSelectTarget.value
+    const requiredValues = [
+      !!this.coffeeIdInputTarget.value.trim(),
+      !!this.brewMethodSelectTarget.value.trim(),
+    ]
 
-    this.submitButtonTarget.disabled = !coffeeId && !brewMethodId
+    this.submitButtonTarget.disabled = requiredValues.includes(false)
   }
 }
