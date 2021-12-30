@@ -94,6 +94,7 @@
               input_html: {
                 data: {
                   log_entry_form_target: "brewMethodSelect",
+                  action: "change->log-entry-form#onBrewMethodChange"
                 }
               }
     %>
@@ -139,7 +140,13 @@
     </div>
   </div>
   <div class="mb-3">
-    <%= input f, :preparation_notes, as: :text_area, label: "Preparation Notes" %>
+    <%= input f, :preparation_notes, as: :text_area, label: "Preparation Notes",
+              input_html: {
+                data: {
+                  log_entry_form_target: "preparationNotes",
+                }
+              }
+    %>
   </div>
   <fieldset>
     <legend><i class="bi bi-star-fill"></i> Overall Rating</legend>

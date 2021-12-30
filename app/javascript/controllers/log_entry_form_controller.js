@@ -5,6 +5,7 @@ export default class LogEntryFormController extends Controller {
     "brewMethodSelect",
     "coffeeIdInput",
     "coffeeGramsInput",
+    "preparationNotes",
     "waterGramsInput",
     "submitButton",
   ]
@@ -27,6 +28,24 @@ export default class LogEntryFormController extends Controller {
     document.getElementById("coffee-search-results").innerHTML = ""
 
     this.enableOrDisableSubmit()
+  }
+
+  onBrewMethodChange() {
+    if (this.isNewRecord) {
+      this.preparationNotesTarget.value = ""
+    }
+  }
+
+  get isNewRecord() {
+    return this.method === "post"
+  }
+
+  get method() {
+    if (!this.element._method) {
+      return this.element.method.toLowerCase()
+    }
+
+    return this.element._method.value.toLowerCase()
   }
 
   onCoffeeChange() {
