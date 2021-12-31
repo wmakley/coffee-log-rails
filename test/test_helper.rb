@@ -23,13 +23,23 @@ class ActiveSupport::TestCase
   def valid_login
     authorization_header('default', 'password')
   end
+end
 
+module AppSpecificAssertions
   def assert_notice(message)
-    assert_select("#flash > .alert.alert-success", message)
+    if respond_to? :assert_selector
+      assert_selector("#flash > .alert.alert-success", text: message)
+    else
+      assert_select("#flash > .alert.alert-success", message)
+    end
   end
 
   def assert_error(message)
-    assert_select("#flash > .alert.alert-danger", message)
+    if respond_to? :assert_selector
+      assert_selector("#flash > .alert.alert-danger", text: message)
+    else
+      assert_select("#flash > .alert.alert-danger", message)
+    end
   end
 end
 
@@ -64,5 +74,6 @@ module ActionDispatch
   class IntegrationTest
     prepend RemoveUploadedFiles
     prepend LoginAs
+    include AppSpecificAssertions
   end
 end
