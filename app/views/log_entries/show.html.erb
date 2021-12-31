@@ -1,5 +1,11 @@
-<h1><%= link_to(@log_entry.coffee_name, coffee_path(@log_entry.coffee, back_url: request.path)) %></h1>
-<p class="lead"><%= @log_entry.entry_date.to_s(:long) %></p>
+<h1>Log Entry Details</h1>
+
+<p class="lead">Entry Date: <%= @log_entry.entry_date.to_s(:long) %></p>
+
+<h4><%= @log_entry.brew_method_name %> of:</h4>
+<%= render "lookup_coffee_form/selected_coffee",
+           coffee: @log_entry.coffee,
+           url: coffee_path(@log_entry.coffee) %>
 
 <p>
   <strong>Brew Method:</strong> <%= @log_entry.brew_method_name %>
@@ -18,7 +24,7 @@
 </p>
 
 <p>
-  <%= link_to("Edit", edit_log_entry_path(@log, @log_entry), class: "btn btn-info") %>
+  <%= link_to("Edit Log Entry", edit_log_entry_path(@log, @log_entry), class: "btn btn-success") %>
 
   <%= link_to("Back", :back, class: "btn btn-secondary") %>
 

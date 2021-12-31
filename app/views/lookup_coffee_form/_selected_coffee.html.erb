@@ -1,6 +1,7 @@
 <div class="card clickable selected-coffee-card mb-3"
+     title="Click to View Coffee Details"
      data-controller="visit"
-     data-visit-url-value="<%= coffee_path(coffee,
+     data-visit-url-value="<%= local_assigns[:url] || coffee_path(coffee,
                                            back_url: log_entries_path(current_user.log, params.permit(:query, :coffee_id).to_h)) %>"
      data-action="click->visit#navigate">
   <div class="row g-0">
