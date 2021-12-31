@@ -143,6 +143,7 @@
   <div class="mb-3">
     <%= input f, :preparation_notes, as: :text_area, label: "Preparation Notes",
               input_html: {
+                rows: "3",
                 data: {
                   log_entry_form_target: "preparationNotes",
                 }
@@ -159,9 +160,12 @@
     <% end %>
   </fieldset>
   <div class="mb-3">
-    <%= f.label :tasting_notes, "Tasting Notes", class: "form-label" %>
-    <%= f.text_area :tasting_notes, class: "form-control#{' is-invalid' if errors[:tasting_notes].present?}" %>
-    <%= invalid_message(object, :tasting_notes) %>
+    <%= input f, :tasting_notes, as: :text_area,
+              label: "Tasting Notes",
+              input_html: {
+                rows: "3",
+              }
+    %>
   </div>
   <p>
     <button type="submit" class="btn btn-primary" data-log-entry-form-target="submitButton">
