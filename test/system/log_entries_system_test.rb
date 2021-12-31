@@ -41,11 +41,29 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
     fill_in "Coffee grams", with: "10.67"
     fill_in "Water grams", with: "100.2"
     click_button "Create Log Entry"
+    assert_equal "11", first(:field, "Coffee grams")[:value]
+    assert_equal "100", first(:field, "Water grams")[:value]
 
     assert_selector "#log_entries > a.list-group-item"
     within first(:css, "#log_entries > a.list-group-item") do
       assert_content "#{coffees(:one).name} (French Press - 11/100 - 1 : 9.09)"
     end
+  end
+
+  test "submit button enable disable" do
+    visit "/logs/default/entries"
+
+    assert_equal "true", first(:button, text: "Create Log Entry", disabled: true)[:disabled]
+
+    fill_in "Start by typing the name of your coffee:", with: "coffee"
+    first(:css, "##{dom_id(coffees(:one))}-search-result").click
+    assert_equal "true", first(:button, text: "Create Log Entry", disabled: true)[:disabled]
+
+    select "French Press", from: "Brew Method"
+    assert_equal "false", first(:button, text: "Create Log Entry")[:disabled]
+
+    select "", from: "Brew Method"
+    assert_equal "true", first(:button, text: "Create Log Entry", disabled: true)[:disabled]
   end
 
   test "coffee lookup persistence" do
