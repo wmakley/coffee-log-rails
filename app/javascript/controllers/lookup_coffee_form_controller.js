@@ -15,7 +15,7 @@ export default class LookupCoffeeFormController extends Controller {
 
   connect() {
     if (this.trimmedQuery) {
-      this.doSearch()
+      this.doSearch(false)
     }
   }
 
@@ -25,13 +25,23 @@ export default class LookupCoffeeFormController extends Controller {
 
   onInput = debounce(() => this.doSearch(), 200)
 
-  async doSearch() {
+  /**
+   *
+   * @param {boolean} updateUrl whether to modify the current location to include the query
+   * @returns {Promise<void>}
+   */
+  async doSearch(updateUrl = true) {
     const query = this.trimmedQuery
     if (!query) {
       return
     }
 
     // console.log("doSearch", query)
+    if (updateUrl) {
+      const url = new URL(window.location);
+      url.searchParams.set('query', query);
+      window.history.pushState({}, '', url);
+    }
 
     const response = await get(this.endpointValue + "/search_results", {
       query: {
@@ -75,5 +85,9 @@ export default class LookupCoffeeFormController extends Controller {
 
     const changeEvent = new Event('change')
     this.coffeeIdInputTarget.closest("form").dispatchEvent(changeEvent)
+
+    const url = new URL(window.location);
+    url.searchParams.set('coffee_id', coffeeId);
+    window.history.pushState({}, '', url);
   }
 }

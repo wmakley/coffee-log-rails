@@ -27,7 +27,7 @@
                         'action' => 'confirmation#confirm'
                       }) if @coffee_brand.can_destroy?
           %>
-          <%= link_to("Back", coffee_brands_path, class: "card-link btn btn-secondary") %>
+          <%= link_to("Back", :back, class: "card-link btn btn-secondary") %>
         </p>
       </div>
     </div>

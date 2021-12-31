@@ -75,7 +75,7 @@
     </button>
 
     <% if local_assigns[:cancel_url] %>
-      <%= link_to("Cancel", cancel_url, class: "btn btn-secondary") %>
+      <%= link_to("Cancel", :back, class: "btn btn-secondary") %>
     <% end %>
   </p>
 
