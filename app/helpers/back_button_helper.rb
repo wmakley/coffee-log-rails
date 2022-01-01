@@ -2,8 +2,9 @@
 
 module BackButtonHelper
 
+  # Convenience for calling `link_to("Back", url_for_back(default_url), ...)`
   def link_to_back(name, default_url, options = {}, &block)
-    no_edit = options.delete(:no_edit) { true }
+    no_edit = options.delete(:no_edit)
     back_url = options.delete(:back_url)
     link_to(name, url_for_back(default_url, no_edit: no_edit, back_url: back_url), options, &block)
   end

@@ -38,4 +38,16 @@ class BackButtonsSystemTest < ApplicationSystemTestCase
     click_link "Back"
     assert_current_path coffee_path(log_entry.coffee)
   end
+
+  test "chained back links don't make a loop" do
+    log_entry = log_entries(:one)
+
+    visit coffees_path
+    first(:css, %(a[href="#{coffee_path(log_entry.coffee)}"])).click
+    click_link "#{log_entry.log.title}: #{log_entry.entry_date.to_s(:short)}"
+    click_link "Back"
+    assert_current_path coffee_path(log_entry.coffee)
+    click_link "Back"
+    assert_current_path coffees_path
+  end
 end
