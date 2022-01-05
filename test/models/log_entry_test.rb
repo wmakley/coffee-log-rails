@@ -39,7 +39,7 @@
 require "test_helper"
 
 class LogEntryTest < ActiveSupport::TestCase
-  fixtures :logs, :coffees, :coffee_brands, :brew_methods
+  fixtures :all
 
   def valid_attributes
     {
