@@ -1,6 +1,6 @@
 <h1>Log Entry Details</h1>
 
-<p class="lead">Entry Date: <%= @log_entry.entry_date.to_s(:long) %></p>
+<p class="lead">Entry Date: <%= @log_entry.entry_date.to_formatted_s(:long) %></p>
 
 <h4><%= @log_entry.brew_method_name %> of:</h4>
 <%= render "lookup_coffee_form/selected_coffee",

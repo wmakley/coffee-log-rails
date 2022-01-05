@@ -19,8 +19,8 @@
           <h7 class="card-text"><%= @coffee.origin %></h7>
         <% end %>
         <p class="card-text text-muted">
-          Created: <%= @coffee.created_at.to_s(:long) %><br>
-          Last updated: <%= @coffee.updated_at.to_s(:long) %>
+          Created: <%= @coffee.created_at.to_formatted_s(:long) %><br>
+          Last updated: <%= @coffee.updated_at.to_formatted_s(:long) %>
         </p>
         <% if @coffee.notes.present? %>
           <%= simple_format(@coffee.notes) %>
@@ -45,7 +45,7 @@
         <h2>Log Entries</h2>
         <ul>
           <% @log_entries.each do |log_entry| %>
-            <li><small><%= link_to "#{log_entry.log.title}: #{log_entry.entry_date.to_s(:short)}", log_entry_path(log_entry.log, log_entry) %></small></li>
+            <li><small><%= link_to "#{log_entry.log.title}: #{log_entry.entry_date.to_formatted_s(:short)}", log_entry_path(log_entry.log, log_entry) %></small></li>
           <% end %>
           <% if @log_entries.blank? %>
             <li>This coffee does not have any log entries.</li>

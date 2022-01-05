@@ -13,8 +13,8 @@
   <% @banned_ips.each do |banned_ip| %>
     <tr>
       <td><%= banned_ip.ip_address %></td>
-      <td><%= banned_ip.created_at.to_s(:long) %></td>
-      <td><%= banned_ip.updated_at.to_s(:long) %></td>
+      <td><%= banned_ip.created_at.to_formatted_s(:long) %></td>
+      <td><%= banned_ip.updated_at.to_formatted_s(:long) %></td>
       <td>
         <%= link_to("Un-Ban", banned_ip, class: "btn btn-warning btn-sm", data: {
           'turbo-method' => :delete,
@@ -40,8 +40,8 @@
     <tr>
       <td><%= login_attempt.ip_address %></td>
       <td><%= login_attempt.attempts %></td>
-      <td><%= login_attempt.created_at.to_s(:long) %></td>
-      <td><%= login_attempt.updated_at.to_s(:long) %></td>
+      <td><%= login_attempt.created_at.to_formatted_s(:long) %></td>
+      <td><%= login_attempt.updated_at.to_formatted_s(:long) %></td>
     </tr>
   <% end %>
   </tbody>

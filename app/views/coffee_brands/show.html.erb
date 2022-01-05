@@ -10,8 +10,8 @@
           <p class="card-text">Website: <%= link_to_coffee_brand_url(@coffee_brand) %></p>
         <% end %>
         <p class="card-text text-muted">
-          Created: <%= @coffee_brand.created_at.to_s(:long) %><br>
-          Last updated: <%= @coffee_brand.updated_at.to_s(:long) %>
+          Created: <%= @coffee_brand.created_at.to_formatted_s(:long) %><br>
+          Last updated: <%= @coffee_brand.updated_at.to_formatted_s(:long) %>
         </p>
         <% if @coffee_brand.notes.present? %>
           <%= simple_format(@coffee_brand.notes) %>

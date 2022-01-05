@@ -34,7 +34,7 @@ class BackButtonsSystemTest < ApplicationSystemTestCase
   test "log entry back button from coffee" do
     log_entry = log_entries(:one)
     visit coffee_path(log_entry.coffee)
-    click_link "#{log_entry.log.title}: #{log_entry.entry_date.to_s(:short)}"
+    click_link "#{log_entry.log.title}: #{log_entry.entry_date.to_formatted_s(:short)}"
     click_link "Back"
     assert_current_path coffee_path(log_entry.coffee)
   end
@@ -44,7 +44,7 @@ class BackButtonsSystemTest < ApplicationSystemTestCase
 
     visit coffees_path
     first(:css, %(a[href="#{coffee_path(log_entry.coffee)}"])).click
-    click_link "#{log_entry.log.title}: #{log_entry.entry_date.to_s(:short)}"
+    click_link "#{log_entry.log.title}: #{log_entry.entry_date.to_formatted_s(:short)}"
     click_link "Back"
     assert_current_path coffee_path(log_entry.coffee)
     click_link "Back"

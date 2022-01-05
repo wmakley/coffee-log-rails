@@ -21,8 +21,8 @@
     <td><%= brew_method.id %></td>
     <td><%= brew_method.name %></td>
     <td><%= brew_method.default_brew_ratio %></td>
-    <td><%= brew_method.created_at.to_s(:short) %></td>
-    <td><%= brew_method.updated_at.to_s(:short) %></td>
+    <td><%= brew_method.created_at.to_formatted_s(:short) %></td>
+    <td><%= brew_method.updated_at.to_formatted_s(:short) %></td>
     <td>
       <%= link_to "Edit", edit_brew_method_path(brew_method), class: "btn btn-sm btn-success" %>
       <%= link_to "Delete", brew_method_path(brew_method),
