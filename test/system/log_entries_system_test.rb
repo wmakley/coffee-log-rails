@@ -10,6 +10,8 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
   end
 
   test "creating a new log entry" do
+    LogEntry.destroy_all
+
     visit "/logs/default/entries"
     assert_current_path "/logs/default/entries"
 
@@ -51,6 +53,8 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
   end
 
   test "submit button enable disable" do
+    LogEntry.destroy_all
+
     visit "/logs/default/entries"
 
     assert_equal "true", first(:button, text: "Create Log Entry", disabled: true)[:disabled]
