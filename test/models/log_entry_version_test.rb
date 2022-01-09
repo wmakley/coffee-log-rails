@@ -28,7 +28,7 @@
 require "test_helper"
 
 class LogEntryVersionTest < ActiveSupport::TestCase
-  fixtures :logs, :log_entries, :coffees, :coffee_brands
+  fixtures :all
 
   test "it saves with valid attributes" do
     entry = log_entries(:one)
