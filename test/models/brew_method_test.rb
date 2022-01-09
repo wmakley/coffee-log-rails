@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: brew_methods
+#
+#  id                 :bigint           not null, primary key
+#  default_brew_ratio :float            default(16.6667), not null
+#  name               :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
 require 'test_helper'
 
 class BrewMethodTest < ActiveSupport::TestCase

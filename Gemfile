@@ -57,7 +57,7 @@ group :development, :test do
 end
 
 group :development do
-  # gem 'annotate'
+  gem 'annotate', github: 'dabit/annotate_models', branch: 'rails-7'
 
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console'

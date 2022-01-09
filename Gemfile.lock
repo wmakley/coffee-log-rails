@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/dabit/annotate_models.git
+  revision: f38741d005052045e4d4c2c26b009d3ade0864f3
+  branch: rails-7
+  specs:
+    annotate (3.1.1)
+      activerecord (>= 3.2, < 7.1)
+      rake (>= 10.4, < 14.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -281,6 +290,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  annotate!
   aws-sdk-s3
   bootsnap (>= 1.4.4)
   capybara
