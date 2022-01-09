@@ -33,7 +33,6 @@ class Coffee < ApplicationRecord
   belongs_to :roast, inverse_of: :coffees, optional: true
 
   has_many :log_entries, inverse_of: :coffee, dependent: :restrict_with_error
-  has_many :log_entry_versions, inverse_of: :coffee, dependent: :restrict_with_error
 
   has_one_attached :photo
 
@@ -107,6 +106,6 @@ class Coffee < ApplicationRecord
   alias coffee_brand_name brand_name
 
   def can_destroy?
-    log_entries.blank? && log_entry_versions.blank?
+    log_entries.blank?
   end
 end

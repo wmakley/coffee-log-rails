@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_05_002840) do
+ActiveRecord::Schema.define(version: 2022_01_09_004500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,22 +105,6 @@ ActiveRecord::Schema.define(version: 2022_01_05_002840) do
     t.index ["log_id"], name: "index_log_entries_on_log_id"
   end
 
-  create_table "log_entry_versions", force: :cascade do |t|
-    t.bigint "log_entry_id", null: false
-    t.string "water"
-    t.string "brew_method"
-    t.string "grind_notes"
-    t.text "tasting_notes"
-    t.text "addl_notes"
-    t.integer "coffee_grams"
-    t.integer "water_grams"
-    t.datetime "deleted_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "coffee_id", null: false
-    t.index ["log_entry_id"], name: "index_log_entry_versions_on_log_entry_id"
-  end
-
   create_table "login_attempts", primary_key: "ip_address", id: :string, force: :cascade do |t|
     t.integer "attempts", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -173,7 +157,5 @@ ActiveRecord::Schema.define(version: 2022_01_05_002840) do
   add_foreign_key "log_entries", "brew_methods"
   add_foreign_key "log_entries", "coffees", on_update: :cascade, on_delete: :restrict
   add_foreign_key "log_entries", "logs"
-  add_foreign_key "log_entry_versions", "coffees", on_update: :cascade, on_delete: :restrict
-  add_foreign_key "log_entry_versions", "log_entries"
   add_foreign_key "logs", "users"
 end

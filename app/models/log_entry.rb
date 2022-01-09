@@ -42,20 +42,10 @@ class LogEntry < ApplicationRecord
   belongs_to :log, inverse_of: :log_entries, optional: false
   belongs_to :coffee, inverse_of: :log_entries, optional: false
   belongs_to :brew_method
-  has_many :log_entry_versions,
-           -> { order(:created_at) },
-           inverse_of: :log_entry,
-           dependent: :delete_all
 
   default_scope -> { live }
   scope :live, -> { where(deleted_at: nil) }
   scope :by_date_desc, -> { order(entry_date: :desc) }
-
-  def enable_versions?
-    false
-  end
-
-  after_save :save_version!, if: -> { enable_versions? && previous_changes.present? }
 
   NEWLINE_REPLACEMENT_REGEX = /\r\n|\r(?!\n)/
 
