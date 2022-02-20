@@ -101,4 +101,9 @@ Rails.application.configure do
     authentication: :login,
     enable_starttls_auto: true,
   }
+
+  config.action_mailer.default_url_options = {
+    host: 'coffee-log-rails.herokuapp.com',
+    port: 443
+  }
 end
