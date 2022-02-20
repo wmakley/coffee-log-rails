@@ -26,18 +26,46 @@ module HttpBasicAuthentication
       return
     end
 
+    username = session[:username]
+
+    if username.present?
+      password = session[:password]
+      last_login_at = Time.at(session[:last_login_at].to_i)
+
+      logger.info "AUTH: Found username #{username} in session, last logged in at #{last_login_at}"
+
+      if last_login_at > 1.month.ago
+        Current.user = User.find_by(username: username)
+        if Current.user.nil? || Current.user.password != password
+          logger.info "AUTH: Invalid username or password"
+          Current.user = nil
+          session.delete(:username)
+          session.delete(:password)
+          session.delete(:last_login_at)
+        end
+      else
+        Current.user = nil
+        logger.info "AUTH: Login expired, requiring http basic authentication"
+      end
+    end
+
+    return true if Current.user
+
     authenticate_or_request_with_http_basic do |username, password|
       Current.user = user = User.find_by(username: username)
-      logger.info "username '#{username}' not found" unless user
+      logger.info "AUTH: username '#{username}' not found" unless user
 
       if user && user.password.present? && user.password == password
+        session[:username] = username
+        session[:password] = password
+        session[:last_login_at] = Time.now.utc.to_i
         true
       else
         Current.user = nil
 
         attempt = Fail2Ban.record_failed_attempt(request.remote_ip)
 
-        Rails.logger.info "Incorrect username or password (#{attempt.attempts} attempts from #{request.remote_ip})"
+        logger.info "AUTH: Incorrect username or password (#{attempt.attempts} attempts from #{request.remote_ip})"
 
         false
       end
