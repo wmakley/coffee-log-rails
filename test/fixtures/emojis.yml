@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: emojis
+#
+#  id         :bigint           not null, primary key
+#  emoji      :string(4)        not null
+#  name       :string(100)      not null
+#  order      :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_emojis_on_order  (order)
+#
+
+heart:
+  id: 1
+  emoji: ❤️
+  name: love
+  order: 1

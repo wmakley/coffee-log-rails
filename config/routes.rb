@@ -9,8 +9,16 @@ Rails.application.routes.draw do
   resource :password_reset_request, only: [:index, :new, :create]
   resource :password, only: [:index, :show, :edit, :update]
 
+  concern :likeable do |options|
+    resources :likes,
+              only: [:index, :create, :destroy],
+              likeable_type: options.fetch(:likeable_type)
+  end
+
   resources :logs, only: [:index, :show, :destroy] do
-    resources :entries, controller: 'log_entries'
+    resources :entries, controller: 'log_entries' do
+      concerns :likeable, likeable_type: 'LogEntry'
+    end
   end
 
   namespace :lookup_coffee, module: nil, controller: 'lookup_coffee_form' do

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # frozen_string_literal: true
 
 # This file should contain all the record creation needed to seed the database with its default values.
@@ -36,4 +37,15 @@ unless Roast.exists?
       { id: 5, name: "Dark" }
     ]
   )
+end
+
+unless Emoji.exists?
+  Emoji.create!([
+                  { emoji: "❤️", name: "love", order: 1 },
+                  { emoji: "👍", name: "like", order: 5 },
+                  { emoji: "✨", name: "sparkle", order: 10 },
+                  { emoji: "😊", name: "smile", order: 15 },
+                  { emoji: "😂", name: "tears of joy", order: 20 },
+                  { emoji: "😢", name: "crying", order: 25 },
+                ])
 end

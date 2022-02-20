@@ -31,6 +31,8 @@ class User < ApplicationRecord
           inverse_of: :user,
           dependent: :destroy
 
+  has_many :likes, dependent: :restrict_with_error
+
   has_paper_trail
   has_secure_password
 

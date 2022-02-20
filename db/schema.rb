@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_13_131556) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_20_161443) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -77,6 +77,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_13_131556) do
     t.index ["coffee_brand_id", "name"], name: "index_coffees_on_coffee_brand_id_and_name", unique: true
     t.index ["coffee_brand_id"], name: "index_coffees_on_coffee_brand_id"
     t.index ["roast_id"], name: "index_coffees_on_roast_id"
+  end
+
+  create_table "emojis", force: :cascade do |t|
+    t.string "emoji", limit: 4, null: false
+    t.string "name", limit: 100, null: false
+    t.integer "order", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order"], name: "index_emojis_on_order"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.string "likeable_type", null: false
+    t.bigint "likeable_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "emoji_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["emoji_id"], name: "index_likes_on_emoji_id"
+    t.index ["likeable_type", "likeable_id", "user_id"], name: "index_likes_on_likeable_type_and_likeable_id_and_user_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "log_entries", force: :cascade do |t|
@@ -171,6 +192,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_13_131556) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "coffees", "coffee_brands"
   add_foreign_key "coffees", "roasts"
+  add_foreign_key "likes", "emojis"
+  add_foreign_key "likes", "users"
   add_foreign_key "log_entries", "brew_methods"
   add_foreign_key "log_entries", "coffees", on_update: :cascade, on_delete: :restrict
   add_foreign_key "log_entries", "logs"
