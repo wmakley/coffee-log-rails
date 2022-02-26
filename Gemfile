@@ -47,6 +47,10 @@ gem 'aws-sdk-s3', require: false
 # fulltext search
 gem 'pg_search'
 
+# exception monitoring
+gem 'sentry-ruby'
+gem 'sentry-rails'
+
 
 group :development, :test do
   gem 'rubocop', '~> 1.22', require: false

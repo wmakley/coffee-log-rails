@@ -243,6 +243,14 @@ GEM
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
+    sentry-rails (5.1.1)
+      railties (>= 5.0)
+      sentry-ruby-core (~> 5.1.1)
+    sentry-ruby (5.1.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      sentry-ruby-core (= 5.1.1)
+    sentry-ruby-core (5.1.1)
+      concurrent-ruby
     spring (4.0.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -303,6 +311,8 @@ DEPENDENCIES
   rubocop (~> 1.22)
   rubocop-rails
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   spring
   sprockets-rails
   web-console
