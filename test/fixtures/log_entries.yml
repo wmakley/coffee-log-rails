@@ -2,26 +2,28 @@
 #
 # Table name: log_entries
 #
-#  id                :bigint           not null, primary key
-#  acidity           :integer
-#  addl_notes        :text
-#  bitterness        :integer
-#  body              :integer
-#  coffee_grams      :integer
-#  deleted_at        :datetime
-#  entry_date        :datetime         not null
-#  grind_notes       :string
-#  overall_rating    :integer
-#  preparation_notes :text
-#  strength          :integer
-#  tasting_notes     :text
-#  water             :string
-#  water_grams       :integer
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  brew_method_id    :bigint           not null
-#  coffee_id         :bigint           not null
-#  log_id            :bigint           not null
+#  id                    :bigint           not null, primary key
+#  acidity               :integer
+#  addl_notes            :text
+#  bitterness            :integer
+#  body                  :integer
+#  coffee_grams          :integer
+#  deleted_at            :datetime
+#  entry_date            :datetime         not null
+#  grind_notes           :string
+#  grind_setting         :float
+#  overall_rating        :integer
+#  preparation_notes     :text
+#  strength              :integer
+#  tasting_notes         :text
+#  water                 :string
+#  water_grams           :integer
+#  water_temp_in_celsius :float
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  brew_method_id        :bigint           not null
+#  coffee_id             :bigint           not null
+#  log_id                :bigint           not null
 #
 # Indexes
 #

@@ -4,26 +4,28 @@
 #
 # Table name: log_entries
 #
-#  id                :bigint           not null, primary key
-#  acidity           :integer
-#  addl_notes        :text
-#  bitterness        :integer
-#  body              :integer
-#  coffee_grams      :integer
-#  deleted_at        :datetime
-#  entry_date        :datetime         not null
-#  grind_notes       :string
-#  overall_rating    :integer
-#  preparation_notes :text
-#  strength          :integer
-#  tasting_notes     :text
-#  water             :string
-#  water_grams       :integer
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  brew_method_id    :bigint           not null
-#  coffee_id         :bigint           not null
-#  log_id            :bigint           not null
+#  id                    :bigint           not null, primary key
+#  acidity               :integer
+#  addl_notes            :text
+#  bitterness            :integer
+#  body                  :integer
+#  coffee_grams          :integer
+#  deleted_at            :datetime
+#  entry_date            :datetime         not null
+#  grind_notes           :string
+#  grind_setting         :float
+#  overall_rating        :integer
+#  preparation_notes     :text
+#  strength              :integer
+#  tasting_notes         :text
+#  water                 :string
+#  water_grams           :integer
+#  water_temp_in_celsius :float
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  brew_method_id        :bigint           not null
+#  coffee_id             :bigint           not null
+#  log_id                :bigint           not null
 #
 # Indexes
 #
@@ -77,6 +79,10 @@ class LogEntry < ApplicationRecord
                             allow_blank: true,
                             minimum: 1
 
+  validates_numericality_of :grind_setting,
+                            :water_temp_in_celsius,
+                            allow_blank: true
+
   # Ratings out of five
   validates_numericality_of :acidity, :body, :bitterness, :overall_rating,
     only_integer: true,
@@ -112,5 +118,17 @@ class LogEntry < ApplicationRecord
     if coffee_grams.present? && water_grams.present? && coffee_grams.to_f > 0
       (water_grams.to_f / coffee_grams.to_f).round(2)
     end
+  end
+
+  def water_temperature
+    Temperature.new(water_temp_in_celsius)
+  end
+
+  def water_temp_in_fahrenheit
+    Temperature.new(water_temp_in_celsius).fahrenheit
+  end
+
+  def water_temp_in_fahrenheit=(input)
+    self.water_temp_in_celsius = Temperature.fahrenheit(input).celsius
   end
 end

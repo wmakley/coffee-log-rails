@@ -86,11 +86,14 @@ class LogEntriesController < ApplicationController
               :water,
               :brew_method_id,
               :grind_notes,
+              :grind_setting,
               :preparation_notes,
               :tasting_notes,
               :addl_notes,
               :coffee_grams,
               :water_grams,
+              :water_temp_in_celsius,
+              :water_temp_in_fahrenheit,
               :bitterness,
               :acidity,
               :body,
@@ -116,9 +119,11 @@ class LogEntriesController < ApplicationController
           water: most_recent_entry.water,
           brew_method_id: most_recent_entry.brew_method_id,
           grind_notes: most_recent_entry.grind_notes,
+          grind_setting: most_recent_entry.grind_setting,
           coffee_grams: most_recent_entry.coffee_grams,
           water_grams: most_recent_entry.water_grams,
           preparation_notes: most_recent_entry.preparation_notes,
+          water_temp_in_celsius: most_recent_entry.water_temp_in_celsius,
         }
       end
 
