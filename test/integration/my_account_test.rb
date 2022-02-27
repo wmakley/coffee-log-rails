@@ -19,7 +19,8 @@ class MyAccountTest < ActionDispatch::IntegrationTest
   test "updating password" do
     patch "/my_account", params: {
       user: {
-        password: "testtesttesttest"
+        password: "testtesttesttest",
+        password_confirmation: "testtesttesttest",
       }
     }
     assert_redirected_to "/my_account"

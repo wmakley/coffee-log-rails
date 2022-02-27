@@ -35,8 +35,8 @@ module HttpBasicAuthentication
       logger.info "AUTH: Found username #{username} in session, last logged in at #{last_login_at}"
 
       if last_login_at > 1.month.ago
-        Current.user = User.find_by(username: username)
-        if Current.user.nil? || Current.user.password != password
+        Current.user = User.find_by(username: username).authenticate(password)
+        if !Current.user
           logger.info "AUTH: Invalid username or password"
           Current.user = nil
           session.delete(:username)
@@ -55,7 +55,7 @@ module HttpBasicAuthentication
       Current.user = user = User.find_by(username: username)
       logger.info "AUTH: username '#{username}' not found" unless user
 
-      if user && user.password.present? && user.password == password
+      if user && user.authenticate(password)
         session[:username] = username
         session[:password] = password
         session[:last_login_at] = Time.now.utc.to_i

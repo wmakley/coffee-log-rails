@@ -4,15 +4,15 @@
 #
 # Table name: users
 #
-#  id           :bigint           not null, primary key
-#  admin        :boolean          default(FALSE), not null
-#  display_name :string
-#  email        :string
-#  password     :string           not null
-#  preferences  :jsonb            not null
-#  username     :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id              :bigint           not null, primary key
+#  admin           :boolean          default(FALSE), not null
+#  display_name    :string
+#  email           :string
+#  password_digest :string
+#  preferences     :jsonb            not null
+#  username        :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 # Indexes
 #
@@ -24,6 +24,8 @@ class User < ApplicationRecord
           inverse_of: :user,
           dependent: :destroy
 
+  has_secure_password
+
   before_validation do
     self.display_name = display_name&.squish.presence
     self.email = email&.strip.presence
@@ -33,7 +35,8 @@ class User < ApplicationRecord
   validates :password,
             presence: true,
             length: { minimum: 6, maximum: 255 },
-            format: /\A\S.*\S\z/
+            format: /\A\S.*\S\z/,
+            if: -> { !password.nil? }
   validates :display_name, presence: true, uniqueness: true
   validates :email,
             length: { maximum: 255, allow_nil: true }

@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_09_004500) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_02_26_170714) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,7 +19,7 @@ ActiveRecord::Schema.define(version: 2022_01_09_004500) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -33,7 +32,7 @@ ActiveRecord::Schema.define(version: 2022_01_09_004500) do
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -44,22 +43,22 @@ ActiveRecord::Schema.define(version: 2022_01_09_004500) do
   end
 
   create_table "banned_ips", primary_key: "ip_address", id: :string, force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "brew_methods", force: :cascade do |t|
     t.string "name", null: false
     t.float "default_brew_ratio", default: 16.6667, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "coffee_brands", force: :cascade do |t|
     t.string "name", null: false
     t.string "url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "notes"
     t.index ["name"], name: "index_coffee_brands_on_name", unique: true
   end
@@ -68,8 +67,8 @@ ActiveRecord::Schema.define(version: 2022_01_09_004500) do
     t.bigint "coffee_brand_id", default: 0, null: false
     t.string "name", null: false
     t.text "notes"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "roast_id"
     t.string "origin"
     t.boolean "decaf"
@@ -87,10 +86,10 @@ ActiveRecord::Schema.define(version: 2022_01_09_004500) do
     t.text "addl_notes"
     t.integer "coffee_grams"
     t.integer "water_grams"
-    t.datetime "deleted_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.datetime "entry_date", null: false
+    t.datetime "deleted_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "entry_date", precision: nil, null: false
     t.bigint "coffee_id", null: false
     t.bigint "brew_method_id", null: false
     t.text "preparation_notes"
@@ -107,15 +106,15 @@ ActiveRecord::Schema.define(version: 2022_01_09_004500) do
 
   create_table "login_attempts", primary_key: "ip_address", id: :string, force: :cascade do |t|
     t.integer "attempts", default: 1, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "logs", force: :cascade do |t|
     t.string "title", null: false
     t.string "slug", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["slug"], name: "index_logs_on_slug", unique: true
     t.index ["user_id"], name: "index_logs_on_user_id"
@@ -125,28 +124,28 @@ ActiveRecord::Schema.define(version: 2022_01_09_004500) do
     t.text "content"
     t.string "searchable_type"
     t.bigint "searchable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
   end
 
   create_table "roasts", force: :cascade do |t|
     t.string "name", null: false
     t.text "notes"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_roasts_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
-    t.string "password", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "display_name"
     t.boolean "admin", default: false, null: false
     t.jsonb "preferences", default: "{}", null: false
     t.string "email"
+    t.string "password_digest"
     t.index ["username"], name: "index_users_on_username"
   end
 

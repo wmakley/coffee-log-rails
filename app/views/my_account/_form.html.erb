@@ -32,9 +32,15 @@
     %>
   </div>
   <div class="mb-3">
-    <%= input f, :password, label: "Password", required: true, input_html: {
+    <%= input f, :password, as: :password_field, label: "Password", input_html: {
         minlength: 6,
         maxlength: 255,
+    } %>
+  </div>
+  <div class="mb-3">
+    <%= input f, :password_confirmation, as: :password_field, label: "Password Confirmation", input_html: {
+      minlength: 6,
+      maxlength: 255,
     } %>
   </div>
 

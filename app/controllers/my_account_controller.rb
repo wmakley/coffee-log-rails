@@ -26,7 +26,8 @@ class MyAccountController < ApplicationController
         :display_name,
         :email,
         :username,
-        :password
+        :password,
+        :password_confirmation
       )
     end
 end
