@@ -16,10 +16,10 @@
     <%= input f, :username, label: "Username (for login)", required: true, input_html: { maxlength: 255 } %>
   </div>
   <div class="mb-3">
-    <%= input f, :password, as: :password_field, label: "Password", required: true, input_html: { maxlength: 255 } %>
+    <%= input f, :password, as: :password_field, label: "Password", input_html: { maxlength: 255 } %>
   </div>
   <div class="mb-3">
-    <%= input f, :password_confirmation, as: :password_field, label: "Password Confirmation", required: true, input_html: { maxlength: 255 } %>
+    <%= input f, :password_confirmation, as: :password_field, label: "Password Confirmation", input_html: { maxlength: 255 } %>
   </div>
   <div class="form-check mb-3">
     <%= f.check_box :admin,
