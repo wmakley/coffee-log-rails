@@ -35,16 +35,14 @@ module HttpBasicAuthentication
       logger.info "AUTH: Found username #{username} in session, last logged in at #{last_login_at}"
 
       if last_login_at > 1.month.ago
-        Current.user = User.find_by(username: username).authenticate(password)
+        Current.user = User.find_by(username: username)&.authenticate(password)
         if !Current.user
           logger.info "AUTH: Invalid username or password"
-          Current.user = nil
           session.delete(:username)
           session.delete(:password)
           session.delete(:last_login_at)
         end
       else
-        Current.user = nil
         logger.info "AUTH: Login expired, requiring http basic authentication"
       end
     end
