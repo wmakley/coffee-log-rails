@@ -123,7 +123,7 @@ GEM
       turbo-rails
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
-    image_processing (1.12.1)
+    image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
     io-console (0.5.11)
@@ -300,7 +300,7 @@ DEPENDENCIES
   debug
   dotenv-rails
   hotwire-rails
-  image_processing (~> 1.2)
+  image_processing (~> 1.12.2)
   jbuilder (~> 2.7)
   jsbundling-rails
   pg (~> 1.1)
