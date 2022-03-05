@@ -24,6 +24,7 @@ class User < ApplicationRecord
           inverse_of: :user,
           dependent: :destroy
 
+  has_paper_trail
   has_secure_password
 
   before_validation do

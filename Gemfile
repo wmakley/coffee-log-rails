@@ -47,6 +47,9 @@ gem 'aws-sdk-s3', require: false
 # fulltext search
 gem 'pg_search'
 
+# auditing of certain tables
+gem 'paper_trail'
+
 # exception monitoring
 gem 'sentry-ruby'
 gem 'sentry-rails'

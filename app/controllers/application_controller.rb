@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   include HttpBasicAuthentication
 
   before_action :set_logs
+  before_action :set_paper_trail_whodunnit
 
   def self.requires_admin(*actions)
     before_action only: actions do
