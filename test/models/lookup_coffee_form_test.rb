@@ -2,7 +2,7 @@
 require 'test_helper'
 
 class LookupCoffeeFormTest < ActiveSupport::TestCase
-  fixtures :coffees
+  fixtures :coffee_brands, :roasts, :coffees
 
   test "#search_results with empty query returns no results" do
     form = LookupCoffeeForm.new(Coffee.all, query: "")
