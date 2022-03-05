@@ -10,4 +10,10 @@ module LogEntryHelper
       "Grind: #{log_entry.grind_setting.to_i}"
     end
   end
+
+  def log_entry_rating(log_entry)
+    if log_entry&.overall_rating.present?
+      "#{log_entry.overall_rating} out of 5"
+    end
+  end
 end
