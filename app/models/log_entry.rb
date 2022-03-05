@@ -121,14 +121,18 @@ class LogEntry < ApplicationRecord
   end
 
   def water_temperature
-    Temperature.new(water_temp_in_celsius)
+    Temperature.new(water_temp_in_celsius) if water_temp_in_celsius.present?
   end
 
   def water_temp_in_fahrenheit
-    Temperature.new(water_temp_in_celsius).fahrenheit
+    Temperature.new(water_temp_in_celsius).fahrenheit if water_temp_in_celsius.present?
   end
 
   def water_temp_in_fahrenheit=(input)
     self.water_temp_in_celsius = Temperature.fahrenheit(input).celsius
+  end
+
+  def formatted_water_temp
+    "#{water_temp_in_fahrenheit}F" if water_temp_in_celsius.present?
   end
 end

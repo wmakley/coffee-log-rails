@@ -19,11 +19,11 @@ class Temperature
     end
 
     def fahrenheit_to_celsius(temp_in_fahrenheit)
-      (temp_in_fahrenheit - 32) / 1.8
+      (temp_in_fahrenheit.to_f - 32) / 1.8
     end
 
     def celsius_to_fahrenheit(temp_in_celsius)
-      (temp_in_celsius * 1.8) + 32
+      (temp_in_celsius.to_f * 1.8) + 32
     end
   end
 

@@ -12,9 +12,13 @@
   <br>
   <strong>Coffee / Water:</strong> <%= @log_entry.coffee_grams %>g / <%= @log_entry.water_grams %>g (1 : <%= @log_entry.brew_ratio %>)
   <br>
-  <strong>Grind:</strong> <%= @log_entry.grind_notes %>
+  <strong>Grind Setting:</strong> <%= @log_entry.grind_setting %>
   <br>
-  <strong>Water:</strong> <%= @log_entry.water %>
+  <strong>Grind Notes:</strong> <%= @log_entry.grind_notes %>
+  <br>
+  <strong>Water Temperature:</strong> <%= @log_entry.water_temp_in_fahrenheit %>F
+  <br>
+  <strong>Water Source:</strong> <%= @log_entry.water %>
   <br>
   <strong>Preparation Notes:</strong> <%= @log_entry.preparation_notes %>
   <br>

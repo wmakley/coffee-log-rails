@@ -22,7 +22,7 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
     select "French Press", from: "Brew Method"
     fill_in "Coffee grams", with: "10"
     fill_in "Water grams", with: "100"
-    fill_in "Grind Notes", with: "some notes"
+    fill_in "Grind Setting", with: "3"
     click_button "Create Log Entry"
 
     refute_selector "#no_log_entries_message"
