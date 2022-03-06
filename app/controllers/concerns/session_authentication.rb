@@ -84,7 +84,6 @@ module SessionAuthentication
   end
 
   def logout_current_user
-    session.delete(:logged_in_user_id)
-    session.delete(:last_login_at)
+    reset_session
   end
 end
