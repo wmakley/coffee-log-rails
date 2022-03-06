@@ -1,13 +1,13 @@
 <%= form_with(model: object, url: url) do |f| %>
   <div class="mb-3">
-    <%= f.label :username %>
-    <%= f.text_field :username, class: "form-control", required: true  %>
+    <%= input f, :username, as: :text_field, label: "Username", required: true, input_html: { maxlength: 255 } %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :password %>
-    <%= f.password_field :password, class: "form-control", required: true %>
+    <%= input f, :password, as: :password_field, label: "Password", required: true, input_html: { maxlength: 255 } %>
   </div>
 
-  <%= f.submit "Login", class: "btn btn-primary" %>
+  <p>
+    <%= f.submit "Login", class: "btn btn-primary" %>
+  </p>
 <% end %>

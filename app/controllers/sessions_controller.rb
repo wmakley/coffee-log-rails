@@ -20,6 +20,7 @@ class SessionsController < ApplicationController
     if authenticate_user_from_form(@login_form)
       redirect_to logs_url, status: :see_other
     else
+      flash[:error] = "Username or password not correct."
       Fail2Ban.record_failed_attempt(request.remote_ip) if @login_form.valid?
       render action: :new, status: :unprocessable_entity
     end
