@@ -34,6 +34,7 @@ module SessionAuthentication
     end
   end
 
+  # TODO: may be a good idea to reset the session on failure
   def authenticate_user_from_session!
     logger.debug "in #authenticate_user_from_session!"
     if Rails.env.test? && stub_current_user
