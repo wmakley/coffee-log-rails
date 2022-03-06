@@ -4,15 +4,18 @@
 #
 # Table name: users
 #
-#  id              :bigint           not null, primary key
-#  admin           :boolean          default(FALSE), not null
-#  display_name    :string
-#  email           :string
-#  password_digest :string
-#  preferences     :jsonb            not null
-#  username        :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                                     :bigint           not null, primary key
+#  admin                                  :boolean          default(FALSE), not null
+#  display_name                           :string
+#  email                                  :string
+#  forgot_password_token                  :string
+#  forgot_password_token_token_created_at :datetime
+#  password_changed_at                    :datetime         not null
+#  password_digest                        :string
+#  preferences                            :jsonb            not null
+#  username                               :string           not null
+#  created_at                             :datetime         not null
+#  updated_at                             :datetime         not null
 #
 # Indexes
 #
@@ -30,6 +33,10 @@ class User < ApplicationRecord
   before_validation do
     self.display_name = display_name&.squish.presence
     self.email = email&.strip.presence
+  end
+
+  before_save do
+    self.password_changed_at = Time.current.utc if will_save_change_to_password_digest?
   end
 
   validates :username, presence: true, uniqueness: true, format: /\A\S+\z/

@@ -33,8 +33,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
            coffee_brand: {
              name: "Test Brand"
            }
-         },
-         headers: valid_login
+         }
     brand = CoffeeBrand.last
     assert_redirected_to "/coffee_brands/#{brand.id}"
     follow_redirect!
@@ -62,8 +61,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
             coffee_brand: {
               name: "New Name"
             }
-          },
-          headers: valid_login
+          }
     assert_redirected_to "/coffee_brands/1"
     follow_redirect!
     assert_response :success

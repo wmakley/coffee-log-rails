@@ -3,7 +3,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  root to: "logs#index"
+  root to: "sessions#new"
+
+  resource :session, only: [:index, :new, :create, :destroy]
 
   resources :logs, only: [:index, :show, :destroy] do
     resources :entries, controller: 'log_entries'

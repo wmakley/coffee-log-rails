@@ -5,15 +5,22 @@ require 'test_helper'
 class IpBanningTest < ActionDispatch::IntegrationTest
   fixtures :logs
 
-  test "ips are banned after 10 bad guesses" do
-    headers = authorization_header('asdf', 'asdf')
+  test "IPs are banned after 10 failed attempts" do
+    invalid_params = {
+      login_form: {
+        username: random_string(16),
+        password: random_string(16)
+      }
+    }
 
-    1.upto(Fail2Ban::MAX_ATTEMPTS) do
-      get "/logs/default/entries", headers: headers
-      assert_response 401
+    Fail2Ban::MAX_ATTEMPTS.times do |n|
+      post "/session", params: invalid_params
+      assert_response :unprocessable_entity, "#{n}th iteration"
     end
 
-    get "/logs/default/entries", headers: headers
+    post "/session", params: invalid_params
     assert_response :not_found
+
+    assert Fail2Ban.banned?('127.0.0.1')
   end
 end

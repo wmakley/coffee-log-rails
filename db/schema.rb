@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_05_154820) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_05_155746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -148,6 +148,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_05_154820) do
     t.jsonb "preferences", default: "{}", null: false
     t.string "email"
     t.string "password_digest"
+    t.datetime "password_changed_at", precision: nil, null: false
+    t.string "forgot_password_token"
+    t.datetime "forgot_password_token_token_created_at", precision: nil
     t.index ["username"], name: "index_users_on_username"
   end
 

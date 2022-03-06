@@ -33,11 +33,10 @@ class CoffeesTest < ActionDispatch::IntegrationTest
            coffee: {
              name: "New Test Coffee"
            }
-         },
-         headers: valid_login
+         }
     coffee = Coffee.last
     assert_redirected_to "/coffees/#{coffee.id}"
-    follow_redirect! headers: valid_login
+    follow_redirect!
     assert_response :success
   end
 
@@ -47,8 +46,7 @@ class CoffeesTest < ActionDispatch::IntegrationTest
            coffee: {
              name: ""
            }
-         },
-         headers: valid_login
+         }
     assert_response :unprocessable_entity
     assert_select "form"
   end

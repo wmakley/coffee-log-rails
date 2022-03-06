@@ -31,7 +31,7 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
          }
 
     assert_redirected_to "/logs/default/entries"
-    follow_redirect! headers: valid_login
+    follow_redirect!
 
     assert_response :success
 

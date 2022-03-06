@@ -6,10 +6,18 @@ class ApplicationController < ActionController::Base
   before_action :redirect_to_https, unless: -> { request.ssl? || request.local? }
 
   include IpBanningConcern
-  include HttpBasicAuthentication
+  include SessionAuthentication
 
+  before_action :cleanup_old_sessions
+  before_action :authenticate_user_from_session!
   before_action :set_logs
   before_action :set_paper_trail_whodunnit
+
+  rescue_from AuthenticationError do |exception|
+    logger.error exception.message
+    flash[:error] = "Not authorized"
+    redirect_to new_session_url
+  end
 
   def self.requires_admin(*actions)
     before_action only: actions do
@@ -21,6 +29,11 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+    def cleanup_old_sessions
+      session.delete(:username)
+      session.delete(:password)
+    end
 
     def redirect_to_https
       redirect_to protocol: "https://", status: :moved_permanently

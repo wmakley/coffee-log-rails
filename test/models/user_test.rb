@@ -2,15 +2,18 @@
 #
 # Table name: users
 #
-#  id              :bigint           not null, primary key
-#  admin           :boolean          default(FALSE), not null
-#  display_name    :string
-#  email           :string
-#  password_digest :string
-#  preferences     :jsonb            not null
-#  username        :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                                     :bigint           not null, primary key
+#  admin                                  :boolean          default(FALSE), not null
+#  display_name                           :string
+#  email                                  :string
+#  forgot_password_token                  :string
+#  forgot_password_token_token_created_at :datetime
+#  password_changed_at                    :datetime         not null
+#  password_digest                        :string
+#  preferences                            :jsonb            not null
+#  username                               :string           not null
+#  created_at                             :datetime         not null
+#  updated_at                             :datetime         not null
 #
 # Indexes
 #
@@ -48,5 +51,18 @@ class UserTest < ActiveSupport::TestCase
     user.password = "testtest testtest"
     user.password_confirmation = "testtest testtest"
     assert user.valid?, "password may contain whitespace"
+  end
+
+  test "password changed at" do
+    user = User.create!(valid_attributes)
+    ts1 = user.password_changed_at
+    assert_not_nil ts1
+
+    user.password = random_string(16)
+    user.password_confirmation = user.password
+    user.save!
+    ts2 = user.password_changed_at
+    assert_not_nil ts2
+    assert ts2 > ts1
   end
 end

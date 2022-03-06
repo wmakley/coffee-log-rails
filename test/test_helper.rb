@@ -14,15 +14,9 @@ class ActiveSupport::TestCase
   # fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  def authorization_header(username, password)
-    {
-      HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials(username, password)
-    }
-  end
 
-  def valid_login
-    authorization_header('default', 'password')
-  end
+  TEST_USERNAME = 'default'
+  TEST_PASSWORD = 'password'
 end
 
 module AppSpecificAssertions
