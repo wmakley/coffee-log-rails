@@ -4,24 +4,26 @@
 #
 # Table name: users
 #
-#  id                                     :bigint           not null, primary key
-#  admin                                  :boolean          default(FALSE), not null
-#  display_name                           :string
-#  email                                  :string
-#  forgot_password_token                  :string
-#  forgot_password_token_token_created_at :datetime
-#  password_changed_at                    :datetime         not null
-#  password_digest                        :string
-#  preferences                            :jsonb            not null
-#  username                               :string           not null
-#  created_at                             :datetime         not null
-#  updated_at                             :datetime         not null
+#  id                              :bigint           not null, primary key
+#  admin                           :boolean          default(FALSE), not null
+#  display_name                    :string
+#  email                           :string
+#  password_changed_at             :datetime         not null
+#  password_digest                 :string
+#  preferences                     :jsonb            not null
+#  reset_password_token            :string
+#  reset_password_token_created_at :datetime
+#  username                        :string           not null
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
 #
 # Indexes
 #
 #  index_users_on_username  (username)
 #
 class User < ApplicationRecord
+  include ResetPasswordToken
+
   has_one :log,
           foreign_key: :user_id,
           inverse_of: :user,
@@ -37,6 +39,7 @@ class User < ApplicationRecord
 
   before_save do
     self.password_changed_at = Time.current.utc if will_save_change_to_password_digest?
+    self.email = email&.presence&.downcase
   end
 
   validates :username, presence: true, uniqueness: true, format: /\A\S+\z/

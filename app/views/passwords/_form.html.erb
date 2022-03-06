@@ -1,0 +1,31 @@
+<%= form_with(model: object, url: password_path, method: :patch) do |f| %>
+  <%= f.hidden_field :token %>
+
+  <div class="mb-3">
+    <%= input f, :password,
+              as: :password_field,
+              label: "Password",
+              required: true,
+              input_html: {
+                placeholder: "Password",
+                class: "form-control form-control-lg",
+              }
+    %>
+  </div>
+
+  <div class="mb-3">
+    <%= input f, :password_confirmation,
+              as: :password_field,
+              label: "Password Confirmation",
+              required: true,
+              input_html: {
+                placeholder: "Password",
+                class: "form-control form-control-lg",
+              }
+    %>
+  </div>
+
+  <p>
+    <%= f.submit "Reset Password", class: "btn btn-primary btn-lg" %>
+  </p>
+<% end %>

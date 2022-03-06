@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   root to: "sessions#new"
 
-  resource :session, only: [:index, :new, :create, :destroy]
+  resource :session, only: [:index, :show, :new, :create, :destroy]
+  resource :password_reset_request, only: [:index, :new, :create]
+  resource :password, only: [:index, :show, :edit, :update]
 
   resources :logs, only: [:index, :show, :destroy] do
     resources :entries, controller: 'log_entries'

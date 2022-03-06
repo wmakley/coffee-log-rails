@@ -1,0 +1,15 @@
+<%= form_with(model: object, url: password_reset_request_path) do |f| %>
+  <div class="mb-3">
+    <%= input f, :email, as: :email_field,
+              label: "Enter your email address:",
+              required: true,
+              input_html: {
+                class: "form-control form-control-lg",
+                placeholder: "Email address",
+              }
+    %>
+  </div>
+  <p>
+    <%= f.submit "Submit", class: "btn btn-primary btn-lg" %>
+  </p>
+<% end %>

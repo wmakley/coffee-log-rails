@@ -2,18 +2,18 @@
 #
 # Table name: users
 #
-#  id                                     :bigint           not null, primary key
-#  admin                                  :boolean          default(FALSE), not null
-#  display_name                           :string
-#  email                                  :string
-#  forgot_password_token                  :string
-#  forgot_password_token_token_created_at :datetime
-#  password_changed_at                    :datetime         not null
-#  password_digest                        :string
-#  preferences                            :jsonb            not null
-#  username                               :string           not null
-#  created_at                             :datetime         not null
-#  updated_at                             :datetime         not null
+#  id                              :bigint           not null, primary key
+#  admin                           :boolean          default(FALSE), not null
+#  display_name                    :string
+#  email                           :string
+#  password_changed_at             :datetime         not null
+#  password_digest                 :string
+#  preferences                     :jsonb            not null
+#  reset_password_token            :string
+#  reset_password_token_created_at :datetime
+#  username                        :string           not null
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
 #
 # Indexes
 #
