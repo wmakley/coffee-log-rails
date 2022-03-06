@@ -76,6 +76,8 @@ module SessionAuthentication
     end
 
     logger.info "Authenticated user as #{user.username}:#{user.id}"
+
+    reset_session
     session[:logged_in_user_id] = user.id
     session[:last_login_at] = Time.now.utc.to_i
     Current.user = user
