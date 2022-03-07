@@ -3,7 +3,7 @@
 module FormHelper
 
   # poor man's simple_form
-  def input(form_builder, name, as: :text_field, label: nil, required: false, collection: nil, include_blank: false,
+  def input(form_builder, name, as: :text_field, label: nil, required: false, collection: nil, include_blank: false, input_first: false,
             label_html: {},
             input_html: {})
     object = form_builder.object
@@ -28,20 +28,41 @@ module FormHelper
     input_html[:required] = true if required
 
     buffer = ActiveSupport::SafeBuffer.new
-    buffer << form_builder.label(name, label_html) do
-      buf = ActiveSupport::SafeBuffer.new
-      buf << label || name.to_s.titleize
-      if required
-        buf << " "
-        buf << content_tag(:abbr, "*", title: "Required", class: "required")
+
+    if input_first
+      if as == :select
+        buffer << form_builder.select(name, collection, { include_blank: include_blank }, input_html)
+      else
+        buffer << form_builder.public_send(as, name, input_html)
       end
-      buf
-    end
-    if as == :select
-      buffer << form_builder.select(name, collection, { include_blank: include_blank }, input_html)
+
+      buffer << form_builder.label(name, label_html) do
+        buf = ActiveSupport::SafeBuffer.new
+        buf << label || name.to_s.titleize
+        if required
+          buf << " "
+          buf << content_tag(:abbr, "*", title: "Required", class: "required")
+        end
+        buf
+      end
     else
-      buffer << form_builder.public_send(as, name, input_html)
+      buffer << form_builder.label(name, label_html) do
+        buf = ActiveSupport::SafeBuffer.new
+        buf << label || name.to_s.titleize
+        if required
+          buf << " "
+          buf << content_tag(:abbr, "*", title: "Required", class: "required")
+        end
+        buf
+      end
+
+      if as == :select
+        buffer << form_builder.select(name, collection, { include_blank: include_blank }, input_html)
+      else
+        buffer << form_builder.public_send(as, name, input_html)
+      end
     end
+
     buffer << invalid_feedback(errors) if errors.present?
     buffer
   end
