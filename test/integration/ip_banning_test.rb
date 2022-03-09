@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class IpBanningTest < ActionDispatch::IntegrationTest
-  fixtures :logs
+  fixtures :logs, :users
 
   test "IPs are banned after 10 failed attempts" do
     invalid_params = {
