@@ -19,13 +19,15 @@ module ResetPasswordToken
   end
 
   def clear_reset_password_token!
-    update_columns(
-      reset_password_token: nil,
-      reset_password_token_created_at: nil
-    )
+    self.reset_password_token = nil
+    self.reset_password_token_created_at = nil
   end
 
   included do
     scope :reset_password_token, -> (token) { where(reset_password_token: token.to_s) }
+
+    before_save do
+      self.clear_reset_password_token! if will_save_change_to_password_digest?
+    end
   end
 end

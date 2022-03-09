@@ -49,8 +49,6 @@ class PasswordReset
         self.errors = user.errors
         raise ActiveRecord::Rollback
       end
-
-      user.clear_reset_password_token!
     end
 
     errors.blank?

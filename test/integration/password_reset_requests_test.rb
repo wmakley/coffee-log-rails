@@ -44,5 +44,7 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
     new_password = user.password_digest
 
     assert old_password != new_password
+    assert_nil user.reset_password_token
+    assert_nil user.reset_password_token_created_at
   end
 end
