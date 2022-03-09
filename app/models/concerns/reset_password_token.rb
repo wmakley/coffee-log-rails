@@ -18,6 +18,13 @@ module ResetPasswordToken
     self.reset_password_token_created_at = Time.now.utc
   end
 
+  def clear_reset_password_token!
+    update_columns(
+      reset_password_token: nil,
+      reset_password_token_created_at: nil
+    )
+  end
+
   included do
     scope :reset_password_token, -> (token) { where(reset_password_token: token.to_s) }
   end

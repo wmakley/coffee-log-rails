@@ -38,6 +38,10 @@ class PasswordReset
         raise ActiveRecord::Rollback
       end
 
+      unless user.reset_password_token_valid?
+        raise "unhandled error case"
+      end
+
       user.password = password
       user.password_confirmation = password_confirmation
 
@@ -45,6 +49,8 @@ class PasswordReset
         self.errors = user.errors
         raise ActiveRecord::Rollback
       end
+
+      user.clear_reset_password_token!
     end
 
     errors.blank?
