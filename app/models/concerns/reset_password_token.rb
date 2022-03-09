@@ -5,10 +5,6 @@ module ResetPasswordToken
 
   RESET_TOKEN_VALID_FOR = 1.hour
 
-  def reset_password_token_valid?
-    reset_password_token.present? && reset_password_token_created_at.present? && !reset_password_token_expired?
-  end
-
   def reset_password_token_expired?
     reset_password_token_created_at < RESET_TOKEN_VALID_FOR.ago
   end
