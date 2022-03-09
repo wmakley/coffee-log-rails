@@ -19,7 +19,8 @@
 #
 # Indexes
 #
-#  index_users_on_username  (username)
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
+#  index_users_on_username              (username)
 #
 class User < ApplicationRecord
   include ResetPasswordToken
