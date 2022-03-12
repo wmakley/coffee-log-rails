@@ -10,7 +10,7 @@
 
 unless User.exists?
   puts "Creating admin user: william:password"
-  User.create!(display_name: "William", username: "william", password: "password", admin: true)
+  User.create!(display_name: "William", username: "william", email: "info@willmakley.dev", password: "password", admin: true)
 end
 
 unless BrewMethod.exists?
