@@ -35,22 +35,24 @@
             Brew Methods
           </a>
         </li>
-        <li class="nav-item dropdown">
-          <%- viewing_other_log = !viewing_own_log && request.path.starts_with?(logs_path) -%>
-          <a class="nav-link dropdown-toggle<%= ' active' if viewing_other_log %>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Other Logs
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% logs.each do |log| %>
-              <%- next if log == current_user.log -%>
-              <li>
-                <a class="dropdown-item<%= ' active' if request.path == log_entries_path(log) %>" href="<%= log_entries_path(log) %>">
-                  <%= log.title %>
-                </a>
-              </li>
-            <% end %>
-          </ul>
-        </li>
+        <% if logs.size > 1 %>
+          <li class="nav-item dropdown">
+            <%- viewing_other_log = !viewing_own_log && request.path.starts_with?(logs_path) -%>
+            <a class="nav-link dropdown-toggle<%= ' active' if viewing_other_log %>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Other Logs
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <% logs.each do |log| %>
+                <%- next if log == current_user.log -%>
+                <li>
+                  <a class="dropdown-item<%= ' active' if request.path == log_entries_path(log) %>" href="<%= log_entries_path(log) %>">
+                    <%= log.title %>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
         <% if Current.admin? %>
           <li class="nav-item">
             <a class="nav-link<%= ' active' if request.path.starts_with?(users_path) %>" href="<%= users_path %>">Users</a>
