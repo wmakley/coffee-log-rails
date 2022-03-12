@@ -15,6 +15,7 @@ class LogsTest < ActionDispatch::IntegrationTest
     user = User.create!(
       display_name: "Test User",
       username: "test",
+      email: random_email,
       password: "testtestest"
     )
     login_as user

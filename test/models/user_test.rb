@@ -17,8 +17,9 @@
 #
 # Indexes
 #
+#  index_users_on_email                 (email) UNIQUE WHERE (email IS NOT NULL)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
-#  index_users_on_username              (username)
+#  index_users_on_username              (username) UNIQUE
 #
 require 'test_helper'
 
@@ -26,6 +27,7 @@ class UserTest < ActiveSupport::TestCase
   def valid_attributes
     {
       username: random_string(8),
+      email: random_email,
       password: "testtesttest",
       password_confirmation: "testtesttest",
       display_name: random_string(8),

@@ -31,6 +31,7 @@ class UsersTest < ActionDispatch::IntegrationTest
       user: {
         display_name: "Test",
         username: "test",
+        email: random_email,
         password: "testtesttest",
       }
     }

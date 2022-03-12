@@ -19,8 +19,9 @@
 #
 # Indexes
 #
+#  index_users_on_email                 (email) UNIQUE WHERE (email IS NOT NULL)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
-#  index_users_on_username              (username)
+#  index_users_on_username              (username) UNIQUE
 #
 class User < ApplicationRecord
   include ResetPasswordToken
@@ -51,7 +52,9 @@ class User < ApplicationRecord
             if: -> { !password.nil? }
   validates :display_name, presence: true, uniqueness: true
   validates :email,
-            length: { maximum: 255, allow_nil: true }
+            presence: true,
+            length: { maximum: 255, allow_nil: true },
+            uniqueness: true
 
   scope :by_name, -> { order(:display_name) }
 end
