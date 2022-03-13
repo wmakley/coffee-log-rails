@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_12_015455) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_13_131556) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "citext"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -146,7 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_12_015455) do
     t.string "display_name"
     t.boolean "admin", default: false, null: false
     t.jsonb "preferences", default: "{}", null: false
-    t.string "email"
+    t.citext "email"
     t.string "password_digest"
     t.datetime "password_changed_at", precision: nil, null: false
     t.string "reset_password_token"

@@ -5,7 +5,7 @@
 #  id                              :bigint           not null, primary key
 #  admin                           :boolean          default(FALSE), not null
 #  display_name                    :string
-#  email                           :string
+#  email                           :citext
 #  password_changed_at             :datetime         not null
 #  password_digest                 :string
 #  preferences                     :jsonb            not null

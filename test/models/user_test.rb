@@ -5,7 +5,7 @@
 #  id                              :bigint           not null, primary key
 #  admin                           :boolean          default(FALSE), not null
 #  display_name                    :string
-#  email                           :string
+#  email                           :citext
 #  password_changed_at             :datetime         not null
 #  password_digest                 :string
 #  preferences                     :jsonb            not null
@@ -67,5 +67,16 @@ class UserTest < ActiveSupport::TestCase
     ts2 = user.password_changed_at
     assert_not_nil ts2
     assert ts2 > ts1
+  end
+
+  test "emails are not case-sensitive" do
+    email = "test@#{random_string(8)}.com"
+    user = User.create!(valid_attributes.merge(email: email))
+
+    user2 = User.new(valid_attributes.merge(email: email.upcase))
+    assert_not user2.valid?
+    assert_not_nil user2.errors[:email]
+
+    assert_equal user, User.find_by(email: email.upcase)
   end
 end
