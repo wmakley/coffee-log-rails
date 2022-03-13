@@ -24,7 +24,7 @@ class SessionsTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/logs", status: :see_other
 
     assert_equal users(:default).id, session[:logged_in_user_id]
-    assert session[:last_login_at] <= Time.current.to_i
+    assert session[:last_login_at] <= Time.now.utc.to_i
   end
 
   test "accessing pages that require login with valid session" do
@@ -41,5 +41,30 @@ class SessionsTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h1", text: "Login to Coffee Log"
     assert_select "form"
+  end
+
+  test "sessions expire after 1 month" do
+    post "/session", params: valid_login_params
+    assert_redirected_to "/logs", status: :see_other
+
+    Timecop.travel 1.week.from_now do
+      get "/logs/default/entries"
+      assert_response :success
+    end
+
+    Timecop.travel 2.weeks.from_now do
+      get "/logs/default/entries"
+      assert_response :success
+    end
+
+    Timecop.travel 3.weeks.from_now do
+      get "/logs/default/entries"
+      assert_response :success
+    end
+
+    Timecop.travel 31.days.from_now do
+      get "/logs/default/entries"
+      assert_redirected_to "/session/new"
+    end
   end
 end

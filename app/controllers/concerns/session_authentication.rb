@@ -50,7 +50,7 @@ module SessionAuthentication
 
     last_login_at = Time.at(session[:last_login_at].to_i)
 
-    if last_login_at < 1.month.ago
+    if last_login_at < 30.days.ago
       raise SessionExpiredError, "Last logged in more than 1 month ago"
     end
 
