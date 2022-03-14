@@ -1,6 +1,9 @@
 Spring.watch(
   ".ruby-version",
   ".rbenv-vars",
+  ".tool-versions",
+  "Gemfile",
+  "Gemfile.lock",
   "tmp/restart.txt",
   "tmp/caching-dev.txt"
 )
