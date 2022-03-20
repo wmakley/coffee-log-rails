@@ -29,7 +29,7 @@ module SessionAuthentication
     begin
       authenticate_user_from_session!
     rescue AuthenticationError => ex
-      logger.info ex.message
+      logger.info "Unable to authenticate user: #{ex.message}"
       return false
     end
   end
@@ -43,10 +43,10 @@ module SessionAuthentication
     end
 
     user_id = session[:logged_in_user_id]
-    raise NotAuthenticatedError, "logged_in_user_id not found in session" unless user_id
+    raise NotAuthenticatedError, "logged_in_user_id not found in session" if user_id.blank?
 
     user = User.find_by(id: user_id)
-    raise NotAuthenticatedError, "User ID #{user_id} not found" unless user
+    raise NotAuthenticatedError, "User ID #{user_id} not found" if user.nil?
 
     last_login_at = Time.at(session[:last_login_at].to_i)
 
@@ -63,7 +63,11 @@ module SessionAuthentication
 
   # @param [LoginForm] login_form
   def authenticate_user_from_form(login_form)
-    return false unless login_form.valid?
+    logger.info "#authenticate_user_from_form"
+    unless login_form.valid?
+      logger.info "login_form is not valid: #{login_form.errors.full_messages.inspect}"
+      return false
+    end
 
     user = User.find_by(username: login_form.username.to_s)
     unless user
