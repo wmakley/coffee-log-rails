@@ -42,6 +42,8 @@ module SessionAuthentication
       return
     end
 
+    logger.info "Session Contents Debug: #{session.inspect}"
+
     user_id = session[:logged_in_user_id]
     raise NotAuthenticatedError, "logged_in_user_id not found in session" if user_id.blank?
 
