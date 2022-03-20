@@ -4,10 +4,14 @@ class SessionsController < ApplicationController
   layout "sessions"
 
   skip_before_action :authenticate_user_from_session!
-  before_action :soft_authenticate_user_from_session, only: [:index, :new]
+  before_action :soft_authenticate_user_from_session, only: [:index, :show, :new]
   before_action :redirect_to_app, if: :authenticated?
 
   def index
+    redirect_to new_session_url, status: :see_other
+  end
+
+  def show
     redirect_to new_session_url, status: :see_other
   end
 
