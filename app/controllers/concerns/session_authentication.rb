@@ -21,11 +21,11 @@ module SessionAuthentication
   end
 
   def authenticated?
-    !!Current.user
+    current_user.present?
   end
 
   def soft_authenticate_user_from_session
-    logger.debug "in #soft_authenticate_user_from_session"
+    logger.info "#soft_authenticate_user_from_session"
     begin
       authenticate_user_from_session!
     rescue AuthenticationError => ex
@@ -36,7 +36,7 @@ module SessionAuthentication
 
   # TODO: may be a good idea to reset the session on failure
   def authenticate_user_from_session!
-    logger.debug "in #authenticate_user_from_session!"
+    logger.info "#authenticate_user_from_session!"
     if Rails.env.test? && stub_current_user
       Current.user = stub_current_user
       return
