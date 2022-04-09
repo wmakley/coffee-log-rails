@@ -21,8 +21,10 @@ class SessionsController < ApplicationController
 
   def create
     @login_form = LoginForm.new(login_form_params)
+    return_to = session[:return_to]
     if authenticate_user_from_form(@login_form)
-      redirect_to logs_url, status: :see_other
+      url = return_to.presence || logs_url
+      redirect_to url, status: :see_other
     else
       flash[:error] = "Username or password not correct."
       Fail2Ban.record_failed_attempt(request.remote_ip) if @login_form.valid?

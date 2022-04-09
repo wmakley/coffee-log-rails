@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
 
   rescue_from AuthenticationError do |exception|
+    session[:return_to] = request.url
     logger.error exception.message
     flash[:error] = "Not authorized"
     redirect_to new_session_url
