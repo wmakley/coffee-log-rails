@@ -104,7 +104,7 @@
     <div class="col">
       <%= f.label :coffee_grams %>
       <%= f.number_field :coffee_grams,
-                         pattern: "\\d*",
+                         pattern: "[0-9.]*",
                          class: "form-control form-control-lg#{' is-invalid' if errors[:coffee_grams].present?}",
                          placeholder: "Grams of coffee",
                          data: {
@@ -117,7 +117,7 @@
     <div class="col">
       <%= f.label :water_grams %>
       <%= f.number_field :water_grams,
-                         pattern: "\\d*",
+                         pattern: "[0-9.]*",
                          class: "form-control form-control-lg#{' is-invalid' if errors[:water_grams].present?}",
                          placeholder: "Grams of water",
                          data: {
@@ -130,10 +130,16 @@
   </div>
   <div class="row mb-3">
     <div class="col">
-      <%= input f, :grind_setting, as: :number_field, label: "Grind Setting" %>
+      <%= input f, :grind_setting, as: :number_field, label: "Grind Setting", input_html: {
+        pattern: "[0-9.]*",
+        step: "any"
+      } %>
     </div>
     <div class="col">
-      <%= input f, :water_temp_in_fahrenheit, as: :number_field, label: "Water Temp. (F)" %>
+      <%= input f, :water_temp_in_fahrenheit, as: :number_field, label: "Water Temp. (F)", input_html: {
+        pattern: "[0-9.]*",
+        step: "any"
+      } %>
     </div>
   </div>
   <div class="mb-3">
