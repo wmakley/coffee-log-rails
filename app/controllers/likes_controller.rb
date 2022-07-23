@@ -9,6 +9,8 @@ class LikesController
 
   def create
     @like = Like.new(likeable: @likeable)
+    @like.user = Current.user
+
   end
 
   def destroy

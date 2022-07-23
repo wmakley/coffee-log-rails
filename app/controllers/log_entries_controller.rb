@@ -9,7 +9,8 @@ class LogEntriesController < ApplicationController
   def index
     @log_entries = @log.log_entries.by_date_desc.includes(
       coffee: { photo_attachment: :blob },
-      brew_method: {}
+      brew_method: {},
+      likes: {},
     ).load
 
     set_new_log_entry_from_previous(@log_entries.first)

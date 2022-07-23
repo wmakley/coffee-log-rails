@@ -27,4 +27,11 @@ class Like < ApplicationRecord
   belongs_to :likeable, polymorphic: true
   belongs_to :user
   belongs_to :emoji
+
+  before_destroy do
+    if user != Current.user
+      errors.add(:base, "may not delete other users' likes")
+      throw :abort
+    end
+  end
 end
