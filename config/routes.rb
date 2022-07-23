@@ -36,4 +36,5 @@ Rails.application.routes.draw do
   resources :brew_methods
   resources :users
   resources :banned_ips, only: [:index, :show, :destroy]
+  resources :exceptions, only: [:index]
 end
