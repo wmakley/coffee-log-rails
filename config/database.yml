@@ -83,6 +83,10 @@ production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
 
+heroku:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+
 render:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
