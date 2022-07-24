@@ -12,11 +12,13 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "form"
 
-    post "/password_reset_request", params: {
-      password_reset_request: {
-        email: user.email
+    assert_emails 1 do
+      post "/password_reset_request", params: {
+        password_reset_request: {
+          email: user.email
+        }
       }
-    }
+    end
     assert_redirected_to "/"
     follow_redirect!
     assert_notice "A reset link has been sent to your email address."
