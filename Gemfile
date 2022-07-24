@@ -50,6 +50,9 @@ gem 'pg_search'
 # auditing of certain tables
 gem 'paper_trail'
 
+# email sending
+gem 'aws-ses', require: false
+
 # exception monitoring
 gem 'sentry-ruby'
 gem 'sentry-rails'

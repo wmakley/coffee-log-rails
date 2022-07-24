@@ -1,4 +1,4 @@
-if defined?(Sentry) && (sentry_dsn = Rails.application.credentials.dig(Rails.env.to_sym, :sentry_dsn)).present?
+if defined?(Sentry) && (sentry_dsn = Rails.application.credentials.dig(Rails.env.to_sym, :sentry, :dsn)).present?
   Sentry.init do |config|
     config.dsn = sentry_dsn
     config.breadcrumbs_logger = [:active_support_logger, :http_logger]
