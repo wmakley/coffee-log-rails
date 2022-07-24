@@ -15,6 +15,7 @@ class PasswordResetRequest
   def save
     return false unless valid?
 
+    user = nil
     User.transaction do
       user = User.where("lower(email) = ?", email.strip.downcase).first
       unless user
@@ -31,9 +32,9 @@ class PasswordResetRequest
       end
     end
 
-    return false if errors.present?
+    return false if errors.present? || user.nil?
 
-    PasswordResetRequestMailer.with(user: @user)
+    PasswordResetRequestMailer.with(user: user)
                               .reset_password_link
                               .deliver_later
 
