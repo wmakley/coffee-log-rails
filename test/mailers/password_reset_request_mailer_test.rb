@@ -12,7 +12,7 @@ class PasswordResetRequestMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal ["noreply@coffee-log-rails.herokuapp.com"], email.from
+    assert_equal ["noreply@coffee-log.willmakley.dev"], email.from
     assert_equal [user.email], email.to
     assert_equal "Reset Coffee Log Password", email.subject
 
