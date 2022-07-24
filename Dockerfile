@@ -1,4 +1,4 @@
-FROM ruby:2.7.6
+FROM ruby:3.1.2
 LABEL maintainer="will@willmakley.dev"
 
 ENV DEBIAN_FRONTEND=noninteractive
