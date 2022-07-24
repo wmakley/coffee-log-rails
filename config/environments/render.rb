@@ -96,14 +96,14 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "email-smtp.us-east-1.amazonaws.com",
     port: 587,
-    user_name: ENV['SMTP_USERNAME'],
-    password: ENV['SMTP_PASSWORD'],
+    user_name: Rails.application.credentials.render.smtp_username,
+    password: Rails.application.credentials.render.smtp_password,
     authentication: :login,
     enable_starttls_auto: true,
   }
 
   config.action_mailer.default_url_options = {
-    host: 'coffee-log-rails.herokuapp.com',
+    host: 'coffee-log-rails.onrender.com',
     port: 443
   }
 end
