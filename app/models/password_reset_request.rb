@@ -32,7 +32,9 @@ class PasswordResetRequest
       end
     end
 
-    return false if errors.present? || user.nil?
+    return false if errors.present?
+
+    return true if user.nil?
 
     PasswordResetRequestMailer.with(user: user)
                               .reset_password_link
