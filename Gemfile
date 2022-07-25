@@ -43,6 +43,8 @@ gem 'hotwire-rails'
 
 # image uploads
 gem 'aws-sdk-s3', require: false
+# email sending
+gem 'aws-sdk-sesv2'
 
 # fulltext search
 gem 'pg_search'
@@ -50,8 +52,6 @@ gem 'pg_search'
 # auditing of certain tables
 gem 'paper_trail'
 
-# email sending
-gem 'aws-ses', require: false
 
 # exception monitoring
 gem 'sentry-ruby'
