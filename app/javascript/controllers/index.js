@@ -3,14 +3,17 @@
 
 import { application } from "./application"
 
-import ClickSubmitController from "./click_submit_controller.js"
-application.register("click-submit", ClickSubmitController)
+import ClickElementController from "./click_element_controller.js"
+application.register("click-element", ClickElementController)
 
 import CoffeePhotoUploaderController from "./coffee_photo_uploader_controller.js"
 application.register("coffee-photo-uploader", CoffeePhotoUploaderController)
 
 import LookupCoffeeFormController from "./lookup_coffee_form_controller.js"
 application.register("lookup-coffee-form", LookupCoffeeFormController)
+
+import SubmitFormController from "./submit_form_controller"
+application.register("submit-form", SubmitFormController)
 
 import ConfirmationController from "./confirmation_controller.js"
 application.register("confirmation", ConfirmationController)

@@ -19,7 +19,12 @@
         <%= link_to(coffee_brand_logo_large(object), coffee_brand_logo_path(object), target: "_blank") %>
         <%= link_to("Delete Logo", '#',
                     class: "btn btn-danger",
-                    onclick: 'event.preventDefault(); document.getElementById("delete-logo-form-submit-button").click();') %>
+                    data: {
+                      controller: "submit-form",
+                      action: "submit-form#submit:prevent",
+                      submit_form_form_id_value: "delete-brand-logo-form",
+                    })
+        %>
       </div>
     <% else %>
       <%= f.file_field :logo,

@@ -7,6 +7,9 @@
 
 <%= render "services/delete_form",
            url: coffee_brand_logo_path(@coffee_brand),
+           html: {
+             id: "delete-brand-logo-form"
+           },
            submit_button_id: "delete-logo-form-submit-button",
            confirm: "Are you sure you want to delete this logo? This action cannot be undone."
 %>

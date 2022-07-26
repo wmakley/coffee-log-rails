@@ -1,13 +1,9 @@
 import {Controller} from "@hotwired/stimulus"
 
-export default class ClickSubmitController extends Controller {
+export default class ClickElementController extends Controller {
   static values = {id: String}
 
-  click(event) {
-    if (event) {
-      event.preventDefault()
-    }
-
+  click() {
     document.getElementById(this.idValue).click()
   }
 }
