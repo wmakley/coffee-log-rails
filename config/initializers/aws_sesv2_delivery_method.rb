@@ -1,13 +1,15 @@
-class SESV2DeliveryMethod
-  def initialize(client_params)
-    @client = Aws::SESV2::Client.new(client_params)
-  end
+# Possible alternative (especially if I were using SQS or Dynamo DB): https://github.com/aws/aws-sdk-rails
 
-  attr_reader :client
+# ActionMailer delivery method for AWS SESv2 SDK
+class SESV2DeliveryMethod
+  # @param [Hash] options The exact arguments to pass to Aws::SESV2::Client#initialize. See: https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SESV2/Client.html#initialize-instance_method
+  def initialize(options)
+    @client = Aws::SESV2::Client.new(options)
+  end
 
   # @param [Mail::Message] mail
   def deliver!(mail)
-    client.send_email(
+    @client.send_email(
       {
         from_email_address: Array(mail.from).first,
         destination: {
@@ -20,6 +22,10 @@ class SESV2DeliveryMethod
         }
       }
     )
+  end
+
+  def settings
+    {}
   end
 end
 
