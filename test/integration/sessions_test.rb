@@ -9,8 +9,8 @@ class SessionsTest < ActionDispatch::IntegrationTest
     {
       login_form: {
         username: TEST_USERNAME,
-        password: TEST_PASSWORD
-      }
+        password: TEST_PASSWORD,
+      },
     }
   end
 
