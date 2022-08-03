@@ -21,16 +21,19 @@ class SessionsTest < ActionDispatch::IntegrationTest
     assert_select "form"
 
     post "/session", params: valid_login_params
+    assert cookies[:sess].present?, "authentication cookie not set"
     assert_redirected_to "/logs", status: :see_other
-
-    assert_equal users(:default).id, session[:logged_in_user_id]
-    assert session[:last_login_at] <= Time.now.utc.to_i
   end
 
   test "accessing pages that require login with valid session" do
     post "/session", params: valid_login_params
     get "/logs/default/entries"
     assert_response :success
+  end
+
+  test "accessing pages that require login without a valid session redirects to login page" do
+    get "/logs/default/entries"
+    assert_redirected_to "/session/new"
   end
 
   test "logging out" do
@@ -41,6 +44,9 @@ class SessionsTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h1", text: "Login to Coffee Log"
     assert_select "form"
+
+    get "/logs/default/entries"
+    assert_redirected_to "/session/new"
   end
 
   test "sessions expire after 1 month" do

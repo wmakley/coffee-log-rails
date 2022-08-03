@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SessionAuthentication
+module CookieAuthentication
   extend ActiveSupport::Concern
 
   class AuthenticationError < StandardError; end
@@ -42,15 +42,16 @@ module SessionAuthentication
       return
     end
 
-    logger.info "Session Contents Debug: #{session.inspect}"
+    cookie = read_authentication_cookie
+    raise NotAuthenticatedError, "no session cookie" if cookie.blank?
 
-    user_id = session[:logged_in_user_id]
-    raise NotAuthenticatedError, "logged_in_user_id not found in session" if user_id.blank?
+    user_id = cookie[:user_id]
+    raise NotAuthenticatedError, "user_id not found in session" if user_id.blank?
 
     user = User.find_by(id: user_id)
     raise NotAuthenticatedError, "User ID #{user_id} not found" if user.nil?
 
-    last_login_at = Time.at(session[:last_login_at].to_i)
+    last_login_at = Time.at(cookie[:last_login_at].to_i)
 
     if last_login_at < 30.days.ago
       raise SessionExpiredError, "Last logged in more than 1 month ago"
@@ -85,12 +86,52 @@ module SessionAuthentication
     logger.info "Authenticated user as #{user.username}:#{user.id}"
 
     reset_session
-    session[:logged_in_user_id] = user.id
-    session[:last_login_at] = Time.now.utc.to_i
+    set_authentication_cookie(user.id)
     Current.user = user
+  end
+
+  def read_authentication_cookie(raise_errors: Rails.env.development? || Rails.env.test?)
+    raw_cookie = cookies.encrypted[:sess]
+    logger.debug "Raw Session Cookie: #{raw_cookie.inspect}"
+    return nil unless raw_cookie
+
+    cookie = JSON.parse(raw_cookie)
+    unless cookie.is_a?(Hash)
+      msg = "authentication cookie is not a Hash"
+      logger.error msg
+      raise msg if raise_errors
+      cookies.delete(:sess)
+      return nil
+    end
+
+    begin
+      cookie.assert_valid_keys("user_id", "last_login_at")
+    rescue ArgumentError
+      msg = "authentication cookie did not have expected structure"
+      logger.error msg
+      raise msg if raise_errors
+      return nil
+    end
+
+    ActiveSupport::HashWithIndifferentAccess.new(cookie)
+  end
+
+  def set_authentication_cookie(user_id)
+    cookie = {
+      "user_id" => user_id,
+      "last_login_at" => Time.now.utc.to_i,
+    }
+    serialized_cookie = JSON.generate(cookie)
+    logger.debug "Set Auth Cookie to: #{serialized_cookie}"
+    cookies.encrypted[:sess] = {
+      value: serialized_cookie,
+      expires: 30.days,
+      samesite: :lax,
+    }
   end
 
   def logout_current_user
     reset_session
+    cookies.delete(:sess)
   end
 end

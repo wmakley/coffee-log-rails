@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_to_https, unless: -> { request.ssl? || request.local? }
 
   include IpBanningConcern
-  include SessionAuthentication
+  include CookieAuthentication
 
   before_action :cleanup_old_sessions
   before_action :authenticate_user_from_session!
