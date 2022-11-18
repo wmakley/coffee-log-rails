@@ -5,6 +5,7 @@ services:
     environment:
       - DATABASE_URL=postgres://coffee_log:password@db/coffee_log
       - TEST_DATABASE_URL=postgres://coffee_log:password@db/coffee_log_test
+      - RAILS_ENV=production
       - AWS_REGION
       - S3_BUCKET
       - AWS_ACCESS_KEY_ID
@@ -17,7 +18,7 @@ services:
       - db
 
   db:
-    image: postgres
+    image: postgres:15-alpine
     environment:
       POSTGRES_USER: coffee_log
       POSTGRES_PASSWORD: password

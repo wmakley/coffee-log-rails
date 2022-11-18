@@ -27,7 +27,7 @@ RUN yarn install
 
 COPY . /usr/src/app
 
-ENV RAILS_ENV=digital_ocean
+ENV RAILS_ENV=development
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_LOG_TO_STDOUT=true
 
