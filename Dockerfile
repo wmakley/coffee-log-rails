@@ -4,6 +4,7 @@ LABEL maintainer="will@willmakley.dev"
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && \
     apt-get install -y --no-install-recommends \
+      curl \
       nodejs \
       npm \
       postgresql-client \
@@ -35,3 +36,4 @@ RUN bundle exec rails DATABASE_URL=postgresql:does_not_exist assets:precompile
 
 EXPOSE 8080
 CMD ["/usr/src/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
+HEALTHCHECK --start-period=30s CMD curl -f http://localhost:8080/ || exit 1
