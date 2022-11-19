@@ -3,6 +3,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  if Rails.env.heroku?
+    get "/*path", redirect("https://coffee-log.fly.dev", status: 302)
+    next
+  end
+
   root to: "sessions#new"
 
   resource :session, only: [:index, :show, :new, :create, :destroy]
