@@ -6,7 +6,6 @@ import (
 	"github.com/aws/aws-cdk-go/awscdk/v2/awscodebuild"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awssecretsmanager"
 
-	// "github.com/aws/aws-cdk-go/awscdk/v2/awssqs"
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
 )
@@ -22,15 +21,6 @@ func NewCoffeeLogInfraStack(scope constructs.Construct, id string, props *Coffee
 		sprops = props.StackProps
 	}
 	stack := awscdk.NewStack(scope, &id, &sprops)
-
-	// The code that defines your stack goes here
-
-	//repo := awsecr.NewRepository(stack, jsii.String("AppRepo"), &awsecr.RepositoryProps{
-	//	ImageScanOnPush:    jsii.Bool(true),
-	//	ImageTagMutability: awsecr.TagMutability_MUTABLE,
-	//	RemovalPolicy:      awscdk.RemovalPolicy_DESTROY,
-	//	RepositoryName:     jsii.String("coffee-log-rails"),
-	//})
 
 	dockerHubSecret := awssecretsmanager.Secret_FromSecretNameV2(stack,
 		jsii.String("dockerhub-credentials"),
@@ -93,13 +83,13 @@ func main() {
 
 	env_ := env()
 
-	_, resources2 := resources.NewCoffeeLogResourcesStack(app, "Resources", &resources.CoffeeLogResourcesStackProps{
+	_, resources2 := resources.NewCoffeeLogResourcesStack(app, "CoffeeLogResources", &resources.CoffeeLogResourcesStackProps{
 		StackProps: awscdk.StackProps{
 			Env: env_,
 		},
 	})
 
-	NewCoffeeLogInfraStack(app, "Infrastructure", &CoffeeLogInfraStackProps{
+	NewCoffeeLogInfraStack(app, "CoffeeLogInfrastructure", &CoffeeLogInfraStackProps{
 		StackProps: awscdk.StackProps{
 			Env: env_,
 		},

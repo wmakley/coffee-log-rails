@@ -38,6 +38,7 @@
 
 # Ignore heroku database dumps
 *.dump
+*.dump.*
 
 /app/assets/builds/*
 !/app/assets/builds/.keep

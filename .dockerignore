@@ -4,3 +4,7 @@ log/*.log.*
 tmp/*
 storage
 .idea
+latest.dump
+latest.dump.*
+.github
+coffee-log-infra
