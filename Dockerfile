@@ -30,9 +30,8 @@ COPY . /usr/src/app
 ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_LOG_TO_STDOUT=true
-ENV PORT="3000"
 
 RUN bundle exec rails DATABASE_URL=postgresql:does_not_exist assets:precompile
 
-EXPOSE 3000
-CMD ["/usr/src/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "$PORT"]
+EXPOSE 8080
+CMD ["/usr/src/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
