@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   if Rails.env.heroku?
-    root to: redirect("https://coffee-log.fly.dev", status: 301)
-    get "/*path", to: redirect("https://coffee-log.fly.dev", status: 301)
+    root to: redirect("https://coffee-log.willmakley.dev", status: 301)
+    get "/*path", to: redirect("https://coffee-log.willmakley.dev", status: 301)
   else
     root to: "sessions#new"
   end
