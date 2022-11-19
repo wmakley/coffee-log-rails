@@ -4,10 +4,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   if Rails.env.heroku?
+    root to: redirect("https://coffee-log.fly.dev", status: 302)
     get "/*path", to: redirect("https://coffee-log.fly.dev", status: 302)
+  else
+    root to: "sessions#new"
   end
-
-  root to: "sessions#new"
 
   resource :session, only: [:index, :show, :new, :create, :destroy]
   resource :password_reset_request, only: [:index, :new, :create]
