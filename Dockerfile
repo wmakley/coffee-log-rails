@@ -7,6 +7,7 @@ RUN apt-get clean && apt-get update && \
       curl \
       nodejs \
       npm \
+      libpq-dev \
       postgresql-client \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
