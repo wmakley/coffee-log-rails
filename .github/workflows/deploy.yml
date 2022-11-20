@@ -6,7 +6,7 @@ env:
   RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 jobs:
   prod:
-    name: Deploy to Prod
+    name: Prod
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
