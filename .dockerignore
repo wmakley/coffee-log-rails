@@ -2,6 +2,7 @@
 .idea
 .github
 coffee-log-infra
+config/master.key
 latest.dump
 latest.dump.*
 log/*.log

@@ -33,7 +33,9 @@ ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_LOG_TO_STDOUT=true
 
-RUN bundle exec rails DATABASE_URL=postgresql:does_not_exist assets:precompile
+# TODO: this logs the master key to STDOUT. Is there a better way?
+ARG RAILS_MASTER_KEY
+RUN bundle exec rails RAILS_MASTER_KEY=$RAILS_MASTER_KEY DATABASE_URL=postgresql:does_not_exist assets:precompile
 
 EXPOSE 8080
 CMD ["/usr/src/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
