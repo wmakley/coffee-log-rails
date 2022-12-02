@@ -8,6 +8,7 @@ RUN apt-get clean && apt-get update && \
       nodejs \
       npm \
       libpq-dev \
+      libvips \
       postgresql-client \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
