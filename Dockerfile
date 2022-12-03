@@ -8,8 +8,9 @@ RUN apt-get clean && apt-get update && \
       curl \
       libpq5 \
       libvips \
+      postgresql-client \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
-# build deps (WIP, slim needs many more that I haven't figured out)
+# build deps
 RUN apt-get clean && apt-get update && \
     apt-get install -y --no-install-recommends \
       build-essential \
@@ -18,7 +19,6 @@ RUN apt-get clean && apt-get update && \
       nodejs \
       npm \
       libpq-dev \
-      postgresql-client \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
 ARG BUNDLER_VERSION=2.3.26
@@ -58,11 +58,13 @@ FROM ruby:3.1.3-slim AS prod
 LABEL maintainer="will@willmakley.dev"
 
 ENV DEBIAN_FRONTEND=noninteractive
+# runtime deps (shared by both stages)
 RUN apt-get clean && apt-get update && \
     apt-get install -y --no-install-recommends \
       curl \
       libpq5 \
       libvips \
+      postgresql-client \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
 ARG BUNDLER_VERSION=2.3.26
