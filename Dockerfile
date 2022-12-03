@@ -1,4 +1,4 @@
-FROM ruby:3.1.2-slim AS build
+FROM ruby:3.1.3-slim AS build
 LABEL maintainer="will@willmakley.dev"
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -54,7 +54,7 @@ CMD ["/usr/src/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
 HEALTHCHECK --start-period=30s CMD curl -f http://localhost:8080/ || exit 1
 
 
-FROM ruby:3.1.2-slim AS prod
+FROM ruby:3.1.3-slim AS prod
 LABEL maintainer="will@willmakley.dev"
 
 ENV DEBIAN_FRONTEND=noninteractive
