@@ -36,7 +36,7 @@ RUN bundle config set --local without development test
 RUN bundle install
 
 COPY package.json yarn.lock /usr/src/app/
-RUN yarn install
+RUN yarn install --modules-folder=/usr/local/node_modules
 
 COPY . /usr/src/app
 
@@ -47,7 +47,6 @@ ENV RAILS_LOG_TO_STDOUT=true
 # TODO: this logs the master key to STDOUT. Is there a better way? The key should not be needed to compile assets.
 ARG RAILS_MASTER_KEY
 RUN bundle exec rails RAILS_MASTER_KEY=$RAILS_MASTER_KEY DATABASE_URL=postgresql:does_not_exist assets:precompile
-RUN rm -rf node_modules
 
 EXPOSE 8080
 CMD ["/usr/src/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
