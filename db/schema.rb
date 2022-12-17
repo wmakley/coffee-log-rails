@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_13_131556) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_17_134637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -79,6 +79,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_13_131556) do
     t.index ["roast_id"], name: "index_coffees_on_roast_id"
   end
 
+  create_table "group_memberships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "user_group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_group_id"], name: "index_group_memberships_on_user_group_id"
+    t.index ["user_id"], name: "index_group_memberships_on_user_id"
+  end
+
   create_table "log_entries", force: :cascade do |t|
     t.bigint "log_id", null: false
     t.string "water"
@@ -140,6 +149,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_13_131556) do
     t.index ["name"], name: "index_roasts_on_name", unique: true
   end
 
+  create_table "user_groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "signup_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_user_groups_on_name", unique: true
+    t.index ["signup_code"], name: "index_user_groups_on_signup_code", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.datetime "created_at", null: false
@@ -171,6 +189,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_13_131556) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "coffees", "coffee_brands"
   add_foreign_key "coffees", "roasts"
+  add_foreign_key "group_memberships", "user_groups"
+  add_foreign_key "group_memberships", "users"
   add_foreign_key "log_entries", "brew_methods"
   add_foreign_key "log_entries", "coffees", on_update: :cascade, on_delete: :restrict
   add_foreign_key "log_entries", "logs"

@@ -17,6 +17,12 @@ class ActiveSupport::TestCase
 
   TEST_USERNAME = 'default'
   TEST_PASSWORD = 'password'
+
+  def with_unique_number
+    @_unique_number ||= 0
+    @_unique_number += 1
+    yield @_unique_number
+  end
 end
 
 module AppSpecificAssertions
