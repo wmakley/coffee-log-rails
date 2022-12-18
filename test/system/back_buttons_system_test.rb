@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class BackButtonsSystemTest < ApplicationSystemTestCase
-  # fixtures :all
+
 
   setup do
     login_as users(:default)

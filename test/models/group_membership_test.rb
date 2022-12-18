@@ -21,7 +21,6 @@
 require "test_helper"
 
 class GroupMembershipTest < ActiveSupport::TestCase
-  # fixtures :users, :user_groups
 
   def valid_attributes
     {

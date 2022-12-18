@@ -13,7 +13,6 @@
 require 'test_helper'
 
 class BrewMethodTest < ActiveSupport::TestCase
-  # fixtures :brew_methods
 
   def valid_attributes
     {

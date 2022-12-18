@@ -21,7 +21,6 @@
 require "test_helper"
 
 class SignupCodeTest < ActiveSupport::TestCase
-  # fixtures :user_groups
 
   def valid_attributes
     with_unique_number do |n|

@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class SessionsTest < ActionDispatch::IntegrationTest
-  # fixtures :all
+
 
   def valid_login_params
     {

@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
-  # fixtures :all
+
 
   test "forgot password with valid email" do
     user = users(:default)
