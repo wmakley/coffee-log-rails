@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_17_134637) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_18_175619) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -149,13 +149,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_134637) do
     t.index ["name"], name: "index_roasts_on_name", unique: true
   end
 
+  create_table "signup_codes", force: :cascade do |t|
+    t.bigint "user_group_id", null: false
+    t.string "code", null: false
+    t.boolean "active", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_signup_codes_on_code", unique: true
+    t.index ["user_group_id"], name: "index_signup_codes_on_user_group_id"
+  end
+
   create_table "user_groups", force: :cascade do |t|
     t.string "name", null: false
-    t.string "signup_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_user_groups_on_name", unique: true
-    t.index ["signup_code"], name: "index_user_groups_on_signup_code", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -195,4 +203,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_17_134637) do
   add_foreign_key "log_entries", "coffees", on_update: :cascade, on_delete: :restrict
   add_foreign_key "log_entries", "logs"
   add_foreign_key "logs", "users"
+  add_foreign_key "signup_codes", "user_groups"
 end

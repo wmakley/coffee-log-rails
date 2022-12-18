@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class MyAccountTest < ActionDispatch::IntegrationTest
-  fixtures :users, :logs
+  # fixtures :users, :logs
 
   setup do
     login_as users(:non_admin)

@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class IpBanningTest < ActionDispatch::IntegrationTest
-  fixtures :logs, :users
+  # fixtures :logs, :users
 
   test "IPs are banned after 10 failed login attempts" do
     assert_not Fail2Ban.banned?('127.0.0.1')

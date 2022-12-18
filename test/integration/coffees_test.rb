@@ -3,7 +3,7 @@
 require "test_helper"
 
 class CoffeesTest < ActionDispatch::IntegrationTest
-  fixtures :all
+  # fixtures :all
 
   setup do
     login_as users(:default)

@@ -41,7 +41,7 @@
 require "test_helper"
 
 class LogEntryTest < ActiveSupport::TestCase
-  fixtures :all
+  # fixtures :all
 
   def valid_attributes
     {

@@ -27,7 +27,7 @@
 require "test_helper"
 
 class CoffeeTest < ActiveSupport::TestCase
-  fixtures :coffee_brands
+  # fixtures :coffee_brands
 
   def valid_attributes
     {

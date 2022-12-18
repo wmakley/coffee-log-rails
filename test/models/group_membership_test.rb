@@ -21,11 +21,11 @@
 require "test_helper"
 
 class GroupMembershipTest < ActiveSupport::TestCase
-  fixtures :users, :user_groups
+  # fixtures :users, :user_groups
 
   def valid_attributes
     {
-      user_id: users(:default).id,
+      user_id: users(:admin).id,
       user_group_id: user_groups(:default).id,
     }
   end

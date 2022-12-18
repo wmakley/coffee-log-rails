@@ -3,7 +3,7 @@
 require "application_system_test_case"
 
 class LogEntriesSystemTest < ApplicationSystemTestCase
-  fixtures :users, :logs, :coffee_brands, :coffees, :brew_methods
+  # fixtures :users, :logs, :coffee_brands, :coffees, :brew_methods
 
   setup do
     login_as users(:default)

@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class BannedIpsTest < ActionDispatch::IntegrationTest
-  fixtures :users, :banned_ips, :login_attempts
+  # fixtures :users, :banned_ips, :login_attempts
 
   test "admin may view index" do
     login_as users(:admin)

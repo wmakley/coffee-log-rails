@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PasswordResetRequestTest < ActiveSupport::TestCase
-  fixtures :users
+  # fixtures :users
 
   def assert_reset_token_set(user)
     assert_not_nil user.reset_password_token

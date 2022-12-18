@@ -1,7 +1,7 @@
 require "test_helper"
 
 class PasswordResetRequestMailerTest < ActionMailer::TestCase
-  fixtures :users
+  # fixtures :users
 
   test "reset_password_link" do
     user = users(:default)

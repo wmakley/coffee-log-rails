@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class UsersTest < ActionDispatch::IntegrationTest
-  fixtures :all
+  # fixtures :all
 
   test "not accessible by non-admin" do
     login_as :non_admin

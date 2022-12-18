@@ -21,7 +21,7 @@
 require "test_helper"
 
 class LogTest < ActiveSupport::TestCase
-  fixtures :users
+  # fixtures :users
 
   def valid_attributes
     {
