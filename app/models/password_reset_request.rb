@@ -26,7 +26,10 @@ class PasswordResetRequest
 
       user.generate_reset_password_token!
       unless user.save
-        self.errors = user.errors
+        user.errors.each do |error|
+          self.errors.add(:user, error.full_message)
+        end
+        # self.errors = user.errors
         logger.error "Error saving User: #{errors.full_messages.inspect}"
         raise ActiveRecord::Rollback
       end

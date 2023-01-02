@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Validates form inputs structurually. No business logic.
 class LoginForm
   include ActiveModel::Model
 

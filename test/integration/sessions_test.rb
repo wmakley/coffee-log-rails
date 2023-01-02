@@ -8,9 +8,36 @@ class SessionsTest < ActionDispatch::IntegrationTest
   def valid_login_params
     {
       login_form: {
-        username: TEST_USERNAME,
+        username: users(:default).username,
         password: TEST_PASSWORD,
       },
+    }
+  end
+
+  def invalid_password_params
+    {
+      login_form: {
+        username: users(:default).username,
+        password: '24435345',
+      },
+    }
+  end
+
+  def invalid_username_params
+    {
+      login_form: {
+        username: 'somebody',
+        password: TEST_PASSWORD,
+      },
+    }
+  end
+
+  def inactive_user_login_params
+    {
+      login_form: {
+        username: users(:inactive).username,
+        password: TEST_PASSWORD,
+      }
     }
   end
 
@@ -23,6 +50,18 @@ class SessionsTest < ActionDispatch::IntegrationTest
     post "/session", params: valid_login_params
     assert cookies[:sess].present?, "authentication cookie not set"
     assert_redirected_to "/logs", status: :see_other
+  end
+
+  test "invalid password may not log in" do
+    post "/session", params: invalid_password_params
+    assert_response :unprocessable_entity
+    assert cookies[:sess].blank?
+  end
+
+  test "invalid username may not log in" do
+    post "/session", params: invalid_username_params
+    assert_response :unprocessable_entity
+    assert cookies[:sess].blank?
   end
 
   test "accessing pages that require login with valid session" do
@@ -72,5 +111,11 @@ class SessionsTest < ActionDispatch::IntegrationTest
       get "/logs/default/entries"
       assert_redirected_to "/session/new"
     end
+  end
+
+  test "only active users may login" do
+    post "/session", params: inactive_user_login_params
+    assert_response :unprocessable_entity
+    assert cookies[:sess].blank?
   end
 end

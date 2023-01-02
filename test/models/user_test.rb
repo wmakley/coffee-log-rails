@@ -3,6 +3,8 @@
 # Table name: users
 #
 #  id                              :bigint           not null, primary key
+#  activation_code                 :string
+#  activation_code_at              :datetime
 #  admin                           :boolean          default(FALSE), not null
 #  display_name                    :string
 #  email                           :citext
@@ -17,6 +19,7 @@
 #
 # Indexes
 #
+#  index_users_on_activation_code       (activation_code) UNIQUE
 #  index_users_on_email                 (email) UNIQUE WHERE (email IS NOT NULL)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
 #  index_users_on_username              (username) UNIQUE

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_18_175619) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_18_182701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -178,6 +178,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_18_175619) do
     t.datetime "password_changed_at", precision: nil, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_token_created_at", precision: nil
+    t.string "activation_code"
+    t.datetime "activation_code_at", precision: nil
+    t.index ["activation_code"], name: "index_users_on_activation_code", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true, where: "(email IS NOT NULL)"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, where: "(reset_password_token IS NOT NULL)"
     t.index ["username"], name: "index_users_on_username", unique: true

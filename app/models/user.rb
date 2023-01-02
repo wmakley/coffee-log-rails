@@ -5,6 +5,8 @@
 # Table name: users
 #
 #  id                              :bigint           not null, primary key
+#  activation_code                 :string
+#  activation_code_at              :datetime
 #  admin                           :boolean          default(FALSE), not null
 #  display_name                    :string
 #  email                           :citext
@@ -19,6 +21,7 @@
 #
 # Indexes
 #
+#  index_users_on_activation_code       (activation_code) UNIQUE
 #  index_users_on_email                 (email) UNIQUE WHERE (email IS NOT NULL)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
 #  index_users_on_username              (username) UNIQUE
@@ -57,6 +60,15 @@ class User < ApplicationRecord
             presence: true,
             length: { maximum: 255, allow_nil: true },
             uniqueness: true
+  validates :activation_code,
+            if: -> { activation_code.present? },
+            uniqueness: true,
+            length: { maximum: 255, minimum: 1 }
 
   scope :by_name, -> { order(:display_name) }
+  scope :active, -> { where(activation_code: nil) }
+
+  def active?
+    activation_code.blank?
+  end
 end

@@ -13,7 +13,7 @@ class PasswordResetRequestTest < ActiveSupport::TestCase
 
     request = PasswordResetRequest.new(email: user.email)
     assert request.valid?
-    assert request.save
+    assert request.save, request.errors.full_messages
 
     user.reload
     assert_reset_token_set user
@@ -25,7 +25,7 @@ class PasswordResetRequestTest < ActiveSupport::TestCase
 
     request = PasswordResetRequest.new(email: user.email.upcase)
     assert request.valid?
-    assert request.save
+    assert request.save, request.errors.full_messages
 
     user.reload
     assert_reset_token_set user

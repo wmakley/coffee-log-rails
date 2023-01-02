@@ -27,7 +27,10 @@ class SignupCode < ApplicationRecord
 
   validates :code,
             presence: true,
-            uniqueness: true
+            uniqueness: true,
+            length: {
+              maximum: 100,
+            }
 
   scope :active, -> { where(active: true) }
   scope :with_code, -> (code) { where(code: code) }
