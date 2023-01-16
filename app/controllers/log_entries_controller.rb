@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LogEntriesController < ApplicationController
+class LogEntriesController < InternalController
   include ActionView::RecordIdentifier
 
   before_action :set_log

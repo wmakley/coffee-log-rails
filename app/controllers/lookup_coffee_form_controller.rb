@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LookupCoffeeFormController < ApplicationController
+class LookupCoffeeFormController < InternalController
   def search_results
     @coffee_search_form = LookupCoffeeForm.new(initial_coffee_scope, coffee_search_form_params)
     @search_results = @coffee_search_form.search_results

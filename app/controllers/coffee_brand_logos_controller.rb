@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CoffeeBrandLogosController < ApplicationController
+class CoffeeBrandLogosController < InternalController
   before_action :set_coffee_brand
 
   def show

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MyAccountController < ApplicationController
+class MyAccountController < InternalController
   def show
     @my_account = Current.user
   end

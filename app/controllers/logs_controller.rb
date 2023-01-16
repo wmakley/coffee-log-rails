@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LogsController < ApplicationController
+class LogsController < InternalController
   def index
     create_or_redirect_to_log_for_user
   end

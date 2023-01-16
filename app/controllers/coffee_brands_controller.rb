@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CoffeeBrandsController < ApplicationController
+class CoffeeBrandsController < InternalController
   before_action :set_coffee_brand,
                 only: [:show, :edit, :update, :destroy]
 

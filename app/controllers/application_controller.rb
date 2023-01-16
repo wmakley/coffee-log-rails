@@ -9,15 +9,12 @@ class ApplicationController < ActionController::Base
   include CookieAuthentication
 
   before_action :cleanup_old_sessions
-  before_action :authenticate_user_from_session!
-  before_action :set_logs
-  before_action :set_paper_trail_whodunnit
 
   rescue_from AuthenticationError do |exception|
     session[:return_to] = request.url
     logger.error exception.message
     flash[:error] = "Not authorized"
-    redirect_to new_session_url
+    redirect_to new_auth_session_url
   end
 
   def self.requires_admin(*actions)
@@ -38,9 +35,5 @@ class ApplicationController < ActionController::Base
 
     def redirect_to_https
       redirect_to protocol: "https://", status: :moved_permanently
-    end
-
-    def set_logs
-      @logs = Log.all
     end
 end

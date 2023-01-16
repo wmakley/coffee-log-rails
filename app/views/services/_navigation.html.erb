@@ -65,7 +65,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <%= link_to session_path, class: "nav-link", data: { turbo_method: :delete } do %>
+          <%= link_to auth_session_path, class: "nav-link", data: { turbo_method: :delete } do %>
             <i class="bi bi-box-arrow-right"></i>
             Logout
           <% end %>

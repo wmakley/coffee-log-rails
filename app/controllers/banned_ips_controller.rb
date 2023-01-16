@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BannedIpsController < ApplicationController
+class BannedIpsController < InternalController
   include AdminRequired
 
   def index

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BrewMethodsController < ApplicationController
+class BrewMethodsController < InternalController
 
   before_action :set_brew_method, only: [:show, :edit, :update, :destroy]
 

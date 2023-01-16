@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CoffeePhotosController < ApplicationController
+class CoffeePhotosController < InternalController
   before_action :set_coffee
   before_action :require_photo_attached, only: [:show, :destroy]
 

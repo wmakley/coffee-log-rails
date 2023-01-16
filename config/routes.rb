@@ -7,12 +7,15 @@ Rails.application.routes.draw do
     root to: redirect("https://coffee-log.willmakley.dev", status: 301)
     get "/*path", to: redirect("https://coffee-log.willmakley.dev", status: 301)
   else
-    root to: "sessions#new"
+    root to: "auth/sessions#new"
   end
 
-  resource :session, only: [:index, :show, :new, :create, :destroy]
-  resource :password_reset_request, only: [:index, :new, :create]
-  resource :password, only: [:index, :show, :edit, :update]
+  namespace :auth, path: '' do
+    resource :session, only: [:index, :show, :new, :create, :destroy]
+    resource :password_reset_request, only: [:index, :new, :create]
+    resource :password, only: [:index, :show, :edit, :update]
+    resource :signup
+  end
 
   resources :logs, only: [:index, :show, :destroy] do
     resources :entries, controller: 'log_entries'

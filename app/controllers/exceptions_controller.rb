@@ -1,4 +1,6 @@
-class ExceptionsController < ApplicationController
+# frozen_string_literal: true
+
+class ExceptionsController < InternalController
   include AdminRequired
 
   def index

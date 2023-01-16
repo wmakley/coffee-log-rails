@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CoffeesController < ApplicationController
+class CoffeesController < InternalController
   before_action :set_coffee, only: [:show, :edit, :update, :destroy]
 
   def index
