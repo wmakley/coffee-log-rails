@@ -1,1 +1,6 @@
-<%= render "form" %>
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <h1>Create Coffee Log Account</h1>
+    <%= render "form", object: @signup, url: auth_signup_path %>
+  </div>
+</div>

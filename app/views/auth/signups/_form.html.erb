@@ -1,0 +1,65 @@
+<%= form_with(model: object, url: url) do |f| %>
+  <div class="form-floating mb-3">
+    <%= input f, :code,
+              as: :text_field,
+              label: "Code",
+              required: true,
+              input_first: true,
+              input_html: {
+                autofocus: true,
+                class: "form-control form-control-lg",
+                maxlength: 255,
+                placeholder: "Signup Code",
+                :"aria-describedby" => "code-help",
+              }
+    %>
+    <div id="code-help" class="form-text">A code from Coffee Log is required to create an account.</div>
+  </div>
+
+  <div class="form-floating mb-3">
+    <%= input f, :email,
+              as: :email_field,
+              label: "Email Address",
+              required: true,
+              input_first: true,
+              input_html: {
+                class: "form-control form-control-lg",
+                maxlength: 255,
+                placeholder: "Email Address"
+              }
+    %>
+  </div>
+
+  <div class="form-floating mb-3">
+    <%= input f, :password,
+              as: :password_field,
+              label: "Password",
+              required: true,
+              input_first: true,
+              input_html: {
+                class: "form-control form-control-lg",
+                maxlength: 255,
+                placeholder: "Password"
+              }
+    %>
+  </div>
+
+  <div class="form-floating mb-3">
+    <%= input f, :password_confirmation,
+              as: :password_field,
+              label: "Password Confirmation",
+              required: true,
+              input_first: true,
+              input_html: {
+                class: "form-control form-control-lg",
+                maxlength: 255,
+                placeholder: "Password Confirmation"
+              }
+    %>
+  </div>
+
+  <p>
+    <%= f.submit "Create Account", class: "btn btn-primary btn-lg" %>
+    <%= link_to "Cancel", root_path %>
+  </p>
+<% end %>
