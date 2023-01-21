@@ -11,13 +11,13 @@ RUN apt-get clean && apt-get update && \
       postgresql-client \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 # build deps
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get clean && apt-get update && \
     apt-get install -y --no-install-recommends \
       build-essential \
       autoconf \
       automake \
       nodejs \
-      npm \
       libpq-dev \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
