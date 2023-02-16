@@ -12,7 +12,7 @@ class SignupsTest < ApplicationSystemTestCase
     fill_in "Email", with: "test@example.com"
 
     assert_emails 1 do
-      click_button "Signup"
+      click_button "SignupForm"
     end
 
     assert_content "An activation link has been sent to test@example.com! It will expire in one hour."

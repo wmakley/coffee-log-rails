@@ -10,6 +10,6 @@ class SignupsTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
 
-    assert_select "form#new_signup"
+    assert_select "form#new_signup_form"
   end
 end

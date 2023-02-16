@@ -1,4 +1,4 @@
-<%= form_with(model: object, url: url) do |f| %>
+<%= form_with(model: object, url: url, html: { id: "new_signup_form" }) do |f| %>
   <div class="form-floating mb-3">
     <%= input f, :code,
               as: :text_field,
@@ -9,7 +9,7 @@
                 autofocus: true,
                 class: "form-control form-control-lg",
                 maxlength: 255,
-                placeholder: "Signup Code",
+                placeholder: "SignupForm Code",
                 :"aria-describedby" => "code-help",
               }
     %>

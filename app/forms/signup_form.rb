@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Signup
+class SignupForm
   include ActiveModel::Model
 
   attr_accessor :code

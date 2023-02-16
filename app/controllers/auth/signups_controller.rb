@@ -9,7 +9,7 @@ module Auth
     alias index show
 
     def new
-      @signup = ::Signup.new
+      @signup = ::SignupForm.new
     end
 
     def create
