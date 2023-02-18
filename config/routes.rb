@@ -14,7 +14,12 @@ Rails.application.routes.draw do
     resource :session, only: [:index, :show, :new, :create, :destroy]
     resource :password_reset_request, only: [:index, :new, :create]
     resource :password, only: [:index, :show, :edit, :update]
-    resource :signup, only: [:index, :show, :new, :create]
+    resource :signup, only: [:index, :show, :new, :create] do
+      collection do
+        get :success
+      end
+    end
+    resource :email_verification, path: 'email-verification', only: [:index, :show, :new, :create]
   end
 
   resources :logs, only: [:index, :show, :destroy] do

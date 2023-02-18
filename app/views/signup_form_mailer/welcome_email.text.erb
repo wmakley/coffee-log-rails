@@ -1,0 +1,5 @@
+Thank you for creating a Coffee Log account!
+
+Visit this URL to verify your email address and activate your account:
+
+  <%= auth_email_verification_url(email: @user.email, token: @user.email_verification_token) %>

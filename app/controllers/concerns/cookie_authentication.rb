@@ -87,6 +87,7 @@ module CookieAuthentication
 
     reset_session
     set_authentication_cookie(user.id)
+    user.update!(last_login_at: Time.current)
     Current.user = user
   end
 

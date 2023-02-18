@@ -36,4 +36,8 @@ class LoginAttempt < ApplicationRecord
   def self.remove_old_attempts
     where("updated_at < ?", 1.day.ago).delete_all
   end
+
+  def remaining_attempts
+    MAX_ATTEMPTS - (attempts || 0)
+  end
 end

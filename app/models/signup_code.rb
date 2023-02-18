@@ -28,6 +28,10 @@ class SignupCode < ApplicationRecord
   validates :code,
             presence: true,
             uniqueness: true,
+            format: {
+              with: /\A[A-Z0-9_-]+\z/,
+              message: "must contain only upper-case letters, numbers, '_', and '-'"
+            },
             length: {
               maximum: 100,
             }

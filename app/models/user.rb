@@ -10,6 +10,9 @@
 #  admin                           :boolean          default(FALSE), not null
 #  display_name                    :string
 #  email                           :citext
+#  email_verification_token        :string
+#  email_verified_at               :datetime
+#  last_login_at                   :datetime
 #  password_changed_at             :datetime         not null
 #  password_digest                 :string
 #  preferences                     :jsonb            not null
@@ -21,13 +24,15 @@
 #
 # Indexes
 #
-#  index_users_on_activation_code       (activation_code) UNIQUE
-#  index_users_on_email                 (email) UNIQUE WHERE (email IS NOT NULL)
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
-#  index_users_on_username              (username) UNIQUE
+#  index_users_on_activation_code           (activation_code) UNIQUE
+#  index_users_on_email                     (email) UNIQUE WHERE (email IS NOT NULL)
+#  index_users_on_email_verification_token  (email_verification_token) UNIQUE WHERE (email_verification_token IS NOT NULL)
+#  index_users_on_reset_password_token      (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
+#  index_users_on_username                  (username) UNIQUE
 #
 class User < ApplicationRecord
   include ResetPasswordToken
+  include EmailVerification
 
   has_one :log,
           foreign_key: :user_id,
@@ -46,10 +51,10 @@ class User < ApplicationRecord
 
   before_save do
     self.password_changed_at = Time.current.utc if will_save_change_to_password_digest?
-    self.email = email&.presence&.downcase
   end
 
   validates :username, presence: true, uniqueness: true, format: /\A\S+\z/
+  # Duplicated in SignupForm:
   validates :password,
             presence: true,
             length: { minimum: 6, maximum: 255 },
@@ -60,15 +65,12 @@ class User < ApplicationRecord
             presence: true,
             length: { maximum: 255, allow_nil: true },
             uniqueness: true
-  validates :activation_code,
-            if: -> { activation_code.present? },
-            uniqueness: true,
-            length: { maximum: 255, minimum: 1 }
 
   scope :by_name, -> { order(:display_name) }
-  scope :active, -> { where(activation_code: nil) }
+  scope :active, -> { where(email_verification_token: nil) }
 
+  # For a user to be active, their email must be verified.
   def active?
-    activation_code.blank?
+    email_verification_token.blank?
   end
 end

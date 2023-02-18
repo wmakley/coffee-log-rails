@@ -10,6 +10,8 @@ class PasswordReset
                 :password_confirmation
 
   validates_presence_of :token,
+                        # Password validation is delegated to the User model in #save, here
+                        # we just make sure the form is filled out.
                         :password,
                         :password_confirmation
 

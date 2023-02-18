@@ -8,6 +8,9 @@
 #  admin                           :boolean          default(FALSE), not null
 #  display_name                    :string
 #  email                           :citext
+#  email_verification_token        :string
+#  email_verified_at               :datetime
+#  last_login_at                   :datetime
 #  password_changed_at             :datetime         not null
 #  password_digest                 :string
 #  preferences                     :jsonb            not null
@@ -19,15 +22,18 @@
 #
 # Indexes
 #
-#  index_users_on_activation_code       (activation_code) UNIQUE
-#  index_users_on_email                 (email) UNIQUE WHERE (email IS NOT NULL)
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
-#  index_users_on_username              (username) UNIQUE
+#  index_users_on_activation_code           (activation_code) UNIQUE
+#  index_users_on_email                     (email) UNIQUE WHERE (email IS NOT NULL)
+#  index_users_on_email_verification_token  (email_verification_token) UNIQUE WHERE (email_verification_token IS NOT NULL)
+#  index_users_on_reset_password_token      (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
+#  index_users_on_username                  (username) UNIQUE
 #
 default:
   id: 1
   username: default
   email: "default@test.com"
+  email_verification_token:
+  email_verified_at: "<%= 1.day.ago.iso8601 %>"
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: Default
@@ -40,6 +46,8 @@ admin:
   id: 2
   username: admin
   email: "admin@test.com"
+  email_verification_token:
+  email_verified_at: "<%= 1.day.ago.iso8601 %>"
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: Admin
@@ -52,6 +60,8 @@ non_admin:
   id: 3
   username: nonadmin
   email: "nonadmin@test.com"
+  email_verification_token:
+  email_verified_at: "<%= 1.day.ago.iso8601 %>"
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: Non-Admin
@@ -64,6 +74,8 @@ inactive:
   id: 4
   username: inactive
   email: "inactive@test.com"
+  email_verification_token:
+  email_verified_at: "<%= 1.day.ago.iso8601 %>"
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: Inactive

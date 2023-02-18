@@ -1,0 +1,6 @@
+<h2>Thank you for creating a Coffee Log account!</h2>
+
+<h3>Click this link to verify your email address and activate your account:</h3>
+
+<% url = auth_email_verification_url(email: @user.email, token: @user.email_verification_token) %>
+<p class="lead"><%= link_to url, url %></p>
