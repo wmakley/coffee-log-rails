@@ -14,14 +14,14 @@ class ApplicationController < ActionController::Base
     session[:return_to] = request.url
     logger.error exception.message
     flash[:error] = "Not authorized"
-    redirect_to new_auth_session_url
+    redirect_to new_auth_session_url, status: :see_other
   end
 
   def self.requires_admin(*actions)
     before_action only: actions do
       unless current_user&.admin?
         flash[:error] = "Not authorized"
-        redirect_to root_url
+        redirect_to root_url, status: :see_other
       end
     end
   end
@@ -35,5 +35,13 @@ class ApplicationController < ActionController::Base
 
     def redirect_to_https
       redirect_to protocol: "https://", status: :moved_permanently
+    end
+
+    def redirect_to_app
+      redirect_to logs_url, status: :see_other
+    end
+
+    def redirect_to_login
+      redirect_to new_auth_session_url, status: :see_other
     end
 end

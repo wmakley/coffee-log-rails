@@ -40,9 +40,5 @@ module Auth
       def login_form_params
         params.require(:login_form).permit(:username, :password)
       end
-
-      def redirect_to_app
-        redirect_to logs_url, status: :see_other
-      end
   end
 end

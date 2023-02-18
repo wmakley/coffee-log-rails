@@ -19,7 +19,7 @@ Rails.application.routes.draw do
         get :success
       end
     end
-    resource :email_verification, path: 'email-verification', only: [:index, :show, :new, :create]
+    resource :email_verification, path: 'email-verification', only: [:show, :new, :create]
   end
 
   resources :logs, only: [:index, :show, :destroy] do

@@ -7,4 +7,19 @@ class EmailVerificationForm
 
   validates :email, presence: true
   validates :token, presence: true
+
+  def save
+    user = User.find_by(email: email.to_s, email_verification_token: token.to_s)
+    if user.nil?
+      # generic error that doesn't reveal what the issue is (may expand on later)
+      errors.add(:base, "email or token is invalid")
+      return false
+    end
+
+    user.email_verified_at = Time.current
+    user.email_verification_token = nil
+    user.save!
+
+    user
+  end
 end

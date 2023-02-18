@@ -1,4 +1,4 @@
 <h2>Click this link to verify your email address:</h2>
 
-<% url = auth_email_verification_url(email: @user.email, token: @user.email_verification_token) %>
+<% url = new_auth_email_verification_url(email: @user.email, token: @user.email_verification_token) %>
 <p class="lead"><%= link_to url, url %></p>

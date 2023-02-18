@@ -1,3 +1,3 @@
 Visit this URL to verify your email address:
 
-<%= auth_email_verification_url(email: @user.email, token: @user.email_verification_token) %>
+<%= new_auth_email_verification_url(email: @user.email, token: @user.email_verification_token) %>
