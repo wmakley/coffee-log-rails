@@ -26,4 +26,8 @@ class LogsTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
   end
+
+  test "user may only visit logs for groups they are a member of" do
+    login_as users(:default)
+  end
 end

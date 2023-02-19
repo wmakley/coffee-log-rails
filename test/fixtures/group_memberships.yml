@@ -23,3 +23,18 @@ default_default:
   id: 1
   user_id: 1
   user_group_id: 1
+
+admin_default:
+  id: 2
+  user_id: 2
+  user_group_id: 1
+
+non_admin_default:
+  id: 3
+  user_id: 3
+  user_group_id: 1
+
+unverified_email_default:
+  id: 4
+  user_id: 4
+  user_group_id: 1

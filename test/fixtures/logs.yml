@@ -36,3 +36,9 @@ non_admin:
   user_id: 3
   title: Non-Admin's Log
   slug: non-admin
+
+unverified_email:
+  id: 4
+  user_id: 4
+  title: Unverified Email's Log
+  slug: unverified-email

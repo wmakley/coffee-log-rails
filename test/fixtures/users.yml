@@ -72,3 +72,16 @@ unverified_email:
   display_name: Inactive
   admin: false
   preferences: { }
+
+
+no_group:
+  id: 5
+  username: no_group
+  email: "no_group@test.com"
+  email_verification_token:
+  email_verified_at: "<%= 1.day.ago.iso8601 %>"
+  password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
+  password_changed_at: "<%= 1.day.ago.iso8601 %>"
+  display_name: No group
+  admin: false
+  preferences: { }

@@ -24,7 +24,7 @@ class GroupMembershipTest < ActiveSupport::TestCase
 
   def valid_attributes
     {
-      user_id: users(:admin).id,
+      user_id: users(:no_group).id,
       user_group_id: user_groups(:default).id,
     }
   end
