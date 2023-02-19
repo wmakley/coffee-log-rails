@@ -31,6 +31,20 @@
   </div>
 
   <div class="form-floating mb-3">
+    <%= input f, :display_name,
+              as: :text_field,
+              label: "Display Name",
+              required: true,
+              input_first: true,
+              input_html: {
+                class: "form-control form-control-lg",
+                maxlength: 255,
+                placeholder: "Display Name"
+              }
+    %>
+  </div>
+
+  <div class="form-floating mb-3">
     <%= input f, :password,
               as: :password_field,
               label: "Password",

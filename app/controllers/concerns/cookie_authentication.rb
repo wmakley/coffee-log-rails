@@ -72,7 +72,7 @@ module CookieAuthentication
       return false
     end
 
-    user = User.active.find_by(username: login_form.username.to_s)
+    user = User.find_by(username: login_form.username.to_s)
     unless user
       logger.warn "username '#{login_form.username}' not found"
       return false

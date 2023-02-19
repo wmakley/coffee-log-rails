@@ -5,8 +5,6 @@
 # Table name: users
 #
 #  id                              :bigint           not null, primary key
-#  activation_code                 :string
-#  activation_code_at              :datetime
 #  admin                           :boolean          default(FALSE), not null
 #  display_name                    :string
 #  email                           :citext
@@ -24,7 +22,6 @@
 #
 # Indexes
 #
-#  index_users_on_activation_code           (activation_code) UNIQUE
 #  index_users_on_email                     (email) UNIQUE WHERE (email IS NOT NULL)
 #  index_users_on_email_verification_token  (email_verification_token) UNIQUE WHERE (email_verification_token IS NOT NULL)
 #  index_users_on_reset_password_token      (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
@@ -67,10 +64,4 @@ class User < ApplicationRecord
             uniqueness: true
 
   scope :by_name, -> { order(:display_name) }
-  scope :active, -> { where(email_verification_token: nil) }
-
-  # For a user to be active, their email must be verified.
-  def active?
-    email_verification_token.blank?
-  end
 end

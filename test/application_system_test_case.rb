@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
@@ -20,11 +22,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   delegate :username, :password, to: :current_user
-
-  # Does not work persistently as user navigates :(
-  def visit_with_basic_auth(path, un = username, pw = password)
-    visit "http://#{un}:#{pw}@#{host}:#{port}#{path}"
-  end
 
   def host
     Capybara.current_session.server.host

@@ -9,6 +9,10 @@ class SignupForm
   attr_accessor :password
   attr_accessor :password_confirmation
 
+  def invalid_code?
+    @invalid_code
+  end
+
   validates_presence_of :code,
                         :email,
                         :display_name,
@@ -28,6 +32,7 @@ class SignupForm
     User.transaction do
       signup_code = SignupCode.active.find_by(code: code)
       if signup_code.nil?
+        @invalid_code = true
         errors.add(:code, "is invalid")
         raise ActiveRecord::Rollback
       end

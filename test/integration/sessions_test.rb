@@ -32,10 +32,10 @@ class SessionsTest < ActionDispatch::IntegrationTest
     }
   end
 
-  def inactive_user_login_params
+  def unverified_email_user_login_params
     {
       login_form: {
-        username: users(:inactive).username,
+        username: users(:unverified_email).username,
         password: TEST_PASSWORD,
       }
     }
@@ -113,9 +113,10 @@ class SessionsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "only active users may login" do
-    post "/session", params: inactive_user_login_params
+  test "users with unverified email are allowed to login, but may not access app until they verify email" do
+    post "/session", params: unverified_email_user_login_params
     assert_response :unprocessable_entity
-    assert cookies[:sess].blank?
+    assert_notice "Your email address has not been verified. Please click the link in your email to continue."
+    assert cookies[:sess].present?
   end
 end

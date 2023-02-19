@@ -11,10 +11,10 @@ Rails.application.routes.draw do
   end
 
   namespace :auth, path: '' do
-    resource :session, only: [:index, :show, :new, :create, :destroy]
-    resource :password_reset_request, only: [:index, :new, :create]
-    resource :password, only: [:index, :show, :edit, :update]
-    resource :signup, only: [:index, :show, :new, :create] do
+    resource :session, only: [:show, :new, :create, :destroy]
+    resource :password_reset_request, only: [:show, :new, :create]
+    resource :password, only: [:show, :edit, :update]
+    resource :signup, only: [:show, :new, :create] do
       collection do
         get :success
       end

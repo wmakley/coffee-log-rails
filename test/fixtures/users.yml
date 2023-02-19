@@ -3,8 +3,6 @@
 # Table name: users
 #
 #  id                              :bigint           not null, primary key
-#  activation_code                 :string
-#  activation_code_at              :datetime
 #  admin                           :boolean          default(FALSE), not null
 #  display_name                    :string
 #  email                           :citext
@@ -22,7 +20,6 @@
 #
 # Indexes
 #
-#  index_users_on_activation_code           (activation_code) UNIQUE
 #  index_users_on_email                     (email) UNIQUE WHERE (email IS NOT NULL)
 #  index_users_on_email_verification_token  (email_verification_token) UNIQUE WHERE (email_verification_token IS NOT NULL)
 #  index_users_on_reset_password_token      (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
@@ -39,8 +36,6 @@ default:
   display_name: Default
   admin: false
   preferences: {}
-  activation_code:
-  activation_code_at:
 
 admin:
   id: 2
@@ -53,8 +48,6 @@ admin:
   display_name: Admin
   admin: true
   preferences: {}
-  activation_code:
-  activation_code_at:
 
 non_admin:
   id: 3
@@ -67,19 +60,15 @@ non_admin:
   display_name: Non-Admin
   admin: false
   preferences: {}
-  activation_code:
-  activation_code_at:
 
-inactive:
+unverified_email:
   id: 4
-  username: inactive
-  email: "inactive@test.com"
+  username: unverified_email
+  email: "unverified_email@test.com"
   email_verification_token:
-  email_verified_at: "<%= 1.day.ago.iso8601 %>"
+  email_verified_at:
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: Inactive
   admin: false
   preferences: { }
-  activation_code: CODE
-  activation_code_at: "<%= 1.day.ago.iso8601 %>"

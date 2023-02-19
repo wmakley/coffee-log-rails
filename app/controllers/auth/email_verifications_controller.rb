@@ -7,10 +7,6 @@ module Auth
       redirect_to action: :new, status: :see_other
     end
 
-    def index
-      redirect_to action: :new, status: :see_other
-    end
-
     def new
       @email_verification_form = EmailVerificationForm.new(email_verification_params)
 
@@ -28,6 +24,7 @@ module Auth
       @email_verification_form ||= EmailVerificationForm.new(email_verification_params)
 
       if @email_verification_form.save
+        flash[:notice] = "Your email has been successfully verified!"
         redirect_to root_url, status: :see_other
       else
         render action: :new, status: :unprocessable_entity

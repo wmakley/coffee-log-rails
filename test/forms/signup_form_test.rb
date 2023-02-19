@@ -33,7 +33,7 @@ class SignupFormTest < ActiveSupport::TestCase
     end
   end
 
-  test "valid forms create new user with an activation token" do
+  test "valid forms create new user with an email verification token" do
     form = SignupForm.new(valid_attributes)
 
     initial_user_count = User.count
@@ -41,7 +41,7 @@ class SignupFormTest < ActiveSupport::TestCase
     assert_equal initial_user_count + 1, User.count
 
     user = User.last
-    assert user.activation_code.present?
+    assert user.email_verification_token.present?
   end
 
   test "created user is associated with the signup code's group" do

@@ -19,7 +19,7 @@ module Auth
         flash[:notice] = "Your account has been created!"
         redirect_to success_auth_signup_path
       else
-        if @signup.errors[:code].present?
+        if @signup.invalid_code?
           attempt = Fail2Ban.record_failed_attempt(request.remote_ip)
           flash[:error] = "#{attempt.remaining_attempts} #{'attempt'.pluralize(attempt.remaining_attempts)} remaining."
         end

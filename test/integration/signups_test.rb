@@ -29,6 +29,6 @@ class SignupsTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/signup/success"
     follow_redirect!
     assert_response :success
-    assert_select "h1", count: 1, text: "Success!"
+    assert_select "h1", count: 1, text: "Your account is almost ready!"
   end
 end
