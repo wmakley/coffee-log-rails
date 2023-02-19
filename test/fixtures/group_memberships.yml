@@ -38,3 +38,13 @@ unverified_email_default:
   id: 4
   user_id: 4
   user_group_id: 1
+
+group_a_user_group_a:
+  id: 5
+  user_id: 6
+  user_group_id: 2
+
+group_b_user_group_b:
+  id: 6
+  user_id: 7
+  user_group_id: 3

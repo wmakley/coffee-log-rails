@@ -42,3 +42,15 @@ unverified_email:
   user_id: 4
   title: Unverified Email's Log
   slug: unverified-email
+
+group_a_user_log:
+  id: 5
+  user_id: 6
+  title: Group A User's Log
+  slug: group-a
+
+group_b_user_log:
+  id: 6
+  user_id: 7
+  title: Group B User's Log
+  slug: group-b

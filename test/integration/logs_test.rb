@@ -28,6 +28,13 @@ class LogsTest < ActionDispatch::IntegrationTest
   end
 
   test "user may only visit logs for groups they are a member of" do
-    login_as users(:default)
+    login_as users(:group_a)
+
+    get "/logs/group-a/entries"
+    assert_response :success
+
+    assert_raises ActiveRecord::RecordNotFound do
+      get "/logs/group-b/entries"
+    end
   end
 end

@@ -8,6 +8,6 @@ class InternalController < ApplicationController
   private
 
     def set_logs
-      @logs = Log.all
+      @logs = Log.visible_to_user(Current.user)
     end
 end

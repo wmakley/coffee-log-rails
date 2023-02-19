@@ -41,6 +41,23 @@ class Log < ApplicationRecord
 
   scope :user, ->(user) { where(user_id: user.id) }
 
+  def self.visible_to_user(user)
+    if user.admin?
+      return all
+    end
+
+    user_group_ids = user.user_group_ids
+    # if user belongs to no groups, can use simplest query
+    if user_group_ids.blank?
+      return where(user_id: user.id)
+    end
+
+    scope = joins(user: :group_memberships)
+    scope.where(user_id: user.id).or(
+      where("group_memberships.user_group_id IN (?)", user_group_ids)
+    )
+  end
+
   def to_param
     slug
   end

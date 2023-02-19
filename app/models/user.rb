@@ -64,4 +64,9 @@ class User < ApplicationRecord
             uniqueness: true
 
   scope :by_name, -> { order(:display_name) }
+
+  def user_group_ids
+    # association is expected to be re-used in the request after lazy load
+    group_memberships.map(&:user_group_id)
+  end
 end

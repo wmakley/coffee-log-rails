@@ -85,3 +85,27 @@ no_group:
   display_name: No group
   admin: false
   preferences: { }
+
+group_a:
+  id: 6
+  username: group_a
+  email: "group_a@test.com"
+  email_verification_token:
+  email_verified_at: "<%= 1.day.ago.iso8601 %>"
+  password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
+  password_changed_at: "<%= 1.day.ago.iso8601 %>"
+  display_name: Group A User
+  admin: false
+  preferences: { }
+
+group_b:
+  id: 7
+  username: group_b
+  email: "group_b@test.com"
+  email_verification_token:
+  email_verified_at: "<%= 1.day.ago.iso8601 %>"
+  password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
+  password_changed_at: "<%= 1.day.ago.iso8601 %>"
+  display_name: Group B User
+  admin: false
+  preferences: { }
