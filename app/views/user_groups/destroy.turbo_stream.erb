@@ -1,0 +1,6 @@
+<% if @user_group.destroyed? %>
+  <%= render "services/turbo_stream_flash", type: "notice", message: "Successfully deleted '#{@user_group.name}'." %>
+  <%= turbo_stream.remove dom_id(@user_group) %>
+<% else %>
+  <%= render "services/turbo_stream_flash", type: "error", message: @user_group.errors.full_messages.to_sentence + "." %>
+<% end %>

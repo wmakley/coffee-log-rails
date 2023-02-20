@@ -1,0 +1,6 @@
+<% if @signup_code.destroyed? %>
+  <%= render "services/turbo_stream_flash", type: "notice", message: "Successfully deleted '#{@signup_code.code}'." %>
+  <%= turbo_stream.remove dom_id(@signup_code) %>
+<% else %>
+  <%= render "services/turbo_stream_flash", type: "error", message: @signup_code.errors.full_messages.to_sentence + "." %>
+<% end %>

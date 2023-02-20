@@ -1,0 +1,37 @@
+<h1>User Groups</h1>
+<p>
+  <%= link_to("Add New User Group", new_user_group_path, class: "btn btn-success") %>
+</p>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Created At</th>
+    <th>Updated At</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @user_groups.each do |user_group| %>
+    <tr id="<%= dom_id(user_group) %>">
+      <td><%= user_group.id %></td>
+      <td><%= user_group.name %></td>
+      <td><%= user_group.created_at.to_formatted_s(:long) %></td>
+      <td><%= user_group.updated_at.to_formatted_s(:long) %></td>
+      <td>
+        <%= link_to("Edit", edit_user_group_path(user_group), class: "btn btn-success btn-sm") %>
+        <%= link_to("Delete", user_group_path(user_group),
+                    class: "btn btn-danger btn-sm",
+                    data: {
+                      'turbo-method' => :delete,
+                      'controller' => 'confirmation',
+                      'confirmation-message-value' => "Are you sure you want to delete this user group? This cannot be undone.",
+                      'action' => 'confirmation#confirm'
+                    }
+            ) %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

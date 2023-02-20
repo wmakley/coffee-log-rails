@@ -10,7 +10,7 @@
               } %>
   </div>
   <div class="mb-3">
-    <%= input f, :email, as: :email_field, label: "Email", input_html: { maxlength: 255 } %>
+    <%= input f, :email, as: :email_field, label: "Email", required: true, input_html: { maxlength: 255 } %>
   </div>
   <div class="mb-3">
     <%= input f, :username, label: "Username (for login)", required: true, input_html: { maxlength: 255 } %>
@@ -34,6 +34,6 @@
       <%= object.new_record? ? "Create" : "Update" %> User
     </button>
 
-    <%= link_to("Cancel", :back, class: "btn btn-secondary") %>
+    <%= cancel_button %>
   </p>
 <% end %>

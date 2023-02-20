@@ -38,4 +38,8 @@ class SignupCode < ApplicationRecord
 
   scope :active, -> { where(active: true) }
   scope :with_code, -> (code) { where(code: code) }
+
+  def user_group_name
+    user_group&.name
+  end
 end

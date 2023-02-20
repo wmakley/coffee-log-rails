@@ -54,8 +54,22 @@
           </li>
         <% end %>
         <% if Current.admin? %>
-          <li class="nav-item">
-            <a class="nav-link<%= ' active' if request.path.starts_with?(users_path) %>" href="<%= users_path %>">Users</a>
+          <% admin_urls = [
+            [users_path, "Users"],
+            [user_groups_path, "User Groups"],
+            [signup_codes_path, "Signup Codes"],
+          ] %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle<%= ' active' if admin_urls.any? { |link| request.path.starts_with? link.first } %>" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+              <% admin_urls.each do |url, title| %>
+                <li>
+                  <a class="dropdown-item<%= ' active' if request.path.starts_with?(url) %>" href="<%= url %>"><%= title %></a>
+                </li>
+              <% end %>
+            </ul>
           </li>
         <% end %>
         <li class="nav-item">

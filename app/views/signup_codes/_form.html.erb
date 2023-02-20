@@ -1,0 +1,38 @@
+<%= form_with(model: object) do |f| %>
+  <%= render "services/base_errors", object: f.object %>
+
+  <div class="mb-3">
+    <%= input f, :code,
+              label: "Code",
+              required: true,
+              input_html: {
+                class: "form-control form-control-lg",
+                autofocus: true,
+                maxlength: 100,
+              } %>
+  </div>
+
+  <div class="mb-3">
+    <%= input f, :user_group_id, as: :select,
+              label: "User Group",
+              required: true,
+              include_blank: true,
+              collection: user_group_options %>
+  </div>
+
+  <div class="mb-3">
+    <%= input f, :active, as: :select,
+              label: "Active",
+              required: true,
+              include_blank: true,
+              collection: [["Yes", "true"], ["No", "false"]] %>
+  </div>
+
+  <p>
+    <button type="submit" class="btn btn-primary">
+      <%= object.new_record? ? "Create" : "Update" %> Signup Code
+    </button>
+
+    <%= cancel_button %>
+  </p>
+<% end %>
