@@ -25,7 +25,7 @@ class CoffeesController < InternalController
   end
 
   def show
-    @log_entries = @coffee.log_entries.by_date_desc.includes(:log)
+    @log_entries = Pundit.policy_scope!(Current.user, @coffee.log_entries).by_date_desc.includes(:log)
   end
 
   def new

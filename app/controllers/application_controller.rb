@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :redirect_to_https, unless: -> { request.ssl? || request.local? }
 
+  include Pundit::Authorization
   include IpBanningConcern
   include CookieAuthentication
 

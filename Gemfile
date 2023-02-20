@@ -52,6 +52,8 @@ gem 'pg_search'
 # auditing of certain tables
 gem 'paper_trail'
 
+# authorization
+gem "pundit", "~> 2.3"
 
 # exception monitoring
 gem 'sentry-ruby'
