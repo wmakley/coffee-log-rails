@@ -26,6 +26,16 @@ class ActiveSupport::TestCase
 end
 
 module AppSpecificAssertions
+  def assert_redirected_to_app
+    assert_redirected_to "/logs"
+    follow_redirect!
+    assert_redirected_to %r{/logs/[\w\d\-]+/entries}
+  end
+
+  def assert_redirected_to_login
+    assert_redirected_to "/session/new"
+  end
+
   def assert_notice(message)
     if respond_to? :assert_selector
       assert_selector("#flash > .alert.alert-success", text: message)

@@ -114,9 +114,14 @@ class SessionsTest < ActionDispatch::IntegrationTest
   end
 
   test "users with unverified email are allowed to login, but may not access app until they verify email" do
-    post "/session", params: unverified_email_user_login_params
-    assert_response :unprocessable_entity
-    assert_notice "Your email address has not been verified. Please click the link in your email to continue."
-    assert cookies[:sess].present?
+    assert_emails 1 do
+      post "/session", params: unverified_email_user_login_params
+    end
+    assert_redirected_to "/session/new"
+    follow_redirect!
+    assert_error "Your email address has not been verified. Please click the link in your email to continue."
+
+    get "/logs/default/entries"
+    assert_redirected_to "/session/new"
   end
 end

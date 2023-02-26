@@ -15,8 +15,18 @@ module Auth
     def create
       @signup = ::SignupForm.new(signup_form_params)
 
-      if @signup.save
+      if (user = @signup.save)
         flash[:notice] = "Your account has been created!"
+        begin
+          authenticate_user_from_form(
+            LoginForm.new(
+              username: user.username,
+              password: @signup.password,
+            )
+          )
+        rescue EmailVerificationNeededError
+          # expected
+        end
         redirect_to success_auth_signup_path
       else
         if @signup.invalid_code?

@@ -2,6 +2,8 @@
 
 module Auth
   class EmailVerificationsController < ExternalController
+    before_action :soft_authenticate_user_from_session
+    before_action :redirect_to_app, if: -> { authenticated? && !current_user.needs_email_verification? }
 
     def show
       redirect_to action: :new, status: :see_other
@@ -25,7 +27,11 @@ module Auth
 
       if @email_verification_form.save
         flash[:notice] = "Your email has been successfully verified!"
-        redirect_to root_url, status: :see_other
+        if authenticated?
+          redirect_to_app
+        else
+          redirect_to_login
+        end
       else
         render action: :new, status: :unprocessable_entity
       end

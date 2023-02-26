@@ -16,10 +16,8 @@ class EmailVerificationForm
       return false
     end
 
-    user.email_verified_at = Time.current
-    user.email_verification_token = nil
+    user.mark_email_verified!
     user.save!
-
     user
   end
 end

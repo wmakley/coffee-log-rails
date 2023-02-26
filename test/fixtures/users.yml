@@ -65,7 +65,7 @@ unverified_email:
   id: 4
   username: unverified_email
   email: "unverified_email@test.com"
-  email_verification_token:
+  email_verification_token: SOME_TOKEN_HERE
   email_verified_at:
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
   password_changed_at: "<%= 1.day.ago.iso8601 %>"

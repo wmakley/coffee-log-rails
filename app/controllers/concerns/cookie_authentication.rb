@@ -8,6 +8,14 @@ module CookieAuthentication
   class NotAuthenticatedError < AuthenticationError; end
   class SessionExpiredError < AuthenticationError; end
   class PasswordChangedError < AuthenticationError; end
+  class EmailVerificationNeededError < AuthenticationError
+    def initialize(user)
+      super("Email address not verified")
+      @user = user
+    end
+
+    attr_reader :user
+  end
 
   included do
     helper_method :current_user
@@ -39,7 +47,7 @@ module CookieAuthentication
     logger.info "#authenticate_user_from_session!"
     if Rails.env.test? && stub_current_user
       Current.user = stub_current_user
-      return
+      return Current.user
     end
 
     cookie = read_authentication_cookie
@@ -59,6 +67,10 @@ module CookieAuthentication
 
     if last_login_at < user.password_changed_at
       raise PasswordChangedError, "Password changed since last login"
+    end
+
+    if user.needs_email_verification?
+      raise EmailVerificationNeededError.new(user)
     end
 
     Current.user = user
@@ -89,6 +101,12 @@ module CookieAuthentication
     set_authentication_cookie(user.id)
     user.update!(last_login_at: Time.current)
     Current.user = user
+
+    if user.needs_email_verification?
+      raise EmailVerificationNeededError.new(user)
+    end
+
+    user
   end
 
   def read_authentication_cookie(raise_errors: Rails.env.development? || Rails.env.test?)

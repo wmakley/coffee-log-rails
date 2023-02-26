@@ -24,8 +24,9 @@ class SignupsSystemTest < ApplicationSystemTestCase
     user = User.last
     assert user.email_verification_token.present?
 
-    visit "/email-verification/new?email=#{user.email}&token=#{user.email_verification_token}"
-    assert_current_path "/"
+    visit new_auth_email_verification_path(email: user.email, token: user.email_verification_token)
+    # visit "/email-verification/new?email=#{user.email}&token=#{user.email_verification_token}"
+    assert_current_path %r{/session/new}
     assert_notice "Your email has been successfully verified!"
   end
 end

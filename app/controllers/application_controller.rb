@@ -14,7 +14,13 @@ class ApplicationController < ActionController::Base
   rescue_from AuthenticationError do |exception|
     session[:return_to] = request.url
     logger.error exception.message
-    flash[:error] = "Not authorized"
+
+    if exception.is_a? EmailVerificationNeededError
+      flash[:error] = "Your email address has not been verified. Please click the link in your email to continue."
+    else
+      flash[:error] = "Not authorized"
+    end
+
     redirect_to new_auth_session_url, status: :see_other
   end
 
