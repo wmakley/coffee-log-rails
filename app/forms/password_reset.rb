@@ -2,6 +2,7 @@
 
 class PasswordReset
   include ActiveModel::Model
+  include ErrorBubbling
 
   RESET_TOKEN_VALID_FOR = 1.hour
 
@@ -44,7 +45,7 @@ class PasswordReset
       user.password_confirmation = password_confirmation
 
       unless user.save
-        self.errors = user.errors
+        copy_errors_from(user)
         raise ActiveRecord::Rollback
       end
     end

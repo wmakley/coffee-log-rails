@@ -46,7 +46,7 @@ module Auth
       def signup_form_params
         params.require(:signup_form).permit(
           :code,
-          :email,
+          :new_email,
           :display_name,
           :password,
           :password_confirmation,

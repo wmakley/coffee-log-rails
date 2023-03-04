@@ -9,6 +9,7 @@
 #  email_verification_token        :string
 #  email_verified_at               :datetime
 #  last_login_at                   :datetime
+#  new_email                       :citext
 #  password_changed_at             :datetime         not null
 #  password_digest                 :string
 #  preferences                     :jsonb            not null
@@ -22,6 +23,7 @@
 #
 #  index_users_on_email                     (email) UNIQUE WHERE (email IS NOT NULL)
 #  index_users_on_email_verification_token  (email_verification_token) UNIQUE WHERE (email_verification_token IS NOT NULL)
+#  index_users_on_new_email                 (new_email) UNIQUE WHERE (new_email IS NOT NULL)
 #  index_users_on_reset_password_token      (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
 #  index_users_on_username                  (username) UNIQUE
 #
@@ -82,5 +84,23 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil user2.errors[:email]
 
     assert_equal user, User.find_by(email: email.upcase)
+  end
+
+  test "new email address must be unique when requesting a change" do
+    user_with_existing_email = User.create!(valid_attributes)
+    user_with_unverified_email = User.create!(
+      valid_attributes.merge(
+        email: random_email,
+        new_email: random_email,
+      )
+    )
+
+    new_user = User.new(valid_attributes)
+    new_user.email = nil
+    new_user.new_email = user_with_existing_email.email
+    assert_not new_user.valid?
+
+    new_user.new_email = user_with_unverified_email.new_email
+    assert_not new_user.valid?
   end
 end

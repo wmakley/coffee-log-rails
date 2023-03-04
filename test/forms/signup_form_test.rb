@@ -7,7 +7,7 @@ class SignupFormTest < ActiveSupport::TestCase
   def valid_attributes
     {
       code: signup_codes(:active).code,
-      email: "test@example.com",
+      new_email: "test@example.com",
       display_name: "Test Testerson",
       password: "asdf1234",
       password_confirmation: "asdf1234",
@@ -52,5 +52,17 @@ class SignupFormTest < ActiveSupport::TestCase
     user = User.last
     assert_equal 1, user.group_memberships.size
     assert_equal user.group_memberships.first.user_group, signup_codes(:active).user_group
+  end
+
+  test "user errors are bubbled up to the form" do
+    form = SignupForm.new(
+      valid_attributes.merge(
+        password: "  a  ", # User validates passwords
+      )
+    )
+    assert form.valid?
+
+    assert_not form.save
+    assert form.errors[:password].present?
   end
 end

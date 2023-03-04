@@ -22,13 +22,13 @@
     %>
   </div>
   <div class="mb-3">
-    <%= input f, :email, as: :email_field, label: "Email",
+    <%= input f, :new_email, as: :email_field, label: "Email",
               input_html: {
                 maxlength: 255,
                 class: "form-control #{f.object.email_verified? ? 'is-valid' : 'is-invalid'}"
               } %>
     <% if f.object.email_verified? %>
-      <div class="valid-feedback">Verified!</div>
+      <div class="valid-feedback"><%= f.object.email %> Verified!</div>
     <% else %>
       <div class="invalid-feedback">Not Verified. Check your email for verification link!</div>
     <% end %>

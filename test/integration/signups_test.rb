@@ -6,7 +6,7 @@ class SignupsTest < ActionDispatch::IntegrationTest
   def valid_signup_form_params
     {
       code: signup_codes(:active).code,
-      email: "test@#{SecureRandom.hex(8)}.com",
+      new_email: "test@#{SecureRandom.hex(8)}.com",
       display_name: "Test Testerson #{SecureRandom.hex(8)}",
       password: "asdf23434",
       password_confirmation: "asdf23434",

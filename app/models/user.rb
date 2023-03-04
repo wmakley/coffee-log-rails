@@ -11,6 +11,7 @@
 #  email_verification_token        :string
 #  email_verified_at               :datetime
 #  last_login_at                   :datetime
+#  new_email                       :citext
 #  password_changed_at             :datetime         not null
 #  password_digest                 :string
 #  preferences                     :jsonb            not null
@@ -24,6 +25,7 @@
 #
 #  index_users_on_email                     (email) UNIQUE WHERE (email IS NOT NULL)
 #  index_users_on_email_verification_token  (email_verification_token) UNIQUE WHERE (email_verification_token IS NOT NULL)
+#  index_users_on_new_email                 (new_email) UNIQUE WHERE (new_email IS NOT NULL)
 #  index_users_on_reset_password_token      (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
 #  index_users_on_username                  (username) UNIQUE
 #
@@ -42,8 +44,12 @@ class User < ApplicationRecord
   has_secure_password
 
   before_validation do
+    # normalizations
     self.display_name = display_name&.squish.presence
     self.email = email&.strip.presence
+    self.new_email = new_email&.strip.presence
+
+    # email is always copied to username currently
     self.username = email&.downcase
   end
 
@@ -61,13 +67,21 @@ class User < ApplicationRecord
   validates :display_name, presence: true, uniqueness: true
   validates :email,
             presence: true,
-            length: { maximum: 255, allow_nil: true },
+            length: { maximum: 255 },
             uniqueness: true
+  validates :new_email,
+            format: { with: /\A\S[^@]*@[^@]*\S\z/, allow_nil: true },
+            length: { maximum: 255, allow_nil: true }
+  validate :new_email_must_be_unique
+
 
   scope :by_name, -> { order(:display_name) }
 
   # Perform a case-insensitive username lookup (username is always lower-case email)
   scope :with_username, -> (username) { where(username: username.to_s.downcase) }
+  scope :with_email_or_new_email, -> (email) {
+    where(email: email).or(where(new_email: email))
+  }
 
   def user_group_ids
     # association is expected to be re-used in the request after lazy load
@@ -77,5 +91,13 @@ class User < ApplicationRecord
   # Username without email suffix "@domain"
   def short_username
     username.split('@', 2).first if username
+  end
+
+  def new_email_must_be_unique
+    if new_email.present? && new_email_changed?
+      if self.class.with_email_or_new_email(new_email).exists?
+        errors.add(:new_email, "is already taken")
+      end
+    end
   end
 end
