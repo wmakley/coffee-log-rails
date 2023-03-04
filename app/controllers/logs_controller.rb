@@ -17,7 +17,7 @@ class LogsController < InternalController
       log = Log.create!(
         user: current_user,
         title: "#{current_user.display_name}'s Log",
-        slug: current_user.username.downcase.gsub(/[^a-z0-9\-_]/, '-')
+        slug: current_user.short_username.gsub(/[^a-z0-9\-_]/, '-')
       )
     end
 

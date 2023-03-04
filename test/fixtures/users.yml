@@ -27,7 +27,7 @@
 #
 default:
   id: 1
-  username: default
+  username: "default@test.com"
   email: "default@test.com"
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
@@ -39,7 +39,7 @@ default:
 
 admin:
   id: 2
-  username: admin
+  username: "admin@test.com"
   email: "admin@test.com"
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
@@ -51,7 +51,7 @@ admin:
 
 non_admin:
   id: 3
-  username: nonadmin
+  username: "nonadmin@test.com"
   email: "nonadmin@test.com"
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
@@ -63,7 +63,7 @@ non_admin:
 
 unverified_email:
   id: 4
-  username: unverified_email
+  username: "unverified_email@test.com"
   email: "unverified_email@test.com"
   email_verification_token: SOME_TOKEN_HERE
   email_verified_at:
@@ -76,7 +76,7 @@ unverified_email:
 
 no_group:
   id: 5
-  username: no_group
+  username: "no_group@test.com"
   email: "no_group@test.com"
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
@@ -88,7 +88,7 @@ no_group:
 
 group_a:
   id: 6
-  username: group_a
+  username: "group_a@test.com"
   email: "group_a@test.com"
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
@@ -100,7 +100,7 @@ group_a:
 
 group_b:
   id: 7
-  username: group_b
+  username: "group_b@test.com"
   email: "group_b@test.com"
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"

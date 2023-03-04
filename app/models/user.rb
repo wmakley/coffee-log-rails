@@ -44,6 +44,7 @@ class User < ApplicationRecord
   before_validation do
     self.display_name = display_name&.squish.presence
     self.email = email&.strip.presence
+    self.username = email&.downcase
   end
 
   before_save do
@@ -65,8 +66,16 @@ class User < ApplicationRecord
 
   scope :by_name, -> { order(:display_name) }
 
+  # Perform a case-insensitive username lookup (username is always lower-case email)
+  scope :with_username, -> (username) { where(username: username.to_s.downcase) }
+
   def user_group_ids
     # association is expected to be re-used in the request after lazy load
     group_memberships.map(&:user_group_id)
+  end
+
+  # Username without email suffix "@domain"
+  def short_username
+    username.split('@', 2).first if username
   end
 end

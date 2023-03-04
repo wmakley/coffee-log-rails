@@ -5,6 +5,10 @@ module EmailVerification
     email_verified_at.blank?
   end
 
+  def email_verified?
+    email_verified_at.present?
+  end
+
   def generate_email_verification_token!
     10.times do |n|
       self.email_verification_token = SecureRandom.hex(16)

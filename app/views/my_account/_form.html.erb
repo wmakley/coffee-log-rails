@@ -1,4 +1,8 @@
-<%= form_with(model: object, url: my_account_path) do |f| %>
+<%= form_with(model: object,
+              url: my_account_path,
+              html: {
+                id: "my_account_form"
+              }) do |f| %>
 
   <% if object.errors[:base].present? %>
     <div class="text-danger">
@@ -18,18 +22,16 @@
     %>
   </div>
   <div class="mb-3">
-    <%= input f, :email, as: :email_field, label: "Email", input_html: { maxlength: 255 } %>
-  </div>
-  <div class="mb-3">
-    <%= input f, :username,
-              label: "Username (for login)",
-              required: true,
+    <%= input f, :email, as: :email_field, label: "Email",
               input_html: {
-                placeholder: "Username (for login)",
-                minlength: 5,
-                maxlength: 255
-              }
-    %>
+                maxlength: 255,
+                class: "form-control #{f.object.email_verified? ? 'is-valid' : 'is-invalid'}"
+              } %>
+    <% if f.object.email_verified? %>
+      <div class="valid-feedback">Verified!</div>
+    <% else %>
+      <div class="invalid-feedback">Not Verified. Check your email for verification link!</div>
+    <% end %>
   </div>
   <div class="mb-3">
     <%= input f, :password, as: :password_field, label: "Password", input_html: {

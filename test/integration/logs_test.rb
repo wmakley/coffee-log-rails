@@ -14,7 +14,6 @@ class LogsTest < ActionDispatch::IntegrationTest
   test "index creates a new log for the user if doesn't exist" do
     user = User.create!(
       display_name: "Test User",
-      username: "test",
       email: random_email,
       password: "testtestest"
     )
@@ -22,7 +21,7 @@ class LogsTest < ActionDispatch::IntegrationTest
 
     get "/logs"
 
-    assert_redirected_to "/logs/test/entries"
+    assert_redirected_to "/logs/#{user.short_username}/entries"
     follow_redirect!
     assert_response :success
   end
