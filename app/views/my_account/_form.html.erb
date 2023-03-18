@@ -22,7 +22,7 @@
     %>
   </div>
   <div class="mb-3">
-    <%= input f, :new_email, as: :email_field, label: "Email",
+    <%= input f, :email, as: :email_field, label: "Email",
               input_html: {
                 maxlength: 255,
                 class: "form-control #{f.object.email_verified? ? 'is-valid' : 'is-invalid'}"
