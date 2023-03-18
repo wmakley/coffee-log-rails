@@ -13,7 +13,7 @@ Rails.application.configure do
     policy.script_src  :self, :https
     policy.style_src   :self, :https, "'unsafe-inline'"
     # Specify URI for violation reports
-    # policy.report_uri "/csp-violation-report-endpoint"
+    policy.report_uri "https://fdl3vgy26hvmtjgl3hxhvshe4a0aerqf.lambda-url.us-east-1.on.aws/"
   end
 
   # Generate session nonces for permitted importmap and inline scripts
