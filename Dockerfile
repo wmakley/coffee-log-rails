@@ -21,7 +21,7 @@ RUN apt-get clean && apt-get update && \
       libpq-dev \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
-ARG BUNDLER_VERSION=2.3.26
+ARG BUNDLER_VERSION=2.4.9
 ARG YARN_VERSION=1.22.19
 
 RUN npm -g install yarn@${YARN_VERSION}
@@ -66,7 +66,7 @@ RUN apt-get clean && apt-get update && \
       postgresql-client \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
-ARG BUNDLER_VERSION=2.3.26
+ARG BUNDLER_VERSION=2.4.9
 RUN gem install bundler:${BUNDLER_VERSION}
 RUN bundle config --global frozen 1
 
