@@ -23,6 +23,11 @@ class SessionsController < ApplicationController
 
   def create
     success = Rails.env.test? || verify_recaptcha(action: 'login', minimum_score: 0.5)
+    logger.info "Recaptcha success: #{success}"
+    if !success
+      score = recaptcha_reply['score'] if recaptcha_reply
+      Rails.logger.warn("User was denied login because of a recaptcha score of #{score} | reply: #{recaptcha_reply.inspect}")
+    end
 
     @login_form = LoginForm.new(login_form_params)
     return_to = session[:return_to]
