@@ -10,7 +10,7 @@ Rails.application.configure do
     policy.font_src    :self, :https, :data
     policy.img_src     :self, :https, :data
     policy.object_src  :none
-    policy.script_src  :self, :https, 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/'
+    policy.script_src  :self, :https, 'inline', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/'
     policy.frame_src   :self, :https, 'https://www.google.com/recaptcha/', 'https://recaptcha.google.com/recaptcha/'
     policy.style_src   :self, :https, "'unsafe-inline'"
     # Specify URI for violation reports
