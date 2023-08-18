@@ -52,6 +52,8 @@ gem 'pg_search'
 # auditing of certain tables
 gem 'paper_trail'
 
+# additional security on login and forgot password
+gem "recaptcha", "~> 5.14"
 
 # exception monitoring
 gem 'sentry-ruby'

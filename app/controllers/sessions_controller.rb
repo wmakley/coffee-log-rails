@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  include Recaptcha::Adapters::ControllerMethods
+
   layout "sessions"
 
   skip_before_action :authenticate_user_from_session!
@@ -20,9 +22,11 @@ class SessionsController < ApplicationController
   end
 
   def create
+    success = Rails.env.test? || verify_recaptcha(action: 'login', minimum_score: 0.5)
+
     @login_form = LoginForm.new(login_form_params)
     return_to = session[:return_to]
-    if authenticate_user_from_form(@login_form)
+    if success && authenticate_user_from_form(@login_form)
       url = return_to.presence || logs_url
       redirect_to url, status: :see_other
     else
