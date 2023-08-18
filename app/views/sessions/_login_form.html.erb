@@ -1,5 +1,5 @@
 <%= form_with(model: object, url: url) do |f| %>
-  <%= recaptcha_v3(action: 'login') %>
+  <%= recaptcha_v3(action: 'login') unless Rails.env.test? %>
 
   <div class="form-floating mb-3">
     <%= input f, :username,
