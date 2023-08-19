@@ -10,7 +10,7 @@ Rails.application.configure do
     policy.font_src    :self, :data
     policy.img_src     :self, :data
     policy.object_src  :none
-    policy.script_src  :self, :inline
+    policy.script_src  :self
     policy.frame_src   :self
     policy.style_src   :self, "'unsafe-inline'"
     # Specify URI for violation reports
