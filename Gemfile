@@ -53,7 +53,7 @@ gem 'pg_search'
 gem 'paper_trail'
 
 # additional security on login and forgot password
-gem "recaptcha", "~> 5.14"
+gem "recaptcha", "~> 5.15"
 
 # exception monitoring
 gem 'sentry-ruby'
