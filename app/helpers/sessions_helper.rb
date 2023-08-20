@@ -4,12 +4,16 @@ module SessionsHelper
   # Replace implementation from Ruby Gem that just didn't work right
   # with something more obvious that I control/understand.
   def custom_recaptcha_scripts
-    site_key = Recaptcha.configuration.site_key!
+    site_key = if Rails.env.test?
+                 Recaptcha.configuration.site_key || "TEST_PLACEHOLDER_KEY"
+               else
+                 Recaptcha.configuration.site_key!
+               end
 
     buffer = ActiveSupport::SafeBuffer.new
     buffer << javascript_include_tag("https://www.google.com/recaptcha/enterprise.js?render=#{site_key}")
     buffer << javascript_tag(nonce: true) do
-      <<~JAVASCRIPT.html_safe
+      <<~JAVASCRIPT.gsub("SITE_KEY", escape_javascript(site_key)).html_safe
         document.addEventListener("turbo:load", () => {
             const loginForm = document.getElementById("login-form");
             if (loginForm) {
@@ -31,7 +35,7 @@ module SessionsHelper
                     e.preventDefault();
                     grecaptcha.enterprise.ready(async () => {
                         const token = await grecaptcha.enterprise.execute(
-                            "#{escape_javascript(site_key)}", {
+                            "SITE_KEY", {
                                 action: 'login'
                             });
 
