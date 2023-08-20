@@ -8,7 +8,7 @@ Rails.application.configure do
   config.content_security_policy do |policy|
     policy.default_src :self, 'https://cdn.jsdelivr.net'
     policy.font_src    :self, :data, 'https://cdn.jsdelivr.net'
-    policy.img_src     :self, :data, 'https://cdn.jsdelivr.net'
+    policy.img_src     :self, :data, 'https://cdn.jsdelivr.net', 'https://coffee-log-rails.s3.amazonaws.com/'
     policy.object_src  :none
     policy.script_src  :self, 'https://cdn.jsdelivr.net', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/', 'https://www.recaptcha.net/recaptcha/'
     policy.frame_src   :self, 'https://www.google.com/recaptcha/', 'https://recaptcha.google.com/recaptcha/', 'https://www.recaptcha.net/recaptcha/'
