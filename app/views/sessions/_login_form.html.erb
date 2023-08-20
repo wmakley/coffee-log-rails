@@ -1,5 +1,9 @@
-<%= form_with(model: object, url: url) do |f| %>
-  <%= recaptcha_v3(action: 'login') unless Rails.env.test? %>
+<% content_for :head do %>
+  <%= custom_recaptcha_scripts %>
+<% end %>
+
+<%= form_with(model: object, url: url, html: { id: "login-form" }) do |f| %>
+  <%= hidden_field_tag "g-recaptcha-response", nil %>
 
   <div class="form-floating mb-3">
     <%= input f, :username,
@@ -34,6 +38,6 @@
   </p>
 
   <p>
-    <%= f.submit "Login", class: "btn btn-primary btn-lg" %>
+    <%= f.submit "Login", id: "submit-btn", class: "btn btn-primary btn-lg" %>
   </p>
 <% end %>
