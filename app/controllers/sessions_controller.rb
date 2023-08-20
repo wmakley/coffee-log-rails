@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    success = Rails.env.test? || verify_recaptcha(action: 'login', minimum_score: 0.5)
+    success = verify_recaptcha(action: 'login', minimum_score: 0.5)
     logger.info "Recaptcha success: #{success}"
     if !success
       logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?

@@ -1,9 +1,9 @@
 <% content_for :head do %>
-  <%= custom_recaptcha_scripts %>
+  <%= custom_recaptcha_scripts("login-form", action: "login") %>
 <% end %>
 
 <%= form_with(model: object, url: url, html: { id: "login-form" }) do |f| %>
-  <%= hidden_field_tag "g-recaptcha-response", nil %>
+  <%= custom_recaptcha_input_tag %>
 
   <div class="form-floating mb-3">
     <%= input f, :username,

@@ -1,4 +1,7 @@
-<%= form_with(model: object, url: password_reset_request_path) do |f| %>
+<%= custom_recaptcha_scripts('request-password-reset', action: 'request_password_reset') %>
+
+<%= form_with(model: object, url: password_reset_request_path, html: { id: 'request-password-reset' }) do |f| %>
+  <%= custom_recaptcha_input_tag %>
   <div class="mb-3">
     <%= input f, :email, as: :email_field,
               label: "Enter your email address:",

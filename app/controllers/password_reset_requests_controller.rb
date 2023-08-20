@@ -18,8 +18,16 @@ class PasswordResetRequestsController < ApplicationController
   end
 
   def create
+    success = verify_recaptcha(action: 'request_password_reset', minimum_score: 0.5)
+    logger.info "Recaptcha success: #{success}"
+    if !success
+      logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?
+      score = recaptcha_reply['score'] if recaptcha_reply
+      logger.warn("User was denied login because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
+    end
+
     @password_reset_request = PasswordResetRequest.new(password_reset_request_params)
-    if @password_reset_request.save
+    if success && @password_reset_request.save
       redirect_to root_url, notice: "A reset link has been sent to your email address."
     else
       render action: :new, status: :unprocessable_entity
