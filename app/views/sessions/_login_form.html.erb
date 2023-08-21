@@ -1,9 +1,19 @@
 <% content_for :head do %>
-  <%= custom_recaptcha_scripts("login-form", action: "login") %>
+  <%= recaptcha_enterprise_script %>
 <% end %>
 
-<%= form_with(model: object, url: url, html: { id: "login-form" }) do |f| %>
-  <%= custom_recaptcha_input_tag %>
+<%= form_with(model: object, url: url, html: {
+  id: "login-form",
+  data: {
+    controller: "recaptcha-v3",
+    recaptcha_v3_target: "form",
+    recaptcha_v3_action_value: "login",
+    recaptcha_v3_site_key_value: Recaptcha.configuration.site_key,
+    action: "submit->recaptcha-v3#submit",
+    turbo: "false",
+  }
+}) do |f| %>
+  <%= recaptcha_response_field %>
 
   <div class="form-floating mb-3">
     <%= input f, :username,
@@ -38,6 +48,6 @@
   </p>
 
   <p>
-    <%= f.submit "Login", id: "submit-btn", class: "btn btn-primary btn-lg" %>
+    <%= f.submit "Login", id: "submit-btn", class: "btn btn-primary btn-lg", data: { recaptcha_v3_target: "submit" } %>
   </p>
 <% end %>
