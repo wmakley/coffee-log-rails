@@ -1,4 +1,4 @@
-FROM ruby:3.2.1-slim AS build
+FROM ruby:3.2.2-slim AS build
 LABEL maintainer="will@willmakley.dev"
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -21,7 +21,7 @@ RUN apt-get clean && apt-get update && \
       libpq-dev \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
-ARG BUNDLER_VERSION=2.4.19
+ARG BUNDLER_VERSION=2.4.20
 ARG YARN_VERSION=1.22.19
 
 RUN npm -g install yarn@${YARN_VERSION}
@@ -53,7 +53,7 @@ CMD ["/usr/src/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
 HEALTHCHECK --start-period=30s CMD curl -f http://localhost:8080/ || exit 1
 
 
-FROM ruby:3.2.1-slim AS prod
+FROM ruby:3.2.2-slim AS prod
 LABEL maintainer="will@willmakley.dev"
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -66,7 +66,7 @@ RUN apt-get clean && apt-get update && \
       postgresql-client \
     && rm -rf /var/lib/apt/lists/* && apt-get clean
 
-ARG BUNDLER_VERSION=2.4.9
+ARG BUNDLER_VERSION=2.4.20
 RUN gem install bundler:${BUNDLER_VERSION}
 RUN bundle config --global frozen 1
 
