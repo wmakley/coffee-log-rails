@@ -7,9 +7,9 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^7.3.0",
-    "@rails/activestorage": "^7.0.7",
-    "@rails/request.js": "^0.0.8",
+    "@rails/activestorage": "^7.1.1",
+    "@rails/request.js": "^0.0.9",
     "debounce": "^1.2.1",
-    "esbuild": "^0.19.2"
+    "esbuild": "^0.19.4"
   }
 }
