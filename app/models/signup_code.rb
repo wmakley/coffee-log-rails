@@ -23,7 +23,7 @@
 class SignupCode < ApplicationRecord
   belongs_to :user_group
 
-  has_paper_trail
+  # has_paper_trail
 
   validates :code,
             presence: true,

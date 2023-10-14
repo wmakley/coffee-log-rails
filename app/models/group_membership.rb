@@ -24,5 +24,5 @@ class GroupMembership < ApplicationRecord
 
   validates_uniqueness_of :user_id, scope: :user_group_id
 
-  has_paper_trail
+  # has_paper_trail
 end

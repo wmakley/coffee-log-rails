@@ -15,7 +15,7 @@ class UserGroup < ApplicationRecord
   has_many :group_memberships, dependent: :restrict_with_error
   has_many :signup_codes, dependent: :restrict_with_error
 
-  has_paper_trail
+  # has_paper_trail
 
   scope :by_name, -> { order(:name) }
 
