@@ -3,9 +3,6 @@ services:
   app:
     build:
       context: .
-      target: prod
-      args:
-        RAILS_MASTER_KEY: $RAILS_MASTER_KEY
     environment:
       - RAILS_ENV=development
       - DATABASE_URL=postgres://coffee_log:password@db/coffee_log
