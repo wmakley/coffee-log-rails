@@ -6,14 +6,19 @@
 app = "coffee-log"
 primary_region = "ewr"
 
+[env]
+  RAILS_ENV = "fly"
+  RAILS_LOG_LEVEL = "debug"
+  PORT = "8080"
+
 [http_service]
-  internal_port = 3000
+  internal_port = 8080
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 1
   [http_service.concurrency]
-    type = "connections"
+    type = "requests"
     hard_limit = 25
     soft_limit = 20
   [[http_service.checks]]
@@ -23,5 +28,6 @@ primary_region = "ewr"
     timeout = "5s"
     path = "/up"
 
-[env]
-  RAILS_ENV = "fly"
+[[statics]]
+  guest_path = "/rails/public"
+  url_prefix = "/"
