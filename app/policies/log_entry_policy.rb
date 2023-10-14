@@ -1,10 +1,10 @@
 class LogEntryPolicy < ApplicationPolicy
-  class Scope < Scope
-    def resolve
-      # TODO: use subquery
-      log_ids = LogPolicy::Scope.new(user, Log).resolve.pluck(:id)
+  relation_scope do |relation|
+    next relation if user.admin?
 
-      scope.where(log_id: log_ids)
-    end
+    # TODO: use subquery
+    log_ids = LogPolicy::Scope.new(user, relation).resolve.pluck(:id) # TODO: not correct for action_policy
+
+    relation.where(log_id: log_ids)
   end
 end

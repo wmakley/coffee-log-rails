@@ -62,7 +62,7 @@ gem 'pg_search'
 # gem 'paper_trail'
 
 # authorization
-gem "pundit", "~> 2.3"
+gem "action_policy"
 
 # additional security on login and forgot password
 gem "recaptcha", "~> 5.15"
