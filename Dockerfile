@@ -1,84 +1,70 @@
-FROM ruby:3.2.2-slim AS build
-LABEL maintainer="will@willmakley.dev"
+# syntax = docker/dockerfile:1
 
-ENV DEBIAN_FRONTEND=noninteractive
-# runtime deps (shared by both stages)
-RUN apt-get clean && apt-get update && \
-    apt-get install -y --no-install-recommends \
-      curl \
-      libpq5 \
-      libvips \
-      postgresql-client \
-    && rm -rf /var/lib/apt/lists/* && apt-get clean
-# build deps
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt-get clean && apt-get update && \
-    apt-get install -y --no-install-recommends \
-      build-essential \
-      autoconf \
-      automake \
-      nodejs \
-      libpq-dev \
-    && rm -rf /var/lib/apt/lists/* && apt-get clean
-
+# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
+ARG RUBY_VERSION=3.2.2
 ARG BUNDLER_VERSION=2.4.20
 ARG YARN_VERSION=1.22.19
+FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 
-RUN npm -g install yarn@${YARN_VERSION}
+# Rails app lives here
+WORKDIR /rails
+
+# Set production environment
+ENV RAILS_ENV="production" \
+    BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_WITHOUT="development"
+
 RUN gem install bundler:${BUNDLER_VERSION}
 
-RUN bundle config --global frozen 1
-WORKDIR /usr/src/app
+# Throw-away build stage to reduce size of final image
+FROM base as build
 
-COPY Gemfile Gemfile.lock /usr/src/app/
-RUN bundle config set --local without development test
-# RUN bundle config set --local deployment 'true'
-RUN bundle install
+# Install packages needed to build gems
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential nodejs git libpq-dev libvips pkg-config
+
+RUN npm -g install yarn@${YARN_VERSION}
+
+# Install application gems
+COPY Gemfile Gemfile.lock ./
+RUN bundle install && \
+    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
+    bundle exec bootsnap precompile --gemfile
 
 COPY package.json yarn.lock /usr/src/app/
 RUN yarn install --modules-folder=/usr/local/node_modules
 
-COPY . /usr/src/app
+# Copy application code
+COPY . .
 
-ENV RAILS_ENV=production
-ENV RAILS_SERVE_STATIC_FILES=true
-ENV RAILS_LOG_TO_STDOUT=true
+# Precompile bootsnap code for faster boot times
+RUN bundle exec bootsnap precompile app/ lib/
 
-# TODO: this logs the master key to STDOUT. Is there a better way? The key should not be needed to compile assets.
-ARG RAILS_MASTER_KEY
-RUN bundle exec rails RAILS_MASTER_KEY=$RAILS_MASTER_KEY DATABASE_URL=postgresql:does_not_exist assets:precompile
-
-EXPOSE 8080
-CMD ["/usr/src/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
-HEALTHCHECK --start-period=30s CMD curl -f http://localhost:8080/ || exit 1
+# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
-FROM ruby:3.2.2-slim AS prod
-LABEL maintainer="will@willmakley.dev"
+# Final stage for app image
+FROM base
 
-ENV DEBIAN_FRONTEND=noninteractive
-# runtime deps (shared by both stages)
-RUN apt-get clean && apt-get update && \
-    apt-get install -y --no-install-recommends \
-      curl \
-      libpq5 \
-      libvips \
-      postgresql-client \
-    && rm -rf /var/lib/apt/lists/* && apt-get clean
+# Install packages needed for deployment
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl libvips postgresql-client && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-ARG BUNDLER_VERSION=2.4.20
-RUN gem install bundler:${BUNDLER_VERSION}
-RUN bundle config --global frozen 1
-
-WORKDIR /usr/src/app
-
+# Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /usr/src/app /usr/src/app
+COPY --from=build /rails /rails
 
-ENV RAILS_ENV=production
-ENV RAILS_SERVE_STATIC_FILES=true
-ENV RAILS_LOG_TO_STDOUT=true
+# Run and own only the runtime files as a non-root user for security
+RUN useradd rails --create-home --shell /bin/bash && \
+    chown -R rails:rails db log storage tmp
+USER rails:rails
 
-EXPOSE 8080
-CMD ["/usr/src/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
-HEALTHCHECK --start-period=30s CMD curl -f http://localhost:8080/ || exit 1
+# Entrypoint prepares the database.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+
+# Start the server by default, this can be overwritten at runtime
+EXPOSE 3000
+CMD ["./bin/rails", "server"]
