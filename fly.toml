@@ -12,7 +12,6 @@ kill_timeout = "5s"
   auto_rollback = true
 
 [build]
-  build-target = "prod"
   [build.args]
     BUILD_COMMAND = "bin/rails fly:build"
     SERVER_COMMAND = "bin/rails fly:server"

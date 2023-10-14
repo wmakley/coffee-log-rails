@@ -2,8 +2,6 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.2.2
-ARG BUNDLER_VERSION=2.4.20
-ARG YARN_VERSION=1.22.19
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 
 # Rails app lives here
@@ -15,15 +13,14 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
-RUN gem install bundler:${BUNDLER_VERSION}
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential nodejs git libpq-dev libvips pkg-config
+    apt-get install --no-install-recommends -y build-essential nodejs npm git libpq-dev libvips pkg-config
 
+ARG YARN_VERSION=1.22.19
 RUN npm -g install yarn@${YARN_VERSION}
 
 # Install application gems
@@ -66,5 +63,6 @@ USER rails:rails
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD ["./bin/rails", "server"]
+EXPOSE 8080
+CMD ["/usr/src/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
+HEALTHCHECK --start-period=30s CMD curl -f http://localhost:8080/up || exit 1
