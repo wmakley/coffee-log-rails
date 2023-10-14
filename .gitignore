@@ -36,6 +36,9 @@
 .idea/modules.xml
 *.iml
 
+# Ignore machine-specific VSCode stuff
+.ruby-lsp
+
 # Ignore heroku database dumps
 *.dump
 *.dump.*

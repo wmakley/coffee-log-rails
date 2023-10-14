@@ -35,3 +35,10 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 /public/assets
+
+# Ignore more machine-specific jetbrains stuff
+/.idea/
+*.iml
+
+# Ignore machine-specific VSCode stuff
+/.ruby-lsp
