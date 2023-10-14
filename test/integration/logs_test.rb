@@ -32,8 +32,7 @@ class LogsTest < ActionDispatch::IntegrationTest
     get "/logs/group-a/entries"
     assert_response :success
 
-    assert_raises ActiveRecord::RecordNotFound do
-      get "/logs/group-b/entries"
-    end
+    get "/logs/group-b/entries"
+    assert_response :not_found
   end
 end

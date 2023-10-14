@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: logs
@@ -39,7 +37,9 @@ class Log < ApplicationRecord
     self.slug = slug&.strip
   end
 
-  scope :user, ->(user) { where(user_id: user.id) }
+  def self.owner(user)
+    where(user_id: user.id)
+  end
 
   def self.visible_to_user(user)
     if user.admin?

@@ -103,7 +103,7 @@ class LogEntriesController < InternalController
     end
 
     def set_log
-      @log = Pundit.policy_scope!(Current.user, Log).find_by!(slug: params[:log_id])
+      @log = authorized_scope(Log.all).find_by!(slug: params[:log_id])
     end
 
     def set_log_entry

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class LogsController < InternalController
   def index
     create_or_redirect_to_log_for_user
@@ -10,7 +8,7 @@ class LogsController < InternalController
   end
 
   def create_or_redirect_to_log_for_user
-    log = Log.user(current_user).first
+    log = Log.owner(current_user).order(:id).first
 
     if log.nil?
       logger.info "Log for user '#{current_user.username}' not found, creating"
@@ -25,7 +23,7 @@ class LogsController < InternalController
   end
 
   def destroy
-    @log = Log.find_by_slug(params[:id])
+    @log = authorized_scope(Log.all).find_by_slug(params[:id])
 
     unless Current.user.admin?
       return redirect_to log_entries_url(@log), error: "Only admins may delete logs."
