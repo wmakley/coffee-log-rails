@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :cleanup_old_sessions
   before_action :authenticate_user_from_session!
   before_action :set_logs
-  before_action :set_paper_trail_whodunnit
+  # before_action :set_paper_trail_whodunnit
 
   rescue_from AuthenticationError do |exception|
     session[:return_to] = request.url
