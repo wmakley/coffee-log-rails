@@ -63,6 +63,6 @@ USER rails:rails
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 8080
-CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
-HEALTHCHECK --start-period=30s CMD curl -f http://localhost:8080/up || exit 1
+EXPOSE 3000
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+HEALTHCHECK --start-period=30s CMD curl -f http://localhost:3000/up || exit 1
