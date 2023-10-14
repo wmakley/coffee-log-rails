@@ -3,9 +3,6 @@ services:
   app:
     build:
       context: .
-      target: prod
-      args:
-        RAILS_MASTER_KEY: $RAILS_MASTER_KEY
     environment:
       - RAILS_ENV=development
       - DATABASE_URL=postgres://coffee_log:password@db/coffee_log
@@ -16,6 +13,9 @@ services:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
       - RAILS_MASTER_KEY
+      - RECAPTCHA_SITE_KEY
+      - RECAPTCHA_ENTERPRISE_PROJECT_ID
+      - RECAPTCHA_ENTERPRISE_API_KEY
     ports:
       - "3000:8080"
     volumes:

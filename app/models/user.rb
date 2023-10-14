@@ -40,7 +40,7 @@ class User < ApplicationRecord
 
   has_many :group_memberships, dependent: :destroy
 
-  has_paper_trail
+  # has_paper_trail
   has_secure_password
 
   before_validation do

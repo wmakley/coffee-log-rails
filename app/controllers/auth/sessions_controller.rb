@@ -18,9 +18,17 @@ module Auth
     end
 
     def create
+      success = verify_recaptcha(action: 'login', minimum_score: 0.5)
+      logger.info "Recaptcha success: #{success}"
+      if !success
+        logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?
+        score = recaptcha_reply['score'] if recaptcha_reply
+        logger.warn("User was denied login because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
+      end
+
       @login_form = LoginForm.new(login_form_params)
       return_to = session[:return_to]
-      if authenticate_user_from_form(@login_form)
+      if success && authenticate_user_from_form(@login_form)
         url = return_to.presence || logs_url
         redirect_to url, status: :see_other
       else

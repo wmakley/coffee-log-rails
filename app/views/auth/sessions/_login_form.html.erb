@@ -1,4 +1,20 @@
-<%= form_with(model: object, url: url) do |f| %>
+<% content_for :head do %>
+  <%= recaptcha_enterprise_script %>
+<% end %>
+
+<%= form_with(model: object, url: url, html: {
+  id: "login-form",
+  data: {
+    controller: "recaptcha-v3",
+    recaptcha_v3_target: "form",
+    recaptcha_v3_action_value: "login",
+    recaptcha_v3_site_key_value: Recaptcha.configuration.site_key,
+    action: "submit->recaptcha-v3#submit",
+    turbo: "false",
+  }
+}) do |f| %>
+  <%= recaptcha_response_field %>
+
   <div class="form-floating mb-3">
     <%= input f, :username,
               as: :text_field,
@@ -34,6 +50,6 @@
   </p>
 
   <p>
-    <%= f.submit "Login", class: "btn btn-primary btn-lg" %>
+    <%= f.submit "Login", id: "submit-btn", class: "btn btn-primary btn-lg", data: { recaptcha_v3_target: "submit" } %>
   </p>
 <% end %>
