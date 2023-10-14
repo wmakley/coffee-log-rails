@@ -1,4 +1,7 @@
 class EmailIsUsername < ActiveRecord::Migration[7.0]
+  class User < ActiveRecord::Base
+  end
+
   def up
     users_with_blank_email = User.where(email: nil).pluck(:username, :id)
     if users_with_blank_email.present?
