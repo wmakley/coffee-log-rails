@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
+# Singleton fail2ban service module.
 module Fail2Ban
   MAX_ATTEMPTS = 10
 
-  mattr_accessor :whitelist
+  extend self
+
+  attr_accessor :whitelist
 
   # @param [String] ip_address
   # @return [LoginAttempt,nil]
-  def self.record_failed_attempt(ip_address)
+  def record_failed_attempt(ip_address)
     if ip_address.in? whitelist
       Rails.logger.debug "Not recording failed attempt for whitelisted IP #{ip_address}"
       return nil
@@ -22,7 +25,7 @@ module Fail2Ban
     end
   end
 
-  def self.cleanup_old_attempts
+  def cleanup_old_attempts
     ActiveRecord::Base.transaction do
       LoginAttempt.remove_old_attempts
       BannedIp.remove_old_bans
@@ -31,7 +34,7 @@ module Fail2Ban
 
   # @param [String] ip_address
   # @return [Boolean]
-  def self.banned?(ip_address)
+  def banned?(ip_address)
     BannedIp.banned?(ip_address)
   end
 end
