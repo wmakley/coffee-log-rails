@@ -2,6 +2,7 @@
 
 class LookupCoffeeFormController < InternalController
   def search_results
+    authorize! Coffee, to: :index?
     @coffee_search_form = LookupCoffeeForm.new(initial_coffee_scope, coffee_search_form_params)
     @search_results = @coffee_search_form.search_results
 
@@ -13,6 +14,7 @@ class LookupCoffeeFormController < InternalController
   def select_coffee
     @coffee_search_form = LookupCoffeeForm.new(initial_coffee_scope, coffee_search_form_params)
     @coffee = @coffee_search_form.selected_coffee
+    authorize! @coffee, to: :show?
 
     respond_to do |format|
       format.turbo_stream
@@ -22,7 +24,7 @@ class LookupCoffeeFormController < InternalController
   private
 
     def initial_coffee_scope
-      Coffee.includes(:coffee_brand, photo_attachment: :blob)
+      authorized_scope(Coffee.all).includes(:coffee_brand, photo_attachment: :blob)
     end
 
     def coffee_search_form_params

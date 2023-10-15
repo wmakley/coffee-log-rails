@@ -1,0 +1,2 @@
+class SignupCodePolicy < AdminOnlyPolicy
+end

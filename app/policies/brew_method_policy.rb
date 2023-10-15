@@ -1,0 +1,2 @@
+class BrewMethodPolicy < AdminEditablePolicy
+end

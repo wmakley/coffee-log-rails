@@ -1,21 +1,23 @@
 # frozen_string_literal: true
 
 class UsersController < InternalController
-  include AdminRequired
 
   def index
-    @users = User.all.by_name
+    authorize!
+    @users = authorized_scope(User.all).by_name
   end
 
   def show
-    raise "not implemented"
+    raise NotImplementedError
   end
 
   def new
+    authorize!
     @user = User.new
   end
 
   def create
+    authorize!
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
@@ -27,11 +29,14 @@ class UsersController < InternalController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = authorized_scope(User.all).find(params[:id])
+    authorize! @user
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = authorized_scope(User.all).find(params[:id])
+    authorize! @user
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to users_url, notice: "Succesfully updated user." }
@@ -42,7 +47,8 @@ class UsersController < InternalController
   end
 
   def destroy
-    @user = User.find(params[:id])
+    @user = authorized_scope(User.all).find(params[:id])
+    authorize! @user
 
     respond_to do |format|
       if @user.destroy

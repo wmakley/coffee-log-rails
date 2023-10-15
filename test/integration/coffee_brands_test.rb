@@ -4,30 +4,29 @@ require "test_helper"
 
 class CoffeeBrandsTest < ActionDispatch::IntegrationTest
 
-
-  setup do
-    login_as users(:default)
-  end
-
   test "index" do
+    login_as users(:non_admin)
     get "/coffee_brands"
     assert_response :success
     assert_select "h1", "Coffee Brands"
   end
 
   test "show" do
+    login_as users(:non_admin)
     get "/coffee_brands/1"
     assert_response :success
     assert_select "h1", coffee_brands(:one).name
   end
 
   test "new" do
+    login_as users(:non_admin)
     get "/coffee_brands/new"
     assert_response :success
     assert_select "h1", "New Coffee Brand"
   end
 
   test "create success" do
+    login_as users(:non_admin)
     post "/coffee_brands",
          params: {
            coffee_brand: {
@@ -41,6 +40,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
   end
 
   test "create failure" do
+    login_as users(:non_admin)
     post "/coffee_brands",
          params: {
            coffee_brand: {
@@ -51,11 +51,13 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
   end
 
   test "edit" do
+    login_as users(:non_admin)
     get "/coffee_brands/1/edit"
     assert_response :success
   end
 
   test "update success" do
+    login_as users(:non_admin)
     patch "/coffee_brands/1",
           params: {
             coffee_brand: {
@@ -68,6 +70,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
   end
 
   test "update failure" do
+    login_as users(:non_admin)
     patch "/coffee_brands/1",
           params: {
             coffee_brand: {
@@ -77,7 +80,15 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test "destroy success" do
+  test "destroy as non_admin is not authorized" do ||
+    login_as users(:non_admin)
+    coffee_brand = CoffeeBrand.create!(name: random_string(8))
+    delete "/coffee_brands/#{coffee_brand.to_param}"
+    assert_not_authorized
+  end
+
+  test "destroy as admin success" do
+    login_as users(:admin)
     coffee_brand = CoffeeBrand.create!(name: random_string(8))
     delete "/coffee_brands/#{coffee_brand.to_param}"
     assert_redirected_to "/coffee_brands"
@@ -85,7 +96,8 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
     assert_notice "Successfully deleted coffee brand."
   end
 
-  test "destroy failure" do
+  test "destroy as admin failure" do
+    login_as users(:admin)
     coffee_brand = coffee_brands(:default)
     delete "/coffee_brands/#{coffee_brand.to_param}"
     assert_redirected_to "/coffee_brands"

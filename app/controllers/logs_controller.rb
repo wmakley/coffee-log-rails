@@ -1,13 +1,16 @@
 class LogsController < InternalController
   def index
+    authorize!
     create_or_redirect_to_log_for_user
   end
 
   def show
+    authorize!
     redirect_to log_entries_url(params[:id])
   end
 
   def create_or_redirect_to_log_for_user
+    authorize! Log, to: :show?
     log = Log.owner(current_user).order(:id).first
 
     if log.nil?

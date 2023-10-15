@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class MyAccountController < InternalController
+  before_action :authorize!
+
   def show
     @my_account = MyAccount.new
   end

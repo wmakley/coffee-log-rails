@@ -53,6 +53,11 @@ module AppSpecificAssertions
       assert_select("#flash > .alert.alert-danger", message)
     end
   end
+
+  def assert_not_authorized
+    assert_response :redirect
+    assert_equal "You are not authorized to perform this action.", flash[:error]
+  end
 end
 
 module RemoveUploadedFiles

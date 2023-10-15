@@ -4,11 +4,13 @@ class BannedIpsController < InternalController
   include AdminRequired
 
   def index
+    authorize!
     @banned_ips = BannedIp.order(created_at: :desc).all
     @login_attempts = LoginAttempt.order(updated_at: :desc).all
   end
 
   def destroy
+    authorize!
     @banned_ip = BannedIp.find(params[:id].to_s.gsub("-", "."))
 
     if @banned_ip.destroy

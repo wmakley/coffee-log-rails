@@ -5,17 +5,21 @@ class BrewMethodsController < InternalController
   before_action :set_brew_method, only: [:show, :edit, :update, :destroy]
 
   def index
+    authorize!
     @brew_methods = BrewMethod.all.by_name
   end
 
   def show
+    authorize! @brew_method
   end
 
   def new
+    authorize!
     @brew_method = BrewMethod.new
   end
 
   def create
+    authorize!
     @brew_method = BrewMethod.new(brew_method_params)
 
     if @brew_method.save
@@ -26,9 +30,11 @@ class BrewMethodsController < InternalController
   end
 
   def edit
+    authorize! @brew_method
   end
 
   def update
+    authorize! @brew_method
     if @brew_method.update(brew_method_params)
       redirect_to brew_methods_url, notice: "Successfully updated brew method."
     else
@@ -37,6 +43,7 @@ class BrewMethodsController < InternalController
   end
 
   def destroy
+    authorize! @brew_method
     if @brew_method.destroy
       redirect_to brew_methods_url, status: :see_other, notice: "Successfully deleted brew method."
     else

@@ -7,6 +7,7 @@ class LogEntriesController < InternalController
   before_action :set_log_entry, only: [:show, :edit, :update, :destroy]
 
   def index
+    authorize!
     @log_entries = @log.log_entries.by_date_desc.includes(
       coffee: { photo_attachment: :blob },
       brew_method: {}
@@ -17,15 +18,18 @@ class LogEntriesController < InternalController
   end
 
   def show
+    authorize! @log_entry
   end
 
   def new
+    authorize!
     @log_entry = LogEntry.new(log: @log, entry_date: Time.current)
     @log_entry.attributes = params.permit(:coffee_id)
     set_brew_methods
   end
 
   def create
+    authorize!
     @log_entry = LogEntry.new(log: @log)
     @log_entry.attributes = log_entry_params
     @log_entry.entry_date ||= Time.current
@@ -53,10 +57,12 @@ class LogEntriesController < InternalController
   end
 
   def edit
+    authorize! @log_entry
     set_brew_methods
   end
 
   def update
+    authorize! @log_entry
     if @log_entry.update(log_entry_params)
       redirect_to log_entry_url(@log, @log_entry), notice: "Updated log entry"
     else
@@ -66,6 +72,7 @@ class LogEntriesController < InternalController
   end
 
   def destroy
+    authorize! @log_entry
     respond_to do |format|
       if @log_entry.destroy
         format.html { redirect_to log_entries_url(@log), status: :see_other, notice: "Deleted log entry" }
