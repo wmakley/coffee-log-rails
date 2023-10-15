@@ -3,9 +3,16 @@
 module Fail2Ban
   MAX_ATTEMPTS = 10
 
+  mattr_accessor :whitelist
+
   # @param [String] ip_address
-  # @return [LoginAttempt]
+  # @return [LoginAttempt,nil]
   def self.record_failed_attempt(ip_address)
+    if ip_address.in? whitelist
+      Rails.logger.debug "Not recording failed attempt for whitelisted IP #{ip_address}"
+      return nil
+    end
+
     ActiveRecord::Base.transaction do
       attempt = LoginAttempt.record_attempt(ip_address)
       if attempt.attempts >= MAX_ATTEMPTS
