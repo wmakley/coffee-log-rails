@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Auth
   class SignupsController < ExternalController
     def show
@@ -15,7 +13,15 @@ module Auth
     def create
       @signup = ::SignupForm.new(signup_form_params)
 
-      if (user = @signup.save)
+      success = verify_recaptcha(action: 'login', minimum_score: 0.5)
+      logger.info "Recaptcha success: #{success}"
+      if !success
+        logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?
+        score = recaptcha_reply['score'] if recaptcha_reply
+        logger.warn("User was denied login because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
+      end
+
+      if success && (user = @signup.save)
         flash[:notice] = "Your account has been created!"
         begin
           authenticate_user_from_form(
@@ -29,7 +35,8 @@ module Auth
         end
         redirect_to success_auth_signup_path
       else
-        if @signup.invalid_code?
+        @signup.errors.add(:base, "ReCAPTCHA verification failed") unless success
+        if @signup.invalid_code? || !success
           attempt = Fail2Ban.record_failed_attempt(request.remote_ip)
           flash[:error] = "#{attempt.remaining_attempts} #{'attempt'.pluralize(attempt.remaining_attempts)} remaining."
         end
