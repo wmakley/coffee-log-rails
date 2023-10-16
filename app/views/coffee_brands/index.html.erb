@@ -1,8 +1,10 @@
 <h1>Coffee Brands</h1>
 
-<p>
-  <%= link_to "Add New Coffee Brand", new_coffee_brand_path, class: "btn btn-success" %>
-</p>
+<% if allowed_to?(:create?, CoffeeBrand) %>
+  <p>
+    <%= link_to "Add New Coffee Brand", new_coffee_brand_path, class: "btn btn-success" %>
+  </p>
+<% end %>
 
 <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 g-4">
   <% @coffee_brands.each do |coffee_brand| %>
