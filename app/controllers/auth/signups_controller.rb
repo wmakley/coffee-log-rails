@@ -7,11 +7,11 @@ module Auth
     alias index show
 
     def new
-      @signup = ::SignupForm.new
+      @signup = ::UserSignup.new
     end
 
     def create
-      @signup = ::SignupForm.new(signup_form_params)
+      @signup = ::UserSignup.new(user_signup_params)
 
       success = verify_recaptcha(action: 'login', minimum_score: 0.5)
       logger.info "Recaptcha success: #{success}"
@@ -50,7 +50,7 @@ module Auth
 
     private
 
-      def signup_form_params
+      def user_signup_params
         params.require(:signup_form).permit(
           :code,
           :new_email,

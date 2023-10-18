@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class SignupFormTest < ActiveSupport::TestCase
+class UserSignupTest < ActiveSupport::TestCase
 
   def valid_attributes
     {
@@ -19,13 +19,13 @@ class SignupFormTest < ActiveSupport::TestCase
   end
 
   test "it saves with valid attributes" do
-    form = SignupForm.new(valid_attributes)
+    form = UserSignup.new(valid_attributes)
     assert form.valid?, "form wasn't valid"
     assert form.save, "valid form did not save"
   end
 
   test "invalid forms do not save or create users" do
-    form = SignupForm.new(invalid_attributes)
+    form = UserSignup.new(invalid_attributes)
     assert_not form.valid?, "form was valid"
 
     assert_no_changes -> { User.count } do
@@ -34,7 +34,7 @@ class SignupFormTest < ActiveSupport::TestCase
   end
 
   test "valid forms create new user with an email verification token" do
-    form = SignupForm.new(valid_attributes)
+    form = UserSignup.new(valid_attributes)
 
     initial_user_count = User.count
     assert form.save
@@ -45,7 +45,7 @@ class SignupFormTest < ActiveSupport::TestCase
   end
 
   test "created user is associated with the signup code's group" do
-    form = SignupForm.new(valid_attributes)
+    form = UserSignup.new(valid_attributes)
 
     assert form.save
 
@@ -55,7 +55,7 @@ class SignupFormTest < ActiveSupport::TestCase
   end
 
   test "user errors are bubbled up to the form" do
-    form = SignupForm.new(
+    form = UserSignup.new(
       valid_attributes.merge(
         password: "  a  ", # User validates passwords
       )

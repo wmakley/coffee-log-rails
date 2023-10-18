@@ -58,7 +58,7 @@ class User < ApplicationRecord
   end
 
   validates :username, presence: true, uniqueness: true, format: /\A\S+\z/
-  # Duplicated in SignupForm:
+  # Duplicated in UserSignup:
   validates :password,
             presence: true,
             length: { minimum: 6, maximum: 255 },

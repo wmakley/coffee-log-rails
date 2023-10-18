@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SignupForm
+class UserSignup
   include ActiveModel::Model
   include ErrorBubbling
 
