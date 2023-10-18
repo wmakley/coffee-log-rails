@@ -1,7 +1,9 @@
 <h1>Signup Codes</h1>
-<p>
-  <%= link_to("Add New Signup Code", new_signup_code_path, class: "btn btn-success") %>
-</p>
+<% if allowed_to?(:create?, SignupCode) %>
+  <p>
+    <%= link_to("Add New Signup Code", new_signup_code_path, class: "btn btn-success") %>
+  </p>
+<% end %>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -26,7 +28,7 @@
       <td><%= signup_code.created_at.to_formatted_s(:long) %></td>
       <td><%= signup_code.updated_at.to_formatted_s(:long) %></td>
       <td>
-        <%= link_to("Edit", edit_signup_code_path(signup_code), class: "btn btn-success btn-sm") %>
+        <%= link_to("Edit", edit_signup_code_path(signup_code), class: "btn btn-success btn-sm") if allowed_to?(:edit?, signup_code) %>
         <%= link_to("Delete", signup_code_path(signup_code),
                     class: "btn btn-danger btn-sm",
                     data: {
@@ -35,7 +37,7 @@
                       'confirmation-message-value' => "Are you sure you want to delete this code? This cannot be undone.",
                       'action' => 'confirmation#confirm'
                     }
-            ) %>
+            ) if allowed_to?(:destroy?, signup_code) %>
       </td>
     </tr>
   <% end %>

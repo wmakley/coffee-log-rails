@@ -1,7 +1,9 @@
 <h1>Users</h1>
-<p>
-  <%= link_to("Add New User", new_user_path, class: "btn btn-success") %>
-</p>
+<% if allowed_to?(:create?, User) %>
+  <p>
+    <%= link_to("Add New User", new_user_path, class: "btn btn-success") %>
+  </p>
+<% end %>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -22,7 +24,7 @@
     <td><%= user.username %></td>
     <td><%= user.admin? ? "Y" : "N" %></td>
     <td>
-      <%= link_to("Edit", edit_user_path(user), class: "btn btn-success btn-sm") %>
+      <%= link_to("Edit", edit_user_path(user), class: "btn btn-success btn-sm") if allowed_to?(:edit?, user) %>
       <%= link_to("Delete", user_path(user),
                   class: "btn btn-danger btn-sm",
                   data: {
@@ -31,7 +33,7 @@
                     'confirmation-message-value' => "Are you sure you want to delete this user? This will delete their log and all log entries, and cannot be undone.",
                     'action' => 'confirmation#confirm'
                   }
-          ) %>
+          ) if allowed_to?(:destroy?, user) %>
     </td>
   </tr>
   <% end %>

@@ -20,6 +20,6 @@
   </ul>
   <div class="card-body">
     <%= link_to("View Details", coffee_path(coffee), class: "btn btn-info") %>
-    <%= link_to("Edit", edit_coffee_path(coffee), class: "btn btn-success") %>
+    <%= link_to("Edit", edit_coffee_path(coffee), class: "btn btn-success") if allowed_to?(:edit?, coffee) %>
   </div>
 </div>

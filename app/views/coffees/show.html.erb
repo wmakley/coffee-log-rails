@@ -26,7 +26,7 @@
           <%= simple_format(@coffee.notes) %>
         <% end %>
         <p>
-          <%= link_to("Edit Coffee", edit_coffee_path(@coffee), class: "card-link btn btn-success") %>
+          <%= link_to("Edit Coffee", edit_coffee_path(@coffee), class: "card-link btn btn-success") if allowed_to?(:edit?, @coffee) %>
           <%= link_to("Delete Coffee", coffee_path(@coffee),
                       class: "card-link btn btn-danger",
                       data: {
@@ -34,7 +34,7 @@
                         'controller' => 'confirmation',
                         'confirmation-message-value' => "Are you sure you want to delete this coffee? This action cannot be undone.",
                         'action' => 'confirmation#confirm'
-                      }) if @coffee.can_destroy?
+                      }) if allowed_to?(:destroy?, @coffee) && @coffee.can_destroy?
           %>
           <%= link_to_back("Back", coffees_path, no_edit: true, back_url: params[:back_url].to_s.presence, class: "card-link btn btn-secondary") %>
         </p>
@@ -51,7 +51,7 @@
             <li>This coffee does not have any log entries.</li>
           <% end %>
         </ul>
-        <% if Current.user.log %>
+        <% if Current.user.log && allowed_to?(:create?, LogEntry) %>
           <p>
             <%= link_to "Add Log Entry", new_log_entry_path(Current.user.log, coffee_id: @coffee.id, cancel_url: request.path), class: "btn btn-success btn-sm" %>
           </p>
