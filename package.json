@@ -2,6 +2,7 @@
   "name": "app",
   "private": "true",
   "scripts": {
+    "build": "echo 'nothing to build' && exit 0"
   },
   "dependencies": {
   }
