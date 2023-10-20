@@ -75,7 +75,7 @@ unverified_email:
   username: "unverified_email@test.com"
   email: "unverified_email@test.com"
   new_email: "unverified_email@test.com"
-  verification_email_sent_at: "<%= Time.current.iso8601 %>"
+  verification_email_sent_at: "<%= 10.minutes.ago %>"
   email_verification_token: SOME_TOKEN_HERE
   email_verified_at:
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
