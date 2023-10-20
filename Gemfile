@@ -68,8 +68,8 @@ gem "action_policy"
 gem "recaptcha", "~> 5.15"
 
 # exception monitoring
-gem 'sentry-ruby'
-gem 'sentry-rails'
+# gem 'sentry-ruby'
+# gem 'sentry-rails'
 
 group :development, :test do
   gem 'rubocop', '~> 1.22', require: false
