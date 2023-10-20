@@ -39,6 +39,7 @@ module EmailVerification
   def generate_new_verification_token_and_send_email!
     self.class.transaction do
       generate_email_verification_token!
+      self.new_email ||= email
       self.verification_email_sent_at = Time.current
       save!
     end
