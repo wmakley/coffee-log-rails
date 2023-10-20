@@ -1,22 +1,24 @@
 # frozen_string_literal: true
 
 class UserGroupsController < InternalController
-  include AdminRequired
-
   before_action :set_user_group, only: [:show, :edit, :update, :destroy]
 
   def index
+    authorize!
     @user_groups = UserGroup.by_name
   end
 
   def show
+    raise NotImplementedError
   end
 
   def new
+    authorize!
     @user_group = UserGroup.new
   end
 
   def create
+    authorize!
     @user_group = UserGroup.new(user_group_params)
 
     if @user_group.save
@@ -27,9 +29,11 @@ class UserGroupsController < InternalController
   end
 
   def edit
+    authorize! @user_group
   end
 
   def update
+    authorize! @user_group
     if @user_group.update(user_group_params)
       redirect_to user_groups_url, notice: "Successfully updated user group."
     else
@@ -38,9 +42,10 @@ class UserGroupsController < InternalController
   end
 
   def destroy
+    authorize! @user_group
     respond_to do |format|
       if @user_group.destroy
-        format.html { redirect_to user_groups_url, status: :see_other, notice: "Successfully deleted user." }
+        format.html { redirect_to user_groups_url, status: :see_other, notice: "Successfully deleted user group." }
         format.turbo_stream
       else
         format.html { redirect_to user_groups_url, error: "#{@user_group.errors.full_messages.to_sentence}." }

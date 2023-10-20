@@ -54,8 +54,8 @@ Rails.application.routes.draw do
   resources :users do
     resources :group_memberships, path: 'group-memberships', only: [:new, :create, :destroy]
   end
-  resources :user_groups, path: 'user-groups'
-  resources :signup_codes, path: 'signup-codes'
+  resources :user_groups, path: 'user-groups', except: [:show]
+  resources :signup_codes, path: 'signup-codes', except: [:show]
   resources :banned_ips, only: [:index, :show, :destroy]
   resources :exceptions, only: [:index]
 end
