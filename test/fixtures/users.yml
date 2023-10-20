@@ -70,6 +70,8 @@ non_admin:
   admin: false
   preferences: {}
 
+# This is a new user who hasn't verified their email, even though the verification
+# email was sent 10 minutes ago.
 unverified_email:
   id: 4
   username: "unverified_email@test.com"
