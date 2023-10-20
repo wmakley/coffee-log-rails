@@ -3,7 +3,6 @@ on:
   workflow_call:
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 jobs:
   prod:
     name: Prod
@@ -11,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only --build-arg RAILS_MASTER_KEY="$RAILS_MASTER_KEY"
+      - run: flyctl deploy --remote-only
