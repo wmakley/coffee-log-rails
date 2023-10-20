@@ -23,7 +23,7 @@ module Auth
       if !success
         logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?
         score = recaptcha_reply['score'] if recaptcha_reply
-        logger.warn("User was denied login because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
+        logger.info("User was denied login because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
       end
 
       @login_form = LoginForm.new(login_form_params)
