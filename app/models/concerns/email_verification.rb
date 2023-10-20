@@ -9,6 +9,10 @@ module EmailVerification
     email_verified_at.present?
   end
 
+  def verification_email_sent?
+    verification_email_sent_at.present?
+  end
+
   def generate_email_verification_token!
     raise "new_email is required so there is something to verify" if new_email.blank?
 
@@ -35,8 +39,10 @@ module EmailVerification
   def generate_new_verification_token_and_send_email!
     self.class.transaction do
       generate_email_verification_token!
+      self.verification_email_sent_at = Time.current
       save!
     end
+    # TODO: might be nice to nullify the "sent at" value if email delivery fails
     EmailVerificationMailer.with(user: self).verification_link.deliver_later
     self
   end

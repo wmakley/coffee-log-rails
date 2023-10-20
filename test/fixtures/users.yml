@@ -16,6 +16,7 @@
 #  reset_password_token            :string
 #  reset_password_token_created_at :datetime
 #  username                        :string           not null
+#  verification_email_sent_at      :datetime
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #

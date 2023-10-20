@@ -5,4 +5,3 @@ module Auth
     layout "sessions"
   end
 end
-

@@ -18,6 +18,7 @@
 #  reset_password_token            :string
 #  reset_password_token_created_at :datetime
 #  username                        :string           not null
+#  verification_email_sent_at      :datetime
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #
@@ -73,7 +74,6 @@ class User < ApplicationRecord
             length: { maximum: 255, allow_nil: true }
   validate :new_email_must_be_unique
 
-
   scope :by_name, -> { order(:display_name) }
 
   # Perform a case-insensitive username lookup (username is always lower-case email)
@@ -92,11 +92,13 @@ class User < ApplicationRecord
     username.split('@', 2).first if username
   end
 
-  def new_email_must_be_unique
-    if new_email.present? && new_email_changed?
-      if self.class.with_email_or_new_email(new_email).exists?
-        errors.add(:new_email, "is already taken")
+  private
+
+    def new_email_must_be_unique
+      if new_email.present? && new_email_changed?
+        if self.class.with_email_or_new_email(new_email).exists?
+          errors.add(:new_email, "is already taken")
+        end
       end
     end
-  end
 end

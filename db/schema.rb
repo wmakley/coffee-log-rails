@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_03_04_130231) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_20_015042) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -182,6 +182,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_03_04_130231) do
     t.datetime "email_verified_at", precision: nil
     t.datetime "last_login_at", precision: nil
     t.citext "new_email"
+    t.datetime "verification_email_sent_at", precision: nil
     t.index ["email"], name: "index_users_on_email", unique: true, where: "(email IS NOT NULL)"
     t.index ["email_verification_token"], name: "index_users_on_email_verification_token", unique: true, where: "(email_verification_token IS NOT NULL)"
     t.index ["new_email"], name: "index_users_on_new_email", unique: true, where: "(new_email IS NOT NULL)"
