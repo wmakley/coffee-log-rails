@@ -15,6 +15,8 @@
 class Roast < ApplicationRecord
   has_many :coffees
 
+  normalizes :name, with: -> name { name.squish }
+
   validates :name,
             presence: true,
             length: { maximum: 100 },

@@ -70,12 +70,10 @@ class Coffee < ApplicationRecord
     end
   end
 
-  before_validation do
-    self.name = name&.squish
-    self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
-    self.origin = origin&.squish.presence
-    self.process = process.presence
-  end
+  normalizes :name, with: -> name { name.squish }
+  normalizes :notes, with: -> notes { notes.strip.gsub(/\r\n?/, "\n").presence }
+  normalizes :origin, with: -> origin { origin.squish.presence }
+  normalizes :process, with: -> process { process.strip.presence }
 
   validates :name,
             presence: true,
@@ -90,7 +88,7 @@ class Coffee < ApplicationRecord
             inclusion: { in: PROCESSES, allow_nil: true }
 
   validate do
-    if name.match?(/<\?|\?>/)
+    if name&.match?(/<\?|\?>/)
       errors.add(:name, "must not contain <? or ?>")
     end
   end

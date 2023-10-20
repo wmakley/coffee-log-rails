@@ -43,13 +43,12 @@ class User < ApplicationRecord
   # has_paper_trail
   has_secure_password
 
-  before_validation do
-    # normalizations
-    self.display_name = display_name&.squish.presence
-    self.email = email&.strip.presence
-    self.new_email = new_email&.strip.presence
+  normalizes :display_name, with: -> display_name { display_name.squish.presence }
+  normalizes :email, with: -> email { email.strip.presence }
+  normalizes :new_email, with: -> new_email { new_email.strip.presence }
 
-    # email is always copied to username currently
+  before_validation do
+    # email is always copied to username and downcased currently
     self.username = email&.downcase
   end
 

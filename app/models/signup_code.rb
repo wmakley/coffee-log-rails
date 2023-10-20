@@ -23,6 +23,12 @@
 class SignupCode < ApplicationRecord
   belongs_to :user_group
 
+  # Fully normalize code, removing all invalid characters.
+  # @return [String,nil] the normalized code, or nil if blank
+  def self.normalize(code)
+    code&.gsub(/[^A-Z0-9_-]/, "")&.presence&.upcase
+  end
+
   # has_paper_trail
 
   validates :code,
@@ -35,6 +41,9 @@ class SignupCode < ApplicationRecord
             length: {
               maximum: 100,
             }
+
+  # only trim whitespace, show explicit error to user to indicate expected values
+  normalizes :code, with: -> code { code.strip.presence }
 
   scope :active, -> { where(active: true) }
   scope :with_code, -> (code) { where(code: code) }

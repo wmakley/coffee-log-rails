@@ -1,14 +1,15 @@
-# frozen_string_literal: true
-
+# Models a user signing up for an account on the public signup form,
+# using a signup code.
 class UserSignup
   include ActiveModel::Model
+  include ActiveModel::Attributes
   include ErrorBubbling
 
-  attr_accessor :code
-  attr_accessor :new_email
-  attr_accessor :display_name
-  attr_accessor :password
-  attr_accessor :password_confirmation
+  attribute :code, :string
+  attribute :new_email, :string
+  attribute :display_name, :string
+  attribute :password, :string
+  attribute :password_confirmation, :string
 
   alias_method :email, :new_email
 
@@ -26,7 +27,7 @@ class UserSignup
 
   # @return [User,FalseClass]
   def save
-    self.code = code&.strip.presence&.upcase
+    self.code = SignupCode.normalize(code)
     self.new_email = new_email&.strip.presence
 
     return false unless valid?

@@ -19,9 +19,7 @@ class UserGroup < ApplicationRecord
 
   scope :by_name, -> { order(:name) }
 
-  before_validation do
-    self.name = name&.squish.presence
-  end
+  normalizes :name, with: -> name { name.squish.presence }
 
   validates :name,
             presence: true,

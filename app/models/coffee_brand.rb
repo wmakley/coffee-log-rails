@@ -22,11 +22,9 @@ class CoffeeBrand < ApplicationRecord
 
   multisearchable against: [:name, :notes]
 
-  before_validation do
-    self.name = name&.squish
-    self.url = url&.strip.presence
-    self.notes = notes&.strip&.gsub(/\r\n?/, "\n").presence
-  end
+  normalizes :name, with: -> name { name.squish }
+  normalizes :url, with: -> url { url.strip.presence }
+  normalizes :notes, with: -> notes { notes.strip.gsub(/\r\n?/, "\n").presence }
 
   validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :url, length: { maximum: 255, allow_nil: true }

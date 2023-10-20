@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# Provides the #copy_errors_from method.
 module ErrorBubbling
   # Copy the error messages from record to self without any changes.
   def copy_errors_from(record)

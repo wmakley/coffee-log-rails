@@ -27,6 +27,8 @@ class BrewMethod < ApplicationRecord
               less_than: 1000,
             }
 
+  normalizes :name, with: -> name { name.squish.presence }
+
   before_destroy do
     if id == 0
       errors.add(:base, "may not delete 'Other' brew method")

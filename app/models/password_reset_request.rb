@@ -2,8 +2,9 @@
 
 class PasswordResetRequest
   include ActiveModel::Model
+  include ActiveModel::Attributes
 
-  attr_accessor :email
+  attribute :email, :string
 
   validates :email, presence: true, format: /@/
 

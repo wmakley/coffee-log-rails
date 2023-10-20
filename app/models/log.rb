@@ -32,10 +32,8 @@ class Log < ApplicationRecord
             length: { maximum: 255 },
             format: /\A[a-z0-9\-_]+\z/
 
-  before_validation do
-    self.title = title&.squish
-    self.slug = slug&.strip
-  end
+  normalizes :title, with: -> title { title.squish }
+  normalizes :slug, with: -> slug { slug.strip }
 
   def self.owner(user)
     where(user_id: user.id)
