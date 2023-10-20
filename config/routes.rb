@@ -51,10 +51,10 @@ Rails.application.routes.draw do
 
   # Admin-only
   resources :brew_methods
-  resources :users do
-    resources :group_memberships, path: 'group-memberships', only: [:new, :create, :destroy]
+  resources :users
+  resources :user_groups, path: 'user-groups', except: [:show] do
+    resources :memberships, controller: 'user_group_memberships', only: [:index, :new, :create, :destroy]
   end
-  resources :user_groups, path: 'user-groups', except: [:show]
   resources :signup_codes, path: 'signup-codes', except: [:show]
   resources :banned_ips, only: [:index, :show, :destroy]
   resources :exceptions, only: [:index]
