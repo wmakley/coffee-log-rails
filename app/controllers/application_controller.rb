@@ -14,8 +14,9 @@ class ApplicationController < ActionController::Base
     logger.error exception.message
 
     if exception.is_a? EmailVerificationNeededError
+      user = exception.user
       flash[:error] = "Your email address has not been verified. Please click the link in your email to continue."
-      unless exception.user.verification_email_sent?
+      unless user.verification_email_sent?
         user.generate_new_verification_token_and_send_email!
       end
     else
