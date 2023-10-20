@@ -18,7 +18,7 @@ module Auth
       if !success
         logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?
         score = recaptcha_reply['score'] if recaptcha_reply
-        logger.warn("User was denied login because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
+        logger.warn("User was denied signup because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
       end
 
       if success && (user = @signup.save)
