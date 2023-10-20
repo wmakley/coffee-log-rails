@@ -30,10 +30,7 @@
 .env
 
 # Ignore more machine-specific jetbrains stuff
-.idea/dataSources*
-.idea/workspace.xml
-.idea/misc.xml
-.idea/modules.xml
+.idea
 *.iml
 
 # Ignore machine-specific VSCode stuff

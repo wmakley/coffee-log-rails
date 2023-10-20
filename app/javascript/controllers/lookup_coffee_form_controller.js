@@ -1,6 +1,6 @@
 import {Controller} from "@hotwired/stimulus"
 import {get} from "@rails/request.js"
-import {debounce} from "debounce"
+import debounce from "debounce"
 
 export default class LookupCoffeeFormController extends Controller {
   static targets = [
