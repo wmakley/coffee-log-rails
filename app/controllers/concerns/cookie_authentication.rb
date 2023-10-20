@@ -100,8 +100,11 @@ module CookieAuthentication
 
     reset_session
     set_authentication_cookie(user.id)
-    user.update!(last_login_at: Time.current)
+    user.update_column(:last_login_at, Time.current) # must not fail
     Current.user = user
+
+    # If the user needs to verify their email, they are already authenticated so they
+    # can go straight to the app after they click the verification link.
 
     if user.needs_email_verification?
       raise EmailVerificationNeededError.new(user)

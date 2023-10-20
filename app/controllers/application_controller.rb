@@ -14,13 +14,10 @@ class ApplicationController < ActionController::Base
     logger.error exception.message
 
     if exception.is_a? EmailVerificationNeededError
-      user = exception.user
       flash[:error] = "Your email address has not been verified. Please click the link in your email to continue."
-      unless user.verification_email_sent?
-        user.generate_new_verification_token_and_send_email!
-      end
+      exception.user.send_verification_email_if_not_sent_recently!
     else
-      flash[:error] = "Not authorized"
+      flash[:error] = "Not authorized."
     end
 
     redirect_to new_auth_session_url, status: :see_other

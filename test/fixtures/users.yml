@@ -33,6 +33,7 @@ default:
   username: "default@test.com"
   email: "default@test.com"
   new_email:
+  verification_email_sent_at:
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
@@ -46,6 +47,7 @@ admin:
   username: "admin@test.com"
   email: "admin@test.com"
   new_email:
+  verification_email_sent_at:
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
@@ -59,6 +61,7 @@ non_admin:
   username: "nonadmin@test.com"
   email: "nonadmin@test.com"
   new_email:
+  verification_email_sent_at:
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
@@ -72,6 +75,7 @@ unverified_email:
   username: "unverified_email@test.com"
   email: "unverified_email@test.com"
   new_email: "unverified_email@test.com"
+  verification_email_sent_at: "<%= Time.current.iso8601 %>"
   email_verification_token: SOME_TOKEN_HERE
   email_verified_at:
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
@@ -86,6 +90,7 @@ no_group:
   username: "no_group@test.com"
   email: "no_group@test.com"
   new_email:
+  verification_email_sent_at:
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
@@ -99,6 +104,7 @@ group_a:
   username: "group_a@test.com"
   email: "group_a@test.com"
   new_email:
+  verification_email_sent_at:
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
@@ -112,10 +118,27 @@ group_b:
   username: "group_b@test.com"
   email: "group_b@test.com"
   new_email:
+  verification_email_sent_at:
   email_verification_token:
   email_verified_at: "<%= 1.day.ago.iso8601 %>"
   password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: Group B User
+  admin: false
+  preferences: { }
+
+# This user has just been migrated to using their email as their username, but
+# has not yet been sent the verification email.
+post_migration_email_not_verified:
+  id: 8
+  username: "post_migration_email_not_verified@test.com"
+  email: "post_migration_email_not_verified@test.com"
+  new_email:
+  verification_email_sent_at:
+  email_verification_token:
+  email_verified_at:
+  password_digest: "<%= BCrypt::Password.create('password', cost: 5) %>"
+  password_changed_at: "<%= 1.day.ago.iso8601 %>"
+  display_name: post migration email not verified
   admin: false
   preferences: { }

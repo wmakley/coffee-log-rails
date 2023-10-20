@@ -36,9 +36,6 @@ module Auth
         Fail2Ban.record_failed_attempt(request.remote_ip) if @login_form.valid?
         render action: :new, status: :unprocessable_entity
       end
-    rescue EmailVerificationNeededError => ex
-      ex.user.generate_new_verification_token_and_send_email!
-      raise ex
     end
 
     def destroy

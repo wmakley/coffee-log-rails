@@ -38,13 +38,19 @@ module EmailVerification
   # Within a transaction, generate a new token, save the record, and send verification email
   def generate_new_verification_token_and_send_email!
     self.class.transaction do
-      generate_email_verification_token!
       self.new_email ||= email
+      generate_email_verification_token!
       self.verification_email_sent_at = Time.current
       save!
     end
     # TODO: might be nice to nullify the "sent at" value if email delivery fails
     EmailVerificationMailer.with(user: self).verification_link.deliver_later
     self
+  end
+
+  def send_verification_email_if_not_sent_recently!
+    if !verification_email_sent_at || verification_email_sent_at < 5.minutes.ago
+      generate_new_verification_token_and_send_email!
+    end
   end
 end
