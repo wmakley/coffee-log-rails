@@ -1,0 +1,23 @@
+<%= form_with(model: object, url: url, html: { class: "group-membership" }) do |f| %>
+  <%= render "services/base_errors", object: f.object %>
+
+  <div class="mb-3">
+    <%= input f, :user_id,
+              as: :select,
+              label: "User",
+              required: true,
+              include_blank: true,
+              collection: user_options,
+              input_html: {
+                class: "form-select form-select-lg mb-3",
+              } %>
+  </div>
+
+  <p>
+    <button type="submit" class="btn btn-primary">
+      <%= object.new_record? ? "Create" : "Update" %> Group Membership
+    </button>
+
+    <%= cancel_button :back %>
+  </p>
+<% end %>

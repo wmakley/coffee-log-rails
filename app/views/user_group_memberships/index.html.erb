@@ -1,4 +1,4 @@
-<h1><%= @user_group.name %> Memberships</h1>
+<h1><%= @user_group.name %> Group Memberships</h1>
 <% if allowed_to?(:create?, GroupMembership) %>
   <p>
     <%= link_to("New Membership", new_user_group_membership_path(@user_group), class: "btn btn-success") %>
@@ -8,6 +8,7 @@
   <thead>
   <tr>
     <th>User ID</th>
+    <th>Display Name</th>
     <th>User Name</th>
     <th>Created At</th>
     <th>Updated At</th>
@@ -18,10 +19,13 @@
   <% @group_memberships.each do |group_membership| %>
     <tr id="<%= dom_id(group_membership) %>">
       <td><%= group_membership.user_id %></td>
+      <td><%= group_membership.user_display_name %></td>
       <td><%= group_membership.user_username %></td>
       <td><%= group_membership.created_at.to_formatted_s(:long) %></td>
       <td><%= group_membership.updated_at.to_formatted_s(:long) %></td>
       <td>
+        <%= link_to("View Log", log_entries_path(group_membership.user.log), class: "btn btn-info btn-sm") if allowed_to?(:show?, group_membership.user.log) %>
+        <%= link_to("Edit User", edit_user_path(group_membership.user), class: "btn btn-success btn-sm") if allowed_to?(:edit?, group_membership.user) %>
         <%= link_to("Delete", user_group_membership_path(@user_group, group_membership),
                     class: "btn btn-danger btn-sm",
                     data: {
