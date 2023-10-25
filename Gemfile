@@ -18,6 +18,9 @@ gem "postgresql_cursor"
 # Full-text search
 gem "pg_search"
 
+# Support CORS requests from CDN
+gem 'rack-cors'
+
 # Use Puma as the app server
 gem "puma", ">= 6.0.0"
 

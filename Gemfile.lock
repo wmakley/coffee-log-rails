@@ -196,6 +196,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (3.0.8)
+    rack-cors (2.0.1)
+      rack (>= 2.0.0)
     rack-mini-profiler (3.1.1)
       rack (>= 1.2.0)
     rack-session (2.0.0)
@@ -345,6 +347,7 @@ DEPENDENCIES
   pg_search
   postgresql_cursor
   puma (>= 6.0.0)
+  rack-cors
   rack-mini-profiler
   rails (~> 7.1.1)
   recaptcha (~> 5.15)
