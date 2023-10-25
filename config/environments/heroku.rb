@@ -92,7 +92,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.delivery_method = :ses
+  config.action_mailer.delivery_method = :sesv2
   # config.action_mailer.smtp_settings = {
   #   address: "email-smtp.us-east-1.amazonaws.com",
   #   port: 587,

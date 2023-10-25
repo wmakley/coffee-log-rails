@@ -96,7 +96,7 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  config.action_mailer.delivery_method = :ses
+  config.action_mailer.delivery_method = :sesv2
   # config.action_mailer.smtp_settings = {
   #   address: "email-smtp.us-east-1.amazonaws.com",
   #   port: 587,
