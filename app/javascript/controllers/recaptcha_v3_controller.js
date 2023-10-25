@@ -1,16 +1,12 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 export default class RecaptchaV3Controller extends Controller {
-  static targets = [
-    "form",
-    "responseField",
-    "submit",
-  ]
+  static targets = ["form", "responseField", "submit"];
 
   static values = {
     action: String,
     siteKey: String,
-  }
+  };
 
   connect() {
     if (!this.hasFormTarget) {
@@ -20,12 +16,12 @@ export default class RecaptchaV3Controller extends Controller {
       throw new Error("No response field target found");
     }
     if (this.hasSubmitTarget) {
-      this.submitBtn = this.submitTarget
+      this.submitBtn = this.submitTarget;
     } else {
-      this.submitBtn = this.element.querySelector('[type="submit"]')
+      this.submitBtn = this.element.querySelector('[type="submit"]');
     }
     if (!this.submitBtn) {
-      throw new Error("No submit button found")
+      throw new Error("No submit button found");
     }
     if (!this.hasActionValue) {
       throw new Error("No action value found");
@@ -49,11 +45,9 @@ export default class RecaptchaV3Controller extends Controller {
 
     event.preventDefault();
     grecaptcha.enterprise.ready(async () => {
-      const token = await grecaptcha.enterprise.execute(
-        this.siteKeyValue,
-        {
-          action: this.actionValue,
-        });
+      const token = await grecaptcha.enterprise.execute(this.siteKeyValue, {
+        action: this.actionValue,
+      });
 
       // console.debug("Got Recaptcha token:", token)
 

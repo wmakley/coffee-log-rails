@@ -4,6 +4,9 @@
   "scripts": {
     "build": "echo 'nothing to build' && exit 0"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.6"
   }
 }

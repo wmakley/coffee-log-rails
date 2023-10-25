@@ -1,0 +1,47 @@
+inherit_mode:
+  merge:
+    - Exclude
+
+require:
+  - ./lib/rubocop/cop/lint_env
+  # Standard's config uses custom cops,
+  # so it must be loaded along with custom Standard gems
+  - standard
+  - standard-custom
+  - standard-performance
+  # rubocop-performance is required when using Performance cops
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-minitest
+
+inherit_gem:
+  standard: config/base.yml
+  # You can also choose a Ruby-version-specific config
+  # standard: config/ruby-3.0.yml
+  # Standard plugins must be loaded separately (since v1.28.0)
+  standard-performance: config/base.yml
+  standard-custom: config/base.yml
+  standard-rails: config/base.yml
+
+inherit_from:
+  - .rubocop_todo.yml
+  - .rubocop_strict.yml
+
+AllCops:
+  SuggestExtensions: false
+  TargetRubyVersion: 3.2
+
+Lint/Env:
+  Enabled: true
+  Include:
+    - "**/*.rb"
+  Exclude:
+    - "**/config/environments/**/*"
+    - "**/config/application.rb"
+    - "**/config/environment.rb"
+    - "**/config/initializers/*.rb"
+    - "**/config/puma.rb"
+    - "**/config/boot.rb"
+    - "**/spec/*_helper.rb"
+    - "**/spec/**/support/**/*"
+    - "lib/generators/**/*"

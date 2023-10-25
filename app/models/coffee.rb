@@ -37,22 +37,22 @@ class Coffee < ApplicationRecord
   has_one_attached :photo
 
   pg_search_scope :search_by_name,
-                  against: :name,
-                  using: {
-                    tsearch: {
-                      prefix: true,
-                      highlight: {
-                        StartSel: '<?',
-                        StopSel: '?>',
-                        MaxWords: 123,
-                        MinWords: 456,
-                        ShortWord: 4,
-                        HighlightAll: true,
-                        MaxFragments: 3,
-                        FragmentDelimiter: '&hellip;',
-                      },
-                    }
-                  }
+    against: :name,
+    using: {
+      tsearch: {
+        prefix: true,
+        highlight: {
+          StartSel: '<?',
+          StopSel: '?>',
+          MaxWords: 123,
+          MinWords: 456,
+          ShortWord: 4,
+          HighlightAll: true,
+          MaxFragments: 3,
+          FragmentDelimiter: '&hellip;',
+        },
+      }
+    }
 
   scope :by_name_asc, -> { order(:name) }
   scope :by_most_recent, -> { order(created_at: :desc) }
@@ -76,16 +76,16 @@ class Coffee < ApplicationRecord
   normalizes :process, with: -> process { process.strip.presence }
 
   validates :name,
-            presence: true,
-            length: { maximum: 255 },
-            uniqueness: { scope: :coffee_brand_id }
+    presence: true,
+    length: {maximum: 255},
+    uniqueness: {scope: :coffee_brand_id}
   validates :notes,
-            length: { maximum: 4000, allow_nil: true }
+    length: {maximum: 4000, allow_nil: true}
   validates :origin,
-            length: { maximum: 255, allow_nil: true }
+    length: {maximum: 255, allow_nil: true}
   validates :process,
-            length: { maximum: 100, allow_nil: true },
-            inclusion: { in: PROCESSES, allow_nil: true }
+    length: {maximum: 100, allow_nil: true},
+    inclusion: {in: PROCESSES, allow_nil: true}
 
   validate do
     if name&.match?(/<\?|\?>/)
@@ -101,7 +101,7 @@ class Coffee < ApplicationRecord
     roast&.name
   end
 
-  alias coffee_brand_name brand_name
+  alias_method :coffee_brand_name, :brand_name
 
   def can_destroy?
     log_entries.blank?

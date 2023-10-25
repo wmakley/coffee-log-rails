@@ -20,19 +20,19 @@ class CoffeeBrand < ApplicationRecord
 
   has_one_attached :logo
 
-  multisearchable against: [:name, :notes]
+  multisearchable against: %i[name notes]
 
-  normalizes :name, with: -> name { name.squish }
-  normalizes :url, with: -> url { url.strip.presence }
-  normalizes :notes, with: -> notes { notes.strip.gsub(/\r\n?/, "\n").presence }
+  normalizes :name, with: ->(name) { name.squish }
+  normalizes :url, with: ->(url) { url.strip.presence }
+  normalizes :notes, with: ->(notes) { notes.strip.gsub(/\r\n?/, "\n").presence }
 
   validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :url, length: { maximum: 255, allow_nil: true }
   validates :notes, length: { maximum: 4000, allow_nil: true }
 
   before_destroy do
-    if self.id == 0
-      errors.add(:base, "may not delete default brand")
+    if id.zero?
+      errors.add(:base, 'may not delete default brand')
       throw :abort
     end
   end
@@ -44,7 +44,7 @@ class CoffeeBrand < ApplicationRecord
     brands = all.by_name_asc.pluck(:name, :id)
 
     # put brand 0 on top if present
-    idx = brands.find_index { |b| b[1] == 0 }
+    idx = brands.find_index { |b| b[1].zero? }
     if idx
       re_sorted_brands = [brands[idx]]
       brands.each do |b|

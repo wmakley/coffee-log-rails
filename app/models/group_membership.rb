@@ -26,7 +26,6 @@ class GroupMembership < ApplicationRecord
 
   # has_paper_trail
 
-
   def user_id
     user&.id
   end

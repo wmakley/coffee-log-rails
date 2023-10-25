@@ -1,4 +1,4 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 export default class LogEntryFormController extends Controller {
   static targets = [
@@ -8,57 +8,57 @@ export default class LogEntryFormController extends Controller {
     "preparationNotes",
     "waterGramsInput",
     "submitButton",
-  ]
+  ];
 
   connect() {
-    this.enableOrDisableSubmit()
-    this.waterChanged = false
+    this.enableOrDisableSubmit();
+    this.waterChanged = false;
   }
 
   clear() {
     const emptyValue = (input) => {
-      input.value = ""
-    }
+      input.value = "";
+    };
 
-    this.coffeeIdInputTarget.value = ""
-    this.element.querySelectorAll("input.form-control").forEach(emptyValue)
-    this.element.querySelectorAll("textarea").forEach(emptyValue)
-    this.brewMethodSelectTarget.selectedIndex = 0
-    document.getElementById("selected-coffee-card").innerHTML = ""
-    document.getElementById("coffee-search-results").innerHTML = ""
+    this.coffeeIdInputTarget.value = "";
+    this.element.querySelectorAll("input.form-control").forEach(emptyValue);
+    this.element.querySelectorAll("textarea").forEach(emptyValue);
+    this.brewMethodSelectTarget.selectedIndex = 0;
+    document.getElementById("selected-coffee-card").innerHTML = "";
+    document.getElementById("coffee-search-results").innerHTML = "";
 
-    this.enableOrDisableSubmit()
+    this.enableOrDisableSubmit();
   }
 
   onBrewMethodChange() {
     if (this.isNewRecord) {
-      this.preparationNotesTarget.value = ""
+      this.preparationNotesTarget.value = "";
     }
   }
 
   get isNewRecord() {
-    return this.method === "post"
+    return this.method === "post";
   }
 
   get method() {
     if (!this.element._method) {
-      return this.element.method.toLowerCase()
+      return this.element.method.toLowerCase();
     }
 
-    return this.element._method.value.toLowerCase()
+    return this.element._method.value.toLowerCase();
   }
 
   onCoffeeChange() {
-    const coffeeGrams = this.parseCoffeeGrams()
+    const coffeeGrams = this.parseCoffeeGrams();
     if (coffeeGrams != null) {
-      this.coffeeGramsInputTarget.value = Math.round(coffeeGrams)
+      this.coffeeGramsInputTarget.value = Math.round(coffeeGrams);
     }
   }
 
   onWaterChange() {
-    const waterGrams = this.parseWaterGrams()
+    const waterGrams = this.parseWaterGrams();
     if (waterGrams != null) {
-      this.waterGramsInputTarget.value = Math.round(waterGrams)
+      this.waterGramsInputTarget.value = Math.round(waterGrams);
     }
 
     this.waterChanged = !!this.waterGramsInputTarget.value;
@@ -66,18 +66,18 @@ export default class LogEntryFormController extends Controller {
 
   calculateWater() {
     if (this.waterChanged) {
-      return
+      return;
     }
 
-    const coffeeGrams = this.parseCoffeeGrams()
+    const coffeeGrams = this.parseCoffeeGrams();
     if (coffeeGrams === null) {
-      return
+      return;
     }
 
-    const ratio = 16.6667
-    const waterGrams = Math.round(coffeeGrams * ratio)
+    const ratio = 16.6667;
+    const waterGrams = Math.round(coffeeGrams * ratio);
 
-    this.waterGramsInputTarget.value = waterGrams.toString(10)
+    this.waterGramsInputTarget.value = waterGrams.toString(10);
   }
 
   /**
@@ -85,7 +85,7 @@ export default class LogEntryFormController extends Controller {
    * @returns {number|null}
    */
   parseCoffeeGrams() {
-    return this.parseGramsInput(this.coffeeGramsInputTarget.value)
+    return this.parseGramsInput(this.coffeeGramsInputTarget.value);
   }
 
   /**
@@ -93,7 +93,7 @@ export default class LogEntryFormController extends Controller {
    * @returns {number|null}
    */
   parseWaterGrams() {
-    return this.parseGramsInput(this.waterGramsInputTarget.value)
+    return this.parseGramsInput(this.waterGramsInputTarget.value);
   }
 
   /**
@@ -103,26 +103,26 @@ export default class LogEntryFormController extends Controller {
    */
   parseGramsInput(input) {
     if (!input) {
-      return null
+      return null;
     }
 
-    const coffeeGrams = parseFloat(input)
+    const coffeeGrams = parseFloat(input);
     if (isNaN(coffeeGrams)) {
-      return null
+      return null;
     }
     if (coffeeGrams <= 0) {
-      return null
+      return null;
     }
 
-    return coffeeGrams
+    return coffeeGrams;
   }
 
   enableOrDisableSubmit() {
     const requiredValues = [
       !!this.coffeeIdInputTarget.value.trim(),
       !!this.brewMethodSelectTarget.value.trim(),
-    ]
+    ];
 
-    this.submitButtonTarget.disabled = requiredValues.includes(false)
+    this.submitButtonTarget.disabled = requiredValues.includes(false);
   }
 }

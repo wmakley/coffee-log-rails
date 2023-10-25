@@ -1,9 +1,9 @@
-import {Controller} from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 export default class ClickElementController extends Controller {
-  static values = {id: String}
+  static values = { id: String };
 
   click() {
-    document.getElementById(this.idValue).click()
+    document.getElementById(this.idValue).click();
   }
 }
