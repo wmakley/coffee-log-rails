@@ -4,7 +4,7 @@ import { get } from "@rails/request.js";
 export default class LookupCoffeeFormController extends ApplicationController {
   static targets = ["queryInput", "coffeeIdInput", "searchResults"];
 
-  static debounces = ["doSearch"];
+  static debounces = ["onInput"];
 
   static values = {
     endpoint: String,
@@ -20,6 +20,10 @@ export default class LookupCoffeeFormController extends ApplicationController {
 
   get trimmedQuery() {
     return this.queryInputTarget.value.trim().replace(/\s+/g, " ");
+  }
+
+  onInput() {
+    this.doSearch(true);
   }
 
   /**
