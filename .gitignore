@@ -31,6 +31,7 @@
 
 # Ignore more machine-specific jetbrains stuff
 .idea
+.vscode
 *.iml
 
 # Ignore machine-specific VSCode stuff
