@@ -9,7 +9,7 @@ pin "@rails/activestorage", to: "activestorage.esm.js"
 pin "@hotwired/stimulus", to: "stimulus.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
-pin "@rails/request.js", to: "https://ga.jspm.io/npm:@rails/request.js@0.0.9/src/index.js"
+pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.9
 
 # Third-Party dependencies:
-pin "stimulus-use", to: "https://ga.jspm.io/npm:stimulus-use@0.52.1/dist/index.js"
+pin "stimulus-use" # @0.52.1
