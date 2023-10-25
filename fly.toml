@@ -10,6 +10,7 @@ primary_region = "ewr"
   RAILS_ENV = "fly"
   RAILS_LOG_LEVEL = "debug"
   PORT = "8080"
+  ASSET_HOST = "https://d2j2bzk3qxophn.cloudfront.net"
 
 [http_service]
   internal_port = 8080
