@@ -94,15 +94,15 @@ class User < ApplicationRecord
 
   private
 
-    def new_email_must_be_unique
-      if new_email.present? && new_email_changed?
-        relation = self.class.with_email_or_new_email(new_email)
-        if persisted?
-          relation = relation.where.not(id: self.id)
-        end
-        if relation.exists?
-          errors.add(:new_email, "is already taken")
-        end
+  def new_email_must_be_unique
+    if new_email.present? && new_email_changed?
+      relation = self.class.with_email_or_new_email(new_email)
+      if persisted?
+        relation = relation.where.not(id: self.id)
+      end
+      if relation.exists?
+        errors.add(:new_email, "is already taken")
       end
     end
+  end
 end

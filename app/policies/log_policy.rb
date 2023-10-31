@@ -4,7 +4,22 @@ class LogPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    allow! if user.admin?
+
+    owner? || in_my_user_groups?
+  end
+
+  def update?
+    allow! if user.admin?
+    owner?
+  end
+
+  def create?
+    false
+  end
+
+  def destroy?
+    false
   end
 
   relation_scope do |relation|
@@ -19,5 +34,11 @@ class LogPolicy < ApplicationPolicy
     relation.joins(user: :group_memberships).where(user_id: user.id).or(
       Log.where("group_memberships.user_group_id IN (?)", user_group_ids)
     )
+  end
+
+  private
+
+  def in_my_user_groups?
+    authorized_scope(Log.all).where(id: log.id).exists?
   end
 end

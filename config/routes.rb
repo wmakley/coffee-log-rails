@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     root to: "auth/sessions#new"
   end
 
-  namespace :auth, path: '' do
+  namespace :auth, path: "" do
     resource :session, only: [:show, :new, :create, :destroy]
     resource :password_reset_request, only: [:show, :new, :create]
     resource :password, only: [:show, :edit, :update]
@@ -23,15 +23,15 @@ Rails.application.routes.draw do
         get :success
       end
     end
-    resource :email_verification, path: 'email-verification', only: [:show, :new, :create]
+    resource :email_verification, path: "email-verification", only: [:show, :new, :create]
   end
 
   resources :logs, only: [:index, :show, :destroy] do
-    resources :entries, controller: 'log_entries'
+    resources :entries, controller: "log_entries"
   end
 
-  namespace :lookup_coffee, module: nil, controller: 'lookup_coffee_form' do
-    root to: 'lookup_coffee_form#search_results'
+  namespace :lookup_coffee, module: nil, controller: "lookup_coffee_form" do
+    root to: "lookup_coffee_form#search_results"
     get :search_results
     get :select_coffee
   end
@@ -40,22 +40,22 @@ Rails.application.routes.draw do
     collection do
       get :sort
     end
-    resource :photo, controller: 'coffee_photos', only: [:show, :create, :destroy]
+    resource :photo, controller: "coffee_photos", only: [:show, :create, :destroy]
   end
 
   resources :coffee_brands do
-    resource :logo, controller: 'coffee_brand_logos', only: [:show, :destroy]
+    resource :logo, controller: "coffee_brand_logos", only: [:show, :destroy]
   end
 
-  resource :my_account, controller: 'my_account', only: [:show, :edit, :update]
+  resource :my_account, controller: "my_account", only: [:show, :edit, :update]
 
   # Admin-only
   resources :brew_methods
   resources :users
-  resources :user_groups, path: 'user-groups', except: [:show] do
-    resources :memberships, controller: 'user_group_memberships', only: [:index, :new, :create, :destroy]
+  resources :user_groups, path: "user-groups", except: [:show] do
+    resources :memberships, controller: "user_group_memberships", only: [:index, :new, :create, :destroy]
   end
-  resources :signup_codes, path: 'signup-codes', except: [:show]
+  resources :signup_codes, path: "signup-codes", except: [:show]
   resources :banned_ips, only: [:index, :show, :destroy]
   resources :exceptions, only: [:index]
 end

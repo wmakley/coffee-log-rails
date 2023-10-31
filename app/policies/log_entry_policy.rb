@@ -1,41 +1,26 @@
 # frozen_string_literal: true
 
 class LogEntryPolicy < ApplicationPolicy
+  authorize :log
+
   def index?
-    true
+    allowed_to?(:show?, log)
   end
 
   def show?
-    allow! if user.admin?
-
-    # TODO
-    true
-  end
-
-  def new?
-    create?
+    allowed_to?(:show?, log)
   end
 
   def create?
-    true
-  end
-
-  def edit?
-    update?
+    allowed_to?(:edit?, log)
   end
 
   def update?
-    allow! if user.admin?
-
-    # TODO
-    true
+    allowed_to?(:edit?, log)
   end
 
   def destroy?
-    allow! if user.admin?
-
-    # TODO
-    true
+    allowed_to?(:edit?, log)
   end
 
   relation_scope do |relation|
@@ -43,10 +28,4 @@ class LogEntryPolicy < ApplicationPolicy
 
     relation.where(log_id: allowed_log_ids)
   end
-
-  private
-
-    def allowed_log_ids
-      @allowed_log_ids ||= authorized_scope(Log.all).pluck(:id)
-    end
 end

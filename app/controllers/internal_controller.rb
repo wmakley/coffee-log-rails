@@ -4,6 +4,8 @@ class InternalController < ApplicationController
   before_action :authenticate_user_from_session!
   # before_action :set_paper_trail_whodunnit
   before_action :set_logs
+
+  authorize :log, through: :current_log
   verify_authorized
 
   rescue_from ActionPolicy::Unauthorized do |exception|
@@ -18,7 +20,11 @@ class InternalController < ApplicationController
 
   private
 
-    def set_logs
-      @logs = Log.visible_to_user(Current.user)
-    end
+  def current_log
+    @log || @log_entry&.log || current_user.log
+  end
+
+  def set_logs
+    @logs = Log.visible_to_user(Current.user)
+  end
 end

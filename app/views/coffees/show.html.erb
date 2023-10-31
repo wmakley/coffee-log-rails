@@ -51,7 +51,7 @@
             <li>This coffee does not have any log entries.</li>
           <% end %>
         </ul>
-        <% if Current.user.log && allowed_to?(:create?, LogEntry) %>
+        <% if Current.user.log && allowed_to?(:create?, LogEntry, context: {log: current_user.log}) %>
           <p>
             <%= link_to "Add Log Entry", new_log_entry_path(Current.user.log, coffee_id: @coffee.id, cancel_url: request.path), class: "btn btn-success btn-sm" %>
           </p>

@@ -23,12 +23,12 @@ class MyAccountController < InternalController
 
   private
 
-    def my_account_params
-      params.require(:user).permit(
-        :display_name,
-        :new_email,
-        :password,
-        :password_confirmation
-      )
-    end
+  def my_account_params
+    params.require(:user).permit(
+      :display_name,
+      :new_email,
+      :password,
+      :password_confirmation
+    )
+  end
 end

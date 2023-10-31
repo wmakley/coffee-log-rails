@@ -1,28 +1,12 @@
 class LogsController < InternalController
+  skip_verify_authorized only: [:index]
+
   def index
-    authorize!
     create_or_redirect_to_log_for_user
   end
 
   def show
-    authorize!
     redirect_to log_entries_url(params[:id])
-  end
-
-  def create_or_redirect_to_log_for_user
-    authorize! Log, to: :show?
-    log = Log.owner(current_user).order(:id).first
-
-    if log.nil?
-      logger.info "Log for user '#{current_user.username}' not found, creating"
-      log = Log.create!(
-        user: current_user,
-        title: "#{current_user.display_name}'s Log",
-        slug: current_user.short_username.gsub(/[^a-z0-9\-_]/, '-')
-      )
-    end
-
-    redirect_to log_entries_url(log)
   end
 
   def destroy
@@ -37,5 +21,22 @@ class LogsController < InternalController
     end
 
     redirect_to logs_url, notice: "Successfully deleted log and all entries."
+  end
+
+  private
+
+  def create_or_redirect_to_log_for_user
+    log = Log.owner(current_user).order(:id).first
+
+    if log.nil?
+      logger.info "Log for user '#{current_user.username}' not found, creating"
+      log = Log.create!(
+        user: current_user,
+        title: "#{current_user.display_name}'s Log",
+        slug: current_user.short_username.gsub(/[^a-z0-9\-_]/, '-')
+      )
+    end
+
+    redirect_to log_entries_url(log)
   end
 end
