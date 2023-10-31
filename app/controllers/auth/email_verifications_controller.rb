@@ -39,8 +39,8 @@ module Auth
 
     private
 
-      def email_verification_params
-        params.permit(:email, :token)
-      end
+    def email_verification_params
+      params.permit(:email, :token)
+    end
   end
 end

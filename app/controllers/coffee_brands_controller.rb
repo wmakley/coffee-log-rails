@@ -2,7 +2,7 @@
 
 class CoffeeBrandsController < InternalController
   before_action :set_coffee_brand,
-                only: [:show, :edit, :update, :destroy]
+    only: [:show, :edit, :update, :destroy]
 
   def index
     authorize!
@@ -53,11 +53,11 @@ class CoffeeBrandsController < InternalController
 
   private
 
-    def set_coffee_brand
-      @coffee_brand = CoffeeBrand.find(params[:id])
-    end
+  def set_coffee_brand
+    @coffee_brand = CoffeeBrand.find(params[:id])
+  end
 
-    def coffee_brand_params
-      params.require(:coffee_brand).permit(:name, :logo, :url, :notes)
-    end
+  def coffee_brand_params
+    params.require(:coffee_brand).permit(:name, :logo, :url, :notes)
+  end
 end

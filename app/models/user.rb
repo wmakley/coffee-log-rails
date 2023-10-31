@@ -35,18 +35,18 @@ class User < ApplicationRecord
   include EmailVerification
 
   has_one :log,
-          foreign_key: :user_id,
-          inverse_of: :user,
-          dependent: :destroy
+    foreign_key: :user_id,
+    inverse_of: :user,
+    dependent: :destroy
 
   has_many :group_memberships, dependent: :destroy
 
   # has_paper_trail
   has_secure_password
 
-  normalizes :display_name, with: -> display_name { display_name.squish.presence }
-  normalizes :email, with: -> email { email.strip.presence }
-  normalizes :new_email, with: -> new_email { new_email.strip.presence }
+  normalizes :display_name, with: ->(display_name) { display_name.squish.presence }
+  normalizes :email, with: ->(email) { email.strip.presence }
+  normalizes :new_email, with: ->(new_email) { new_email.strip.presence }
 
   before_validation do
     # email is always copied to username and downcased currently
@@ -60,25 +60,25 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, format: /\A\S+\z/
   # Duplicated in UserSignup:
   validates :password,
-            presence: true,
-            length: { minimum: 6, maximum: 255 },
-            format: /\A\S.*\S\z/,
-            if: -> { !password.nil? }
+    presence: true,
+    length: {minimum: 6, maximum: 255},
+    format: /\A\S.*\S\z/,
+    if: -> { !password.nil? }
   validates :display_name, presence: true, uniqueness: true
   validates :email,
-            presence: true,
-            length: { maximum: 255 },
-            uniqueness: true
+    presence: true,
+    length: {maximum: 255},
+    uniqueness: true
   validates :new_email,
-            format: { with: /\A\S[^@]*@[^@]*\S\z/, allow_nil: true },
-            length: { maximum: 255, allow_nil: true }
+    format: {with: /\A\S[^@]*@[^@]*\S\z/, allow_nil: true},
+    length: {maximum: 255, allow_nil: true}
   validate :new_email_must_be_unique
 
   scope :by_name, -> { order(:display_name) }
 
   # Perform a case-insensitive username lookup (username is always lower-case email)
-  scope :with_username, -> (username) { where(username: username.to_s.downcase) }
-  scope :with_email_or_new_email, -> (email) {
+  scope :with_username, ->(username) { where(username: username.to_s.downcase) }
+  scope :with_email_or_new_email, ->(email) {
     where(email: email).or(where(new_email: email))
   }
 
@@ -89,7 +89,7 @@ class User < ApplicationRecord
 
   # Username without email suffix "@domain"
   def short_username
-    username.split('@', 2).first if username
+    username.split("@", 2).first if username
   end
 
   private
@@ -98,7 +98,7 @@ class User < ApplicationRecord
     if new_email.present? && new_email_changed?
       relation = self.class.with_email_or_new_email(new_email)
       if persisted?
-        relation = relation.where.not(id: self.id)
+        relation = relation.where.not(id: id)
       end
       if relation.exists?
         errors.add(:new_email, "is already taken")

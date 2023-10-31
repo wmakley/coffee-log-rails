@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class UsersTest < ActionDispatch::IntegrationTest
-
-
   test "not accessible by non-admin" do
     login_as :non_admin
     get "/users"
@@ -33,7 +31,7 @@ class UsersTest < ActionDispatch::IntegrationTest
         username: "test",
         email: random_email,
         password: "testtesttest",
-      }
+      },
     }
     assert_redirected_to "/users"
     follow_redirect!
@@ -52,7 +50,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     patch "/users/1", params: {
       user: {
         display_name: "New Name",
-      }
+      },
     }
     assert_redirected_to "/users"
     follow_redirect!
@@ -65,7 +63,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     patch "/users/1", params: {
       user: {
         display_name: "",
-      }
+      },
     }
     assert_response :unprocessable_entity
   end

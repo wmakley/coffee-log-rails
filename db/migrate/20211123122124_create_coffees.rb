@@ -34,16 +34,16 @@ class CreateCoffees < ActiveRecord::Migration[6.1]
 
     change_column_null :log_entries, :coffee_id, false
     add_foreign_key :log_entries, :coffees,
-                    column: :coffee_id,
-                    on_update: :cascade,
-                    on_delete: :restrict
+      column: :coffee_id,
+      on_update: :cascade,
+      on_delete: :restrict
     remove_column :log_entries, :coffee
 
     add_column :log_entry_versions, :coffee_id, :bigint
     add_foreign_key :log_entry_versions, :coffees,
-                    column: :coffee_id,
-                    on_update: :cascade,
-                    on_delete: :restrict
+      column: :coffee_id,
+      on_update: :cascade,
+      on_delete: :restrict
     execute "UPDATE log_entry_versions SET coffee_id = (SELECT e.coffee_id FROM log_entries e WHERE e.id = log_entry_versions.log_entry_id)"
     change_column_null :log_entry_versions, :coffee_id, false
     remove_column :log_entry_versions, :coffee

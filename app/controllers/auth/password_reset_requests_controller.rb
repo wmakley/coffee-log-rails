@@ -2,7 +2,6 @@
 
 module Auth
   class PasswordResetRequestsController < ExternalController
-
     def index
       redirect_to action: :new
     end
@@ -16,11 +15,11 @@ module Auth
     end
 
     def create
-      success = verify_recaptcha(action: 'request_password_reset', minimum_score: 0.5)
+      success = verify_recaptcha(action: "request_password_reset", minimum_score: 0.5)
       logger.info "Recaptcha success: #{success}"
       if !success
         logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?
-        score = recaptcha_reply['score'] if recaptcha_reply
+        score = recaptcha_reply["score"] if recaptcha_reply
         logger.info("User was denied their password reset request because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
       end
 
@@ -36,8 +35,8 @@ module Auth
 
     private
 
-      def password_reset_request_params
-        params.require(:password_reset_request).permit(:email)
-      end
+    def password_reset_request_params
+      params.require(:password_reset_request).permit(:email)
+    end
   end
 end

@@ -4,7 +4,7 @@ require "test_helper"
 
 class Fail2BanTest < ActiveSupport::TestCase
   test "#record_failed_attempt" do
-    ip = '1.2.3.4'
+    ip = "1.2.3.4"
 
     record = Fail2Ban.record_failed_attempt(ip)
     assert record.is_a?(LoginAttempt)

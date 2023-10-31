@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require "application_system_test_case"
 
 class NewBrandCoffeeEntryFlowSystemTest < ApplicationSystemTestCase
-
-
   setup do
     login_as users(:default)
   end

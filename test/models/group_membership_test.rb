@@ -21,7 +21,6 @@
 require "test_helper"
 
 class GroupMembershipTest < ActiveSupport::TestCase
-
   def valid_attributes
     {
       user_id: users(:no_group).id,

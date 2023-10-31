@@ -2,7 +2,6 @@
 
 module Auth
   class PasswordsController < ExternalController
-
     def index
       redirect_to action: :edit
     end
@@ -22,11 +21,11 @@ module Auth
     def update
       @password_reset = PasswordReset.new(password_reset_params)
 
+      reset_session
+
       if @password_reset.save
-        reset_session
         redirect_to new_auth_session_url, notice: "Successfully reset password. Please login with your new password."
       else
-        reset_session
         render action: :edit, status: :unprocessable_entity
       end
 
@@ -35,12 +34,12 @@ module Auth
 
     private
 
-      def password_reset_params
-        params.require(:password_reset).permit(
-          :token,
-          :password,
-          :password_confirmation
-        ).to_h
-      end
+    def password_reset_params
+      params.require(:password_reset).permit(
+        :token,
+        :password,
+        :password_confirmation,
+      ).to_h
+    end
   end
 end

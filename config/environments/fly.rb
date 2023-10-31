@@ -53,8 +53,8 @@ Rails.application.configure do
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
-                                       .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-                                       .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -108,6 +108,6 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = {
     host: 'coffee-log.willmakley.dev',
-    port: 443
+    port: 443,
   }
 end

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
-ENV['RAILS_ENV'] ||= 'test'
+
+ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
-require_relative "./random_test_data"
+require_relative "random_test_data"
 
 module ActiveSupport
   class TestCase
@@ -16,8 +17,8 @@ module ActiveSupport
 
     # Add more helper methods to be used by all tests here...
 
-    TEST_USERNAME = 'default'
-    TEST_PASSWORD = 'password'
+    TEST_USERNAME = "default"
+    TEST_PASSWORD = "password"
 
     def with_unique_number
       @_unique_number ||= 0
@@ -68,9 +69,9 @@ module RemoveUploadedFiles
 
   private
 
-    def remove_uploaded_files
-      FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
-    end
+  def remove_uploaded_files
+    FileUtils.rm_rf(Rails.root.join("tmp", "storage"))
+  end
 end
 
 module LoginAs

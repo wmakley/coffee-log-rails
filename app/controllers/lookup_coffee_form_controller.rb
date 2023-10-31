@@ -23,11 +23,11 @@ class LookupCoffeeFormController < InternalController
 
   private
 
-    def initial_coffee_scope
-      authorized_scope(Coffee.all).includes(:coffee_brand, photo_attachment: :blob)
-    end
+  def initial_coffee_scope
+    authorized_scope(Coffee.all).includes(:coffee_brand, photo_attachment: :blob)
+  end
 
-    def coffee_search_form_params
-      params.permit(:query, :coffee_id).to_h
-    end
+  def coffee_search_form_params
+    params.permit(:query, :coffee_id).to_h
+  end
 end

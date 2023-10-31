@@ -14,7 +14,7 @@ class CreateCoffeeBrands < ActiveRecord::Migration[6.1]
 
     default_brand = CoffeeBrand.new(
       id: 0,
-      name: "Unknown Brand"
+      name: "Unknown Brand",
     )
     puts "Creating default brand: #{default_brand.inspect}"
     default_brand.save!

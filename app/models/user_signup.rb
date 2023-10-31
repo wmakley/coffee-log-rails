@@ -18,12 +18,12 @@ class UserSignup
   end
 
   validates_presence_of :code,
-                        :new_email,
-                        :display_name,
-                        # Password validation is delegated to the User model in #save, here
-                        # we just make sure the form is filled out.
-                        :password,
-                        :password_confirmation
+    :new_email,
+    :display_name,
+    # Password validation is delegated to the User model in #save, here
+    # we just make sure the form is filled out.
+    :password,
+    :password_confirmation
 
   # @return [User,FalseClass]
   def save
@@ -62,8 +62,8 @@ class UserSignup
     return false if errors.present?
 
     SignupFormMailer.with(user: user)
-                    .welcome_email
-                    .deliver_later
+      .welcome_email
+      .deliver_later
     user
   end
 

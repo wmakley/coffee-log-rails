@@ -24,7 +24,7 @@ class CreateBrewMethods < ActiveRecord::Migration[6.1]
         { name: "Drip" },
         { name: "Cup" },
         { id: 0, name: "Other" },
-      ]
+      ],
     )
     pp brew_methods
 

@@ -9,7 +9,6 @@
 #  updated_at         :datetime         not null
 #
 class BrewMethod < ApplicationRecord
-
   has_many :log_entries, dependent: :restrict_with_error
 
   before_validation do
@@ -17,17 +16,17 @@ class BrewMethod < ApplicationRecord
   end
 
   validates :name,
-            presence: true,
-            uniqueness: true,
-            length: { maximum: 100 }
+    presence: true,
+    uniqueness: true,
+    length: {maximum: 100}
 
   validates :default_brew_ratio,
-            numericality: {
-              greater_than: 0,
-              less_than: 1000,
-            }
+    numericality: {
+      greater_than: 0,
+      less_than: 1000,
+    }
 
-  normalizes :name, with: -> name { name.squish.presence }
+  normalizes :name, with: ->(name) { name.squish.presence }
 
   before_destroy do
     if id == 0

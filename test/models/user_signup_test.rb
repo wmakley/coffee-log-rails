@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class UserSignupTest < ActiveSupport::TestCase
-
   def valid_attributes
     {
       code: signup_codes(:active).code,
@@ -58,7 +57,7 @@ class UserSignupTest < ActiveSupport::TestCase
     form = UserSignup.new(
       valid_attributes.merge(
         password: "  a  ", # User validates passwords
-      )
+      ),
     )
     assert form.valid?
 

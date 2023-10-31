@@ -1,7 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
 class PasswordResetRequestTest < ActiveSupport::TestCase
-
   def assert_reset_token_set(user)
     assert_not_nil user.reset_password_token
     assert_not_nil user.reset_password_token_created_at

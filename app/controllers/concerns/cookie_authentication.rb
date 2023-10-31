@@ -6,8 +6,11 @@ module CookieAuthentication
   class AuthenticationError < StandardError; end
 
   class NotAuthenticatedError < AuthenticationError; end
+
   class SessionExpiredError < AuthenticationError; end
+
   class PasswordChangedError < AuthenticationError; end
+
   class EmailVerificationNeededError < AuthenticationError
     def initialize(user)
       super("Email address not verified")
@@ -38,7 +41,7 @@ module CookieAuthentication
       authenticate_user_from_session!
     rescue AuthenticationError => ex
       logger.info "Unable to authenticate user: #{ex.message}"
-      return false
+      false
     end
   end
 
@@ -61,11 +64,11 @@ module CookieAuthentication
 
     last_login_at = Time.at(cookie[:last_login_at].to_i)
 
-    if last_login_at < 30.days.ago
+    if last_login_at.before? 30.days.ago
       raise SessionExpiredError, "Last logged in more than 1 month ago"
     end
 
-    if last_login_at < user.password_changed_at
+    if last_login_at.before? user.password_changed_at
       raise PasswordChangedError, "Password changed since last login"
     end
 

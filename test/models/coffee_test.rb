@@ -27,11 +27,10 @@
 require "test_helper"
 
 class CoffeeTest < ActiveSupport::TestCase
-
   def valid_attributes
     {
       coffee_brand: coffee_brands(:default),
-      name: "Test Coffee"
+      name: "Test Coffee",
     }
   end
 

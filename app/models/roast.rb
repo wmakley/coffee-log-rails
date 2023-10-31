@@ -15,12 +15,12 @@
 class Roast < ApplicationRecord
   has_many :coffees
 
-  normalizes :name, with: -> name { name.squish }
+  normalizes :name, with: ->(name) { name.squish }
 
   validates :name,
-            presence: true,
-            length: { maximum: 100 },
-            uniqueness: true
+    presence: true,
+    length: {maximum: 100},
+    uniqueness: true
 
   def self.for_select
     order(:id).pluck(:name, :id)

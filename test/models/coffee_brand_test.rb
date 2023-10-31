@@ -21,7 +21,7 @@ class CoffeeBrandTest < ActiveSupport::TestCase
     @counter += 1
 
     {
-      name: "Test Brand #{@counter}"
+      name: "Test Brand #{@counter}",
     }
   end
 

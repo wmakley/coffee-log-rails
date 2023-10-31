@@ -16,6 +16,6 @@ require "test_helper"
 
 class RoastTest < ActiveSupport::TestCase
   test "it saves with valid attributes" do
-    assert Roast.create!({ name: "asdfasdfasdf" })
+    assert Roast.create!({name: "asdfasdfasdf"})
   end
 end

@@ -51,10 +51,10 @@ class LogEntry < ApplicationRecord
 
   NEWLINE_REPLACEMENT_REGEX = /\r\n|\r(?!\n)/
 
-  normalizes :water, with: -> water { water.squish.presence }
-  normalizes :grind_notes, with: -> grind_notes { grind_notes.squish.presence }
-  normalizes :tasting_notes, with: -> tasting_notes { tasting_notes.strip.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence }
-  normalizes :addl_notes, with: -> addl_notes { addl_notes.strip.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence }
+  normalizes :water, with: ->(water) { water.squish.presence }
+  normalizes :grind_notes, with: ->(grind_notes) { grind_notes.squish.presence }
+  normalizes :tasting_notes, with: ->(tasting_notes) { tasting_notes.strip.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence }
+  normalizes :addl_notes, with: ->(addl_notes) { addl_notes.strip.gsub(NEWLINE_REPLACEMENT_REGEX, "\n").presence }
 
   before_validation do
     if water_grams.is_a? String
@@ -68,20 +68,20 @@ class LogEntry < ApplicationRecord
   validates_presence_of :entry_date
 
   validates_length_of :water,
-                      :grind_notes,
-                      maximum: 255, allow_nil: true
+    :grind_notes,
+    maximum: 255, allow_nil: true
   validates_length_of :tasting_notes, :preparation_notes, :addl_notes,
-                      maximum: 4000, allow_nil: true
+    maximum: 4000, allow_nil: true
 
   validates_numericality_of :coffee_grams,
-                            :water_grams,
-                            only_integer: true,
-                            allow_blank: true,
-                            minimum: 1
+    :water_grams,
+    only_integer: true,
+    allow_blank: true,
+    minimum: 1
 
   validates_numericality_of :grind_setting,
-                            :water_temp_in_celsius,
-                            allow_blank: true
+    :water_temp_in_celsius,
+    allow_blank: true
 
   # Ratings out of five
   validates_numericality_of :acidity, :body, :bitterness, :overall_rating,
@@ -93,9 +93,8 @@ class LogEntry < ApplicationRecord
   validates :strength, numericality: {
     only_integer: true,
     allow_blank: true,
-    minimum: -2, maximum: 2,
+    minimum: -2, maximum: 2
   }
-
 
   def coffee_name
     coffee&.name

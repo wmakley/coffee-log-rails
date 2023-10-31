@@ -13,14 +13,14 @@ module DeliveryMethods
         {
           from_email_address: Array(mail.from).first,
           destination: {
-            to_addresses: mail.destinations
+            to_addresses: mail.destinations,
           },
           content: {
             raw: {
-              data: mail.encoded
-            }
-          }
-        }
+              data: mail.encoded,
+            },
+          },
+        },
       )
     end
 

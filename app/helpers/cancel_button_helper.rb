@@ -6,7 +6,7 @@ module CancelButtonHelper
     classes << html_options[:class] if html_options.has_key?(:class)
 
     link_options = html_options.merge(
-      class: classes.join(" ")
+      class: classes.join(" "),
     )
 
     link_to("Cancel", url, link_options)

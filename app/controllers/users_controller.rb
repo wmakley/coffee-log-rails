@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class UsersController < InternalController
-
   def index
     authorize!
     @users = authorized_scope(User.all).by_name
@@ -63,14 +62,14 @@ class UsersController < InternalController
 
   private
 
-    def user_params
-      params.require(:user).permit(
-        :display_name,
-        :email,
-        :username,
-        :password,
-        :password_confirmation,
-        :admin,
-      )
-    end
+  def user_params
+    params.require(:user).permit(
+      :display_name,
+      :email,
+      :username,
+      :password,
+      :password_confirmation,
+      :admin,
+    )
+  end
 end

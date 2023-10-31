@@ -104,6 +104,6 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = {
     host: 'coffee-log-rails.onrender.com',
-    port: 443
+    port: 443,
   }
 end

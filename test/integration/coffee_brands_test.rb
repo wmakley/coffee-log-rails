@@ -3,7 +3,6 @@
 require "test_helper"
 
 class CoffeeBrandsTest < ActionDispatch::IntegrationTest
-
   test "index" do
     login_as users(:non_admin)
     get "/coffee_brands"
@@ -28,11 +27,11 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
   test "create success" do
     login_as users(:non_admin)
     post "/coffee_brands",
-         params: {
-           coffee_brand: {
-             name: "Test Brand"
-           }
-         }
+      params: {
+        coffee_brand: {
+          name: "Test Brand",
+        },
+      }
     brand = CoffeeBrand.last
     assert_redirected_to "/coffee_brands/#{brand.id}"
     follow_redirect!
@@ -42,11 +41,11 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
   test "create failure" do
     login_as users(:non_admin)
     post "/coffee_brands",
-         params: {
-           coffee_brand: {
-             name: ""
-           }
-         }
+      params: {
+        coffee_brand: {
+          name: "",
+        },
+      }
     assert_response :unprocessable_entity
   end
 
@@ -59,11 +58,11 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
   test "update success" do
     login_as users(:non_admin)
     patch "/coffee_brands/1",
-          params: {
-            coffee_brand: {
-              name: "New Name"
-            }
-          }
+      params: {
+        coffee_brand: {
+          name: "New Name",
+        },
+      }
     assert_redirected_to "/coffee_brands/1"
     follow_redirect!
     assert_response :success
@@ -72,15 +71,15 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
   test "update failure" do
     login_as users(:non_admin)
     patch "/coffee_brands/1",
-          params: {
-            coffee_brand: {
-              name: ""
-            }
-          }
+      params: {
+        coffee_brand: {
+          name: "",
+        },
+      }
     assert_response :unprocessable_entity
   end
 
-  test "destroy as non_admin is not authorized" do ||
+  test "destroy as non_admin is not authorized" do
     login_as users(:non_admin)
     coffee_brand = CoffeeBrand.create!(name: random_string(8))
     delete "/coffee_brands/#{coffee_brand.to_param}"

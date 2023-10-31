@@ -16,24 +16,24 @@ end
 unless BrewMethod.exists?
   BrewMethod.create!(
     [
-      { name: "French Press" },
-      { name: "Pour-Over" },
-      { name: "Moka Pot" },
-      { name: "Drip" },
-      { name: "Cup" },
-      { id: 0, name: "Other" },
-    ]
+      {name: "French Press"},
+      {name: "Pour-Over"},
+      {name: "Moka Pot"},
+      {name: "Drip"},
+      {name: "Cup"},
+      {id: 0, name: "Other"},
+    ],
   )
 end
 
 unless Roast.exists?
   Roast.create!(
     [
-      { id: 1, name: "Light" },
-      { id: 2, name: "Medium-Light" },
-      { id: 3, name: "Medium" },
-      { id: 4, name: "Medium-Dark" },
-      { id: 5, name: "Dark" }
-    ]
+      {id: 1, name: "Light"},
+      {id: 2, name: "Medium-Light"},
+      {id: 3, name: "Medium"},
+      {id: 4, name: "Medium-Dark"},
+      {id: 5, name: "Dark"},
+    ],
   )
 end

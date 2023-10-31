@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class UserGroupMembershipsTest < ActionDispatch::IntegrationTest
   setup do
@@ -21,19 +21,18 @@ class UserGroupMembershipsTest < ActionDispatch::IntegrationTest
     user = users(:group_a)
     post "/user-groups/#{@user_group.to_param}/memberships", params: {
       group_membership: {
-        user_id: user.id
-      }
+        user_id: user.id,
+      },
     }
     assert_redirected_to "/user-groups/#{@user_group.to_param}/memberships"
     assert_equal "Successfully added user to group.", flash[:notice]
   end
 
   test "create with invalid attributes" do
-    user = users(:group_a)
     post "/user-groups/#{@user_group.to_param}/memberships", params: {
       group_membership: {
-        user_id: nil
-      }
+        user_id: nil,
+      },
     }
     assert_response :unprocessable_entity
     assert_select "form.group-membership", 1

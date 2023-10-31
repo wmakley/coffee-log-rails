@@ -18,11 +18,11 @@ module Auth
     end
 
     def create
-      success = verify_recaptcha(action: 'login', minimum_score: 0.5)
+      success = verify_recaptcha(action: "login", minimum_score: 0.5)
       logger.info "Recaptcha success: #{success}"
       if !success
         logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?
-        score = recaptcha_reply['score'] if recaptcha_reply
+        score = recaptcha_reply["score"] if recaptcha_reply
         logger.info("User was denied login because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
       end
 
@@ -45,8 +45,8 @@ module Auth
 
     private
 
-      def login_form_params
-        params.require(:login_form).permit(:username, :password)
-      end
+    def login_form_params
+      params.require(:login_form).permit(:username, :password)
+    end
   end
 end

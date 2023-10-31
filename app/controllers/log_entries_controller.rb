@@ -10,7 +10,7 @@ class LogEntriesController < InternalController
     authorize!
     @log_entries = @log.log_entries.by_date_desc.includes(
       coffee: {photo_attachment: :blob},
-      brew_method: {}
+      brew_method: {},
     ).load
 
     set_new_log_entry_from_previous(@log_entries.first)
@@ -87,26 +87,26 @@ class LogEntriesController < InternalController
 
   def log_entry_params
     params.require(:log_entry)
-          .permit(
-            :entry_date,
-            :coffee_id,
-            :water,
-            :brew_method_id,
-            :grind_notes,
-            :grind_setting,
-            :preparation_notes,
-            :tasting_notes,
-            :addl_notes,
-            :coffee_grams,
-            :water_grams,
-            :water_temp_in_celsius,
-            :water_temp_in_fahrenheit,
-            :bitterness,
-            :acidity,
-            :body,
-            :strength,
-            :overall_rating,
-          )
+      .permit(
+        :entry_date,
+        :coffee_id,
+        :water,
+        :brew_method_id,
+        :grind_notes,
+        :grind_setting,
+        :preparation_notes,
+        :tasting_notes,
+        :addl_notes,
+        :coffee_grams,
+        :water_grams,
+        :water_temp_in_celsius,
+        :water_temp_in_fahrenheit,
+        :bitterness,
+        :acidity,
+        :body,
+        :strength,
+        :overall_rating,
+      )
   end
 
   def set_log

@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class SessionsTest < ActionDispatch::IntegrationTest
-
-
   def valid_login_params
     {
       login_form: {
@@ -18,7 +16,7 @@ class SessionsTest < ActionDispatch::IntegrationTest
     {
       login_form: {
         username: users(:default).username,
-        password: '24435345',
+        password: "24435345",
       },
     }
   end
@@ -26,7 +24,7 @@ class SessionsTest < ActionDispatch::IntegrationTest
   def invalid_username_params
     {
       login_form: {
-        username: 'somebody',
+        username: "somebody",
         password: TEST_PASSWORD,
       },
     }
@@ -37,7 +35,7 @@ class SessionsTest < ActionDispatch::IntegrationTest
       login_form: {
         username: users(:unverified_email).username,
         password: TEST_PASSWORD,
-      }
+      },
     }
   end
 

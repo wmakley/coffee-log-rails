@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require 'test_helper'
+
+require "test_helper"
 
 class LookupCoffeeFormTest < ActiveSupport::TestCase
-
   test "#search_results with empty query returns no results" do
     form = LookupCoffeeForm.new(Coffee.all, query: "")
     search_results = form.search_results.load

@@ -56,13 +56,13 @@ class UserGroupsController < InternalController
 
   private
 
-    def set_user_group
-      @user_group = UserGroup.find(params[:id])
-    end
+  def set_user_group
+    @user_group = UserGroup.find(params[:id])
+  end
 
-    def user_group_params
-      params.require(:user_group).permit(
-        :name,
-      )
-    end
+  def user_group_params
+    params.require(:user_group).permit(
+      :name,
+    )
+  end
 end

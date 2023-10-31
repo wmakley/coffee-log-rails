@@ -11,7 +11,7 @@ class InternalController < ApplicationController
   rescue_from ActionPolicy::Unauthorized do |exception|
     respond_to do |format|
       format.html do
-        msg = I18n.t('errors.not_authorized')
+        msg = I18n.t("errors.not_authorized")
         flash[:error] = msg
         redirect_back_or_to root_path
       end

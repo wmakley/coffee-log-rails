@@ -28,7 +28,7 @@ class PasswordResetRequest
       user.generate_reset_password_token!
       unless user.save
         user.errors.each do |error|
-          self.errors.add(:user, error.full_message)
+          errors.add(:user, error.full_message)
         end
         # self.errors = user.errors
         logger.error "Error saving User: #{errors.full_messages.inspect}"
@@ -41,8 +41,8 @@ class PasswordResetRequest
     return true if user.nil?
 
     PasswordResetRequestMailer.with(user: user)
-                              .reset_password_link
-                              .deliver_later
+      .reset_password_link
+      .deliver_later
 
     true
   end

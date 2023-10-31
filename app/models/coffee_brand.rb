@@ -26,13 +26,13 @@ class CoffeeBrand < ApplicationRecord
   normalizes :url, with: ->(url) { url.strip.presence }
   normalizes :notes, with: ->(notes) { notes.strip.gsub(/\r\n?/, "\n").presence }
 
-  validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
-  validates :url, length: { maximum: 255, allow_nil: true }
-  validates :notes, length: { maximum: 4000, allow_nil: true }
+  validates :name, presence: true, uniqueness: true, length: {maximum: 255}
+  validates :url, length: {maximum: 255, allow_nil: true}
+  validates :notes, length: {maximum: 4000, allow_nil: true}
 
   before_destroy do
     if id.zero?
-      errors.add(:base, 'may not delete default brand')
+      errors.add(:base, "may not delete default brand")
       throw :abort
     end
   end

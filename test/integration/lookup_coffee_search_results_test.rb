@@ -3,8 +3,6 @@
 require "test_helper"
 
 class LookupCoffeeSearchResultsTest < ActionDispatch::IntegrationTest
-
-
   setup do
     login_as users(:default)
   end
@@ -12,7 +10,7 @@ class LookupCoffeeSearchResultsTest < ActionDispatch::IntegrationTest
   test "no query returns no results" do
     get "/lookup_coffee/search_results", params: {
       query: "",
-      format: :turbo_stream
+      format: :turbo_stream,
     }
 
     assert_response :success

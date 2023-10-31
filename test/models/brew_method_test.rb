@@ -10,10 +10,9 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
-require 'test_helper'
+require "test_helper"
 
 class BrewMethodTest < ActiveSupport::TestCase
-
   def valid_attributes
     {
       name: random_string(8),

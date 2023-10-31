@@ -32,7 +32,7 @@ class LogPolicy < ApplicationPolicy
     end
 
     relation.joins(user: :group_memberships).where(user_id: user.id).or(
-      Log.where("group_memberships.user_group_id IN (?)", user_group_ids)
+      Log.where("group_memberships.user_group_id IN (?)", user_group_ids),
     )
   end
 

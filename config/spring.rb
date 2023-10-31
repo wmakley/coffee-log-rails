@@ -5,5 +5,5 @@ Spring.watch(
   "Gemfile",
   "Gemfile.lock",
   "tmp/restart.txt",
-  "tmp/caching-dev.txt"
+  "tmp/caching-dev.txt",
 )

@@ -3,7 +3,6 @@
 require "test_helper"
 
 class CoffeesTest < ActionDispatch::IntegrationTest
-
   test "index" do
     login_as users(:non_admin)
     get "/coffees"
@@ -28,11 +27,11 @@ class CoffeesTest < ActionDispatch::IntegrationTest
   test "create success" do
     login_as users(:non_admin)
     post "/coffees",
-         params: {
-           coffee: {
-             name: "New Test Coffee"
-           }
-         }
+      params: {
+        coffee: {
+          name: "New Test Coffee",
+        },
+      }
     coffee = Coffee.last
     assert_redirected_to "/coffees/#{coffee.id}"
     follow_redirect!
@@ -42,11 +41,11 @@ class CoffeesTest < ActionDispatch::IntegrationTest
   test "create failure" do
     login_as users(:non_admin)
     post "/coffees",
-         params: {
-           coffee: {
-             name: ""
-           }
-         }
+      params: {
+        coffee: {
+          name: "",
+        },
+      }
     assert_response :unprocessable_entity
     assert_select "form"
   end
@@ -54,11 +53,11 @@ class CoffeesTest < ActionDispatch::IntegrationTest
   test "update success" do
     login_as users(:non_admin)
     patch "/coffees/1",
-         params: {
-           coffee: {
-             name: "New Test Coffee"
-           }
-         }
+      params: {
+        coffee: {
+          name: "New Test Coffee",
+        },
+      }
     assert_redirected_to "/coffees/1"
     follow_redirect!
     assert_response :success
@@ -67,16 +66,16 @@ class CoffeesTest < ActionDispatch::IntegrationTest
   test "update failure" do
     login_as users(:non_admin)
     patch "/coffees/1",
-         params: {
-           coffee: {
-             name: ""
-           }
-         }
+      params: {
+        coffee: {
+          name: "",
+        },
+      }
     assert_response :unprocessable_entity
     assert_select "form"
   end
 
-  test "destroy as non-admin is not authorized" do ||
+  test "destroy as non-admin is not authorized" do
     login_as users(:non_admin)
     coffee = coffees(:no_entries)
     delete "/coffees/#{coffee.id}"

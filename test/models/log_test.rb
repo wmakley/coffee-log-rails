@@ -21,12 +21,11 @@
 require "test_helper"
 
 class LogTest < ActiveSupport::TestCase
-
   def valid_attributes
     {
       title: "My Log",
       slug: "my-log",
-      user_id: users(:default).id
+      user_id: users(:default).id,
     }
   end
 

@@ -28,7 +28,7 @@ class MyAccountController < InternalController
       :display_name,
       :new_email,
       :password,
-      :password_confirmation
+      :password_confirmation,
     )
   end
 end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class EmailVerificationTest < ActionDispatch::IntegrationTest
   def unverified_email_user_login_params
@@ -6,7 +6,7 @@ class EmailVerificationTest < ActionDispatch::IntegrationTest
       login_form: {
         username: users(:unverified_email).username,
         password: TEST_PASSWORD,
-      }
+      },
     }
   end
 
@@ -55,8 +55,8 @@ class EmailVerificationTest < ActionDispatch::IntegrationTest
       post "/session", params: {
         login_form: {
           username: user.username,
-          password: 'password',
-        }
+          password: "password",
+        },
       }
     end
     assert_redirected_to "/session/new", status: :see_other

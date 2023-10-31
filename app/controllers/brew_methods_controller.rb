@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class BrewMethodsController < InternalController
-
   before_action :set_brew_method, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -53,14 +52,14 @@ class BrewMethodsController < InternalController
 
   private
 
-    def set_brew_method
-      @brew_method = BrewMethod.find(params[:id])
-    end
+  def set_brew_method
+    @brew_method = BrewMethod.find(params[:id])
+  end
 
-    def brew_method_params
-      params.require(:brew_method).permit(
-        :name,
-        :default_brew_ratio,
-      )
-    end
+  def brew_method_params
+    params.require(:brew_method).permit(
+      :name,
+      :default_brew_ratio,
+    )
+  end
 end

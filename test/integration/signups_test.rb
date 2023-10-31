@@ -23,7 +23,7 @@ class SignupsTest < ActionDispatch::IntegrationTest
 
     assert_emails 1 do
       post "/signup", params: {
-        signup_form: valid_signup_form_params
+        signup_form: valid_signup_form_params,
       }
     end
     assert_redirected_to "/signup/success"

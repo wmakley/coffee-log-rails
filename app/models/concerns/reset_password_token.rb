@@ -20,10 +20,10 @@ module ResetPasswordToken
   end
 
   included do
-    scope :reset_password_token, -> (token) { where(reset_password_token: token.to_s) }
+    scope :reset_password_token, ->(token) { where(reset_password_token: token.to_s) }
 
     before_save do
-      self.clear_reset_password_token! if will_save_change_to_password_digest?
+      clear_reset_password_token! if will_save_change_to_password_digest?
     end
   end
 end

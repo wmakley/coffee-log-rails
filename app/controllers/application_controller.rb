@@ -25,16 +25,16 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def cleanup_old_sessions
-      session.delete(:username)
-      session.delete(:password)
-    end
+  def cleanup_old_sessions
+    session.delete(:username)
+    session.delete(:password)
+  end
 
-    def redirect_to_app
-      redirect_to logs_url, status: :see_other
-    end
+  def redirect_to_app
+    redirect_to logs_url, status: :see_other
+  end
 
-    def redirect_to_login
-      redirect_to new_auth_session_url, status: :see_other
-    end
+  def redirect_to_login
+    redirect_to new_auth_session_url, status: :see_other
+  end
 end

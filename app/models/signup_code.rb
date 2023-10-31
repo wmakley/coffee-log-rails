@@ -32,21 +32,21 @@ class SignupCode < ApplicationRecord
   # has_paper_trail
 
   validates :code,
-            presence: true,
-            uniqueness: true,
-            format: {
-              with: /\A[A-Z0-9_-]+\z/,
-              message: "must contain only upper-case letters, numbers, '_', and '-'"
-            },
-            length: {
-              maximum: 100,
-            }
+    presence: true,
+    uniqueness: true,
+    format: {
+      with: /\A[A-Z0-9_-]+\z/,
+      message: "must contain only upper-case letters, numbers, '_', and '-'",
+    },
+    length: {
+      maximum: 100,
+    }
 
   # only trim whitespace, show explicit error to user to indicate expected values
-  normalizes :code, with: -> code { code.strip.presence }
+  normalizes :code, with: ->(code) { code.strip.presence }
 
   scope :active, -> { where(active: true) }
-  scope :with_code, -> (code) { where(code: code) }
+  scope :with_code, ->(code) { where(code: code) }
 
   def user_group_name
     user_group&.name

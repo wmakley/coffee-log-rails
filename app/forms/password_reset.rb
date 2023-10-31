@@ -7,14 +7,14 @@ class PasswordReset
   RESET_TOKEN_VALID_FOR = 1.hour
 
   attr_accessor :token,
-                :password,
-                :password_confirmation
+    :password,
+    :password_confirmation
 
   validates_presence_of :token,
-                        # Password validation is delegated to the User model in #save, here
-                        # we just make sure the form is filled out.
-                        :password,
-                        :password_confirmation
+    # Password validation is delegated to the User model in #save, here
+    # we just make sure the form is filled out.
+    :password,
+    :password_confirmation
 
   def invalid_token?
     @invalid_token

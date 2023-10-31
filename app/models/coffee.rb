@@ -42,16 +42,16 @@ class Coffee < ApplicationRecord
       tsearch: {
         prefix: true,
         highlight: {
-          StartSel: '<?',
-          StopSel: '?>',
+          StartSel: "<?",
+          StopSel: "?>",
           MaxWords: 123,
           MinWords: 456,
           ShortWord: 4,
           HighlightAll: true,
           MaxFragments: 3,
-          FragmentDelimiter: '&hellip;',
+          FragmentDelimiter: "&hellip;",
         },
-      }
+      },
     }
 
   scope :by_name_asc, -> { order(:name) }
@@ -70,10 +70,10 @@ class Coffee < ApplicationRecord
     end
   end
 
-  normalizes :name, with: -> name { name.squish }
-  normalizes :notes, with: -> notes { notes.strip.gsub(/\r\n?/, "\n").presence }
-  normalizes :origin, with: -> origin { origin.squish.presence }
-  normalizes :process, with: -> process { process.strip.presence }
+  normalizes :name, with: ->(name) { name.squish }
+  normalizes :notes, with: ->(notes) { notes.strip.gsub(/\r\n?/, "\n").presence }
+  normalizes :origin, with: ->(origin) { origin.squish.presence }
+  normalizes :process, with: ->(process) { process.strip.presence }
 
   validates :name,
     presence: true,

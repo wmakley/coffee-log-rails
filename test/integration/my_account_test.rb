@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class MyAccountTest < ActionDispatch::IntegrationTest
   setup do
@@ -19,7 +19,7 @@ class MyAccountTest < ActionDispatch::IntegrationTest
       user: {
         password: "testtesttesttest",
         password_confirmation: "testtesttesttest",
-      }
+      },
     }
     assert_redirected_to "/my_account"
     follow_redirect!
@@ -29,8 +29,8 @@ class MyAccountTest < ActionDispatch::IntegrationTest
   test "may not make self an admin" do
     patch "/my_account", params: {
       user: {
-        admin: "1"
-      }
+        admin: "1",
+      },
     }
     assert_redirected_to "/my_account"
     user = users(:non_admin)

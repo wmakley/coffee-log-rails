@@ -41,8 +41,6 @@
 require "test_helper"
 
 class LogEntryTest < ActiveSupport::TestCase
-
-
   def valid_attributes
     {
       log: logs(:default),

@@ -14,11 +14,11 @@ class LoginAttempt < ApplicationRecord
 
   validates :ip_address, presence: true
   validates :attempts,
-            presence: true,
-            numericality: {
-              only_integer: true,
-              greater_than_or_equal_to: 1
-            }
+    presence: true,
+    numericality: {
+      only_integer: true,
+      greater_than_or_equal_to: 1,
+    }
 
   MAX_ATTEMPTS = 10
 

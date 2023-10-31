@@ -45,3 +45,16 @@ Lint/Env:
     - "**/spec/*_helper.rb"
     - "**/spec/**/support/**/*"
     - "lib/generators/**/*"
+
+Rails/Output:
+  Exclude:
+    - "db/**/*"
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

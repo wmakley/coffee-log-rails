@@ -21,7 +21,6 @@
 require "test_helper"
 
 class SignupCodeTest < ActiveSupport::TestCase
-
   def valid_attributes
     with_unique_number do |n|
       {

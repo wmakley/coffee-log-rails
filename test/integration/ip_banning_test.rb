@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class IpBanningTest < ActionDispatch::IntegrationTest
   test "IPs are banned after 10 failed login attempts" do
-    assert_not Fail2Ban.banned?('127.0.0.1')
+    assert_not Fail2Ban.banned?("127.0.0.1")
 
     invalid_params = {
       login_form: {
         username: random_string(16),
-        password: random_string(16)
-      }
+        password: random_string(16),
+      },
     }
 
     Fail2Ban::MAX_ATTEMPTS.times do |n|
@@ -21,16 +21,16 @@ class IpBanningTest < ActionDispatch::IntegrationTest
     post "/session", params: invalid_params
     assert_response :not_found
 
-    assert Fail2Ban.banned?('127.0.0.1')
+    assert Fail2Ban.banned?("127.0.0.1")
   end
 
   test "IPs are banned after 10 failed password reset requests" do
-    assert_not Fail2Ban.banned?('127.0.0.1')
+    assert_not Fail2Ban.banned?("127.0.0.1")
 
     invalid_params = {
       password_reset_request: {
         email: "test@asdfasdfasf.com",
-      }
+      },
     }
 
     Fail2Ban::MAX_ATTEMPTS.times do |n|
@@ -41,18 +41,18 @@ class IpBanningTest < ActionDispatch::IntegrationTest
     post "/password_reset_request", params: invalid_params
     assert_response :not_found
 
-    assert Fail2Ban.banned?('127.0.0.1')
+    assert Fail2Ban.banned?("127.0.0.1")
   end
 
   test "IPs are banned after 10 failed password reset attempts" do
-    assert_not Fail2Ban.banned?('127.0.0.1')
+    assert_not Fail2Ban.banned?("127.0.0.1")
 
     invalid_params = {
       password_reset: {
-        token: '1234',
-        password: 'asdfasdf',
-        password_confirmation: 'asdfasdf'
-      }
+        token: "1234",
+        password: "asdfasdf",
+        password_confirmation: "asdfasdf",
+      },
     }
 
     Fail2Ban::MAX_ATTEMPTS.times do |n|
@@ -63,6 +63,6 @@ class IpBanningTest < ActionDispatch::IntegrationTest
     patch "/password", params: invalid_params
     assert_response :not_found
 
-    assert Fail2Ban.banned?('127.0.0.1')
+    assert Fail2Ban.banned?("127.0.0.1")
   end
 end

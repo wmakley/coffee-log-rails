@@ -60,19 +60,19 @@ class SignupCodesController < InternalController
 
   private
 
-    def set_signup_code
-      @signup_code = SignupCode.find(params[:id])
-    end
+  def set_signup_code
+    @signup_code = SignupCode.find(params[:id])
+  end
 
-    def signup_code_params
-      params.require(:signup_code).permit(
-        :active,
-        :code,
-        :user_group_id
-      )
-    end
+  def signup_code_params
+    params.require(:signup_code).permit(
+      :active,
+      :code,
+      :user_group_id,
+    )
+  end
 
-    def set_user_group_options
-      @user_group_options = UserGroup.by_name.pluck(:name, :id)
-    end
+  def set_user_group_options
+    @user_group_options = UserGroup.by_name.pluck(:name, :id)
+  end
 end

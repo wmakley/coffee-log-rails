@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class BrewMethodsTest < ActionDispatch::IntegrationTest
-
-
   setup do
     login_as users(:admin)
   end
@@ -33,7 +31,7 @@ class BrewMethodsTest < ActionDispatch::IntegrationTest
       brew_method: {
         name: "Test New Method",
         default_brew_ratio: "18",
-      }
+      },
     }
     assert_redirected_to "/brew_methods"
     follow_redirect!
@@ -45,7 +43,7 @@ class BrewMethodsTest < ActionDispatch::IntegrationTest
       brew_method: {
         name: "",
         default_brew_ratio: "",
-      }
+      },
     }
     assert_response :unprocessable_entity
     assert_select "form"
@@ -62,7 +60,7 @@ class BrewMethodsTest < ActionDispatch::IntegrationTest
       brew_method: {
         name: "New Pour-Over",
         default_brew_ratio: "12",
-      }
+      },
     }
     assert_redirected_to "/brew_methods"
     follow_redirect!
@@ -74,7 +72,7 @@ class BrewMethodsTest < ActionDispatch::IntegrationTest
       brew_method: {
         name: "",
         default_brew_ratio: "",
-      }
+      },
     }
     assert_response :unprocessable_entity
     assert_select "form"

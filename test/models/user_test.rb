@@ -28,7 +28,7 @@
 #  index_users_on_reset_password_token      (reset_password_token) UNIQUE WHERE (reset_password_token IS NOT NULL)
 #  index_users_on_username                  (username) UNIQUE
 #
-require 'test_helper'
+require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   def valid_attributes
@@ -93,7 +93,7 @@ class UserTest < ActiveSupport::TestCase
       valid_attributes.merge(
         email: random_email,
         new_email: random_email,
-      )
+      ),
     )
 
     new_user = User.new(valid_attributes)

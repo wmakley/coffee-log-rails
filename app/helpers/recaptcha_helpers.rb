@@ -12,7 +12,7 @@ module RecaptchaHelpers
     hidden_field_tag "g-recaptcha-response", nil, options
   end
 
-  def recaptcha_protected_form_with(*args, action:, **options, &block)
+  def recaptcha_protected_form_with(*, action:, **options, &block)
     @recaptcha_needed = true
 
     html = options[:html] || {}
@@ -25,7 +25,7 @@ module RecaptchaHelpers
     data[:turbo] = "false"
     modified_options = options.merge(html: html)
 
-    form_with(*args, **modified_options) do |f|
+    form_with(*, **modified_options) do |f|
       buffer = ActiveSupport::SafeBuffer.new
       buffer << recaptcha_response_field
       buffer << capture(f, &block)

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class UserGroupsTest < ActionDispatch::IntegrationTest
   test "admins may view" do
@@ -23,7 +23,7 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
   test "create with valid attributes" do
     login_as users(:admin)
     post "/user-groups", params: {
-      user_group: valid_attributes
+      user_group: valid_attributes,
     }
     assert_redirected_to "/user-groups"
     assert_equal "Successfully created user group.", flash[:notice]
@@ -32,7 +32,7 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
   test "create with invalid attributes" do
     login_as users(:admin)
     post "/user-groups", params: {
-      user_group: invalid_attributes
+      user_group: invalid_attributes,
     }
     assert_response :unprocessable_entity
     assert_select "form.user-group", 1
@@ -84,13 +84,13 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
 
   def valid_attributes
     {
-      name: random_string(8)
+      name: random_string(8),
     }
   end
 
   def invalid_attributes
     {
-      name: ""
+      name: "",
     }
   end
 end

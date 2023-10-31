@@ -23,7 +23,7 @@ class CoffeeBrandLogosController < InternalController
 
   private
 
-    def set_coffee_brand
-      @coffee_brand = CoffeeBrand.find(params[:coffee_brand_id])
-    end
+  def set_coffee_brand
+    @coffee_brand = CoffeeBrand.find(params[:coffee_brand_id])
+  end
 end

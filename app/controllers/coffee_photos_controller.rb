@@ -8,13 +8,12 @@ class CoffeePhotosController < InternalController
   end
 
   def create
+    if @coffee.update(params.require(:coffee).permit(:photo))
+      @coffee.reload
+    end
+
     respond_to do |format|
-      if @coffee.update(params.require(:coffee).permit(:photo))
-        @coffee.reload
-        format.turbo_stream
-      else
-        format.turbo_stream
-      end
+      format.turbo_stream
     end
   end
 
@@ -34,17 +33,17 @@ class CoffeePhotosController < InternalController
 
   private
 
-    def set_coffee_brand_options
-      @coffee_brand_options = CoffeeBrand.for_select
-    end
+  def set_coffee_brand_options
+    @coffee_brand_options = CoffeeBrand.for_select
+  end
 
-    def set_coffee
-      @coffee = Coffee.find(params[:coffee_id])
-    end
+  def set_coffee
+    @coffee = Coffee.find(params[:coffee_id])
+  end
 
-    def require_photo_attached
-      unless @coffee.photo.attached?
-        raise ActiveRecord::RecordNotFound.new("Photo not found")
-      end
+  def require_photo_attached
+    unless @coffee.photo.attached?
+      raise ActiveRecord::RecordNotFound.new("Photo not found")
     end
+  end
 end

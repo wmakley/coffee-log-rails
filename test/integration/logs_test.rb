@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class LogsTest < ActionDispatch::IntegrationTest
-
-
   test "index redirects to the user's log" do
     login_as users(:default)
     get "/logs"
@@ -15,7 +13,7 @@ class LogsTest < ActionDispatch::IntegrationTest
     user = User.create!(
       display_name: "Test User",
       email: random_email,
-      password: "testtestest"
+      password: "testtestest",
     )
     login_as user
 

@@ -14,11 +14,10 @@
 require "test_helper"
 
 class UserGroupTest < ActiveSupport::TestCase
-
   def valid_attributes
     with_unique_number do |n|
       {
-        name: "Test Group #{n}"
+        name: "Test Group #{n}",
       }
     end
   end

@@ -11,7 +11,7 @@ class BannedIpsController < InternalController
 
   def destroy
     authorize!
-    @banned_ip = BannedIp.find(params[:id].to_s.gsub("-", "."))
+    @banned_ip = BannedIp.find(params[:id].to_s.tr("-", "."))
 
     if @banned_ip.destroy
       redirect_to banned_ips_url, status: :see_other, notice: "Successfuly un-banned IP address."

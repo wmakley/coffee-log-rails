@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class LogEntriesTest < ActionDispatch::IntegrationTest
-
-
   setup do
     login_as users(:default)
   end
@@ -22,13 +20,13 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
 
   test "create success" do
     post "/logs/default/entries",
-         params: {
-           log_entry: {
-             coffee_id: coffees(:one).id,
-             entry_date: Time.current.iso8601,
-             brew_method_id: brew_methods(:other).id
-           }
-         }
+      params: {
+        log_entry: {
+          coffee_id: coffees(:one).id,
+          entry_date: Time.current.iso8601,
+          brew_method_id: brew_methods(:other).id,
+        },
+      }
 
     assert_redirected_to "/logs/default/entries"
     follow_redirect!
@@ -54,11 +52,11 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
 
   test "update success" do
     patch "/logs/default/entries/1",
-          params: {
-            log_entry: {
-              tasting_notes: "New notes from revelation"
-            }
-          }
+      params: {
+        log_entry: {
+          tasting_notes: "New notes from revelation",
+        },
+      }
 
     assert_redirected_to "/logs/default/entries/1"
     follow_redirect!
@@ -69,11 +67,11 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
 
   test "update failure" do
     patch "/logs/default/entries/1",
-          params: {
-            log_entry: {
-              coffee_id: ""
-            }
-          }
+      params: {
+        log_entry: {
+          coffee_id: "",
+        },
+      }
 
     assert_response :unprocessable_entity
   end

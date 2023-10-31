@@ -19,9 +19,9 @@ class UserGroup < ApplicationRecord
 
   scope :by_name, -> { order(:name) }
 
-  normalizes :name, with: -> name { name.squish.presence }
+  normalizes :name, with: ->(name) { name.squish.presence }
 
   validates :name,
-            presence: true,
-            length: { maximum: 255 }
+    presence: true,
+    length: {maximum: 255}
 end

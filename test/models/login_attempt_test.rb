@@ -14,8 +14,8 @@ require "test_helper"
 class LoginAttemptTest < ActiveSupport::TestCase
   def valid_attributes
     {
-      ip_address: '1.2.3.4',
-      attempts: 1
+      ip_address: "1.2.3.4",
+      attempts: 1,
     }
   end
 

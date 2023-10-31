@@ -23,14 +23,14 @@ class Log < ApplicationRecord
   belongs_to :user, inverse_of: :log
 
   validates :title,
-            presence: true,
-            length: { maximum: 255 }
+    presence: true,
+    length: {maximum: 255}
 
   validates :slug,
-            presence: true,
-            uniqueness: true,
-            length: { maximum: 255 },
-            format: /\A[a-z0-9\-_]+\z/
+    presence: true,
+    uniqueness: true,
+    length: {maximum: 255},
+    format: /\A[a-z0-9\-_]+\z/
 
   normalizes :title, with: ->(title) { title.squish }
   normalizes :slug, with: ->(slug) { slug.strip }
@@ -52,7 +52,7 @@ class Log < ApplicationRecord
 
     scope = joins(user: :group_memberships)
     scope.where(user_id: user.id).or(
-      where("group_memberships.user_group_id IN (?)", user_group_ids)
+      where("group_memberships.user_group_id IN (?)", user_group_ids),
     )
   end
 

@@ -3,7 +3,6 @@
 require "application_system_test_case"
 
 class LogEntriesSystemTest < ApplicationSystemTestCase
-
   setup do
     login_as users(:default)
   end

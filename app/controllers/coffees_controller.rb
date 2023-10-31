@@ -6,14 +6,14 @@ class CoffeesController < InternalController
   def index
     authorize!
     @coffees = authorized_scope(Coffee.all)
-                 .with_attached_photo
-                 .includes(:coffee_brand, :roast)
+      .with_attached_photo
+      .includes(:coffee_brand, :roast)
 
     params[:sort] ||= session[:coffee_sort].presence || "most_recent"
-    if params[:sort].present?
-      @coffees = @coffees.user_sorted(sort_param)
+    @coffees = if params[:sort].present?
+      @coffees.user_sorted(sort_param)
     else
-      @coffees = @coffees.by_most_recent
+      @coffees.by_most_recent
     end
   end
 
@@ -21,9 +21,9 @@ class CoffeesController < InternalController
     authorize! to: :index?
     session[:coffee_sort] = sort_param
     @coffees = Coffee.all
-                     .with_attached_photo
-                     .includes(:coffee_brand, :roast)
-                     .user_sorted(sort_param)
+      .with_attached_photo
+      .includes(:coffee_brand, :roast)
+      .user_sorted(sort_param)
   end
 
   def show
@@ -76,29 +76,29 @@ class CoffeesController < InternalController
 
   private
 
-    def set_coffee
-      @coffee = authorized_scope(Coffee.all).find(params[:id])
-    end
+  def set_coffee
+    @coffee = authorized_scope(Coffee.all).find(params[:id])
+  end
 
-    def set_coffee_brand_options
-      @coffee_brand_options = authorized_scope(CoffeeBrand.all).for_select
-    end
+  def set_coffee_brand_options
+    @coffee_brand_options = authorized_scope(CoffeeBrand.all).for_select
+  end
 
-    def coffee_params
-      params.require(:coffee)
-            .permit(
-              :coffee_brand_id,
-              :name,
-              :roast_id,
-              :notes,
-              :photo,
-              :origin,
-              :process,
-              :decaf,
-            )
-    end
+  def coffee_params
+    params.require(:coffee)
+      .permit(
+        :coffee_brand_id,
+        :name,
+        :roast_id,
+        :notes,
+        :photo,
+        :origin,
+        :process,
+        :decaf,
+      )
+  end
 
-    def sort_param
-      params[:sort].to_s
-    end
+  def sort_param
+    params[:sort].to_s
+  end
 end

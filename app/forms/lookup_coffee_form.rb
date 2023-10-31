@@ -4,7 +4,8 @@ class LookupCoffeeForm
   include ActiveModel::Model
   include ERB::Util
 
-  attr_accessor :initial_scope, :query, :coffee_id
+  attr_accessor :initial_scope, :query
+  attr_reader :coffee_id
 
   def initialize(initial_scope = Coffee.all, attributes = {})
     @initial_scope = initial_scope
@@ -36,7 +37,7 @@ class LookupCoffeeForm
   end
 
   def coffee_id=(input)
-    if input != self.coffee_id
+    if input != coffee_id
       @coffee_id = input
       @selected_coffee = nil
     end

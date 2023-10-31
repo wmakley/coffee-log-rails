@@ -4,7 +4,7 @@ class AddAdminAndPreferencesToUsers < ActiveRecord::Migration[6.1]
 
   def up
     add_column :users, :admin, :boolean, null: false, default: false
-    add_column :users, :preferences, :jsonb, null: false, default: '{}'
+    add_column :users, :preferences, :jsonb, null: false, default: "{}"
 
     default_admin = User.where(id: 1)
     if default_admin
