@@ -29,6 +29,8 @@ class MyAccountController < InternalController
       :new_email,
       :password,
       :password_confirmation,
+    ).with_defaults(
+      password_confirmation: "",
     )
   end
 end

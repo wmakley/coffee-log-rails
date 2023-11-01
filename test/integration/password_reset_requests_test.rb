@@ -47,4 +47,29 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
     assert_nil user.reset_password_token
     assert_nil user.reset_password_token_created_at
   end
+
+  test "user must provide password confirmatino" do
+    user = users(:default)
+
+    post "/password_reset_request", params: {
+      password_reset_request: {
+        email: user.email,
+      },
+    }
+
+    user.reload
+    old_password = user.password_digest
+
+    patch "/password", params: {
+      password_reset: {
+        token: user.reset_password_token,
+        password: "NEW_PASSWORD",
+      },
+    }
+
+    assert_response :unprocessable_entity
+
+    user.reload
+    assert_equal old_password, user.password_digest
+  end
 end

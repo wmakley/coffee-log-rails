@@ -26,6 +26,15 @@ class MyAccountTest < ActionDispatch::IntegrationTest
     assert_select "#flash > .alert.alert-success", 1, "Successfully updated account."
   end
 
+  test "may not update password without confirmation" do
+    patch "/my_account", params: {
+      user: {
+        password: "testtesttesttest",
+      },
+    }
+    assert_response :unprocessable_entity
+  end
+
   test "may not make self an admin" do
     patch "/my_account", params: {
       user: {

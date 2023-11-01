@@ -39,6 +39,8 @@ module Auth
         :token,
         :password,
         :password_confirmation,
+      ).with_defaults(
+        password_confirmation: "",
       ).to_h
     end
   end
