@@ -5,7 +5,6 @@ class MyAccountController < InternalController
 
   def show
     @my_account = MyAccount.new
-    fresh_when last_modified: @my_account.updated_at.utc, etag: @my_account
   end
 
   def update
