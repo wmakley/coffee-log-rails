@@ -1,0 +1,29 @@
+<% if edit %>
+  <%= form_with(model: object, url: my_account_path(edit_attribute: "display_name")) do |f| %>
+    <div class="mb-3">
+      <%= input f, :display_name,
+                label: "Display Name",
+                required: true,
+                input_html: {
+                  autofocus: true,
+                  autocomplete: "off",
+                  autocorrect: "off",
+                  placeholder: "Display Name",
+                  minlength: 5,
+                  maxlength: 100,
+                }
+      %>
+    </div>
+    <div class="mb-3">
+      <%= f.submit "Save", class: "btn btn-primary btn-sm" %>
+      <%= link_to "Cancel", my_account_path, class: "btn btn-secondary btn-sm" %>
+    </div>
+  <% end %>
+<% else %>
+  <%= render "services/turbo_replace_flash" %>
+
+  <div class="mb-3">
+    <strong>Display Name:</strong> <%= object.display_name %>
+    <%= link_to("Edit", my_account_path(edit_attribute: "display_name"), class: "btn btn-sm btn-success") %>
+  </div>
+<% end %>

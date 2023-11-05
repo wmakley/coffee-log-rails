@@ -1,0 +1,7 @@
+<% if flash.present? %>
+  <%= turbo_stream.append "flash" do %>
+    <% flash.each do |key, value| %>
+      <%= render "services/flash_message", key: key, value: value %>
+    <% end %>
+  <% end %>
+<% end %>

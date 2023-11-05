@@ -1,0 +1,31 @@
+<% if edit %>
+  <%= form_with(model: object, url: my_account_path(edit_attribute: "email")) do |f| %>
+    <div class="mb-3">
+      <%= input f, :email, as: :email_field, label: "Email",
+                input_html: {
+                  maxlength: 255,
+                  class: "form-control #{f.object.email_verified? ? 'is-valid' : 'is-invalid'}"
+                } %>
+      <% if object.email_verified? %>
+        <div class="valid-feedback"><%= object.email %> Verified!</div>
+      <% else %>
+        <div class="invalid-feedback">Not Verified. Check your email for verification link!</div>
+      <% end %>
+    </div>
+    <div class="mb-3">
+      <%= f.submit "Save", class: "btn btn-primary btn-sm" %>
+      <%= link_to "Cancel", my_account_path, class: "btn btn-secondary btn-sm" %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="mb-3">
+    <%= render "services/turbo_replace_flash" %>
+    <strong>Email:</strong> <%= object.email %> <%= link_to("Edit", my_account_path(edit_attribute: "email"), class: "btn btn-success btn-sm") %>
+    <% if object.email_verified? %>
+      <div class="valid-feedback"><%= object.email %> Verified!</div>
+    <% else %>
+      <div class="invalid-feedback">Not Verified. Check your email for verification link!</div>
+    <% end %>
+  </div>
+<% end %>
+

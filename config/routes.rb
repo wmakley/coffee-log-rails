@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     resource :logo, controller: "coffee_brand_logos", only: [:show, :destroy]
   end
 
-  resource :my_account, controller: "my_account", only: [:show, :edit, :update]
+  resource :my_account, controller: "my_account", only: [:show, :update]
 
   # Admin-only
   resources :brew_methods

@@ -5,10 +5,7 @@ class MyAccountController < InternalController
 
   def show
     @my_account = MyAccount.new
-  end
-
-  def edit
-    redirect_to action: :show
+    fresh_when last_modified: @my_account.updated_at.utc, etag: @my_account
   end
 
   def update

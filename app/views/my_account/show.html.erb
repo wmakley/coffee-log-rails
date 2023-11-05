@@ -1,3 +1,13 @@
 <h1>My Account</h1>
 
-<%= render "form", object: @my_account %>
+<%= turbo_frame_tag "display_name" do %>
+  <%= render "display_name", object: @my_account, edit: params[:edit_attribute] == "display_name" %>
+<% end %>
+
+<%= turbo_frame_tag "email" do %>
+  <%= render "email", object: @my_account, edit: params[:edit_attribute] == "email" %>
+<% end %>
+
+<%= turbo_frame_tag "password" do %>
+  <%= render "password", object: @my_account, edit: params[:edit_attribute] == "password" %>
+<% end %>

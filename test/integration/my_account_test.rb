@@ -11,7 +11,6 @@ class MyAccountTest < ActionDispatch::IntegrationTest
     get "/my_account"
     assert_response :success
     assert_select "h1", "My Account"
-    assert_select "form"
   end
 
   test "updating password" do

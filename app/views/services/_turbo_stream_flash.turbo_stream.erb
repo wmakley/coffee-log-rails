@@ -1,6 +1,0 @@
-<%= turbo_stream.append "flash" do %>
-  <%= render "services/flash_message",
-             key: local_assigns[:type] || "notice",
-             value: message
-  %>
-<% end %>
