@@ -11,9 +11,9 @@ class LogEntriesController < InternalController
     @log_entries = @log.log_entries.by_date_desc.includes(
       coffee: {photo_attachment: :blob},
       brew_method: {},
-    ).load
+    )
 
-    set_new_log_entry_from_previous(@log_entries.first)
+    set_new_log_entry_from_previous(LogEntry.new(previous_log_entry_attributes(@log_entries)))
     set_brew_methods
   end
 
@@ -136,6 +136,12 @@ class LogEntriesController < InternalController
 
     if params[:coffee_id].present?
       @new_log_entry.coffee_id = params[:coffee_id].to_s
+    end
+  end
+
+  def previous_log_entry_attributes(all_log_entries)
+    Rails.cache.fetch([:v1, @log, :previous_log_entry_attributes]) do
+      all_log_entries.first&.as_json(only: [:coffee_id, :water])
     end
   end
 

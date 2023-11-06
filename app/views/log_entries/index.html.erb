@@ -10,10 +10,12 @@
 
 <hr>
 
-<% if @log_entries.blank? %>
-  <p id="no_log_entries_message">There are no log entries yet.</p>
-<% end %>
+<%= cache [:v1, @log] do %>
+  <% if @log_entries.blank? %>
+    <p id="no_log_entries_message">There are no log entries yet.</p>
+  <% end %>
 
-<div class="list-group" id="log_entries">
-  <%= render collection: @log_entries, partial: "log_entries/log_entry" %>
-</div>
+  <div class="list-group" id="log_entries">
+    <%= render collection: @log_entries, partial: "log_entries/log_entry", cached: true %>
+  </div>
+<% end %>

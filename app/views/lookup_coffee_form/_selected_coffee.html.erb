@@ -1,23 +1,25 @@
-<div class="card clickable selected-coffee-card mb-3"
-     title="Click to View Coffee Details"
-     data-controller="visit"
-     data-visit-url-value="<%= local_assigns[:url] || coffee_path(coffee,
-                                           back_url: log_entries_path(current_user.log, params.permit(:query, :coffee_id).to_h)) %>"
-     data-action="click->visit#navigate">
-  <div class="row g-0">
-    <div class="col-sm-4 col-md-2">
-      <%= image_tag(coffee.photo.variant(resize_to_fill: [180, 200]),
-                    alt: "Bag of #{coffee.name}",
-                    class: "img-fluid rounded") if coffee.photo.attached? %>
-    </div>
-    <div class="col-sm-8 col-md-10">
-      <div class="card-body">
-        <h1 class="card-title"><%= coffee.name %></h1>
-        <h5 class="card-subtitle mb-2 text-muted">
-          <%= coffee.roast_name || "Unknown" %> Roast
-        </h5>
-        <h6 class="card-text"><%= coffee.brand_name %></h6>
+<%= cache [:v1, coffee] do %>
+  <div class="card clickable selected-coffee-card mb-3"
+       title="Click to View Coffee Details"
+       data-controller="visit"
+       data-visit-url-value="<%= local_assigns[:url] || coffee_path(coffee,
+                                                                    back_url: log_entries_path(current_user.log, params.permit(:query, :coffee_id).to_h)) %>"
+       data-action="click->visit#navigate">
+    <div class="row g-0">
+      <div class="col-sm-4 col-md-2">
+        <%= image_tag(coffee.photo.variant(resize_to_fill: [180, 200]),
+                      alt: "Bag of #{coffee.name}",
+                      class: "img-fluid rounded") if coffee.photo.attached? %>
+      </div>
+      <div class="col-sm-8 col-md-10">
+        <div class="card-body">
+          <h1 class="card-title"><%= coffee.name %></h1>
+          <h5 class="card-subtitle mb-2 text-muted">
+            <%= coffee.roast_name || "Unknown" %> Roast
+          </h5>
+          <h6 class="card-text"><%= coffee.brand_name %></h6>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

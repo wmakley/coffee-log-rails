@@ -41,7 +41,7 @@
 #  fk_rails_...  (log_id => logs.id)
 #
 class LogEntry < ApplicationRecord
-  belongs_to :log, inverse_of: :log_entries, optional: false
+  belongs_to :log, inverse_of: :log_entries, optional: false, touch: true
   belongs_to :coffee, inverse_of: :log_entries, optional: false
   belongs_to :brew_method
 
