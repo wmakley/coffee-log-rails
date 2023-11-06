@@ -30,7 +30,7 @@ class Coffee < ApplicationRecord
 
   PROCESSES = %w[Washed Natural Other]
 
-  belongs_to :coffee_brand, inverse_of: :coffees
+  belongs_to :coffee_brand, inverse_of: :coffees, touch: true
   belongs_to :roast, inverse_of: :coffees, optional: true
 
   has_many :log_entries, inverse_of: :coffee, dependent: :restrict_with_error

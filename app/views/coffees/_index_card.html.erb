@@ -1,25 +1,27 @@
-<div class="card h-100">
-  <%= render "photo_or_upload_widget", coffee: coffee %>
-  <div class="card-body">
-    <h5 class="card-title"><%= coffee.name %></h5>
-    <h6 class="card-subtitle mb-2 text-muted">
-      <%= coffee.roast_name || "Unknown" %> Roast
-      <% if coffee.decaf? %>
-        <span class="badge bg-success">Decaf</span>
+<%= cache [:v1, coffee.coffee_brand, coffee] do %>
+  <div class="card h-100">
+    <%= render "photo_or_upload_widget", coffee: coffee %>
+    <div class="card-body">
+      <h5 class="card-title"><%= coffee.name %></h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        <%= coffee.roast_name || "Unknown" %> Roast
+        <% if coffee.decaf? %>
+          <span class="badge bg-success">Decaf</span>
+        <% end %>
+      </h6>
+      <% if coffee.origin.present? %>
+        <h7 class="card-subtitle mb-2 text-muted"><%= coffee.origin %></h7>
       <% end %>
-    </h6>
-    <% if coffee.origin.present? %>
-      <h7 class="card-subtitle mb-2 text-muted"><%= coffee.origin %></h7>
-    <% end %>
-    <p class="card-text">
-      <%= coffee.notes %>
-    </p>
+      <p class="card-text">
+        <%= coffee.notes %>
+      </p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%= link_to(coffee.brand_name, coffee_brand_path(coffee.coffee_brand)) %></li>
+    </ul>
+    <div class="card-body">
+      <%= link_to("View Details", coffee_path(coffee), class: "btn btn-info") %>
+      <%= link_to("Edit", edit_coffee_path(coffee), class: "btn btn-success") if allowed_to?(:edit?, coffee) %>
+    </div>
   </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><%= link_to(coffee.brand_name, coffee_brand_path(coffee.coffee_brand)) %></li>
-  </ul>
-  <div class="card-body">
-    <%= link_to("View Details", coffee_path(coffee), class: "btn btn-info") %>
-    <%= link_to("Edit", edit_coffee_path(coffee), class: "btn btn-success") if allowed_to?(:edit?, coffee) %>
-  </div>
-</div>
+<% end %>
