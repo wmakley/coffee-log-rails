@@ -5,9 +5,12 @@ class CoffeePhotosController < InternalController
   before_action :require_photo_attached, only: [:show, :destroy]
 
   def show
+    authorize! @coffee
   end
 
   def create
+    authorize! @coffee, to: :edit?
+
     if @coffee.update(params.require(:coffee).permit(:photo))
       @coffee.reload
     end
@@ -18,6 +21,7 @@ class CoffeePhotosController < InternalController
   end
 
   def destroy
+    authorize! @coffee, to: :edit?
     @coffee.photo.purge
     @coffee.reload
 
