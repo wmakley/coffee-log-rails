@@ -67,4 +67,30 @@ class CoffeeTest < ActiveSupport::TestCase
     coffee.name = "<?12345?>"
     assert_not coffee.valid?
   end
+
+  test "it touches all associated log entries on update" do
+    coffee = Coffee.create!(valid_attributes)
+    log = logs(:default)
+    log_entry = LogEntry.create!(
+      coffee: coffee,
+      log: log,
+      entry_date: Time.current,
+      brew_method: brew_methods(:pour_over),
+    )
+
+    old_log_timestamp = log.updated_at
+    old_log_entry_timestamp = log_entry.updated_at
+    assert_changes -> { coffee.updated_at } do
+      coffee.update!(name: "New name")
+      coffee.reload
+    end
+
+    log.reload
+    log_entry.reload
+
+    assert log_entry.updated_at.after? old_log_entry_timestamp
+    assert log.updated_at.after? old_log_timestamp
+    assert_equal coffee.updated_at, log_entry.updated_at, "expected log entry timestamp to be bumped"
+    assert_equal coffee.updated_at, log.updated_at, "expected log timestamp to be bumped"
+  end
 end

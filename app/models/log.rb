@@ -56,6 +56,11 @@ class Log < ApplicationRecord
     )
   end
 
+  def self.touch_by_log_entry_scope(log_entry_scope, updated_at = Time.current)
+    log_entry_scope = log_entry_scope.select(Arel.sql('distinct log_id'))
+    where("id in (#{log_entry_scope.to_sql})").update_all(updated_at: updated_at)
+  end
+
   def to_param
     slug
   end

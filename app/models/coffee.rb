@@ -36,6 +36,8 @@ class Coffee < ApplicationRecord
 
   has_one_attached :photo
 
+  after_save :touch_log_entries, if: :saved_changes?
+
   pg_search_scope :search_by_name,
     against: :name,
     using: {
@@ -105,5 +107,12 @@ class Coffee < ApplicationRecord
 
   def can_destroy?
     log_entries.blank?
+  end
+
+  private
+
+  def touch_log_entries
+    log_entries.update_all(updated_at: updated_at)
+    Log.touch_by_log_entry_scope(log_entries, updated_at)
   end
 end
