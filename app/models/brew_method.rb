@@ -9,6 +9,8 @@
 #  updated_at         :datetime         not null
 #
 class BrewMethod < ApplicationRecord
+  include BustsLogEntryCache
+
   has_many :log_entries, dependent: :restrict_with_error
 
   before_validation do
