@@ -3,6 +3,10 @@
 require "test_helper"
 
 class Fail2BanTest < ActiveSupport::TestCase
+  setup do
+    Fail2Ban.whitelist.clear
+  end
+
   test "#record_failed_attempt" do
     ip = "1.2.3.4"
 
@@ -23,5 +27,14 @@ class Fail2BanTest < ActiveSupport::TestCase
 
     assert_equal 10, record.attempts
     assert Fail2Ban.banned?(ip)
+  end
+
+  test "whitelist" do
+    ip = "4.3.2.1"
+    Fail2Ban.whitelist << ip
+
+    assert_no_difference -> { LoginAttempt.count } do
+      assert_nil Fail2Ban.record_failed_attempt(ip)
+    end
   end
 end

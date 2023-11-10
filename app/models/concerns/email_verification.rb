@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# Methods implementing email verification business logic, but no callbacks.
+# All mutating methods return self.
 module EmailVerification
   def needs_email_verification?
-    email_verified_at.blank?
+    !email_verified?
   end
 
   def email_verified?
@@ -11,6 +13,17 @@ module EmailVerification
 
   def verification_email_sent?
     verification_email_sent_at.present?
+  end
+
+  def start_verification_process!
+    generate_email_verification_token!
+    will_send_verification_email!
+  end
+
+  # Set verification_email_sent_at to the current time
+  def will_send_verification_email!
+    self.verification_email_sent_at = Time.current
+    self
   end
 
   def generate_email_verification_token!
@@ -24,7 +37,7 @@ module EmailVerification
       end
     end
 
-    email_verification_token
+    self
   end
 
   # Clear verification token and swap new_email with email. Does not save.
@@ -33,10 +46,12 @@ module EmailVerification
     self.new_email = nil
     self.email_verified_at = Time.current
     self.email_verification_token = nil
+    self
   end
 
   # Within a transaction, generate a new token, save the record, and send verification email
   def generate_new_verification_token_and_send_email!
+    logger.debug "generate_new_verification_token_and_send_email!"
     self.class.transaction do
       self.new_email ||= email
       generate_email_verification_token!
@@ -44,8 +59,12 @@ module EmailVerification
       save!
     end
     # TODO: might be nice to nullify the "sent at" value if email delivery fails
-    EmailVerificationMailer.with(user: self).verification_link.deliver_later
+    send_verification_email
     self
+  end
+
+  def send_verification_email
+    EmailVerificationMailer.with(user: self).verification_link.deliver_later
   end
 
   def send_verification_email_if_not_sent_recently!

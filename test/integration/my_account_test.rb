@@ -4,7 +4,7 @@ require "test_helper"
 
 class MyAccountTest < ActionDispatch::IntegrationTest
   setup do
-    login_as users(:non_admin)
+    @user = login_as users(:non_admin)
   end
 
   test "show" do
@@ -13,9 +13,29 @@ class MyAccountTest < ActionDispatch::IntegrationTest
     assert_select "h1", "My Account"
   end
 
+  test "updating email requires verification" do
+    old_email = @user.email
+    new_email = "new_email@test.com"
+    assert_not_equal new_email, old_email # sanity check
+
+    assert_emails 1 do
+      patch "/my_account", params: {
+        my_account: {
+          email: "new_email@test.com",
+        },
+      }
+    end
+
+    @user.reload
+    assert_equal new_email, @user.new_email
+    assert_equal old_email, @user.email
+    assert @user.email_verification_token.present?, "expected verification token to have been generated"
+    assert @user.verification_email_sent_at.present?, "expected verification email to have been sent"
+  end
+
   test "updating password" do
     patch "/my_account", params: {
-      user: {
+      my_account: {
         password: "testtesttesttest",
         password_confirmation: "testtesttesttest",
       },
@@ -27,7 +47,7 @@ class MyAccountTest < ActionDispatch::IntegrationTest
 
   test "may not update password without confirmation" do
     patch "/my_account", params: {
-      user: {
+      my_account: {
         password: "testtesttesttest",
       },
     }
@@ -36,7 +56,7 @@ class MyAccountTest < ActionDispatch::IntegrationTest
 
   test "may not make self an admin" do
     patch "/my_account", params: {
-      user: {
+      my_account: {
         admin: "1",
       },
     }

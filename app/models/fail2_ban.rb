@@ -6,7 +6,9 @@ module Fail2Ban
 
   extend self
 
-  attr_accessor :whitelist
+  def whitelist
+    @whitelist ||= []
+  end
 
   # @param [String] ip_address
   # @return [LoginAttempt,nil]

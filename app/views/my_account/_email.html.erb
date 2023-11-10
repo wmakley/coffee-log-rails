@@ -1,5 +1,9 @@
 <% if edit %>
-  <%= form_with(model: object, url: my_account_path(edit_attribute: "email")) do |f| %>
+  <%= form_with(model: object, url: my_account_path(edit_attribute: "email"), html: {
+    data: {
+      "turbo-frame": "_top",
+    }
+  }) do |f| %>
     <div class="mb-3">
       <%= input f, :email, as: :email_field, label: "Email",
                 input_html: {
@@ -20,12 +24,14 @@
 <% else %>
   <div class="mb-3">
     <%= render "services/turbo_replace_flash" %>
-    <strong>Email:</strong> <%= object.email %> <%= link_to("Edit", my_account_path(edit_attribute: "email"), class: "btn btn-success btn-sm") %>
+    <strong>Email:</strong>
+    <%= object.email %>
     <% if object.email_verified? %>
-      <div class="valid-feedback"><%= object.email %> Verified!</div>
+      <span class="text-success">Verified!</span>
     <% else %>
-      <div class="invalid-feedback">Not Verified. Check your email for verification link!</div>
+      <span class="text-danger">Not Verified. Check your email for verification link!</span>
     <% end %>
+    <%= link_to("Edit", my_account_path(edit_attribute: "email"), class: "btn btn-success btn-sm") %>
   </div>
 <% end %>
 
