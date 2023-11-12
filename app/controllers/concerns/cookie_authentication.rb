@@ -88,14 +88,10 @@ module CookieAuthentication
     end
 
     username = login_form.username.to_s.downcase
-    user = User.with_username(username).first
-    unless user
-      logger.warn "username '#{username}' not found"
-      return false
-    end
 
-    unless user.authenticate(login_form.password.to_s)
-      logger.warn "invalid password"
+    user = User.authenticate_by(username: username, password: login_form.password.to_s)
+    unless user
+      logger.warn "invalid username or password"
       return false
     end
 
