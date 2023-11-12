@@ -33,7 +33,9 @@ module Auth
         redirect_to url, status: :see_other
       else
         flash[:error] = "Username or password not correct."
-        Fail2Ban.record_failed_attempt(request.remote_ip) if @login_form.valid?
+        if @login_form.valid?
+          Fail2Ban.record_failed_attempt(request.remote_ip)
+        end
         render action: :new, status: :unprocessable_entity
       end
     end
