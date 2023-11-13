@@ -1,13 +1,42 @@
 <h1>My Account</h1>
 
-<%= turbo_frame_tag "display_name" do %>
-  <%= render "display_name", object: @my_account, edit: params[:edit_attribute] == "display_name" %>
-<% end %>
+<div class="row">
+  <div class="col">
+    <h2>Settings</h2>
+    <%= turbo_frame_tag "display_name" do %>
+      <%= render "display_name", object: @my_account, edit: params[:edit_attribute] == "display_name" %>
+    <% end %>
 
-<%= turbo_frame_tag "email" do %>
-  <%= render "email", object: @my_account, edit: params[:edit_attribute] == "email" %>
-<% end %>
+    <%= turbo_frame_tag "email" do %>
+      <%= render "email", object: @my_account, edit: params[:edit_attribute] == "email" %>
+    <% end %>
 
-<%= turbo_frame_tag "password" do %>
-  <%= render "password", object: @my_account, edit: params[:edit_attribute] == "password" %>
-<% end %>
+    <%= turbo_frame_tag "password" do %>
+      <%= render "password", object: @my_account, edit: params[:edit_attribute] == "password" %>
+    <% end %>
+  </div>
+  <div class="col">
+    <h2>Group Memberships</h2>
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>Group</th>
+        <th>Since</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @my_account.each_user_group_and_membership do |group, membership| %>
+        <tr>
+          <td><%= group.name %></td>
+          <td><%= membership.created_at.to_formatted_s(:long) %></td>
+        </tr>
+      <% end %>
+      <% if @my_account.group_memberships.blank? %>
+        <tr>
+          <td colspan="2">You are not currently a member of any groups.</td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

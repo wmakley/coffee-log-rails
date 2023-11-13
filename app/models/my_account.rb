@@ -15,6 +15,7 @@ class MyAccount
     :password, :password=,
     :password_confirmation, :password_confirmation=,
     :email_verified?,
+    :each_user_group_and_membership, :group_memberships,
     :valid?, :invalid?, :errors, :persisted?,
     to: :user
 

@@ -1,5 +1,6 @@
 <% if edit %>
   <%= form_with(model: object, url: my_account_path(edit_attribute: "display_name")) do |f| %>
+    <%= hidden_field_tag :edit_attribute, "display_name" %>
     <div class="mb-3">
       <%= input f, :display_name,
                 label: "Display Name",

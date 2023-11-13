@@ -82,6 +82,12 @@ class User < ApplicationRecord
     where(email: email).or(where(new_email: email))
   }
 
+  def each_user_group_and_membership
+    group_memberships.includes(:user_group).find_each do |membership|
+      yield membership.user_group, membership
+    end
+  end
+
   def user_group_ids
     # association is expected to be re-used in the request after lazy load
     group_memberships.map(&:user_group_id)

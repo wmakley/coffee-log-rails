@@ -4,6 +4,7 @@
       "turbo-frame": "_top",
     }
   }) do |f| %>
+    <%= hidden_field_tag :edit_attribute, "email" %>
     <div class="mb-3">
       <%= input f, :email, as: :email_field, label: "Email",
                 input_html: {
