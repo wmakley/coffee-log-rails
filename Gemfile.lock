@@ -347,7 +347,7 @@ DEPENDENCIES
   postgresql_cursor
   puma (>= 6.0.0)
   rack-cors
-  rails (~> 7.1.1)
+  rails (~> 7.1.2)
   recaptcha (~> 5.15)
   rubocop
   rubocop-minitest
