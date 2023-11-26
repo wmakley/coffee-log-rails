@@ -7,14 +7,17 @@
 <body>
 <%= render "services/navigation", logs: @logs if current_user %>
 
-<div class="container content">
-  <div id="flash">
-    <% flash.each do |key, value| %>
-      <%= render "services/flash_message", key: key, value: value %>
-    <% end %>
-  </div>
+<section class="section">
+  <div class="container content">
+    <div id="flash">
+      <% flash.each do |key, value| %>
+        <%= render "services/flash_message", key: key, value: value %>
+      <% end %>
+    </div>
 
-  <%= yield %>
-</div>
+    <%= yield %>
+  </div>
+</section>
+
 </body>
 </html>

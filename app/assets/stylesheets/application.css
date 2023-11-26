@@ -15,12 +15,15 @@
  */
 
 body {
-  padding-bottom: 50px;
+  /*padding-bottom: 50px;*/
 }
 
-turbo-frame {
-  display: block;
-  /*border: 1px solid blue !important;*/
+.logo {
+  height: 72px;
+}
+
+.sessions .logo {
+  height: 100px;
 }
 
 .entry-list-item.just-added:first-child {

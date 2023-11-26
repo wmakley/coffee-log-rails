@@ -5,28 +5,33 @@
   <%= recaptcha_enterprise_script %>
 </head>
 
-<body>
+<body class="sessions">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="<%= root_path %>" data-turbo="false">
-      <i class="bi bi-cup-fill"></i>
-      Coffee Log
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<div class="container">
+  <div class="columns">
+    <div class="column"></div>
+    <div class="column is-two-fifths">
+      <section class="section">
+        <%= link_to root_path do %>
+          <%= image_tag "logo-pink.png", alt: "Coffee Log", class: "logo" %>
+        <% end %>
+      </section>
+
+      <%= turbo_frame_tag "sessions-content", class: "section", data: { "turbo-action": "advance" } do %>
+        <div id="flash">
+          <% flash.each do |key, value| %>
+            <%= render "services/flash_message", key: key, value: value %>
+          <% end %>
+        </div>
+
+        <%= yield %>
+      <% end %>
+    </div>
+    <div class="column"></div>
   </div>
-</nav>
+</div>
 
-<%= turbo_frame_tag "sessions-content", class: "container content", "data-turbo-action": "advance" do %>
-  <div id="flash">
-    <% flash.each do |key, value| %>
-      <%= render "services/flash_message", key: key, value: value %>
-    <% end %>
-  </div>
+<%= render "layouts/footer" %>
 
-  <%= yield %>
-<% end %>
 </body>
 </html>

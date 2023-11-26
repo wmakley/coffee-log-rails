@@ -4,9 +4,9 @@ module FlashHelper
   def flash_alert_class(flash_key)
     case flash_key.to_s
     when "error"
-      "alert-danger"
+      "is-danger"
     else
-      "alert-success"
+      "is-success"
     end
   end
 

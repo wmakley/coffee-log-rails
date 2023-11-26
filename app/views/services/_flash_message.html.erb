@@ -1,4 +1,3 @@
-<div class="alert <%= flash_alert_class(key) %>">
-  <%= flash_icon_tag(key) %>
+<div class="notification <%= flash_alert_class(key) %>">
   <%= local_assigns[:value] || flash[key] %>
 </div>
