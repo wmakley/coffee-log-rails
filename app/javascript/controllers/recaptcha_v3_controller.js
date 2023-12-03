@@ -29,6 +29,8 @@ export default class RecaptchaV3Controller extends Controller {
     if (!this.hasSiteKeyValue) {
       throw new Error("No site key value found");
     }
+
+    this.attempts = 0;
   }
 
   submit(event) {
@@ -38,12 +40,14 @@ export default class RecaptchaV3Controller extends Controller {
 
     // console.debug("submitting");
 
-    if (this.recaptchaResponse) {
+    // attempts counter avoids infinite loop if grecaptcha misbehaves
+    if (this.recaptchaResponse || this.attempts > 0) {
       // console.debug("Recaptcha response present:", this.recaptchaResponse, "submitting form")
       return;
     }
 
     event.preventDefault();
+    this.attempts += 1;
     grecaptcha.enterprise.ready(async () => {
       const token = await grecaptcha.enterprise.execute(this.siteKeyValue, {
         action: this.actionValue,
@@ -52,6 +56,7 @@ export default class RecaptchaV3Controller extends Controller {
       // console.debug("Got Recaptcha token:", token)
 
       this.responseFieldTarget.value = token;
+      // this.element.setAttribute("data-turbo-frame", "_top");
       this.submitBtn.click();
     });
   }

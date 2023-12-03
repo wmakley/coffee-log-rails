@@ -45,8 +45,17 @@ module Auth
       end
 
       # success
-      url = session[:return_to].presence || logs_url
-      redirect_to url, status: :see_other
+      respond_to do |format|
+        url = session[:return_to].presence || logs_url
+        flash[:notice] = "Successfully logged in!"
+
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.action(:redirect, url)
+        end
+        format.html do
+          redirect_to url, status: :see_other
+        end
+      end
     end
 
     def destroy

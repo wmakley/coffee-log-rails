@@ -1,9 +1,11 @@
 module RecaptchaHelpers
   # include Recaptcha::Adapters::ViewMethods
 
-  def recaptcha_enterprise_script(options = {})
-    site_key = options.delete(:site_key) { Recaptcha.configuration.site_key }
-    javascript_include_tag("https://www.google.com/recaptcha/enterprise.js?render=#{site_key}", options)
+  # The main issue with this script is it doesn't work with turbo drive. :-/
+  # I worked around it by putting it outside a turbo frame that all login
+  # screen interaction takes place in.
+  def recaptcha_enterprise_script(site_key: Recaptcha.configuration.site_key, **)
+    javascript_include_tag("https://www.google.com/recaptcha/enterprise.js?render=#{site_key}", **)
   end
 
   def recaptcha_response_field(options = {})
@@ -22,7 +24,6 @@ module RecaptchaHelpers
     data[:recaptcha_v3_action_value] = action
     data[:recaptcha_v3_site_key_value] = Recaptcha.configuration.site_key
     data[:action] = "submit->recaptcha-v3#submit"
-    data[:turbo] = "false"
     modified_options = options.merge(html: html)
 
     form_with(*, **modified_options) do |f|

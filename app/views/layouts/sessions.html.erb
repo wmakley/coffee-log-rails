@@ -2,6 +2,7 @@
 <html>
 <head>
   <%= render "layouts/head" %>
+  <%= recaptcha_enterprise_script %>
 </head>
 
 <body>
@@ -18,7 +19,7 @@
   </div>
 </nav>
 
-<div class="container content">
+<%= turbo_frame_tag "sessions-content", class: "container content", "data-turbo-frame-action": "advance" do %>
   <div id="flash">
     <% flash.each do |key, value| %>
       <%= render "services/flash_message", key: key, value: value %>
@@ -26,6 +27,6 @@
   </div>
 
   <%= yield %>
-</div>
+<% end %>
 </body>
 </html>

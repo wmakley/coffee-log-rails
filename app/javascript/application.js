@@ -2,4 +2,9 @@
 import "@hotwired/turbo-rails";
 import * as ActiveStorage from "@rails/activestorage";
 ActiveStorage.start();
+
+Turbo.StreamActions.redirect = function () {
+  Turbo.visit(this.target);
+};
+
 import "controllers";

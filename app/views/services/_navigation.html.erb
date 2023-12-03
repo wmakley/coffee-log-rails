@@ -79,9 +79,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <%= link_to auth_session_path, class: "nav-link", data: { turbo_method: :delete } do %>
-            <i class="bi bi-box-arrow-right"></i>
-            Logout
+          <%= form_with(url: auth_session_path, method: :delete, html: { "data-turbo": false }) do |f| %>
+            <%= f.button type: "submit", class: "nav-link" do %>
+              <i class="bi bi-box-arrow-right"></i>
+              Logout
+            <% end %>
           <% end %>
         </li>
       </ul>
