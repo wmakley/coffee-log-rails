@@ -7,7 +7,7 @@ class SignupsSystemTest < ApplicationSystemTestCase
     signup_code = signup_codes(:active)
 
     visit "/"
-    click_link "Sign up"
+    click_link "Sign up!"
     assert_current_path "/signup/new"
 
     fill_in "Code", with: signup_code.code
