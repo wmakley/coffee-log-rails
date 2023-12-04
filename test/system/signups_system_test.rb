@@ -10,7 +10,7 @@ class SignupsSystemTest < ApplicationSystemTestCase
     click_link "Sign up!"
     assert_current_path "/signup/new"
 
-    fill_in "Code", with: signup_code.code
+    fill_in "Code *", with: signup_code.code
     fill_in "Email", with: "test@example.com"
     fill_in "Display Name", with: "Test Testerson"
     fill_in "Password", with: "asdf1234"
