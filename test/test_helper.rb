@@ -17,7 +17,7 @@ module ActiveSupport
 
     # Add more helper methods to be used by all tests here...
 
-    TEST_USERNAME = "default"
+    TEST_USERNAME = "default@test.com"
     TEST_PASSWORD = "password"
 
     def with_unique_number
