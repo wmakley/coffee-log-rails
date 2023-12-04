@@ -51,7 +51,7 @@ module Auth
     private
 
     def user_signup_params
-      params.require(:signup_form).permit(
+      params.require(:user_signup).permit(
         :code,
         :new_email,
         :display_name,
