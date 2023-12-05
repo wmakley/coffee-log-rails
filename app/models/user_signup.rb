@@ -30,12 +30,14 @@ class UserSignup
 
   # @return [User,FalseClass]
   def save
+    @user = nil
+    @invalid_code = false
+
     self.code = SignupCode.normalize(code)
     self.new_email = new_email&.strip.presence
 
-    return false unless valid?
+    return false if invalid?
 
-    @user = user = nil
     User.transaction do
       signup_code = SignupCode.active.find_by(code: code)
       if signup_code.nil?
@@ -46,28 +48,28 @@ class UserSignup
 
       logger.info "Using SignupCode: #{signup_code.inspect}"
 
-      user = User.new(
+      @user = User.new(
         email: new_email,
         new_email: new_email,
         display_name: display_name,
         password: password,
         password_confirmation: password_confirmation,
       )
-      user.generate_email_verification_token!
-      unless user.save
-        copy_errors_from(user)
+      @user.generate_email_verification_token!
+      unless @user.save
+        copy_errors_from(@user)
         raise ActiveRecord::Rollback
       end
 
-      user.group_memberships.create!(user_group: signup_code.user_group)
+      @user.group_memberships.create!(user_group: signup_code.user_group)
     end
 
     return false if errors.present?
 
-    SignupFormMailer.with(user: user)
+    SignupFormMailer.with(user: @user)
       .welcome_email
       .deliver_later
-    @user = user
+    @user
   end
 
   def logger

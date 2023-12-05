@@ -13,6 +13,10 @@ module Auth
     def create
       @signup = ::UserSignup.new(user_signup_params)
 
+      if @signup.invalid?
+        return render action: :new, status: :unprocessable_entity
+      end
+
       recaptcha_result = verify_recaptcha(action: "login", minimum_score: 0.5)
       logger.info "Recaptcha success: #{recaptcha_result}"
       unless recaptcha_result
@@ -45,6 +49,8 @@ module Auth
       rescue EmailVerificationNeededError
         # expected
       end
+
+      redirect_to success_auth_signup_path
     end
 
     def success
