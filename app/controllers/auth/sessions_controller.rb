@@ -33,7 +33,7 @@ module Auth
         score = recaptcha_reply["score"] if recaptcha_reply
         logger.info("User was denied login because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
 
-        flash[:error] = "ReCAPTCHA verification failed."
+        flash[:error] = "ReCAPTCHA verification failed, please refresh the page and try again."
         return render action: :new, status: :unprocessable_entity
       end
 
