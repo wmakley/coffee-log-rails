@@ -15,7 +15,7 @@ module Fail2Ban
   def record_failed_attempt(ip_address)
     if ip_address.in? whitelist
       Rails.logger.debug "Not recording failed attempt for whitelisted IP #{ip_address}"
-      return nil
+      return LoginAttempt.new(ip_address: ip_address, attempts: 1)
     end
 
     ActiveRecord::Base.transaction do
