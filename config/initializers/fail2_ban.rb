@@ -5,5 +5,5 @@ Rails.configuration.after_initialize do
     Fail2Ban.whitelist << "::1"
   end
 
-  puts "Fail2Ban whitelist: #{Fail2Ban.whitelist.inspect}"
+  Rails.logger.info "Fail2Ban whitelist: #{Fail2Ban.whitelist.inspect}"
 end
