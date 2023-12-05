@@ -17,7 +17,7 @@ module Auth
         return render action: :new, status: :unprocessable_entity
       end
 
-      recaptcha_result = verify_recaptcha(action: "login", minimum_score: 0.5)
+      recaptcha_result = verify_recaptcha(action: "signup", minimum_score: 0.5)
       logger.info "Recaptcha success: #{recaptcha_result}"
       unless recaptcha_result
         logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?
