@@ -1,14 +1,22 @@
 # frozen_string_literal: true
 
 # Singleton fail2ban service module.
-module Fail2Ban
+class Fail2Ban
   MAX_ATTEMPTS = 10
 
-  extend self
+  class << self
+    def instance
+      @instance ||= Fail2Ban.new
+    end
 
-  def whitelist
-    @whitelist ||= []
+    delegate :record_failed_attempt, :cleanup_old_attempts, :banned?, :whitelist, to: :instance
   end
+
+  def initialize
+    @whitelist = []
+  end
+
+  attr_reader :whitelist
 
   # @param [String] ip_address
   # @return [LoginAttempt,nil]

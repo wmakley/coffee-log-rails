@@ -34,7 +34,7 @@ class Fail2BanTest < ActiveSupport::TestCase
     Fail2Ban.whitelist << ip
 
     assert_no_difference -> { LoginAttempt.count } do
-      assert_nil Fail2Ban.record_failed_attempt(ip)
+      assert_equal LoginAttempt.new(ip_address: ip, attempts: 1), Fail2Ban.record_failed_attempt(ip)
     end
   end
 end
