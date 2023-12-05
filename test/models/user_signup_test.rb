@@ -21,6 +21,7 @@ class UserSignupTest < ActiveSupport::TestCase
     form = UserSignup.new(valid_attributes)
     assert form.valid?, "form wasn't valid"
     assert form.save, "valid form did not save"
+    assert_equal User.last, form.user
   end
 
   test "invalid forms do not save or create users" do
@@ -30,6 +31,8 @@ class UserSignupTest < ActiveSupport::TestCase
     assert_no_changes -> { User.count } do
       assert_not form.save, "valid form saved"
     end
+
+    assert_nil form.user
   end
 
   test "valid forms create new user with an email verification token" do
@@ -41,6 +44,7 @@ class UserSignupTest < ActiveSupport::TestCase
 
     user = User.last
     assert user.email_verification_token.present?
+    assert_equal user, form.user
   end
 
   test "created user is associated with the signup code's group" do

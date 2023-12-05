@@ -13,6 +13,9 @@ class UserSignup
 
   alias_method :email, :new_email
 
+  # stores created user on success
+  attr_reader :user
+
   def invalid_code?
     @invalid_code
   end
@@ -32,7 +35,7 @@ class UserSignup
 
     return false unless valid?
 
-    user = nil
+    @user = user = nil
     User.transaction do
       signup_code = SignupCode.active.find_by(code: code)
       if signup_code.nil?
@@ -64,7 +67,7 @@ class UserSignup
     SignupFormMailer.with(user: user)
       .welcome_email
       .deliver_later
-    user
+    @user = user
   end
 
   def logger
