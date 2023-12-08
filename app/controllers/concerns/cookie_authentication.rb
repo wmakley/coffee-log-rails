@@ -154,6 +154,10 @@ module CookieAuthentication
     }
   end
 
+  def delete_authentication_cookie
+    cookies.delete(:sess)
+  end
+
   def logout_current_user
     reset_session
     cookies.delete(:sess)

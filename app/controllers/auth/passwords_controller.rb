@@ -22,6 +22,7 @@ module Auth
       @password_reset = PasswordReset.new(password_reset_params)
 
       reset_session
+      delete_authentication_cookie
 
       if @password_reset.save
         redirect_to new_auth_session_url, notice: "Successfully reset password. Please login with your new password."

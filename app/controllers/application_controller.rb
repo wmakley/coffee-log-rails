@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   include IpBanningConcern
   include CookieAuthentication
 
-  before_action :cleanup_old_sessions
   # before_action :set_paper_trail_whodunnit
 
   rescue_from AuthenticationError do |exception|
@@ -17,6 +16,8 @@ class ApplicationController < ActionController::Base
       flash[:error] = "Your email address has not been verified. Please click the link in your email to continue."
       exception.user.send_verification_email_if_not_sent_recently!
     else
+      reset_session
+      delete_authentication_cookie
       flash[:error] = "Not authorized."
     end
 
@@ -24,11 +25,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def cleanup_old_sessions
-    session.delete(:username)
-    session.delete(:password)
-  end
 
   def redirect_to_app
     redirect_to logs_url, status: :see_other
