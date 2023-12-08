@@ -160,6 +160,6 @@ module CookieAuthentication
 
   def logout_current_user
     reset_session
-    cookies.delete(:sess)
+    delete_authentication_cookie
   end
 end
