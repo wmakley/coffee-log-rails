@@ -149,6 +149,7 @@ module CookieAuthentication
       value: serialized_cookie,
       expires: 30.days,
       samesite: :lax,
+      secure: Rails.env.production? || Rails.env.fly?,
     }
   end
 
