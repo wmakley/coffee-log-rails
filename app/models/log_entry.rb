@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: true
 
 # == Schema Information
 #
@@ -58,10 +59,10 @@ class LogEntry < ApplicationRecord
 
   before_validation do
     if water_grams.is_a? String
-      self.water_grams = water_grams.gsub(/\D/, "")
+      self.water_grams = T.cast(water_grams, String).gsub(/\D/, "").presence&.to_i
     end
     if coffee_grams.is_a? String
-      self.coffee_grams = coffee_grams.gsub(/\D/, "")
+      self.coffee_grams = T.cast(coffee_grams, String).gsub(/\D/, "").presence&.to_i
     end
   end
 
@@ -120,11 +121,13 @@ class LogEntry < ApplicationRecord
   end
 
   def water_temperature
-    Temperature.new(water_temp_in_celsius) if water_temp_in_celsius.present?
+    temp = water_temp_in_celsius
+    Temperature.new(temp) if temp.present?
   end
 
   def water_temp_in_fahrenheit
-    Temperature.new(water_temp_in_celsius).fahrenheit if water_temp_in_celsius.present?
+    temp = water_temp_in_celsius
+    Temperature.new(temp).fahrenheit if temp.present?
   end
 
   def water_temp_in_fahrenheit=(input)

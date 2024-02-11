@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  extend T::Sig
+
   add_flash_types :error, :warning
 
   include IpBanningConcern

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: true
 
 # == Schema Information
 #
@@ -50,7 +51,7 @@ class User < ApplicationRecord
 
   before_validation do
     # email is always copied to username and downcased currently
-    self.username = email&.downcase
+    self.username = email&.downcase || ""
   end
 
   before_save do
@@ -63,7 +64,10 @@ class User < ApplicationRecord
     presence: true,
     length: {minimum: 6, maximum: 255},
     format: /\A\S.*\S\z/,
-    if: -> { !password.nil? }
+    if: -> {
+      T.bind(self, User)
+      !password.nil?
+    }
   validates :display_name, presence: true, uniqueness: true
   validates :email,
     presence: true,

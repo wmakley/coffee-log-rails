@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+# typed: true
+
 # == Schema Information
 #
 # Table name: coffees
@@ -89,7 +92,8 @@ class Coffee < ApplicationRecord
     inclusion: {in: PROCESSES, allow_nil: true}
 
   validate do
-    if name&.match?(/<\?|\?>/)
+    T.bind(self, Coffee)
+    if T.cast(name, T.nilable(String))&.match?(/<\?|\?>/)
       errors.add(:name, "must not contain <? or ?>")
     end
   end

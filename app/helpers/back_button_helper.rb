@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module BackButtonHelper
+  extend T::Sig
+
   # Convenience for calling `link_to("Back", url_for_back(default_url), ...)`
   def link_to_back(name, default_url, options = {}, &block)
     no_edit = options.delete(:no_edit)

@@ -45,6 +45,8 @@ Lint/Env:
     - "**/spec/*_helper.rb"
     - "**/spec/**/support/**/*"
     - "lib/generators/**/*"
+    - "**/sorbet/**/*"
+    - "**/*.rbi"
 
 Rails/Output:
   Exclude:
@@ -58,3 +60,11 @@ Style/TrailingCommaInArrayLiteral:
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
+
+Style/SingleLineMethods:
+  Exclude:
+    - "*.rbi"
+
+Style/EmptyMethod:
+  Exclude:
+    - "*.rbi"

@@ -1,7 +1,10 @@
 # frozen_string_literal: true
+# typed: true
 
 # Singleton fail2ban service module.
 class Fail2Ban
+  extend T::Sig
+
   MAX_ATTEMPTS = 10
 
   class << self
@@ -20,6 +23,7 @@ class Fail2Ban
 
   # @param [String] ip_address
   # @return [LoginAttempt,nil]
+  sig { params(ip_address: String).returns(LoginAttempt) }
   def record_failed_attempt(ip_address)
     if ip_address.in? whitelist
       Rails.logger.debug "Not recording failed attempt for whitelisted IP #{ip_address}"
@@ -44,6 +48,7 @@ class Fail2Ban
 
   # @param [String] ip_address
   # @return [Boolean]
+  sig { params(ip_address: String).returns(T::Boolean) }
   def banned?(ip_address)
     BannedIp.banned?(ip_address)
   end

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+# typed: true
+
 # == Schema Information
 #
 # Table name: brew_methods
@@ -14,7 +17,7 @@ class BrewMethod < ApplicationRecord
   has_many :log_entries, dependent: :restrict_with_error
 
   before_validation do
-    self.name = name&.squish.presence
+    self.name = T.cast(name, T.nilable(String))&.squish || ""
   end
 
   validates :name,

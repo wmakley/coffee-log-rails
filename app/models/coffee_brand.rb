@@ -1,3 +1,5 @@
+# typed: true
+
 # == Schema Information
 #
 # Table name: coffee_brands
@@ -31,7 +33,7 @@ class CoffeeBrand < ApplicationRecord
   validates :notes, length: {maximum: 4000, allow_nil: true}
 
   before_destroy do
-    if id.zero?
+    if id&.zero?
       errors.add(:base, "may not delete default brand")
       throw :abort
     end

@@ -68,3 +68,6 @@ coffee-log-infra/.idea
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+
+# Sorbet debug logs
+sorbet/rbi/hidden-definitions/errors.txt

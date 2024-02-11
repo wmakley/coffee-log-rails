@@ -1,6 +1,8 @@
 # frozen_string_literal: true
+# typed: true
 
 class PasswordResetRequest
+  extend T::Sig
   include ActiveModel::Model
   include ActiveModel::Attributes
 
@@ -8,15 +10,22 @@ class PasswordResetRequest
 
   validates :email, presence: true, format: /@/
 
+  def initialize
+    @invalid_email = T.let(false, T::Boolean)
+  end
+
+  sig { returns(T::Boolean) }
   def invalid_email?
     @invalid_email
   end
 
   # Returns false for programming errors only, true whether or not the reset succeeded
+  sig { returns(T::Boolean) }
   def save
     return false unless valid?
 
-    user = nil
+    email = T.cast(self.email, String) # validated
+    user = T.let(nil, T.nilable(User)) # variable to return
     User.transaction do
       user = User.where("lower(email) = ?", email.strip.downcase).first
       unless user
@@ -47,6 +56,7 @@ class PasswordResetRequest
     true
   end
 
+  sig { returns(ActiveSupport::Logger) }
   def logger
     Rails.logger
   end

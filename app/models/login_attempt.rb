@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# typed: true
 
 # == Schema Information
 #
@@ -38,6 +39,6 @@ class LoginAttempt < ApplicationRecord
   end
 
   def remaining_attempts
-    MAX_ATTEMPTS - (attempts || 0)
+    MAX_ATTEMPTS - (T.cast(attempts, T.nilable(Integer)) || 0)
   end
 end

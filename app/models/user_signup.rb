@@ -1,6 +1,10 @@
+# typed: true
+
 # Models a user signing up for an account on the public signup form,
 # using a signup code.
 class UserSignup
+  extend T::Sig
+
   include ActiveModel::Model
   include ActiveModel::Attributes
   include ErrorBubbling
@@ -10,6 +14,12 @@ class UserSignup
   attribute :display_name, :string
   attribute :password, :string
   attribute :password_confirmation, :string
+
+  sig { void }
+  def initialize
+    @invalid_code = T.let(false, T::Boolean)
+    @user = T.let(nil, T.nilable(User))
+  end
 
   alias_method :email, :new_email
 

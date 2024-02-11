@@ -1,6 +1,8 @@
 # frozen_string_literal: true
+# typed: true
 
 class EmailVerificationMailer < ApplicationMailer
+  sig { returns(Mail::Message) }
   def verification_link
     @user = params[:user]
 
