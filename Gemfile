@@ -12,17 +12,17 @@ gem "rails", "~> 7.1.2"
 gem "sprockets-rails"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.5.5"
 # Enable more effecient bulk queries
 gem "postgresql_cursor"
 # Full-text search
 gem "pg_search"
 
 # Support CORS requests from CDN
-gem "rack-cors"
+gem "rack-cors", ">= 2.0.2"
 
 # Use Puma as the app server
-gem "puma", ">= 6.0.0"
+gem "puma", ">= 6.4.2", "< 7.0.0"
 
 # use import maps for JS
 gem "importmap-rails"
