@@ -17,6 +17,7 @@ class PasswordResetRequest
     if !save
       raise ActiveRecord::RecordInvalid, self
     end
+    true
   end
 
   # Returns false for validation errors only, true whether or not the request succeeded
