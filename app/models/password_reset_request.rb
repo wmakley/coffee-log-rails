@@ -12,7 +12,14 @@ class PasswordResetRequest
     @invalid_email
   end
 
-  # Returns false for programming errors only, true whether or not the reset succeeded
+  # @raise ActiveRecord::RecordInvalid on form validation errors
+  def save!
+    if !save
+      raise ActiveRecord::RecordInvalid, self
+    end
+  end
+
+  # Returns false for validation errors only, true whether or not the request succeeded
   def save
     return false unless valid?
 

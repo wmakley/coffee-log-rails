@@ -9,7 +9,7 @@ class Fail2Ban
       @instance ||= Fail2Ban.new
     end
 
-    delegate :record_failed_attempt, :cleanup_old_attempts, :banned?, :whitelist, to: :instance
+    delegate :record_failed_attempt, :cleanup_old_attempts, :banned?, :whitelist, :whitelisted?, to: :instance
   end
 
   def initialize
@@ -22,7 +22,7 @@ class Fail2Ban
   # @return [LoginAttempt,nil]
   def record_failed_attempt(ip_address)
     if ip_address.in? whitelist
-      Rails.logger.debug "Not recording failed attempt for whitelisted IP #{ip_address}"
+      Rails.logger.debug { "Not recording failed attempt for whitelisted IP #{ip_address}" }
       return LoginAttempt.new(ip_address: ip_address, attempts: 1)
     end
 
@@ -46,5 +46,9 @@ class Fail2Ban
   # @return [Boolean]
   def banned?(ip_address)
     BannedIp.banned?(ip_address)
+  end
+
+  def whitelisted?(ip_address)
+    whitelist.include?(ip_address)
   end
 end

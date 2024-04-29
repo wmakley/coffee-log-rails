@@ -17,17 +17,19 @@ module Auth
     def create
       @password_reset_request = PasswordResetRequest.new(password_reset_request_params)
 
+      if @password_reset_request.invalid?
+        return render action: :new, status: :unprocessable_entity
+      end
+
       verify_captcha(action: "request_password_reset").on_failure do
         flash.now[:error] = "ReCAPTCHA verification failure."
         return render action: :new, status: :unprocessable_entity
       end
 
-      if @password_reset_request.save
-        return redirect_to root_url, notice: "A reset link has been sent to your email address.", status: :see_other
-      end
+      @password_reset_request.save!
 
-      render action: :new, status: :unprocessable_entity
       Fail2Ban.record_failed_attempt(request.remote_ip) if @password_reset_request.invalid_email?
+      redirect_to root_url, notice: "A reset link has been sent to your email address.", status: :see_other
     end
 
     private

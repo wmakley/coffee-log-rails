@@ -5,6 +5,7 @@ require "test_helper"
 class IpBanningTest < ActionDispatch::IntegrationTest
   test "IPs are banned after 10 failed login attempts" do
     assert_not Fail2Ban.banned?("127.0.0.1")
+    assert_not Fail2Ban.whitelisted?("127.0.0.1")
 
     invalid_params = {
       login_form: {
@@ -26,6 +27,7 @@ class IpBanningTest < ActionDispatch::IntegrationTest
 
   test "IPs are banned after 10 failed password reset requests" do
     assert_not Fail2Ban.banned?("127.0.0.1")
+    assert_not Fail2Ban.whitelisted?("127.0.0.1")
 
     invalid_params = {
       password_reset_request: {
@@ -46,6 +48,7 @@ class IpBanningTest < ActionDispatch::IntegrationTest
 
   test "IPs are banned after 10 failed password reset attempts" do
     assert_not Fail2Ban.banned?("127.0.0.1")
+    assert_not Fail2Ban.whitelisted?("127.0.0.1")
 
     invalid_params = {
       password_reset: {
