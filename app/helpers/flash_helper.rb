@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module FlashHelper
+  # @return [String]
   def flash_alert_class(flash_key)
     case flash_key.to_s
     when "error"
@@ -10,6 +11,7 @@ module FlashHelper
     end
   end
 
+  # @return [ActiveSupport::SafeBuffer]
   def flash_icon_tag(flash_key)
     case flash_key.to_s
     when "error"
