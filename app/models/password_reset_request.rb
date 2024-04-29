@@ -36,7 +36,7 @@ class PasswordResetRequest
       user.generate_reset_password_token!
       unless user.save
         # do not raise exception here, attacker must not know if user is real
-        logger.error "Error(s) saving User: #{user.errors.full_messages}"
+        logger.error "Error(s) saving User #{user.inspect}: #{user.errors.full_messages}"
         raise ActiveRecord::Rollback
       end
     end
