@@ -3,8 +3,13 @@
 ## TODO
 
 - [x] Error on reset password form not handled
+- [ ] Make some use of new logos from "bulma" branch
+- [ ] Add tasting sheets
+- [ ] Make it easier to add a log entry for a drink that isn't in the database
+- [ ] Add recipes
+- [ ] Less Bootstrap nav-bar
 
-## Recommended .vscode/settings/json
+## Recommended .vscode/settings.json
 
 ```json
 {
