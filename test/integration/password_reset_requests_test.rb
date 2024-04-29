@@ -48,7 +48,7 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
     assert_nil user.reset_password_token_created_at
   end
 
-  test "user must provide password confirmatino" do
+  test "user must provide password confirmation" do
     user = users(:default)
 
     post "/password_reset_request", params: {
@@ -71,5 +71,20 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
 
     user.reload
     assert_equal old_password, user.password_digest
+  end
+
+  test "user is shown error on CAPTCHA failure" do
+    CaptchaWrapper.captcha_implementation = :always_fail
+
+    user = users(:default)
+
+    post "/password_reset_request", params: {
+      password_reset_request: {
+        email: user.email,
+      },
+    }
+
+    assert_response :unprocessable_entity
+    assert_includes flash[:error], "ReCAPTCHA"
   end
 end

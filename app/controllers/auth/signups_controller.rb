@@ -17,14 +17,8 @@ module Auth
         return render action: :new, status: :unprocessable_entity
       end
 
-      recaptcha_result = verify_recaptcha(action: "signup", minimum_score: 0.5)
-      logger.info "Recaptcha success: #{recaptcha_result}"
-      unless recaptcha_result
-        logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?
-        score = recaptcha_reply["score"] if recaptcha_reply
-        logger.info("User was denied signup because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
-
-        flash[:error] = "ReCAPTCHA verification failed, please refresh the page and try again."
+      verify_captcha(action: "signup").on_failure do
+        flash.now[:error] = "ReCAPTCHA verification failed, please refresh the page and try again."
         return render action: :new, status: :unprocessable_entity
       end
 
@@ -50,7 +44,7 @@ module Auth
         # expected
       end
 
-      redirect_to success_auth_signup_path
+      redirect_to success_auth_signup_path, status: :see_other
     end
 
     def success

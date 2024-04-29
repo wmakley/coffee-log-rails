@@ -25,21 +25,15 @@ module Auth
         return render action: :new, status: :unprocessable_entity
       end
 
-      # captcha failure
-      recaptcha_result = verify_recaptcha(action: "login", minimum_score: 0.5)
-      logger.info "Recaptcha success: #{recaptcha_result}"
-      unless recaptcha_result
-        logger.warn "Recaptcha reply is nil" if recaptcha_reply.nil?
-        score = recaptcha_reply["score"] if recaptcha_reply
-        logger.info("User was denied login because of a recaptcha score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
-
-        flash[:error] = "ReCAPTCHA verification failed, please refresh the page and try again."
+      # captcha
+      verify_captcha(action: "login").on_failure do
+        flash.now[:error] = "ReCAPTCHA verification failed, please refresh the page and try again."
         return render action: :new, status: :unprocessable_entity
       end
 
       # username / password failure
       unless authenticate_user_from_form(@login_form)
-        flash[:error] = "Username or password not correct."
+        flash.now[:error] = "Username or password not correct."
         Fail2Ban.record_failed_attempt(request.remote_ip) if @login_form.valid?
         return render action: :new, status: :unprocessable_entity
       end

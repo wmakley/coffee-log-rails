@@ -25,6 +25,16 @@ module ActiveSupport
       @_unique_number += 1
       yield @_unique_number
     end
+
+    def before_setup
+      super
+      @_original_captcha_implementation = CaptchaWrapper.captcha_implementation
+    end
+
+    def after_teardown
+      super
+      CaptchaWrapper.captcha_implementation = @_original_captcha_implementation
+    end
   end
 end
 
@@ -70,7 +80,7 @@ module RemoveUploadedFiles
   private
 
   def remove_uploaded_files
-    FileUtils.rm_rf(Rails.root.join("tmp", "storage"))
+    FileUtils.rm_rf(Rails.root.join("tmp/storage"))
   end
 end
 

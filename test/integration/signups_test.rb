@@ -31,4 +31,14 @@ class SignupsTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h1", count: 1, text: "Your account is almost ready!"
   end
+
+  test "user is shown error on CAPTCHA failure" do
+    CaptchaWrapper.captcha_implementation = :always_fail
+
+    post "/signup", params: {
+      user_signup: valid_signup_form_params,
+    }
+    assert_response :unprocessable_entity
+    assert_includes flash[:error], "ReCAPTCHA"
+  end
 end

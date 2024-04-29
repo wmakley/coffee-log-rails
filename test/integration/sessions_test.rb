@@ -3,6 +3,11 @@
 require "test_helper"
 
 class SessionsTest < ActionDispatch::IntegrationTest
+  def setup
+    super
+    CaptchaWrapper.captcha_implementation = :always_succeed
+  end
+
   def valid_login_params
     {
       login_form: {
@@ -60,6 +65,14 @@ class SessionsTest < ActionDispatch::IntegrationTest
     post "/session", params: invalid_username_params
     assert_response :unprocessable_entity
     assert cookies[:sess].blank?
+  end
+
+  test "may not login on CAPTCHA failure" do
+    CaptchaWrapper.captcha_implementation = :always_fail
+    post "/session", params: valid_login_params
+    assert_response :unprocessable_entity
+    assert cookies[:sess].blank?
+    assert_includes flash["error"], "ReCAPTCHA"
   end
 
   test "accessing pages that require login with valid session" do
