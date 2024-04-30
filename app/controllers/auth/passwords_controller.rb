@@ -12,7 +12,7 @@ module Auth
 
     def edit
       if params[:token].blank?
-        return redirect_to root_url, error: "Invalid password reset token."
+        return redirect_to root_url, status: :see_other, error: "Invalid password reset token."
       end
 
       @password_reset = PasswordReset.new(token: params[:token].to_s)
@@ -25,7 +25,7 @@ module Auth
       delete_authentication_cookie
 
       if @password_reset.save
-        redirect_to new_auth_session_url, notice: "Successfully reset password. Please login with your new password."
+        redirect_to new_auth_session_url, status: :see_other, notice: "Successfully reset password. Please login with your new password."
       else
         render action: :edit, status: :unprocessable_entity
       end

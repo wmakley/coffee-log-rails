@@ -23,7 +23,7 @@ class UserGroupMembershipsController < InternalController
     @group_membership.user_group = @user_group
 
     if @group_membership.save
-      redirect_to user_group_memberships_url(@user_group), notice: "Successfully added user to group."
+      redirect_to user_group_memberships_url(@user_group), status: :see_other, notice: "Successfully added user to group."
     else
       set_user_options
       render action: :new, status: :unprocessable_entity

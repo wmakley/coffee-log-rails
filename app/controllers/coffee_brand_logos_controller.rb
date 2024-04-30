@@ -15,7 +15,7 @@ class CoffeeBrandLogosController < InternalController
     respond_to do |format|
       format.html do
         flash[:notice] = "Successfully deleted image."
-        redirect_to edit_coffee_brand_url(@coffee_brand)
+        redirect_to edit_coffee_brand_url(@coffee_brand), status: :see_other
       end
       format.turbo_stream
     end

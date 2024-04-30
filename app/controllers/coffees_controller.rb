@@ -43,7 +43,7 @@ class CoffeesController < InternalController
     @coffee = Coffee.new(coffee_params)
 
     if @coffee.save
-      redirect_to @coffee, notice: "Successfully created coffee."
+      redirect_to @coffee, status: :see_other, notice: "Successfully created coffee."
     else
       set_coffee_brand_options
       render action: :new, status: :unprocessable_entity
@@ -58,7 +58,7 @@ class CoffeesController < InternalController
   def update
     authorize! @coffee
     if @coffee.update(coffee_params)
-      redirect_to @coffee, notice: "Successfully updated coffee."
+      redirect_to @coffee, status: :see_other, notice: "Successfully updated coffee."
     else
       set_coffee_brand_options
       render action: :edit, status: :unprocessable_entity

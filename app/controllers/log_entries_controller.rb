@@ -37,7 +37,7 @@ class LogEntriesController < InternalController
     respond_to do |format|
       if @log_entry.save
         format.html do
-          redirect_to log_entries_url(@log), notice: "Successfully created log entry."
+          redirect_to log_entries_url(@log), status: :see_other, notice: "Successfully created log entry."
         end
         format.turbo_stream do
           set_brew_methods
@@ -64,7 +64,7 @@ class LogEntriesController < InternalController
   def update
     authorize! @log_entry
     if @log_entry.update(log_entry_params)
-      redirect_to log_entry_url(@log, @log_entry), notice: "Updated log entry"
+      redirect_to log_entry_url(@log, @log_entry), status: :see_other, notice: "Updated log entry"
     else
       set_brew_methods
       render action: :edit, status: :unprocessable_entity
@@ -78,7 +78,7 @@ class LogEntriesController < InternalController
         format.html { redirect_to log_entries_url(@log), status: :see_other, notice: "Deleted log entry" }
         # format.turbo_stream { redirect_to log_entries_url(@log), notice: "Deleted log entry" }
       else
-        format.html { redirect_to log_entry_url(@log, @log_entry), error: "#{@log_entry.errors.full_messages.to_sentence}." }
+        format.html { redirect_to log_entry_url(@log, @log_entry), status: :see_other, error: "#{@log_entry.errors.full_messages.to_sentence}." }
       end
     end
   end

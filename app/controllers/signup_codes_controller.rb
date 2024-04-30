@@ -23,7 +23,7 @@ class SignupCodesController < InternalController
     @signup_code = SignupCode.new(signup_code_params)
 
     if @signup_code.save
-      redirect_to signup_codes_url, notice: "Successfully created signup code."
+      redirect_to signup_codes_url, status: :see_other, notice: "Successfully created signup code."
     else
       set_user_group_options
       render action: :new, status: :unprocessable_entity
@@ -38,7 +38,7 @@ class SignupCodesController < InternalController
   def update
     authorize! @signup_code
     if @signup_code.update(signup_code_params)
-      redirect_to signup_codes_url, notice: "Successfully updated signup code."
+      redirect_to signup_codes_url, status: :see_other, notice: "Successfully updated signup code."
     else
       set_user_group_options
       render action: :edit, status: :unprocessable_entity
@@ -52,7 +52,7 @@ class SignupCodesController < InternalController
         format.html { redirect_to signup_codes_url, status: :see_other, notice: "Successfully deleted signup code." }
         format.turbo_stream
       else
-        format.html { redirect_to signup_codes_url, error: "#{@signup_code.errors.full_messages.to_sentence}." }
+        format.html { redirect_to signup_codes_url, status: :see_other, error: "#{@signup_code.errors.full_messages.to_sentence}." }
         format.turbo_stream
       end
     end

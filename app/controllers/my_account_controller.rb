@@ -11,7 +11,7 @@ class MyAccountController < InternalController
     @my_account = MyAccount.new
 
     if @my_account.update(my_account_params)
-      redirect_to my_account_url, notice: "Successfully updated account."
+      redirect_to my_account_url, status: :see_other, notice: "Successfully updated account."
     else
       render action: :show, status: :unprocessable_entity
     end

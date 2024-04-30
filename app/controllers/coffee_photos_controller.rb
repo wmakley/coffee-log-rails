@@ -27,7 +27,7 @@ class CoffeePhotosController < InternalController
 
     respond_to do |format|
       format.html do
-        redirect_to edit_coffee_url(@coffee), notice: "Successfully deleted photo."
+        redirect_to edit_coffee_url(@coffee), status: :see_other, notice: "Successfully deleted photo."
       end
       format.turbo_stream do
         set_coffee_brand_options

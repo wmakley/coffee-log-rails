@@ -23,7 +23,7 @@ class CoffeeBrandsController < InternalController
     authorize!
     @coffee_brand = CoffeeBrand.new(coffee_brand_params)
     if @coffee_brand.save
-      redirect_to @coffee_brand, notice: "Successfully created coffee brand."
+      redirect_to @coffee_brand, status: :see_other, notice: "Successfully created coffee brand."
     else
       render action: :new, status: :unprocessable_entity
     end
@@ -36,7 +36,7 @@ class CoffeeBrandsController < InternalController
   def update
     authorize! @coffee_brand
     if @coffee_brand.update(coffee_brand_params)
-      redirect_to @coffee_brand, notice: "Successfully updated coffee brand."
+      redirect_to @coffee_brand, status: :see_other, notice: "Successfully updated coffee brand."
     else
       render action: :edit, status: :unprocessable_entity
     end
@@ -47,7 +47,7 @@ class CoffeeBrandsController < InternalController
     if @coffee_brand.destroy
       redirect_to coffee_brands_url, status: :see_other, notice: "Successfully deleted coffee brand."
     else
-      redirect_to coffee_brands_url, error: "#{@coffee_brand.errors.full_messages.to_sentence.capitalize}."
+      redirect_to coffee_brands_url, status: :see_other, error: "#{@coffee_brand.errors.full_messages.to_sentence.capitalize}."
     end
   end
 

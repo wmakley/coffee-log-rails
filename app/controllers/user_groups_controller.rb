@@ -22,7 +22,7 @@ class UserGroupsController < InternalController
     @user_group = UserGroup.new(user_group_params)
 
     if @user_group.save
-      redirect_to user_groups_url, notice: "Successfully created user group."
+      redirect_to user_groups_url, status: :see_other, notice: "Successfully created user group."
     else
       render action: :new, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class UserGroupsController < InternalController
   def update
     authorize! @user_group
     if @user_group.update(user_group_params)
-      redirect_to user_groups_url, notice: "Successfully updated user group."
+      redirect_to user_groups_url, status: :see_other, notice: "Successfully updated user group."
     else
       render action: :edit, status: :unprocessable_entity
     end
@@ -48,7 +48,7 @@ class UserGroupsController < InternalController
         format.html { redirect_to user_groups_url, status: :see_other, notice: "Successfully deleted user group." }
         format.turbo_stream
       else
-        format.html { redirect_to user_groups_url, error: "#{@user_group.errors.full_messages.to_sentence}." }
+        format.html { redirect_to user_groups_url, status: :see_other, error: "#{@user_group.errors.full_messages.to_sentence}." }
         format.turbo_stream
       end
     end

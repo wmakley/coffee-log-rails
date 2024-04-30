@@ -22,7 +22,7 @@ class BrewMethodsController < InternalController
     @brew_method = BrewMethod.new(brew_method_params)
 
     if @brew_method.save
-      redirect_to brew_methods_url, notice: "Successfully created brew method."
+      redirect_to brew_methods_url, notice: "Successfully created brew method.", status: :see_other
     else
       render action: :new, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class BrewMethodsController < InternalController
   def update
     authorize! @brew_method
     if @brew_method.update(brew_method_params)
-      redirect_to brew_methods_url, notice: "Successfully updated brew method."
+      redirect_to brew_methods_url, notice: "Successfully updated brew method.", status: :see_other
     else
       render action: :edit, status: :unprocessable_entity
     end
