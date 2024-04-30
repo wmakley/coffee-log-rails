@@ -6,11 +6,11 @@ module Auth
     before_action :redirect_to_app, if: :authenticated?
 
     def index
-      redirect_to new_auth_session_url, status: :see_other
+      redirect_to new_auth_session_url
     end
 
     def show
-      redirect_to new_auth_session_url, status: :see_other
+      redirect_to new_auth_session_url
     end
 
     def new
