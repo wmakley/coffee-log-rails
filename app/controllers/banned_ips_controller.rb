@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class BannedIpsController < InternalController
-  include AdminRequired
-
   def index
     authorize!
     @banned_ips = BannedIp.order(created_at: :desc).all
