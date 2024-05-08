@@ -1,0 +1,94 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<%= root_path %>">
+      <i class="bi bi-cup-fill"></i>
+      Coffee Log
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <% if current_user %>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <% if current_user&.log %>
+            <li class="nav-item">
+              <%- viewing_own_log = request.path.starts_with? log_entries_path(current_user.log) -%>
+              <a class="nav-link<%= ' active' if viewing_own_log %>" <%= 'aria-current="page"' if viewing_own_log %> href="<%= log_entries_path(current_user.log) %>">
+                My Log
+              </a>
+            </li>
+          <% end %>
+          <li class="nav-item">
+            <a class="nav-link<%= ' active' if request.path.starts_with?(coffees_path) %>" href="<%= coffees_path %>">
+              <i class="bi bi-gem"></i>
+              Coffees
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link<%= ' active' if request.path.starts_with?(coffee_brands_path) %>" href="<%= coffee_brands_path %>">
+              <i class="bi bi-globe"></i>
+              Brands
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link<%= ' active' if request.path.starts_with?(brew_methods_path) %>" href="<%= brew_methods_path %>">
+              <i class="bi bi-arrow-repeat"></i>
+              Brew Methods
+            </a>
+          </li>
+          <% if logs.size > 1 %>
+            <li class="nav-item dropdown">
+              <%- viewing_other_log = !viewing_own_log && request.path.starts_with?(logs_path) -%>
+              <a class="nav-link dropdown-toggle<%= ' active' if viewing_other_log %>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Other Logs
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <% logs.each do |log| %>
+                  <%- next if log == current_user.log -%>
+                  <li>
+                    <a class="dropdown-item<%= ' active' if request.path == log_entries_path(log) %>" href="<%= log_entries_path(log) %>">
+                      <%= log.title %>
+                    </a>
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+          <% if Current.admin? %>
+            <% admin_urls = [
+              [users_path, "Users"],
+              [user_groups_path, "User Groups"],
+              [signup_codes_path, "Signup Codes"],
+            ] %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle<%= ' active' if admin_urls.any? { |link| request.path.starts_with? link.first } %>" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Admin
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                <% admin_urls.each do |url, title| %>
+                  <li>
+                    <a class="dropdown-item<%= ' active' if request.path.starts_with?(url) %>" href="<%= url %>"><%= title %></a>
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+          <li class="nav-item">
+            <a class="nav-link<%= ' active' if request.path.starts_with?(my_account_path) %>" href="<%= my_account_path %>">
+              <i class="bi bi-person-fill"></i>
+              My Account
+            </a>
+          </li>
+          <li class="nav-item">
+            <%= form_with(url: auth_session_path, method: :delete, html: { "data-turbo": false }) do |f| %>
+              <%= f.button type: "submit", class: "nav-link" do %>
+                <i class="bi bi-box-arrow-right"></i>
+                Logout
+              <% end %>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</nav>
