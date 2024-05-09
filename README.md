@@ -3,6 +3,7 @@
 ## TODO
 
 - [x] Error on reset password form not handled
+- [ ] Password reset form has different width
 - [ ] Make some use of new logos from "bulma" branch
 - [ ] Add tasting sheets
 - [ ] Make it easier to add a log entry for a drink that isn't in the database
