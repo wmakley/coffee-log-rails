@@ -18,6 +18,37 @@ body {
   padding-bottom: 50px;
 }
 
+.navbar {
+  --amber-50: #fffbeb;
+  --amber-100: #fef3c7;
+  --amber-200: #fde68a;
+
+  --red-50: #fef2f2;
+  --red-100: #fee2e2;
+  --red-200: #fecaca;
+  --red-900: #7f1d1d;
+
+  --gray-50: #f9fafb;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-700: #374151;
+
+  --bs-navbar-color: var(--gray-300);
+  --bs-navbar-hover-color: var(--gray-50);
+  --bs-navbar-disabled-color: var(--gray-700);
+  --bs-navbar-active-color: var(--gray-50);
+  --bs-navbar-brand-color: var(--gray-200);
+  --bs-navbar-brand-hover-color: var(--gray-50);
+  --bs-navbar-toggler-border-color: var(--gray-50);
+  --bs-navbar-toggler-icon-bg: var(--gray-50);
+}
+
+.coffee-log-navbar{
+  --red-900: #7f1d1d;
+  background-color: var(--red-900);
+}
+
 turbo-frame {
   display: block;
   /*border: 1px solid blue !important;*/
