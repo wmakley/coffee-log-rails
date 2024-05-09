@@ -1,5 +1,9 @@
 <% content_for(:title, "Reset Password") -%>
 
-<h1><%= content_for(:title) %></h1>
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <h1><%= content_for(:title) %></h1>
 
-<%= render "form", object: @password_reset_request %>
+    <%= render "form", object: @password_reset_request %>
+  </div>
+</div>
