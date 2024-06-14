@@ -20,10 +20,16 @@ The most important variable - grind size - is almost impossible to log accuratel
 with most grinders! So I would just remember "I want to try a bit smaller today"
 or "maybe a bit larger" and whether it subsequently tasted better than yesterday.
 
+Tasting sheets, social media features, and recipe tracking are all
+features I am considering to make it more useful, but I think the
+experiment might be mostly over at this point.
+
 ## TODO
 
 - [x] Error on reset password form not handled
 - [x] Password reset form has different width
+- [ ] Change password flow not working, email links go to form, don't submit the form, submitting form does nothing
+- [ ] Invalid authenticity when trying to login after marking myself verified manually
 - [ ] Make it easier to add a log entry for a drink that isn't in the database
 - [ ] Add tasting sheets
 - [ ] Add recipes
