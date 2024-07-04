@@ -28,9 +28,10 @@ experiment might be mostly over at this point.
 
 - [x] Error on reset password form not handled
 - [x] Password reset form has different width
-- [ ] Change password flow not working, email links go to form, don't submit the form, submitting form does nothing
+- [ ] Change password flow not working, email links go to form, don't submit the form, submitting form does nothing (mostly fixed)
 - [ ] Invalid authenticity when trying to login after marking myself verified manually
-- [ ] Make it easier to add a log entry for a drink that isn't in the database
+- [ ] Make it easier to add a log entry for a drink that isn't in the database (needs to be part of looking up a coffee)
+- [ ] Easy way to crop coffee bag photo to save a logo to a brand record
 - [ ] Add tasting sheets
 - [ ] Add recipes
 - [ ] Less Bootstrap-y nav-bar
