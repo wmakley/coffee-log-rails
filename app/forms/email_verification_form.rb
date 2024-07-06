@@ -16,7 +16,7 @@ class EmailVerificationForm
       return false
     end
 
-    user.mark_email_verified!
+    user.email_verification_flow.mark_email_verified!
     user.save!
     user
   end

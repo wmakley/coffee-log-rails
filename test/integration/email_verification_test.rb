@@ -12,7 +12,7 @@ class EmailVerificationTest < ActionDispatch::IntegrationTest
 
   test "verifying email address when not logged in success" do
     user = users(:unverified_email)
-    user.generate_new_verification_token_and_send_email!
+    user.email_verification_flow.generate_new_verification_token_and_send_email!
 
     get "/email-verification"
     assert_redirected_to "/email-verification/new"
@@ -30,7 +30,7 @@ class EmailVerificationTest < ActionDispatch::IntegrationTest
 
   test "verifying email address when already logged in success" do
     user = users(:unverified_email)
-    user.generate_new_verification_token_and_send_email!
+    user.email_verification_flow.generate_new_verification_token_and_send_email!
 
     login_as user
 

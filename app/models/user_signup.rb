@@ -55,7 +55,7 @@ class UserSignup
         password: password,
         password_confirmation: password_confirmation,
       )
-      @user.generate_email_verification_token!
+      @user.email_verification_flow.generate_email_verification_token!
       unless @user.save
         copy_errors_from(@user)
         raise ActiveRecord::Rollback

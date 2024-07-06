@@ -16,7 +16,7 @@ class MyAccountTest < ActionDispatch::IntegrationTest
   test "updating email requires verification" do
     old_email = @user.email
     new_email = "new_email@test.com"
-    assert_not_equal new_email, old_email # sanity check
+    assert_not_equal new_email, old_email
 
     assert_emails 1 do
       patch "/my_account", params: {

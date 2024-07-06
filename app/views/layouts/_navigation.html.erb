@@ -36,7 +36,7 @@
               Brew Methods
             </a>
           </li>
-          <% if logs.size > 1 %>
+          <% if local_assigns[:logs] && logs.size > 1 %>
             <li class="nav-item dropdown">
               <%- viewing_other_log = !viewing_own_log && request.path.starts_with?(logs_path) -%>
               <a class="nav-link dropdown-toggle<%= ' active' if viewing_other_log %>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

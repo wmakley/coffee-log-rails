@@ -32,7 +32,6 @@
 #
 class User < ApplicationRecord
   include ResetPasswordToken
-  include EmailVerification
 
   has_one :log,
     foreign_key: :user_id,
@@ -96,6 +95,23 @@ class User < ApplicationRecord
   # Username without email suffix "@domain"
   def short_username
     username.split("@", 2).first if username
+  end
+
+  # @return [EmailVerificationFlow]
+  def email_verification_flow
+    EmailVerificationFlow.new(self)
+  end
+
+  def needs_email_verification?
+    !email_verified?
+  end
+
+  def email_verified?
+    email_verified_at.present?
+  end
+
+  def verification_email_sent?
+    @user.verification_email_sent_at.present?
   end
 
   private

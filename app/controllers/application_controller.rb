@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
     if exception.is_a? EmailVerificationNeededError
       flash[:error] = "Your email address has not been verified. Please click the link in your email to continue."
-      exception.user.send_verification_email_if_not_sent_recently!
+      exception.user.email_verification_flow.send_verification_email_if_not_sent_recently!
     else
       reset_session
       delete_authentication_cookie

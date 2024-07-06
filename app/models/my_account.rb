@@ -8,16 +8,14 @@ class MyAccount
     @user = user or fail "user not set"
   end
 
-  attr_reader :user
-
   delegate :id,
     :display_name, :display_name=,
     :password, :password=,
     :password_confirmation, :password_confirmation=,
-    :email_verified?,
     :each_user_group_and_membership, :group_memberships,
     :valid?, :invalid?, :errors, :persisted?,
-    to: :user
+    :email_verification_flow,
+    to: :@user
 
   def email
     @user.new_email.presence || @user.email
@@ -38,15 +36,15 @@ class MyAccount
   end
 
   def save
-    return false if user.invalid?
+    return false if @user.invalid?
 
-    if user.new_email_changed?
-      user.start_verification_process!
+    if @user.new_email_changed?
+      @user.email_verification_flow.start_verification_process!
     end
 
-    user.save or return false
+    @user.save or return false
 
-    user.send_verification_email
+    @user.email_verification_flow.send_verification_email
     true
   end
 end
