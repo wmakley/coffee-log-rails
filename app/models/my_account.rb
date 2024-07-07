@@ -38,13 +38,8 @@ class MyAccount
   def save
     return false if @user.invalid?
 
-    if @user.new_email_changed?
-      @user.email_verification_flow.start_verification_process!
+    @user.email_verification_flow.around_save do
+      @user.save
     end
-
-    @user.save or return false
-
-    @user.email_verification_flow.send_verification_email
-    true
   end
 end

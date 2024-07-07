@@ -4,6 +4,20 @@ class EmailVerificationFlow
     @user = user
   end
 
+  # Decorate a normal user save operation with email verification flow
+  # logic, in the event that the user changed their email.
+  # @return the return value of the provided block
+  def around_save
+    needed = @user.new_email_changed?
+    result = nil
+    User.transaction do
+      start_verification_process! if needed
+      result = yield
+    end
+    send_verification_email if needed && result
+    result
+  end
+
   def start_verification_process!
     generate_email_verification_token!
     will_send_verification_email!
