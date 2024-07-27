@@ -3,10 +3,14 @@
 class EmailVerificationForm
   include ActiveModel::Model
 
-  attr_accessor :email, :token
+  attr_accessor :email, :token, :submit_immediately
 
   validates :email, presence: true
   validates :token, presence: true
+
+  def submit_immediately?
+    submit_immediately == "1"
+  end
 
   def save
     user = User.find_by(email: email.to_s, email_verification_token: token.to_s)

@@ -1,4 +1,11 @@
-<%= form_with(model: object, url: auth_email_verification_path) do |f| %>
+<%= form_with(model: object, url: auth_email_verification_path, html: {
+  data: {
+    controller: object.submit_immediately? ? "submit-immediately" : "email-verification-form",
+    "email-verification-form-target": "form",
+    "submit-immediately-target": "form",
+    action: "change->email-verification-form#validate",
+  }
+}) do |f| %>
   <div class="mb-3">
     <%= input f, :email, as: :email_field,
               label: "Enter your email address:",
@@ -7,6 +14,9 @@
                 class: "form-control form-control-lg",
                 placeholder: "Email address",
                 autofocus: true,
+                data: {
+                  "email-verification-form-target": "email",
+                }
               }
     %>
   </div>
@@ -17,11 +27,16 @@
               input_html: {
                 class: "form-control form-control-lg",
                 placeholder: "Verification Token",
+                data: {
+                  "email-verification-form-target": "token",
+                }
               }
     %>
   </div>
   <p>
-    <%= f.submit "Submit", class: "btn btn-primary btn-lg" %>
+    <%= f.submit "Submit", class: "btn btn-primary btn-lg", data: {
+      "email-verification-form-target": "submit",
+    } %>
     <%= cancel_button root_path, class: "btn-lg" %>
   </p>
 <% end %>

@@ -11,15 +11,6 @@ module Auth
 
     def new
       @email_verification_form = EmailVerificationForm.new(email_verification_params)
-
-      # Automatically try to validate email if form is valid
-      # (user clicked link in their email to make a GET request)
-      if @email_verification_form.valid?
-        create
-      else
-        # don't show the form full of red ink before user has filled it out
-        @email_verification_form.errors.clear
-      end
     end
 
     def create
@@ -40,7 +31,7 @@ module Auth
     private
 
     def email_verification_params
-      params.permit(:email, :token)
+      params.permit(:email, :token, :submit_immediately)
     end
   end
 end
