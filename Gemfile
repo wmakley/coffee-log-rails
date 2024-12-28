@@ -6,13 +6,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.6"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem "rails", "~> 7.1.2"
+gem "rails", "~> 7.2.2.1"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.5.5"
+gem "pg", "~> 1.1"
 # Enable more effecient bulk queries
 gem "postgresql_cursor"
 # Full-text search
@@ -22,7 +22,7 @@ gem "pg_search"
 gem "rack-cors", ">= 2.0.2"
 
 # Use Puma as the app server
-gem "puma", ">= 6.4.2", "< 7.0.0"
+gem "puma", ">= 6.4.2"
 
 # use import maps for JS
 gem "importmap-rails"
@@ -84,7 +84,10 @@ group :development, :test do
   gem "standard-rails", require: false
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: [:mri, :mingw]
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
 end
 
 group :development do
@@ -93,11 +96,8 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  # gem 'spring'
+  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  # gem "rubocop-rails-omakase", require: false
 end
 
 group :test do
