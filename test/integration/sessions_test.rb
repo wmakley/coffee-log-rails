@@ -57,20 +57,20 @@ class SessionsTest < ActionDispatch::IntegrationTest
 
   test "invalid password may not log in" do
     post "/session", params: invalid_password_params
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert cookies[:sess].blank?
   end
 
   test "invalid username may not log in" do
     post "/session", params: invalid_username_params
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert cookies[:sess].blank?
   end
 
   test "may not login on CAPTCHA failure" do
     CaptchaWrapper.captcha_implementation = :always_fail
     post "/session", params: valid_login_params
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert cookies[:sess].blank?
     assert_includes flash["error"], "ReCAPTCHA"
   end

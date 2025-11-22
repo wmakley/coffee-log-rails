@@ -26,7 +26,7 @@ class SignupCodesController < InternalController
       redirect_to signup_codes_url, status: :see_other, notice: "Successfully created signup code."
     else
       set_user_group_options
-      render action: :new, status: :unprocessable_entity
+      render action: :new, status: :unprocessable_content
     end
   end
 
@@ -41,7 +41,7 @@ class SignupCodesController < InternalController
       redirect_to signup_codes_url, status: :see_other, notice: "Successfully updated signup code."
     else
       set_user_group_options
-      render action: :edit, status: :unprocessable_entity
+      render action: :edit, status: :unprocessable_content
     end
   end
 

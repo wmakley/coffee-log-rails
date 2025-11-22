@@ -45,7 +45,7 @@ class BrewMethodsTest < ActionDispatch::IntegrationTest
         default_brew_ratio: "",
       },
     }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_select "form"
   end
 
@@ -74,7 +74,7 @@ class BrewMethodsTest < ActionDispatch::IntegrationTest
         default_brew_ratio: "",
       },
     }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_select "form"
   end
 

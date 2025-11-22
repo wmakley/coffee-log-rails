@@ -65,6 +65,6 @@ class UsersTest < ActionDispatch::IntegrationTest
         display_name: "",
       },
     }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 end

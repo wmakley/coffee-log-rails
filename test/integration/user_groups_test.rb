@@ -34,7 +34,7 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
     post "/user-groups", params: {
       user_group: invalid_attributes,
     }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_select "form.user-group", 1
   end
 
@@ -67,7 +67,7 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
         name: "",
       },
     }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_select "form.user-group", 1
   end
 

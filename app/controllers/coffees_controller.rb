@@ -46,7 +46,7 @@ class CoffeesController < InternalController
       redirect_to @coffee, status: :see_other, notice: "Successfully created coffee."
     else
       set_coffee_brand_options
-      render action: :new, status: :unprocessable_entity
+      render action: :new, status: :unprocessable_content
     end
   end
 
@@ -61,7 +61,7 @@ class CoffeesController < InternalController
       redirect_to @coffee, status: :see_other, notice: "Successfully updated coffee."
     else
       set_coffee_brand_options
-      render action: :edit, status: :unprocessable_entity
+      render action: :edit, status: :unprocessable_content
     end
   end
 

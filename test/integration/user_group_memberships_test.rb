@@ -34,7 +34,7 @@ class UserGroupMembershipsTest < ActionDispatch::IntegrationTest
         user_id: nil,
       },
     }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_select "form.group-membership", 1
   end
 end

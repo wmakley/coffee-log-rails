@@ -33,7 +33,7 @@ module Auth
           redirect_to_login
         end
       else
-        render action: :new, status: :unprocessable_entity
+        render action: :new, status: :unprocessable_content
       end
     end
 

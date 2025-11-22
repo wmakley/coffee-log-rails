@@ -22,20 +22,20 @@ module Auth
 
       # missing required fields
       if @login_form.invalid?
-        return render action: :new, status: :unprocessable_entity
+        return render action: :new, status: :unprocessable_content
       end
 
       # captcha
       verify_captcha(action: "login").on_failure do
         flash.now[:error] = "ReCAPTCHA verification failed, please refresh the page and try again."
-        return render action: :new, status: :unprocessable_entity
+        return render action: :new, status: :unprocessable_content
       end
 
       # username / password failure
       unless authenticate_user_from_form(@login_form)
         flash.now[:error] = "Username or password not correct."
         Fail2Ban.record_failed_attempt(request.remote_ip) if @login_form.valid?
-        return render action: :new, status: :unprocessable_entity
+        return render action: :new, status: :unprocessable_content
       end
 
       # success

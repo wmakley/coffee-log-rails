@@ -18,12 +18,12 @@ module Auth
       @password_reset_request = PasswordResetRequest.new(password_reset_request_params)
 
       if @password_reset_request.invalid?
-        return render action: :new, status: :unprocessable_entity
+        return render action: :new, status: :unprocessable_content
       end
 
       verify_captcha(action: "request_password_reset").on_failure do
         flash.now[:error] = "ReCAPTCHA verification failure."
-        return render action: :new, status: :unprocessable_entity
+        return render action: :new, status: :unprocessable_content
       end
 
       @password_reset_request.save!

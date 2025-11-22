@@ -27,7 +27,7 @@ module Auth
       if @password_reset.save
         redirect_to new_auth_session_url, status: :see_other, notice: "Successfully reset password. Please login with your new password."
       else
-        render action: :edit, status: :unprocessable_entity
+        render action: :edit, status: :unprocessable_content
       end
 
       Fail2Ban.record_failed_attempt(request.remote_ip) if @password_reset.invalid_token?

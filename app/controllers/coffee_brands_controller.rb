@@ -25,7 +25,7 @@ class CoffeeBrandsController < InternalController
     if @coffee_brand.save
       redirect_to @coffee_brand, status: :see_other, notice: "Successfully created coffee brand."
     else
-      render action: :new, status: :unprocessable_entity
+      render action: :new, status: :unprocessable_content
     end
   end
 
@@ -38,7 +38,7 @@ class CoffeeBrandsController < InternalController
     if @coffee_brand.update(coffee_brand_params)
       redirect_to @coffee_brand, status: :see_other, notice: "Successfully updated coffee brand."
     else
-      render action: :edit, status: :unprocessable_entity
+      render action: :edit, status: :unprocessable_content
     end
   end
 

@@ -46,7 +46,7 @@ class CoffeesTest < ActionDispatch::IntegrationTest
           name: "",
         },
       }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_select "form"
   end
 
@@ -71,7 +71,7 @@ class CoffeesTest < ActionDispatch::IntegrationTest
           name: "",
         },
       }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_select "form"
   end
 

@@ -51,7 +51,7 @@ class MyAccountTest < ActionDispatch::IntegrationTest
         password: "testtesttesttest",
       },
     }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "may not make self an admin" do

@@ -47,7 +47,7 @@ class LogEntriesController < InternalController
         logger.debug "Log Entry Validation Errors: #{@log_entry.errors.full_messages.inspect}"
         format.html do
           set_brew_methods
-          render action: :new, status: :unprocessable_entity
+          render action: :new, status: :unprocessable_content
         end
         format.turbo_stream do
           set_brew_methods
@@ -67,7 +67,7 @@ class LogEntriesController < InternalController
       redirect_to log_entry_url(@log, @log_entry), status: :see_other, notice: "Updated log entry"
     else
       set_brew_methods
-      render action: :edit, status: :unprocessable_entity
+      render action: :edit, status: :unprocessable_content
     end
   end
 

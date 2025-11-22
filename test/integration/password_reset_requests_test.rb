@@ -67,7 +67,7 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
       },
     }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
 
     user.reload
     assert_equal old_password, user.password_digest
@@ -84,7 +84,7 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
       },
     }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_includes flash[:error], "ReCAPTCHA"
   end
 end

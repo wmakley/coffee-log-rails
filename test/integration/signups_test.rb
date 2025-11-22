@@ -38,7 +38,7 @@ class SignupsTest < ActionDispatch::IntegrationTest
     post "/signup", params: {
       user_signup: valid_signup_form_params,
     }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_includes flash[:error], "ReCAPTCHA"
   end
 end

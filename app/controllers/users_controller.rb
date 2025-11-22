@@ -22,7 +22,7 @@ class UsersController < InternalController
       if @user.save
         format.html { redirect_to users_url, status: :see_other, notice: "Succesfully created user." }
       else
-        format.html { render action: :new, status: :unprocessable_entity }
+        format.html { render action: :new, status: :unprocessable_content }
       end
     end
   end
@@ -40,7 +40,7 @@ class UsersController < InternalController
       if @user.update(user_params)
         format.html { redirect_to users_url, status: :see_other, notice: "Succesfully updated user." }
       else
-        format.html { render action: :edit, status: :unprocessable_entity }
+        format.html { render action: :edit, status: :unprocessable_content }
       end
     end
   end

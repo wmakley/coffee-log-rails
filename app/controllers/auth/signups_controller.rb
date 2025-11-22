@@ -14,12 +14,12 @@ module Auth
       @signup = ::UserSignup.new(user_signup_params)
 
       if @signup.invalid?
-        return render action: :new, status: :unprocessable_entity
+        return render action: :new, status: :unprocessable_content
       end
 
       verify_captcha(action: "signup").on_failure do
         flash.now[:error] = "ReCAPTCHA verification failed, please refresh the page and try again."
-        return render action: :new, status: :unprocessable_entity
+        return render action: :new, status: :unprocessable_content
       end
 
       unless @signup.save
@@ -28,7 +28,7 @@ module Auth
           flash[:error] = "#{attempt.remaining_attempts} #{"attempt".pluralize(attempt.remaining_attempts)} remaining."
         end
         logger.error "Error Saving form: #{@signup.errors.full_messages.inspect}"
-        return render action: :new, status: :unprocessable_entity
+        return render action: :new, status: :unprocessable_content
       end
 
       user = @signup.user

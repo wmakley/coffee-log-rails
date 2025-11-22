@@ -46,7 +46,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
           name: "",
         },
       }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "edit" do
@@ -76,7 +76,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
           name: "",
         },
       }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "destroy as non_admin is not authorized" do

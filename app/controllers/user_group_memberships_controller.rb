@@ -26,7 +26,7 @@ class UserGroupMembershipsController < InternalController
       redirect_to user_group_memberships_url(@user_group), status: :see_other, notice: "Successfully added user to group."
     else
       set_user_options
-      render action: :new, status: :unprocessable_entity
+      render action: :new, status: :unprocessable_content
     end
   end
 

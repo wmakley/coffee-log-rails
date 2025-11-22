@@ -16,7 +16,7 @@ class IpBanningTest < ActionDispatch::IntegrationTest
 
     Fail2Ban::MAX_ATTEMPTS.times do |n|
       post "/session", params: invalid_params
-      assert_response :unprocessable_entity, "#{n}th iteration"
+      assert_response :unprocessable_content, "#{n}th iteration"
     end
 
     post "/session", params: invalid_params
@@ -60,7 +60,7 @@ class IpBanningTest < ActionDispatch::IntegrationTest
 
     Fail2Ban::MAX_ATTEMPTS.times do |n|
       patch "/password", params: invalid_params
-      assert_response :unprocessable_entity, "#{n}th iteration"
+      assert_response :unprocessable_content, "#{n}th iteration"
     end
 
     patch "/password", params: invalid_params

@@ -24,7 +24,7 @@ class UserGroupsController < InternalController
     if @user_group.save
       redirect_to user_groups_url, status: :see_other, notice: "Successfully created user group."
     else
-      render action: :new, status: :unprocessable_entity
+      render action: :new, status: :unprocessable_content
     end
   end
 
@@ -37,7 +37,7 @@ class UserGroupsController < InternalController
     if @user_group.update(user_group_params)
       redirect_to user_groups_url, status: :see_other, notice: "Successfully updated user group."
     else
-      render action: :edit, status: :unprocessable_entity
+      render action: :edit, status: :unprocessable_content
     end
   end
 
