@@ -2,7 +2,7 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.4.4
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
+FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
 WORKDIR /rails
@@ -14,13 +14,13 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development:test"
 
 # Throw-away build stage to reduce size of final image
-FROM base as build
+FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential nodejs npm git libpq-dev libvips pkg-config
+    apt-get install --no-install-recommends -y build-essential nodejs npm git libpq-dev libvips pkg-config libyaml-dev
 
-ARG YARN_VERSION=1.22.19
+ARG YARN_VERSION=1.22.22
 RUN npm -g install yarn@${YARN_VERSION}
 
 # Install application gems
