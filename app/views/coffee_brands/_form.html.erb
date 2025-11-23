@@ -6,7 +6,7 @@
   <div class="mb-3">
     <%= input f, :name, label: "Name", required: true,
               input_html: {
-                class: "form-control form-control-lg required",
+                class: "form-control form-control-lg required".freeze,
                 maxlength: 255,
                 autofocus: object.new_record?,
               }
