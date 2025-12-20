@@ -81,6 +81,11 @@ gem "recaptcha", "~> 5.15"
 gem "sentry-ruby"
 gem "sentry-rails"
 
+# 6 is not yet supported by Rails 8
+gem "minitest", "< 6.0.0"
+# 3 is not yet supported by Rails 8
+gem "connection_pool", "< 3.0.0"
+
 group :development, :test do
   gem "rubocop", require: false
   gem "rubocop-minitest", require: false
