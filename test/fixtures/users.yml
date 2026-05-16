@@ -84,8 +84,7 @@ unverified_email:
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: Inactive
   admin: false
-  preferences: { }
-
+  preferences: {}
 
 no_group:
   id: 5
@@ -99,7 +98,7 @@ no_group:
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: No group
   admin: false
-  preferences: { }
+  preferences: {}
 
 group_a:
   id: 6
@@ -113,7 +112,7 @@ group_a:
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: Group A User
   admin: false
-  preferences: { }
+  preferences: {}
 
 group_b:
   id: 7
@@ -127,7 +126,7 @@ group_b:
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: Group B User
   admin: false
-  preferences: { }
+  preferences: {}
 
 # This user has just been migrated to using their email as their username, but
 # has not yet been sent the verification email.
@@ -143,4 +142,4 @@ post_migration_email_not_verified:
   password_changed_at: "<%= 1.day.ago.iso8601 %>"
   display_name: post migration email not verified
   admin: false
-  preferences: { }
+  preferences: {}
