@@ -2,7 +2,10 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.4.9
+ARG RUBYGEMS_VERSION=4.0.11
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
+
+RUN gem update --system ${RUBYGEMS_VERSION}
 
 # Rails app lives here
 WORKDIR /rails
