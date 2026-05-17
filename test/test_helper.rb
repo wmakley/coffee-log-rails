@@ -42,7 +42,8 @@ module AppSpecificAssertions
   def assert_redirected_to_app
     assert_redirected_to "/logs"
     follow_redirect!
-    assert_redirected_to %r{/logs/[\w\d\-]+/entries}
+
+    assert_redirected_to %r{/logs/[\w\d-]+/entries}
   end
 
   def assert_redirected_to_login

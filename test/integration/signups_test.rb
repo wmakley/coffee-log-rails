@@ -15,9 +15,11 @@ class SignupsTest < ActionDispatch::IntegrationTest
 
   test "can use code to sign up to a group" do
     get "/signup"
+
     assert_redirected_to "/signup/new"
 
     follow_redirect!
+
     assert_response :success
     assert_select "form#new_signup_form"
 
@@ -28,6 +30,7 @@ class SignupsTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to "/signup/success"
     follow_redirect!
+
     assert_response :success
     assert_select "h1", count: 1, text: "Your account is almost ready!"
   end
@@ -38,6 +41,7 @@ class SignupsTest < ActionDispatch::IntegrationTest
     post "/signup", params: {
       user_signup: valid_signup_form_params,
     }
+
     assert_response :unprocessable_content
     assert_includes flash[:error], "ReCAPTCHA"
   end

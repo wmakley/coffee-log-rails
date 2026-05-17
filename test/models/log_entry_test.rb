@@ -52,6 +52,7 @@ class LogEntryTest < ActiveSupport::TestCase
 
   test "saves with valid attributes" do
     entry = LogEntry.new(valid_attributes)
+
     assert entry.save
   end
 
@@ -60,11 +61,13 @@ class LogEntryTest < ActiveSupport::TestCase
     entry.mark_as_deleted!
 
     entry.reload
+
     assert_not_nil entry.deleted_at
-    assert entry.deleted_at < Time.current
+    assert_operator entry.deleted_at, :<, Time.current
 
     log = entry.log
     log.reload
+
     assert_not(log.log_entries.any? { |e| e.id == entry.id })
   end
 
@@ -73,14 +76,17 @@ class LogEntryTest < ActiveSupport::TestCase
 
     entry.addl_notes = "line1\r\nline2\t"
     entry.valid?
+
     assert_equal "line1\nline2", entry.addl_notes
 
     entry.addl_notes = " line1\rline2 "
     entry.valid?
+
     assert_equal "line1\nline2", entry.addl_notes
 
     entry.addl_notes = "line1\n\nline2"
     entry.valid?
+
     assert_equal "line1\n\nline2", entry.addl_notes
   end
 end

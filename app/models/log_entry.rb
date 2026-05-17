@@ -65,29 +65,29 @@ class LogEntry < ApplicationRecord
     end
   end
 
-  validates_presence_of :entry_date
+  validates :entry_date, presence: true
 
-  validates_length_of :water,
+  validates :water,
     :grind_notes,
-    maximum: 255, allow_nil: true
-  validates_length_of :tasting_notes, :preparation_notes, :addl_notes,
-    maximum: 4000, allow_nil: true
+    length: {maximum: 255, allow_nil: true}
+  validates :tasting_notes, :preparation_notes, :addl_notes,
+    length: {maximum: 4000, allow_nil: true}
 
-  validates_numericality_of :coffee_grams,
+  validates :coffee_grams,
     :water_grams,
-    only_integer: true,
-    allow_blank: true,
-    minimum: 1
+    numericality: {only_integer: true,
+                   allow_blank: true,
+                   minimum: 1}
 
-  validates_numericality_of :grind_setting,
+  validates :grind_setting,
     :water_temp_in_celsius,
-    allow_blank: true
+    numericality: {allow_blank: true}
 
   # Ratings out of five
-  validates_numericality_of :acidity, :body, :bitterness, :overall_rating,
-    only_integer: true,
-    allow_blank: true,
-    minimum: 1, maximum: 5
+  validates :acidity, :body, :bitterness, :overall_rating,
+    numericality: {only_integer: true,
+                   allow_blank: true,
+                   minimum: 1, maximum: 5}
 
   # Scale of -2 (too weak) to 2 (too strong), where zero is "perfect"
   validates :strength, numericality: {

@@ -4,18 +4,21 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
   test "admins may view" do
     login_as users(:admin)
     get "/user-groups"
+
     assert_response :success
   end
 
   test "non-admins are denied" do
     login_as users(:non_admin)
     get "/user-groups"
+
     assert_not_authorized
   end
 
   test "can view new" do
     login_as users(:admin)
     get "/user-groups/new"
+
     assert_response :success
     assert_select "form.user-group", 1
   end
@@ -25,6 +28,7 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
     post "/user-groups", params: {
       user_group: valid_attributes,
     }
+
     assert_redirected_to "/user-groups"
     assert_equal "Successfully created user group.", flash[:notice]
   end
@@ -34,6 +38,7 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
     post "/user-groups", params: {
       user_group: invalid_attributes,
     }
+
     assert_response :unprocessable_content
     assert_select "form.user-group", 1
   end
@@ -41,6 +46,7 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
   test "can edit" do
     login_as users(:admin)
     get "/user-groups/#{user_groups(:default).to_param}/edit"
+
     assert_response :success
     assert_select "form.user-group", 1
   end
@@ -53,9 +59,11 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
         name: "new name",
       },
     }
+
     assert_redirected_to "/user-groups"
     assert_equal "Successfully updated user group.", flash[:notice]
     user_group.reload
+
     assert_equal "new name", user_group.name
   end
 
@@ -67,6 +75,7 @@ class UserGroupsTest < ActionDispatch::IntegrationTest
         name: "",
       },
     }
+
     assert_response :unprocessable_content
     assert_select "form.user-group", 1
   end

@@ -18,18 +18,17 @@ class CreateBrewMethods < ActiveRecord::Migration[6.1]
 
     # ["French Press", "Pour-Over", "Moka Pot", "Drip", "Cup", "Other"]
     brew_methods = BrewMethod.create!(
-      [ { name: "French Press" },
-        { name: "Pour-Over" },
-        { name: "Moka Pot" },
-        { name: "Drip" },
-        { name: "Cup" },
-        { id: 0, name: "Other" },
-      ],
+      [{name: "French Press"},
+        {name: "Pour-Over"},
+        {name: "Moka Pot"},
+        {name: "Drip"},
+        {name: "Cup"},
+        {id: 0, name: "Other"}],
     )
     pp brew_methods
 
     LogEntry.find_each do |log_entry|
-      brew_method_id = brew_methods.find {|bm| bm.name == log_entry.brew_method}.id
+      brew_method_id = brew_methods.find { |bm| bm.name == log_entry.brew_method }.id
       log_entry.update_column(:brew_method_id, brew_method_id)
     end
 

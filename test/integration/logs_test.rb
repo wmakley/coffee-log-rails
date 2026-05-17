@@ -6,6 +6,7 @@ class LogsTest < ActionDispatch::IntegrationTest
   test "index redirects to the user's log" do
     login_as users(:default)
     get "/logs"
+
     assert_redirected_to "/logs/default/entries"
   end
 
@@ -21,6 +22,7 @@ class LogsTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to "/logs/#{user.short_username}/entries"
     follow_redirect!
+
     assert_response :success
   end
 
@@ -28,9 +30,11 @@ class LogsTest < ActionDispatch::IntegrationTest
     login_as users(:group_a)
 
     get "/logs/group-a/entries"
+
     assert_response :success
 
     get "/logs/group-b/entries"
+
     assert_response :not_found
   end
 end

@@ -27,6 +27,7 @@ class CoffeeBrandTest < ActiveSupport::TestCase
 
   test "the truth" do
     coffee_brand = CoffeeBrand.new(valid_attributes)
+
     assert coffee_brand.save, coffee_brand.errors.full_messages.to_sentence
   end
 end

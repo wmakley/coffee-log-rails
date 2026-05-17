@@ -11,12 +11,14 @@ class Fail2BanTest < ActiveSupport::TestCase
     ip = "1.2.3.4"
 
     record = Fail2Ban.record_failed_attempt(ip)
-    assert record.is_a?(LoginAttempt)
-    assert record.persisted?
+
+    assert_kind_of LoginAttempt, record
+    assert_predicate record, :persisted?
     assert_equal 1, record.attempts
 
     record = Fail2Ban.record_failed_attempt(ip)
-    assert record.is_a?(LoginAttempt)
+
+    assert_kind_of LoginAttempt, record
     assert_equal 2, record.attempts
 
     assert_not Fail2Ban.banned?(ip)

@@ -9,6 +9,7 @@ class MyAccountTest < ActionDispatch::IntegrationTest
 
   test "show" do
     get "/my_account"
+
     assert_response :success
     assert_select "h1", "My Account"
   end
@@ -16,6 +17,7 @@ class MyAccountTest < ActionDispatch::IntegrationTest
   test "updating email requires verification" do
     old_email = @user.email
     new_email = "new_email@test.com"
+
     assert_not_equal new_email, old_email
 
     assert_emails 1 do
@@ -27,10 +29,11 @@ class MyAccountTest < ActionDispatch::IntegrationTest
     end
 
     @user.reload
+
     assert_equal new_email, @user.new_email
     assert_equal old_email, @user.email
-    assert @user.email_verification_token.present?, "expected verification token to have been generated"
-    assert @user.verification_email_sent_at.present?, "expected verification email to have been sent"
+    assert_predicate @user.email_verification_token, :present?, "expected verification token to have been generated"
+    assert_predicate @user.verification_email_sent_at, :present?, "expected verification email to have been sent"
   end
 
   test "updating password" do
@@ -40,8 +43,10 @@ class MyAccountTest < ActionDispatch::IntegrationTest
         password_confirmation: "testtesttesttest",
       },
     }
+
     assert_redirected_to "/my_account"
     follow_redirect!
+
     assert_select "#flash > .alert.alert-success", 1, "Successfully updated account."
   end
 
@@ -51,6 +56,7 @@ class MyAccountTest < ActionDispatch::IntegrationTest
         password: "testtesttesttest",
       },
     }
+
     assert_response :unprocessable_content
   end
 
@@ -60,9 +66,11 @@ class MyAccountTest < ActionDispatch::IntegrationTest
         admin: "1",
       },
     }
+
     assert_redirected_to "/my_account"
     user = users(:non_admin)
     user.reload
+
     assert_not user.admin?
   end
 end

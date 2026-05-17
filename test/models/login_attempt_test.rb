@@ -21,17 +21,21 @@ class LoginAttemptTest < ActiveSupport::TestCase
 
   test "it saves with valid attributes" do
     attempt = LoginAttempt.new(valid_attributes)
+
     assert attempt.save
   end
 
   test "#record_attempt" do
     ip = "1.2.3.4"
+
     assert_not LoginAttempt.find_by(ip_address: ip)
     record = LoginAttempt.record_attempt(ip)
-    assert record.persisted?
+
+    assert_predicate record, :persisted?
     assert_equal 1, record.attempts
 
     record = LoginAttempt.record_attempt(ip)
+
     assert_equal 2, record.attempts
   end
 

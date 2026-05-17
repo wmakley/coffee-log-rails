@@ -20,13 +20,13 @@ class UserSignup
     @invalid_code
   end
 
-  validates_presence_of :code,
+  validates :code,
     :new_email,
     :display_name,
     # Password validation is delegated to the User model in #save, here
     # we just make sure the form is filled out.
     :password,
-    :password_confirmation
+    :password_confirmation, presence: true
 
   # @return [User,FalseClass]
   def save

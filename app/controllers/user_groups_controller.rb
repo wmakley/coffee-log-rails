@@ -46,11 +46,10 @@ class UserGroupsController < InternalController
     respond_to do |format|
       if @user_group.destroy
         format.html { redirect_to user_groups_url, status: :see_other, notice: "Successfully deleted user group." }
-        format.turbo_stream
       else
         format.html { redirect_to user_groups_url, status: :see_other, error: "#{@user_group.errors.full_messages.to_sentence}." }
-        format.turbo_stream
       end
+      format.turbo_stream
     end
   end
 

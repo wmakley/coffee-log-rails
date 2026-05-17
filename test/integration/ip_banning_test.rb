@@ -16,10 +16,12 @@ class IpBanningTest < ActionDispatch::IntegrationTest
 
     Fail2Ban::MAX_ATTEMPTS.times do |n|
       post "/session", params: invalid_params
+
       assert_response :unprocessable_content, "#{n}th iteration"
     end
 
     post "/session", params: invalid_params
+
     assert_response :not_found
 
     assert Fail2Ban.banned?("127.0.0.1")
@@ -37,10 +39,12 @@ class IpBanningTest < ActionDispatch::IntegrationTest
 
     Fail2Ban::MAX_ATTEMPTS.times do |n|
       post "/password_reset_request", params: invalid_params
+
       assert_redirected_to "/", "#{n}th iteration"
     end
 
     post "/password_reset_request", params: invalid_params
+
     assert_response :not_found
 
     assert Fail2Ban.banned?("127.0.0.1")
@@ -60,10 +64,12 @@ class IpBanningTest < ActionDispatch::IntegrationTest
 
     Fail2Ban::MAX_ATTEMPTS.times do |n|
       patch "/password", params: invalid_params
+
       assert_response :unprocessable_content, "#{n}th iteration"
     end
 
     patch "/password", params: invalid_params
+
     assert_response :not_found
 
     assert Fail2Ban.banned?("127.0.0.1")

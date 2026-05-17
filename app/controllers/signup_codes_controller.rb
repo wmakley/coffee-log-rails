@@ -50,11 +50,10 @@ class SignupCodesController < InternalController
     respond_to do |format|
       if @signup_code.destroy
         format.html { redirect_to signup_codes_url, status: :see_other, notice: "Successfully deleted signup code." }
-        format.turbo_stream
       else
         format.html { redirect_to signup_codes_url, status: :see_other, error: "#{@signup_code.errors.full_messages.to_sentence}." }
-        format.turbo_stream
       end
+      format.turbo_stream
     end
   end
 

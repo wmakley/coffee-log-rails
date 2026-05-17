@@ -22,7 +22,7 @@ class GroupMembership < ApplicationRecord
   belongs_to :user
   belongs_to :user_group
 
-  validates_uniqueness_of :user_id, scope: :user_group_id
+  validates :user_id, uniqueness: {scope: :user_group_id}
 
   # has_paper_trail
 

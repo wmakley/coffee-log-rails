@@ -11,6 +11,7 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
     LogEntry.destroy_all
 
     visit "/logs/default/entries"
+
     assert_current_path "/logs/default/entries"
 
     assert_selector "h1", text: "Default's Log Entries"
@@ -41,6 +42,7 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
     fill_in "Coffee grams", with: "10.67"
     fill_in "Water grams", with: "100.2"
     click_button "Create Log Entry"
+
     assert_equal "11", first(:field, "Coffee grams")[:value]
     assert_equal "100", first(:field, "Water grams")[:value]
 
@@ -59,12 +61,15 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
 
     fill_in "Start by typing the name of your coffee:", with: "coffee"
     first(:css, "##{dom_id(coffees(:one))}-search-result").click
+
     assert_equal "true", first(:button, text: "Create Log Entry", disabled: true)[:disabled]
 
     select "French Press", from: "Brew Method"
+
     assert_equal "false", first(:button, text: "Create Log Entry")[:disabled]
 
     select "", from: "Brew Method"
+
     assert_equal "true", first(:button, text: "Create Log Entry", disabled: true)[:disabled]
   end
 
@@ -78,9 +83,11 @@ class LogEntriesSystemTest < ApplicationSystemTestCase
     assert_selector ".selected-coffee-card"
     assert_selector ".selected-coffee-card .card-title", text: coffee.name
     first(:css, ".selected-coffee-card").click
+
     assert_current_path %r{\A/coffees/#{coffee.id}}
 
     click_link "Back"
+
     assert_current_path %r{\A/logs/default/entries}
     assert_equal "coffee", find(:css, "#lookup_coffee_form_query").value
     assert_selector "##{dom_id(coffee)}-search-result"

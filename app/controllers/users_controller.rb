@@ -52,11 +52,10 @@ class UsersController < InternalController
     respond_to do |format|
       if @user.destroy
         format.html { redirect_to users_url, status: :see_other, notice: "Successfully deleted user." }
-        format.turbo_stream
       else
         format.html { redirect_to users_url, status: :see_other, error: "#{@user.errors.full_messages.to_sentence}." }
-        format.turbo_stream
       end
+      format.turbo_stream
     end
   end
 

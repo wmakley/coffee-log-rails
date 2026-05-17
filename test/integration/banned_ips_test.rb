@@ -6,12 +6,14 @@ class BannedIpsTest < ActionDispatch::IntegrationTest
   test "admin may view index" do
     login_as users(:admin)
     get "/banned_ips"
+
     assert_response :success
   end
 
   test "non-admin may not view index" do
     login_as users(:non_admin)
     get "/banned_ips"
+
     assert_redirected_to "/"
   end
 
@@ -19,8 +21,10 @@ class BannedIpsTest < ActionDispatch::IntegrationTest
     login_as users(:admin)
     ip = banned_ips(:one_two_three)
     delete "/banned_ips/#{ip.to_param}"
+
     assert_redirected_to "/banned_ips"
     follow_redirect!
+
     assert_select ".alert-success", "Successfuly un-banned IP address."
   end
 
@@ -28,6 +32,7 @@ class BannedIpsTest < ActionDispatch::IntegrationTest
     login_as users(:non_admin)
     ip = banned_ips(:one_two_three)
     delete "/banned_ips/#{ip.to_param}"
+
     assert_redirected_to "/"
     follow_redirect!
     # assert_select ".alert-danger", "Not authorized"

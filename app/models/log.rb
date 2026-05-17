@@ -52,7 +52,7 @@ class Log < ApplicationRecord
 
     scope = joins(user: :group_memberships)
     scope.where(user_id: user.id).or(
-      where("group_memberships.user_group_id IN (?)", user_group_ids),
+      where(group_memberships: {user_group_id: user_group_ids}),
     )
   end
 

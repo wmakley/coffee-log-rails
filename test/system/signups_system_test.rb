@@ -8,6 +8,7 @@ class SignupsSystemTest < ApplicationSystemTestCase
 
     visit "/"
     click_link "Sign up!"
+
     assert_current_path "/signup/new"
 
     fill_in "Code *", with: signup_code.code
@@ -22,7 +23,8 @@ class SignupsSystemTest < ApplicationSystemTestCase
     assert_content "Your account is almost ready!"
 
     user = User.last
-    assert user.email_verification_token.present?
+
+    assert_predicate user.email_verification_token, :present?
 
     visit new_auth_email_verification_path(email: user.email, token: user.email_verification_token)
     # visit "/email-verification/new?email=#{user.email}&token=#{user.email_verification_token}"

@@ -4,12 +4,11 @@ inherit_mode:
 
 require:
   - ./lib/rubocop/cop/lint_env
-  # Standard's config uses custom cops,
-  # so it must be loaded along with custom Standard gems
   - standard
+
+plugins:
   - standard-custom
   - standard-performance
-  # rubocop-performance is required when using Performance cops
   - rubocop-performance
   - rubocop-rails
   - rubocop-minitest
@@ -30,9 +29,13 @@ inherit_from:
 AllCops:
   SuggestExtensions: false
   TargetRubyVersion: 3.4
+  NewCops: enable
+  Exclude:
+    - "db/migrate/*.active_storage.rb"
+    - "db/migrate/*_create_versions.rb"
 
 Lint/Env:
-  Enabled: true
+  Enabled: false # crashing
   Include:
     - "**/*.rb"
   Exclude:
@@ -49,6 +52,16 @@ Lint/Env:
 Rails/Output:
   Exclude:
     - "db/**/*"
+
+Minitest/MultipleAssertions:
+  Enabled: false
+
+Rails/FindEach:
+  Enabled: false # just not that useful / kind of obvious, and there are many cases where find_each cannot be used
+
+Style/GlobalStdStream:
+  Exclude:
+    - 'config/environments/*.rb'
 
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma

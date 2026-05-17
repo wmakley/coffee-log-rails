@@ -62,7 +62,7 @@ module CookieAuthentication
     user = User.find_by(id: user_id)
     raise NotAuthenticatedError, "User ID #{user_id} not found" if user.nil?
 
-    last_login_at = Time.at(cookie[:last_login_at].to_i)
+    last_login_at = Time.zone.at(cookie[:last_login_at].to_i)
 
     if last_login_at.before? 30.days.ago
       raise SessionExpiredError, "Last logged in more than 1 month ago"
@@ -112,7 +112,7 @@ module CookieAuthentication
     user
   end
 
-  def read_authentication_cookie(raise_errors: Rails.env.development? || Rails.env.test?)
+  def read_authentication_cookie(raise_errors: Rails.env.local?)
     raw_cookie = cookies.encrypted[:sess]
     logger.debug "Raw Session Cookie: #{raw_cookie.inspect}"
     return nil unless raw_cookie

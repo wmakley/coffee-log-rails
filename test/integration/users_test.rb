@@ -6,12 +6,14 @@ class UsersTest < ActionDispatch::IntegrationTest
   test "not accessible by non-admin" do
     login_as :non_admin
     get "/users"
+
     assert_redirected_to "/"
   end
 
   test "accessible by admin" do
     login_as :admin
     get "/users"
+
     assert_response :success
     assert_select "table.table"
   end
@@ -19,6 +21,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   test "new user" do
     login_as :admin
     get "/users/new"
+
     assert_response :success
     assert_select "form"
   end
@@ -33,8 +36,10 @@ class UsersTest < ActionDispatch::IntegrationTest
         password: "testtesttest",
       },
     }
+
     assert_redirected_to "/users"
     follow_redirect!
+
     assert_response :success
     assert_select ".alert.alert-success", 1
   end
@@ -42,6 +47,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   test "edit user" do
     login_as :admin
     get "/users/1/edit"
+
     assert_response :success
   end
 
@@ -52,8 +58,10 @@ class UsersTest < ActionDispatch::IntegrationTest
         display_name: "New Name",
       },
     }
+
     assert_redirected_to "/users"
     follow_redirect!
+
     assert_response :success
     assert_select ".alert.alert-success", 1
   end
@@ -65,6 +73,7 @@ class UsersTest < ActionDispatch::IntegrationTest
         display_name: "",
       },
     }
+
     assert_response :unprocessable_content
   end
 end

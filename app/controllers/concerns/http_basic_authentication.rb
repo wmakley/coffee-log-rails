@@ -30,7 +30,7 @@ module HttpBasicAuthentication
 
     if username.present?
       password = session[:password]
-      last_login_at = Time.at(session[:last_login_at].to_i)
+      last_login_at = Time.zone.at(session[:last_login_at].to_i)
 
       logger.info "AUTH: Found username #{username} in session, last logged in at #{last_login_at}"
 
@@ -53,7 +53,7 @@ module HttpBasicAuthentication
       Current.user = user = User.find_by(username: username)
       logger.info "AUTH: username '#{username}' not found" unless user
 
-      if user && user.authenticate(password)
+      if user&.authenticate(password)
         session[:username] = username
         session[:password] = password
         session[:last_login_at] = Time.now.utc.to_i

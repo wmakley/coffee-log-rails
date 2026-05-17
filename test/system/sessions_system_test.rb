@@ -12,6 +12,7 @@ class SessionsSystemTest < ApplicationSystemTestCase
     assert_current_path "/logs/default/entries"
 
     click_button "Logout"
+
     assert_current_path "/session/new"
   end
 end

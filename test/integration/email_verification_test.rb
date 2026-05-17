@@ -15,6 +15,7 @@ class EmailVerificationTest < ActionDispatch::IntegrationTest
     user.email_verification_flow.generate_new_verification_token_and_send_email!
 
     get "/email-verification"
+
     assert_redirected_to "/email-verification/new"
 
     get "/email-verification/new", params: {
@@ -24,6 +25,7 @@ class EmailVerificationTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to_login
     follow_redirect!
+
     assert_response :success
     assert_notice "Your email has been successfully verified!"
   end
@@ -35,6 +37,7 @@ class EmailVerificationTest < ActionDispatch::IntegrationTest
     login_as user
 
     get "/email-verification"
+
     assert_redirected_to "/email-verification/new"
 
     get "/email-verification/new", params: {
@@ -44,6 +47,7 @@ class EmailVerificationTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to_app
     follow_redirect!
+
     assert_response :success
     assert_notice "Your email has been successfully verified!"
   end
@@ -63,7 +67,8 @@ class EmailVerificationTest < ActionDispatch::IntegrationTest
     assert_equal "Your email address has not been verified. Please click the link in your email to continue.", flash[:error]
 
     user.reload
+
     assert_not_nil user.verification_email_sent_at
-    assert user.email_verification_token.present?
+    assert_predicate user.email_verification_token, :present?
   end
 end

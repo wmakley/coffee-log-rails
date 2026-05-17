@@ -11,6 +11,6 @@ module IpBanningConcern
     return unless Fail2Ban.banned?(request.remote_ip)
 
     Rails.logger.info "IP Address '#{request.remote_ip}' is banned"
-    render file: Rails.root.join("public/404.html"), status: :not_found
+    render file: Rails.public_path.join("404.html"), status: :not_found
   end
 end

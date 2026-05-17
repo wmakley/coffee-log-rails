@@ -7,6 +7,7 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
     user = users(:default)
 
     get "/password_reset_request/new"
+
     assert_response :success
     assert_select "form"
 
@@ -19,12 +20,14 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to "/"
     follow_redirect!
+
     assert_notice "A reset link has been sent to your email address."
 
     user.reload
     old_password = user.password_digest
 
     get "/password/edit", params: {token: user.reset_password_token}
+
     assert_response :success
     assert_select "form"
 
@@ -38,6 +41,7 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to "/session/new"
     follow_redirect!
+
     assert_notice "Successfully reset password. Please login with your new password."
 
     user.reload
@@ -70,6 +74,7 @@ class PasswordResetRequestsTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_content
 
     user.reload
+
     assert_equal old_password, user.password_digest
   end
 

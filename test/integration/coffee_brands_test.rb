@@ -6,6 +6,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
   test "index" do
     login_as users(:non_admin)
     get "/coffee_brands"
+
     assert_response :success
     assert_select "h1", "Coffee Brands"
   end
@@ -13,6 +14,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
   test "show" do
     login_as users(:non_admin)
     get "/coffee_brands/1"
+
     assert_response :success
     assert_select "h1", coffee_brands(:one).name
   end
@@ -20,6 +22,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
   test "new" do
     login_as users(:non_admin)
     get "/coffee_brands/new"
+
     assert_response :success
     assert_select "h1", "New Coffee Brand"
   end
@@ -33,8 +36,10 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
         },
       }
     brand = CoffeeBrand.last
+
     assert_redirected_to "/coffee_brands/#{brand.id}"
     follow_redirect!
+
     assert_response :success
   end
 
@@ -46,12 +51,14 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
           name: "",
         },
       }
+
     assert_response :unprocessable_content
   end
 
   test "edit" do
     login_as users(:non_admin)
     get "/coffee_brands/1/edit"
+
     assert_response :success
   end
 
@@ -63,8 +70,10 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
           name: "New Name",
         },
       }
+
     assert_redirected_to "/coffee_brands/1"
     follow_redirect!
+
     assert_response :success
   end
 
@@ -76,6 +85,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
           name: "",
         },
       }
+
     assert_response :unprocessable_content
   end
 
@@ -83,6 +93,7 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
     login_as users(:non_admin)
     coffee_brand = CoffeeBrand.create!(name: random_string(8))
     delete "/coffee_brands/#{coffee_brand.to_param}"
+
     assert_not_authorized
   end
 
@@ -90,8 +101,10 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
     login_as users(:admin)
     coffee_brand = CoffeeBrand.create!(name: random_string(8))
     delete "/coffee_brands/#{coffee_brand.to_param}"
+
     assert_redirected_to "/coffee_brands"
     follow_redirect!
+
     assert_notice "Successfully deleted coffee brand."
   end
 
@@ -99,8 +112,10 @@ class CoffeeBrandsTest < ActionDispatch::IntegrationTest
     login_as users(:admin)
     coffee_brand = coffee_brands(:default)
     delete "/coffee_brands/#{coffee_brand.to_param}"
+
     assert_redirected_to "/coffee_brands"
     follow_redirect!
+
     assert_error "May not delete default brand."
   end
 end

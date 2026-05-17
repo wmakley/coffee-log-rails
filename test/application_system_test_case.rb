@@ -14,7 +14,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def remove_uploaded_files
-    FileUtils.rm_rf("#{Rails.root}/storage_test")
+    FileUtils.rm_rf(Rails.root.join("storage_test").to_s)
   end
 
   def current_user
