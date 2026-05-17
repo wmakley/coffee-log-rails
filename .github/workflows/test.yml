@@ -55,6 +55,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
         run: |
+          bin/rubocop --display-style-guide
           bin/rails db:setup
           bin/rails test
   #          bin/rails test:system
