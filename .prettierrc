@@ -3,5 +3,5 @@
     "prettier-plugin-organize-imports",
     "prettier-plugin-tailwindcss"
   ],
-  "tailwindStylesheet": "./app/javascript/entrypoints/application.css"
+  "tailwindStylesheet": "./app/javascript/entrypoints/inertia.css"
 }
