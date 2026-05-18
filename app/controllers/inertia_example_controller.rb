@@ -11,18 +11,18 @@ class InertiaExampleController < InertiaController
   end
 
   def tabs
-    render inertia: "inertia_example/tabs", props: {active_tab: "dashboard"}
+    render inertia: "inertia_example/tabs/dashboard", props: {}
   end
 
   def tab_dashboard
-    render inertia: "inertia_example/tabs", props: {active_tab: "dashboard"}
+    render inertia: "inertia_example/tabs/dashboard", props: {}
   end
 
   def tab_log_entries
-    render inertia: "inertia_example/tabs", props: {active_tab: "log-entries"}
+    render inertia: "inertia_example/tabs/log_entries", props: {}
   end
 
   def tab_my_account
-    render inertia: "inertia_example/tabs", props: {active_tab: "my-account"}
+    render inertia: "inertia_example/tabs/my_account", props: {}
   end
 end
