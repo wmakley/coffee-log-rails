@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   # Redirect to localhost from 127.0.0.1 to use same IP address with Vite server
   constraints(host: "127.0.0.1") do
     get "(*path)", to: redirect { |params, req| "#{req.protocol}localhost:#{req.port}/#{params[:path]}" }
   end
-  get 'inertia-example', to: 'inertia_example#index'
+  get "inertia-example", to: "inertia_example#index"
+  get "inertia/tabs", to: "inertia_example#tabs"
+  get "inertia/tabs/dashboard", to: "inertia_example#tab_dashboard"
+  get "inertia/tabs/log-entries", to: "inertia_example#tab_log_entries"
+  get "inertia/tabs/my-account", to: "inertia_example#tab_my_account"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
