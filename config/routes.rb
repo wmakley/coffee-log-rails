@@ -30,10 +30,9 @@ Rails.application.routes.draw do
     resources :entries, controller: "log_entries"
   end
 
-  namespace :lookup_coffee, module: nil, controller: "lookup_coffee_form" do
-    root to: "lookup_coffee_form#search_results"
-    get :search_results
-    get :select_coffee
+  scope path: "lookup_coffee", controller: "lookup_coffee_form" do
+    get :search_results, as: :lookup_coffee
+    get :select_coffee, as: :select_coffee
   end
 
   resources :coffees do
