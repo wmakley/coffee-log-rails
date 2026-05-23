@@ -26,6 +26,7 @@ experiment might be mostly over at this point.
 
 ## TODO
 
+- [ ] Update github actions postgres version
 - [x] Error on reset password form not handled
 - [x] Password reset form has different width
 - [ ] Change password flow not working, email links go to form, don't submit the form, submitting form does nothing (mostly fixed)
