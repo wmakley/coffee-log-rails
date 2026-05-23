@@ -61,7 +61,7 @@ Rails/FindEach:
 
 Style/GlobalStdStream:
   Exclude:
-    - 'config/environments/*.rb'
+    - "config/environments/*.rb"
 
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
