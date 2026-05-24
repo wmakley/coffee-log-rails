@@ -38,11 +38,15 @@ module CaptchaWrapper
       CaptchaResult.new(success: false, result: nil)
     when :production
       success = verify_recaptcha(action:, minimum_score:)
-      logger.info "ReCAPTCHA success: #{success}"
-      if !success
-        logger.warn "ReCAPTCHA reply is nil" if recaptcha_reply.nil?
+      Rails.logger.info "[CaptchaWrapper] #verify_recaptcha success: #{success.inspect}"
+      unless success
+        if recaptcha_reply.nil?
+          Rails.logger.warn "[CaptchaWrapper] #recaptcha_reply is nil"
+        else
+          Rails.logger.debug { "[CaptchaWrapper] #recaptcha_reply: #{recaptcha_reply.inspect}" }
+        end
         score = recaptcha_reply["score"] if recaptcha_reply
-        logger.info("User was denied '#{action}' because of a ReCAPTCHA score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
+        Rails.logger.info("[CaptchaWrapper] User was denied '#{action}' because of a ReCAPTCHA score of #{score.inspect} | reply: #{recaptcha_reply.inspect}")
       end
 
       CaptchaResult.new(success: success, result: recaptcha_reply)
