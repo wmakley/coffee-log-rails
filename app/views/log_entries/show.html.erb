@@ -28,7 +28,9 @@
 </p>
 
 <p>
-  <%= link_to("Edit Log Entry", edit_log_entry_path(@log, @log_entry), class: "btn btn-success") if allowed_to?(:edit, @log_entry, context: {log: @log}) %>
+  <% if allowed_to?(:edit, @log_entry, context: {log: @log}) %>
+    <%= link_to("Edit Log Entry", edit_log_entry_path(@log, @log_entry), class: "btn btn-success") %>
+  <% end %>
 
   <%= link_to_back("Back", log_entries_path, no_edit: true, class: "btn btn-secondary") %>
 

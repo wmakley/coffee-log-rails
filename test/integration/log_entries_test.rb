@@ -47,6 +47,7 @@ class LogEntriesTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h1", "Log Entry Details"
     assert_select 'a[href="/logs/default/entries"]', "Back"
+    assert_select 'a[href="/logs/default/entries/1/edit"]', "Edit Log Entry"
   end
 
   test "edit" do

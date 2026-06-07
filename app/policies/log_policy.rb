@@ -9,9 +9,13 @@ class LogPolicy < ApplicationPolicy
     owner? || in_my_user_groups?
   end
 
-  def update?
+  def manage?
     allow! if user.admin?
     owner?
+  end
+
+  def update?
+    manage?
   end
 
   def create?

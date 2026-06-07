@@ -11,16 +11,20 @@ class LogEntryPolicy < ApplicationPolicy
     allowed_to?(:show?, log)
   end
 
+  def manage?
+    allowed_to?(:manage?, log)
+  end
+
   def create?
-    allowed_to?(:edit?, log)
+    allowed_to?(:manage?, log)
   end
 
   def update?
-    allowed_to?(:edit?, log)
+    allowed_to?(:manage?, log)
   end
 
   def destroy?
-    allowed_to?(:edit?, log)
+    allowed_to?(:manage?, log)
   end
 
   relation_scope do |relation|
